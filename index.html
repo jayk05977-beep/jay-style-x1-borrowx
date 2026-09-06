@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#111827">
+<title>BorrowX — Borrow, Exchange & Trust</title>
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{
+  font-family:Arial,Helvetica,sans-serif;
+  background:#f6f8fb;
+  color:#172033;
+  padding-bottom:82px;
+}
+header{
+  background:#111827;
+  color:white;
+  padding:20px 18px 24px;
+  border-radius:0 0 24px 24px;
+}
+.brand{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:22px;
+}
+.logo{
+  font-size:25px;
+  font-weight:800;
+}
+.by{
+  font-size:10px;
+  color:#aeb8ca;
+  margin-top:3px;
+}
+.profile{
+  width:40px;height:40px;
+  border-radius:50%;
+  background:#fff;
+  color:#111827;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-weight:bold;
+}
+h1{
+  font-size:25px;
+  line-height:1.25;
+  margin-bottom:14px;
+}
+.search{
+  background:white;
+  border-radius:14px;
+  padding:14px;
+  display:flex;
+  gap:10px;
+  align-items:center;
+}
+.search input{
+  border:0;
+  outline:0;
+  width:100%;
+  font-size:15px;
+}
+.container{padding:18px}
+.section{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin:22px 0 12px;
+}
+.section h2{font-size:18px}
+.section span{
+  font-size:13px;
+  color:#64748b;
+}
+.actions{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px;
+}
+.action{
+  border:0;
+  border-radius:18px;
+  padding:17px 12px;
+  background:white;
+  box-shadow:0 4px 15px rgba(0,0,0,.06);
+  text-align:left;
+  cursor:pointer;
+}
+.action strong{
+  display:block;
+  font-size:15px;
+  margin-top:8px;
+}
+.action small{color:#64748b}
+.icon{font-size:25px}
+.categories{
+  display:flex;
+  gap:9px;
+  overflow-x:auto;
+  padding-bottom:4px;
+}
+.cat{
+  min-width:86px;
+  background:white;
+  padding:12px 8px;
+  border-radius:14px;
+  text-align:center;
+  font-size:12px;
+  box-shadow:0 3px 12px rgba(0,0,0,.05);
+}
+.cat div{font-size:21px;margin-bottom:5px}
+.card{
+  background:white;
+  border-radius:18px;
+  padding:15px;
+  margin-bottom:12px;
+  box-shadow:0 4px 15px rgba(0,0,0,.06);
+}
+.item-top{
+  display:flex;
+  justify-content:space-between;
+  gap:10px;
+}
+.item-icon{
+  width:55px;height:55px;
+  border-radius:14px;
+  background:#eef2f7;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:28px;
+}
+.item-info{flex:1}
+.item-info h3{font-size:16px;margin:2px 0 6px}
+.item-info p{font-size:12px;color:#64748b}
+.badge{
+  display:inline-block;
+  margin-top:8px;
+  padding:5px 8px;
+  border-radius:8px;
+  background:#e9f7ef;
+  color:#147a3e;
+  font-size:11px;
+  font-weight:bold;
+}
+.item-bottom{
+  margin-top:14px;
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+}
+.trust{font-size:12px;color:#475569}
+.btn{
+  border:0;
+  border-radius:10px;
+  padding:10px 15px;
+  background:#111827;
+  color:white;
+  font-weight:bold;
+}
+.empty{
+  text-align:center;
+  padding:30px 15px;
+  color:#64748b;
+}
+.bottom{
+  position:fixed;
+  bottom:0;left:0;right:0;
+  height:72px;
+  background:white;
+  border-top:1px solid #e5e7eb;
+  display:flex;
+  justify-content:space-around;
+  align-items:center;
+  z-index:10;
+}
+.nav{
+  border:0;
+  background:none;
+  color:#64748b;
+  font-size:11px;
+  text-align:center;
+}
+.nav div{font-size:21px;margin-bottom:3px}
+.nav.active{color:#111827;font-weight:bold}
+.modal{
+  display:none;
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  z-index:20;
+  align-items:flex-end;
+}
+.modal-box{
+  background:white;
+  width:100%;
+  border-radius:24px 24px 0 0;
+  padding:22px;
+  max-height:88vh;
+  overflow:auto;
+}
+.modal-box h2{margin-bottom:16px}
+.form{
+  display:grid;
+  gap:11px;
+}
+.form input,.form textarea,.form select{
+  width:100%;
+  padding:13px;
+  border:1px solid #dbe1e8;
+  border-radius:11px;
+  font-size:14px;
+  outline:none;
+}
+.form textarea{min-height:90px;resize:vertical}
+.full{width:100%;padding:14px;margin-top:4px}
+.close{
+  float:right;
+  border:0;
+  background:#eef2f7;
+  width:34px;height:34px;
+  border-radius:50%;
+}
+.safety{
+  background:#fff;
+  border-radius:18px;
+  padding:16px;
+  box-shadow:0 4px 15px rgba(0,0,0,.05);
+}
+.safety div{
+  padding:9px 0;
+  font-size:13px;
+  border-bottom:1px solid #edf0f4;
+}
+.safety div:last-child{border:0}
+</style>
+</head>
+
+<body>
+
+<header>
+  <div class="brand">
+    <div>
+      <div class="logo">BorrowX</div>
+      <div class="by">by Jay Style X1</div>
+    </div>
+    <div class="profile">J</div>
+  </div>
+
+  <h1>Borrow what you need.<br>Share what you have.</h1>
+
+  <div class="search">
+    🔍
+    <input id="search" type="search"
+      placeholder="What do you need?">
+  </div>
+</header>
+
+<main class="container">
+
+  <div class="section">
+    <h2>What do you want to do?</h2>
+  </div>
+
+  <div class="actions">
+    <button class="action" onclick="openModal('need')">
+      <div class="icon">🔎</div>
+      <strong>I Need Something</strong>
+      <small>Post what you're looking for</small>
+    </button>
+
+    <button class="action" onclick="openModal('have')">
+      <div class="icon">📦</div>
+      <strong>I Have Something</strong>
+      <small>Offer it for borrow/exchange</small>
+    </button>
+  </div>
+
+  <div class="section">
+    <h2>Categories</h2>
+    <span>See all</span>
+  </div>
+
+  <div class="categories">
+    <div class="cat">🔧<div>Tools</div></div>
+    <div class="cat">📚<div>Books</div></div>
+    <div class="cat">📷<div>Camera</div></div>
+    <div class="cat">🏏<div>Sports</div></div>
+    <div class="cat">🎮<div>Games</div></div>
+    <div class="cat">🏠<div>Home</div></div>
+  </div>
+
+  <div class="section">
+    <h2>Available near you</h2>
+    <span>Approximate area</span>
+  </div>
+
+  <div id="items">
+
+    <div class="card item" data-name="drill machine tools">
+      <div class="item-top">
+        <div class="item-icon">🔧</div>
+        <div class="item-info">
+          <h3>Drill Machine</h3>
+          <p>📍 Approx. 1.2 km away</p>
+          <span class="badge">✓ Verified Listing</span>
+        </div>
+      </div>
+      <div class="item-bottom">
+        <div class="trust">⭐ 4.8 · 12 exchanges</div>
+        <button class="btn" onclick="requestItem('Drill Machine')">Request</button>
+      </div>
+    </div>
+
+    <div class="card item" data-name="study books books">
+      <div class="item-top">
+        <div class="item-icon">📚</div>
+        <div class="item-info">
+          <h3>Study Books</h3>
+          <p>📍 Approx. 800 m away</p>
+          <span class="badge">✓ Verified Listing</span>
+        </div>
+      </div>
+      <div class="item-bottom">
+        <div class="trust">⭐ 4.9 · 8 exchanges</div>
+        <button class="btn" onclick="requestItem('Study Books')">Request</button>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="section">
+    <h2>🛡️ Trust & Safety</h2>
+  </div>
+
+  <div class="safety">
+    <div>✓ Exact home address stays private</div>
+    <div>✓ Phone number stays private</div>
+    <div>✓ Exchange history builds trust</div>
+    <div>✓ Report & Block available</div>
+    <div>✓ Safe public pickup recommended</div>
+  </div>
+
+</main>
+
+<nav class="bottom">
+  <button class="nav active">
+    <div>🏠</div>Home
+  </button>
+  <button class="nav" onclick="openModal('need')">
+    <div>🔎</div>I Need
+  </button>
+  <button class="nav" onclick="openModal('have')">
+    <div>➕</div>Add
+  </button>
+  <button class="nav">
+    <div>🤝</div>Exchanges
+  </button>
+  <button class="nav">
+    <div>👤</div>Profile
+  </button>
+</nav>
+
+<div class="modal" id="modal">
+  <div class="modal-box">
+    <button class="close" onclick="closeModal()">✕</button>
+    <h2 id="modalTitle">Post</h2>
+
+    <div class="form">
+      <input id="itemName" placeholder="What item?">
+
+      <select id="mode">
+        <option>Borrow</option>
+        <option>Exchange</option>
+        <option>Borrow or Exchange</option>
+      </select>
+
+      <input id="area" placeholder="Your area (approximate only)">
+
+      <input id="duration" placeholder="How long? e.g. 2 days">
+
+      <textarea id="description"
+        placeholder="Tell people about your need/item"></textarea>
+
+      <button class="btn full" onclick="submitPost()">
+        Publish
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+let modalType="need";
+
+function openModal(type){
+  modalType=type;
+  document.getElementById("modal").style.display="flex";
+
+  document.getElementById("modalTitle").textContent =
+    type==="need" ? "🔎 Tell us what you need" :
+    "📦 Add something you have";
+
+  document.getElementById("itemName").placeholder =
+    type==="need" ? "What do you need?" : "What item do you have?";
+}
+
+function closeModal(){
+  document.getElementById("modal").style.display="none";
+}
+
+function submitPost(){
+  const name=document.getElementById("itemName").value.trim();
+
+  if(!name){
+    alert("Please enter an item name.");
+    return;
+  }
+
+  alert(
+    "Your post is ready!\\n\\n" +
+    name +
+    "\\n\\nReal publishing will be connected to the secure database in the next stage."
+  );
+
+  closeModal();
+}
+
+function requestItem(item){
+  alert(
+    "Request started for: " + item +
+    "\\n\\nIn the next stage this will become a real protected request."
+  );
+}
+
+document.getElementById("search").addEventListener("input",function(){
+  const q=this.value.toLowerCase().trim();
+
+  document.querySelectorAll(".item").forEach(card=>{
+    const name=card.dataset.name;
+    card.style.display =
+      !q || name.includes(q) ? "block" : "none";
+  });
+});
+
+document.getElementById("modal").addEventListener("click",function(e){
+  if(e.target===this) closeModal();
+});
+</script>
+
+</body>
+</html>
