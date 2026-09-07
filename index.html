@@ -1,580 +1,1864 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1.0">
-<title>BorrowX — Borrow, Exchange & Trusted Community</title>
+
+<meta
+name="viewport"
+content="width=device-width,initial-scale=1.0,viewport-fit=cover"
+>
+
+<meta name="theme-color" content="#111827">
+
+<title>
+BorrowX — Borrow • Exchange • Discover
+</title>
 
 <style>
-*{box-sizing:border-box}
+
+:root{
+
+--bg:#f4f7fb;
+--card:#ffffff;
+--text:#111827;
+--muted:#667085;
+--line:#e4e7ec;
+
+--dark:#111827;
+
+--soft:#eef2f7;
+
+--accent:#6d5dfc;
+--accent2:#00b8a9;
+
+--danger:#d92d20;
+--success:#087443;
+
+--shadow:
+0 14px 35px rgba(16,24,40,.08);
+
+}
+
+*{
+box-sizing:border-box;
+}
 
 html{
-scroll-behavior:smooth
+scroll-behavior:smooth;
 }
 
 body{
+
 margin:0;
-font-family:Arial,sans-serif;
-background:#f5f7fb;
-color:#172033
+
+font-family:
+Inter,
+Arial,
+sans-serif;
+
+background:
+linear-gradient(
+135deg,
+#f6f8ff 0%,
+#f8fbff 45%,
+#eefaf7 100%
+);
+
+color:var(--text);
+
+padding-bottom:90px;
+
 }
 
-header{
-background:#fff;
-border-bottom:1px solid #e5e7eb;
-position:sticky;
-top:0;
-z-index:20
-}
+button,
+input,
+select,
+textarea{
 
-.nav{
-max-width:1100px;
-margin:auto;
-padding:14px 18px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px
-}
+font:inherit;
 
-.brand{
-font-size:24px;
-font-weight:800
-}
-
-.brand span{
-font-size:12px;
-font-weight:500;
-display:block;
-color:#667085
 }
 
 button{
+
 border:0;
-border-radius:10px;
+
+border-radius:12px;
+
 padding:11px 15px;
-font-weight:700;
+
+font-weight:750;
+
 cursor:pointer;
-background:#111827;
-color:white;
+
+background:var(--dark);
+
+color:#fff;
+
 touch-action:manipulation;
--webkit-tap-highlight-color:transparent
+
 }
 
 button:active{
-transform:scale(.98)
+
+transform:scale(.98);
+
 }
 
 button.secondary{
-background:#e9eef5;
-color:#172033
-}
 
-button.danger{
-background:#b42318;
-color:white
+background:var(--soft);
+
+color:var(--text);
+
 }
 
 button.success{
-background:#087443;
-color:white
+
+background:var(--success);
+
 }
 
-main{
-max-width:1100px;
+button.danger{
+
+background:var(--danger);
+
+}
+
+button.ghost{
+
+background:transparent;
+
+color:var(--text);
+
+}
+
+button:disabled{
+
+opacity:.5;
+
+cursor:not-allowed;
+
+}
+
+.topbar{
+
+position:sticky;
+
+top:0;
+
+z-index:30;
+
+background:
+rgba(255,255,255,.92);
+
+backdrop-filter:
+blur(14px);
+
+border-bottom:
+1px solid var(--line);
+
+}
+
+.nav{
+
+max-width:1120px;
+
 margin:auto;
-padding:22px 18px 60px
+
+padding:12px 16px;
+
+display:flex;
+
+align-items:center;
+
+justify-content:space-between;
+
+gap:10px;
+
+}
+
+.brand{
+
+font-size:24px;
+
+font-weight:900;
+
+letter-spacing:-.7px;
+
+}
+
+.brand small{
+
+display:block;
+
+font-size:11px;
+
+color:var(--muted);
+
+font-weight:600;
+
+letter-spacing:0;
+
+}
+
+.nav-actions{
+
+display:flex;
+
+gap:7px;
+
+align-items:center;
+
+}
+
+.iconbtn{
+
+width:44px;
+
+height:44px;
+
+padding:0;
+
+border-radius:50%;
+
+display:grid;
+
+place-items:center;
+
+background:var(--soft);
+
+color:var(--text);
+
+font-size:18px;
+
+}
+
+.avatar{
+
+width:42px;
+
+height:42px;
+
+border-radius:50%;
+
+display:grid;
+
+place-items:center;
+
+background:
+linear-gradient(
+135deg,
+#6d5dfc,
+#00b8a9
+);
+
+color:#fff;
+
+font-weight:900;
+
+flex-shrink:0;
+
+}
+
+.avatar.big{
+
+width:76px;
+
+height:76px;
+
+font-size:25px;
+
+}
+
+.container{
+
+max-width:1120px;
+
+margin:auto;
+
+padding:18px 16px 30px;
+
 }
 
 .hero{
-background:#fff;
-border:1px solid #e5e7eb;
-border-radius:20px;
-padding:28px;
-margin-bottom:20px
+
+border-radius:28px;
+
+padding:30px;
+
+background:
+linear-gradient(
+135deg,
+#101828 0%,
+#26345b 55%,
+#164e63 100%
+);
+
+color:#fff;
+
+box-shadow:var(--shadow);
+
+position:relative;
+
+overflow:hidden;
+
+}
+
+.hero:after{
+
+content:"";
+
+position:absolute;
+
+width:230px;
+
+height:230px;
+
+border-radius:50%;
+
+right:-90px;
+
+top:-100px;
+
+background:
+rgba(255,255,255,.09);
+
 }
 
 .hero h1{
-font-size:38px;
-margin:0 0 10px
+
+font-size:
+clamp(30px,6vw,54px);
+
+line-height:1.02;
+
+letter-spacing:-1.7px;
+
+margin:
+0 0 12px;
+
+max-width:780px;
+
 }
 
 .hero p{
-color:#667085;
-max-width:720px;
-line-height:1.6
+
+color:#dbe4f0;
+
+line-height:1.6;
+
+max-width:760px;
+
+margin:0;
+
 }
 
-.actions{
+.hero-actions{
+
 display:flex;
-gap:10px;
+
 flex-wrap:wrap;
-margin-top:18px
+
+gap:9px;
+
+margin-top:20px;
+
+}
+
+.hero-actions button.secondary{
+
+background:
+rgba(255,255,255,.14);
+
+color:#fff;
+
+}
+
+.searchbox{
+
+margin-top:18px;
+
+background:#fff;
+
+border-radius:17px;
+
+padding:9px;
+
+display:flex;
+
+gap:8px;
+
+box-shadow:
+0 10px 30px rgba(0,0,0,.14);
+
+}
+
+.searchbox input{
+
+border:0;
+
+outline:0;
+
+flex:1;
+
+padding:11px;
+
+background:transparent;
+
 }
 
 .stats{
+
 display:grid;
-grid-template-columns:repeat(3,1fr);
+
+grid-template-columns:
+repeat(3,1fr);
+
 gap:12px;
-margin:20px 0
+
+margin:18px 0;
+
 }
 
-.stat,.card{
-background:#fff;
-border:1px solid #e5e7eb;
-border-radius:16px;
-padding:16px
+.stat{
+
+background:
+rgba(255,255,255,.85);
+
+border:
+1px solid var(--line);
+
+border-radius:18px;
+
+padding:16px;
+
+box-shadow:var(--shadow);
+
 }
 
 .stat b{
+
 font-size:25px;
+
 display:block;
-margin-bottom:4px
+
+margin-bottom:4px;
+
 }
 
-.section-title{
+.section-head{
+
 display:flex;
+
 justify-content:space-between;
+
 align-items:center;
-margin:25px 0 12px;
-gap:10px
+
+gap:10px;
+
+margin:
+25px 0 12px;
+
+}
+
+.section-head h2{
+
+margin:0;
+
+font-size:22px;
+
 }
 
 .grid{
+
 display:grid;
-grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
-gap:14px
+
+grid-template-columns:
+repeat(
+auto-fit,
+minmax(270px,1fr)
+);
+
+gap:13px;
+
+}
+
+.card{
+
+background:
+rgba(255,255,255,.95);
+
+border:
+1px solid var(--line);
+
+border-radius:18px;
+
+padding:16px;
+
+box-shadow:
+0 8px 25px rgba(16,24,40,.05);
+
 }
 
 .card h3{
-margin:0 0 7px
+
+margin:
+0 0 7px;
+
 }
 
-.muted{
-color:#667085;
-font-size:14px
-}
+.muted,
+.small{
 
-.tag{
-display:inline-block;
-background:#eef2ff;
-border-radius:999px;
-padding:5px 9px;
-font-size:12px;
-margin:4px 4px 0 0
-}
+color:var(--muted);
 
-.card-actions{
-display:flex;
-gap:7px;
-flex-wrap:wrap;
-margin-top:13px
-}
-
-.card-actions button{
-font-size:13px;
-padding:9px 11px
-}
-
-.notice{
-padding:12px 14px;
-border-radius:10px;
-background:#ecfdf3;
-color:#067647;
-margin:10px 0;
-display:none
-}
-
-.notice.error{
-background:#fef3f2;
-color:#b42318
-}
-
-.empty{
-color:#667085;
-padding:16px 0
-}
-
-.safety{
-line-height:1.7;
-color:#475467
-}
-
-footer{
-text-align:center;
-color:#667085;
-padding:25px
-}
-
-.modal{
-display:none;
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.55);
-z-index:50;
-padding:18px;
-overflow:auto
-}
-
-.modal-box{
-background:#fff;
-max-width:560px;
-margin:35px auto;
-border-radius:18px;
-padding:20px;
-box-shadow:0 15px 40px rgba(0,0,0,.2)
-}
-
-.modal-head{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px
-}
-
-.close{
-background:#eef2f6;
-color:#172033;
-padding:7px 10px
-}
-
-input,select,textarea{
-width:100%;
-padding:12px;
-border:1px solid #d0d5dd;
-border-radius:10px;
-margin:6px 0 12px;
-font:inherit;
-background:white;
-color:#172033
-}
-
-textarea{
-min-height:100px;
-resize:vertical
-}
-
-label{
-font-size:13px;
-font-weight:700
-}
-
-.row{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:10px
-}
-
-hr{
-border:0;
-border-top:1px solid #eaecf0;
-margin:17px 0
 }
 
 .small{
+
 font-size:12px;
-color:#667085
+
 }
 
-.request-box{
-border:1px solid #e4e7ec;
+.tag{
+
+display:inline-block;
+
+background:#f0f3f8;
+
+border-radius:999px;
+
+padding:5px 9px;
+
+font-size:12px;
+
+margin:
+4px 4px 0 0;
+
+}
+
+.card-actions{
+
+display:flex;
+
+gap:7px;
+
+flex-wrap:wrap;
+
+margin-top:13px;
+
+}
+
+.card-actions button{
+
+font-size:13px;
+
+padding:
+9px 11px;
+
+}
+
+.notice{
+
+padding:
+12px 14px;
+
 border-radius:12px;
+
+background:#ecfdf3;
+
+color:#067647;
+
+margin:
+12px 0;
+
+display:none;
+
+border:
+1px solid #abefc6;
+
+}
+
+.empty{
+
+color:var(--muted);
+
+padding:18px 0;
+
+}
+
+.safety{
+
+line-height:1.7;
+
+color:#475467;
+
+}
+
+.profile-row{
+
+display:flex;
+
+gap:13px;
+
+align-items:center;
+
+}
+
+.profile-meta h3{
+
+margin:0;
+
+}
+
+.verified{
+
+display:inline-flex;
+
+align-items:center;
+
+gap:4px;
+
+font-size:12px;
+
+background:#ecfdf3;
+
+color:#067647;
+
+border-radius:999px;
+
+padding:
+4px 8px;
+
+margin-top:6px;
+
+}
+
+.tabs{
+
+display:flex;
+
+gap:7px;
+
+overflow:auto;
+
+padding-bottom:5px;
+
+}
+
+.tabs button{
+
+white-space:nowrap;
+
+}
+
+.tabs button.active{
+
+background:var(--dark);
+
+color:#fff;
+
+}
+
+.tabs button:not(.active){
+
+background:var(--soft);
+
+color:var(--text);
+
+}
+
+.bottomnav{
+
+position:fixed;
+
+left:0;
+
+right:0;
+
+bottom:0;
+
+z-index:40;
+
+background:
+rgba(255,255,255,.95);
+
+backdrop-filter:
+blur(14px);
+
+border-top:
+1px solid var(--line);
+
+padding:
+8px
+10px
+calc(8px + env(safe-area-inset-bottom));
+
+display:flex;
+
+justify-content:center;
+
+}
+
+.bottom-inner{
+
+width:100%;
+
+max-width:650px;
+
+display:grid;
+
+grid-template-columns:
+repeat(5,1fr);
+
+gap:5px;
+
+}
+
+.navitem{
+
+background:transparent;
+
+color:var(--muted);
+
+padding:
+7px 4px;
+
+border-radius:12px;
+
+font-size:11px;
+
+}
+
+.navitem.active{
+
+background:#eef2ff;
+
+color:#312e81;
+
+}
+
+.navitem strong{
+
+display:block;
+
+font-size:18px;
+
+line-height:20px;
+
+}
+
+.modal{
+
+display:none;
+
+position:fixed;
+
+inset:0;
+
+background:
+rgba(15,23,42,.58);
+
+z-index:100;
+
+padding:14px;
+
+overflow:auto;
+
+}
+
+.modal-box{
+
+background:#fff;
+
+max-width:600px;
+
+margin:
+30px auto;
+
+border-radius:22px;
+
+padding:20px;
+
+box-shadow:
+0 25px 70px rgba(0,0,0,.2);
+
+}
+
+.modal-head{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+gap:10px;
+
+}
+
+.modal-head h2{
+
+margin:0;
+
+}
+
+.close{
+
+background:var(--soft);
+
+color:var(--text);
+
+padding:
+8px 11px;
+
+}
+
+label{
+
+font-size:13px;
+
+font-weight:750;
+
+display:block;
+
+margin-top:9px;
+
+}
+
+input,
+select,
+textarea{
+
+width:100%;
+
 padding:12px;
-margin:9px 0
+
+border:
+1px solid #d0d5dd;
+
+border-radius:11px;
+
+margin:
+6px 0 10px;
+
+outline:none;
+
+background:#fff;
+
+color:var(--text);
+
+}
+
+textarea{
+
+min-height:90px;
+
+resize:vertical;
+
+}
+
+input:focus,
+select:focus,
+textarea:focus{
+
+border-color:#7c6ff6;
+
+box-shadow:
+0 0 0 3px
+rgba(124,111,246,.1);
+
+}
+
+.row{
+
+display:grid;
+
+grid-template-columns:
+1fr 1fr;
+
+gap:10px;
+
+}
+
+.divider{
+
+border:0;
+
+border-top:
+1px solid #eaecf0;
+
+margin:
+18px 0;
+
 }
 
 .chat{
-height:270px;
+
+height:300px;
+
 overflow:auto;
+
 background:#f8fafc;
-border-radius:12px;
-padding:10px
+
+border-radius:13px;
+
+padding:10px;
+
 }
 
 .msg{
-padding:8px 10px;
+
+max-width:85%;
+
+padding:
+9px 11px;
+
 background:#fff;
-border:1px solid #e4e7ec;
-border-radius:10px;
-margin:6px 0;
-word-break:break-word
+
+border:
+1px solid var(--line);
+
+border-radius:12px;
+
+margin:
+7px 0;
+
 }
 
 .mine{
-text-align:right
+
+margin-left:auto;
+
+background:#eef2ff;
+
 }
 
-.status{
+.profile-actions{
+
+display:flex;
+
+gap:8px;
+
+flex-wrap:wrap;
+
+margin-top:14px;
+
+}
+
+.bio{
+
+white-space:pre-wrap;
+
+line-height:1.5;
+
+}
+
+.hide{
+
+display:none!important;
+
+}
+
+.search-result{
+
+display:flex;
+
+align-items:center;
+
+gap:11px;
+
+padding:12px;
+
+border:
+1px solid var(--line);
+
+border-radius:14px;
+
+margin:
+8px 0;
+
+background:#fff;
+
+}
+
+.search-result .grow{
+
+flex:1;
+
+}
+
+.pillbar{
+
+display:flex;
+
+gap:7px;
+
+flex-wrap:wrap;
+
+}
+
+.instagram{
+
+color:#c13584;
+
 font-weight:700;
-text-transform:capitalize
-}
 
-.loading{
-padding:20px;
-text-align:center;
-color:#667085
 }
 
 @media(max-width:650px){
 
-.hero{
-padding:22px
+.nav .nav-actions button{
+
+padding:
+9px;
+
 }
 
-.hero h1{
-font-size:29px
+.hero{
+
+padding:
+24px 20px;
+
 }
 
 .stats{
-grid-template-columns:1fr
+
+grid-template-columns:1fr;
+
 }
 
 .row{
-grid-template-columns:1fr
-}
 
-.nav{
-align-items:flex-start
-}
-
-.nav .actions{
-margin-top:0;
-justify-content:flex-end
-}
+grid-template-columns:1fr;
 
 }
+
+.modal{
+
+padding:8px;
+
+}
+
+.modal-box{
+
+margin:
+10px auto;
+
+padding:16px;
+
+}
+
+.brand{
+
+font-size:22px;
+
+}
+
+}
+
 </style>
+
 </head>
 
 <body>
 
-<header>
+
+<header class="topbar">
+
 <div class="nav">
 
 <div class="brand">
+
 BorrowX
-<span>by Jay Style X1</span>
-</div>
 
-<div id="authArea">
-<button type="button" onclick="openAuth()">Login / Sign up</button>
-</div>
+<small>
+by Jay Style X1
+</small>
 
 </div>
+
+<div
+class="nav-actions"
+id="authArea"
+>
+
+<button
+onclick="openAuth()"
+>
+Login / Sign up
+</button>
+
+</div>
+
+</div>
+
 </header>
 
-<main>
 
-<section class="hero">
+<main class="container">
+
+
+<!-- HOME HERO -->
+
+<section
+class="hero"
+id="homeHero"
+>
 
 <h1>
-Borrow what you need. Share what you have.
+
+Borrow smarter.
+Meet trusted people.
+Share what you have.
+
 </h1>
 
 <p>
-BorrowX helps people discover nearby items for temporary borrowing or exchange.
-Public pickup points, protected chat and trust tools keep exchanges safer.
+
+Discover items, find people by
+BorrowX ID or Instagram username,
+chat safely and complete exchanges
+through BorrowX.
+
 </p>
 
-<div class="actions">
 
-<button type="button" onclick="requireAuth(openPost)">
-I Have
+<div class="hero-actions">
+
+<button
+onclick="requireAuth(openPost)"
+>
+＋ I Have
 </button>
 
-<button type="button" class="secondary" onclick="requireAuth(openNeed)">
+<button
+class="secondary"
+onclick="requireAuth(openNeed)"
+>
 I Need
 </button>
 
-<button type="button" class="secondary" onclick="focusSearch()">
-Search
+<button
+class="secondary"
+onclick="showPage('discover')"
+>
+🔎 Discover
 </button>
 
-<button type="button" class="secondary" onclick="requireAuth(openExchanges)">
-My Exchanges
+</div>
+
+
+<div class="searchbox">
+
+<span>🔎</span>
+
+<input
+id="quickSearch"
+placeholder="Search items, people, BorrowX ID or Instagram @username"
+oninput="quickSearch()"
+>
+
+<button
+onclick="showPage('discover')"
+>
+Search
 </button>
 
 </div>
 
 </section>
 
-<div id="notice" class="notice"></div>
+
+<div
+id="notice"
+class="notice"
+></div>
+
+
+<!-- STATS -->
 
 <div class="stats">
 
 <div class="stat">
-<b id="itemCount">0</b>
+
+<b id="itemCount">
+0
+</b>
+
 Available listings
+
 </div>
 
+
 <div class="stat">
-<b id="needCount">0</b>
+
+<b id="needCount">
+0
+</b>
+
 People Need
+
 </div>
+
 
 <div class="stat">
-<b id="loginState">Guest</b>
+
+<b id="loginState">
+Guest
+</b>
+
 Account
-</div>
 
 </div>
 
-<div class="section-title">
+</div>
+
+
+<!-- HOME -->
+
+<section id="page-home">
+
+
+<div class="section-head">
 
 <h2>
 Available on BorrowX
 </h2>
 
-<button type="button" class="secondary" onclick="loadListings()">
+<button
+class="secondary"
+onclick="loadData()"
+>
 Refresh
 </button>
 
 </div>
 
-<div class="card" style="margin-bottom:14px">
+
+<div
+class="card"
+style="margin-bottom:13px"
+>
 
 <input
-id="search"
+id="homeSearch"
 placeholder="Search item, category or area..."
 oninput="renderListings()"
 >
 
+
 <div class="row">
 
-<select id="filterCat" onchange="renderListings()">
-<option value="">All categories</option>
-<option>Tools</option>
-<option>Books</option>
-<option>Camera</option>
-<option>Sports</option>
-<option>Games</option>
-<option>Home</option>
-<option>Other</option>
+<select
+id="filterCat"
+onchange="renderListings()"
+>
+
+<option value="">
+All categories
+</option>
+
+<option>
+Tools
+</option>
+
+<option>
+Books
+</option>
+
+<option>
+Camera
+</option>
+
+<option>
+Sports
+</option>
+
+<option>
+Games
+</option>
+
+<option>
+Home
+</option>
+
+<option>
+Other
+</option>
+
 </select>
 
-<select id="filterMode" onchange="renderListings()">
-<option value="">Borrow + Exchange</option>
-<option value="Borrow">Borrow</option>
-<option value="Exchange">Exchange</option>
+
+<select
+id="filterMode"
+onchange="renderListings()"
+>
+
+<option value="">
+Borrow + Exchange
+</option>
+
+<option value="Borrow">
+Borrow
+</option>
+
+<option value="Exchange">
+Exchange
+</option>
+
 </select>
 
 </div>
 
 </div>
 
-<div id="listings" class="grid">
-<div class="loading">Loading...</div>
+
+<div
+id="listings"
+class="grid"
+>
+
+<div class="empty">
+Loading...
 </div>
 
-<div class="section-title">
-<h2>People Need</h2>
 </div>
 
-<div id="needs" class="grid">
-<div class="loading">Loading...</div>
+
+<div class="section-head">
+
+<h2>
+People Need
+</h2>
+
 </div>
 
-<section class="hero" style="margin-top:24px">
 
-<h2>Trust & Safety</h2>
+<div
+id="needs"
+class="grid"
+>
+
+<div class="empty">
+Loading...
+</div>
+
+</div>
+
+
+<section
+class="card"
+style="margin-top:20px"
+>
+
+<h2>
+Trust & Safety
+</h2>
 
 <div class="safety">
 
-• Exact home addresses are never shown publicly.<br>
-• Use an agreed public/safe pickup point; don't invite strangers to your home.<br>
-• Phone numbers are not automatically shared. Use BorrowX chat first.<br>
-• Verify your account, check exchange history and report suspicious activity.<br>
-• Location sharing is limited to an agreed pickup point and is not continuous/background tracking.
+• Exact home addresses are never public.<br>
+
+• Use a public/safe pickup point; don't invite strangers to your home.<br>
+
+• Phone numbers are not automatically shared.<br>
+
+• A person can add their own public Instagram username to help others recognize the right person.<br>
+
+• BorrowX ID provides a separate identity inside BorrowX.<br>
+
+• Check ratings and completed exchanges before agreeing to an exchange.<br>
+
+• BorrowX does not guarantee another person's safety.<br>
+
+• Location sharing is limited to an agreed pickup point, not continuous/background tracking.
 
 </div>
 
 </section>
 
+
+</section>
+
+
+<!-- DISCOVER -->
+
+<section
+id="page-discover"
+class="hide"
+>
+
+<div class="section-head">
+
+<h2>
+Discover
+</h2>
+
+</div>
+
+
+<div class="card">
+
+<input
+id="peopleSearch"
+placeholder="Search name, BorrowX ID or Instagram @username"
+oninput="searchPeople()"
+>
+
+
+<div class="tabs">
+
+<button
+class="active"
+id="tabPeople"
+onclick="setDiscoverTab('people')"
+>
+People
+</button>
+
+<button
+id="tabItems"
+onclick="setDiscoverTab('items')"
+>
+Items
+</button>
+
+<button
+id="tabNeeds"
+onclick="setDiscoverTab('needs')"
+>
+Needs
+</button>
+
+</div>
+
+</div>
+
+
+<div
+id="discoverResults"
+style="margin-top:13px"
+>
+
+<div class="empty">
+
+Search for a person using:
+
+<br><br>
+
+<b>BorrowX ID</b>
+
+<br>
+
+or
+
+<br>
+
+<b>Instagram username</b>
+
+<br>
+
+or
+
+<br>
+
+<b>Person name</b>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- EXCHANGES -->
+
+<section
+id="page-exchanges"
+class="hide"
+>
+
+<div class="section-head">
+
+<h2>
+My Exchanges
+</h2>
+
+<button
+class="secondary"
+onclick="loadRequests()"
+>
+Refresh
+</button>
+
+</div>
+
+
+<div
+id="exchangeContent"
+class="card"
+>
+
+<div class="empty">
+Login to see exchanges.
+</div>
+
+</div>
+
+</section>
+
+
+<!-- PROFILE -->
+
+<section
+id="page-profile"
+class="hide"
+>
+
+<div class="section-head">
+
+<h2>
+My Profile
+</h2>
+
+</div>
+
+
+<div
+id="profilePage"
+class="card"
+>
+
+<div class="empty">
+Login to open your profile.
+</div>
+
+</div>
+
+</section>
+
+
 </main>
 
-<footer>
-BorrowX © 2026 · Borrow • Exchange • Trust
+
+<footer
+style="
+text-align:center;
+color:#667085;
+padding:15px 15px 100px
+"
+>
+
+BorrowX © 2026
+
+<br>
+
+Borrow • Exchange • Discover • Trust
+
 </footer>
 
 
-<!-- AUTH MODAL -->
+<!-- BOTTOM NAV -->
 
-<div class="modal" id="authModal">
+<nav class="bottomnav">
+
+<div class="bottom-inner">
+
+
+<button
+class="navitem active"
+id="nav-home"
+onclick="showPage('home')"
+>
+
+<strong>⌂</strong>
+
+Home
+
+</button>
+
+
+<button
+class="navitem"
+id="nav-discover"
+onclick="showPage('discover')"
+>
+
+<strong>⌕</strong>
+
+Discover
+
+</button>
+
+
+<button
+class="navitem"
+id="nav-post"
+onclick="requireAuth(openPost)"
+>
+
+<strong>＋</strong>
+
+Post
+
+</button>
+
+
+<button
+class="navitem"
+id="nav-exchanges"
+onclick="
+requireAuth(
+()=>{
+showPage('exchanges');
+loadRequests();
+}
+)
+"
+>
+
+<strong>↔</strong>
+
+Exchanges
+
+</button>
+
+
+<button
+class="navitem"
+id="nav-profile"
+onclick="
+requireAuth(
+()=>{
+showPage('profile');
+loadProfilePage();
+}
+)
+"
+>
+
+<strong>●</strong>
+
+Profile
+
+</button>
+
+
+</div>
+
+</nav>
+
+
+<!-- AUTH -->
+
+<div
+class="modal"
+id="authModal"
+>
 
 <div class="modal-box">
 
 <div class="modal-head">
 
-<h2 id="authTitle">Login</h2>
+<h2 id="authTitle">
+Login
+</h2>
 
-<button type="button" class="close" onclick="closeModal('authModal')">
+<button
+class="close"
+onclick="closeModal('authModal')"
+>
 ×
 </button>
 
 </div>
 
-<div id="authNotice" class="notice"></div>
 
-<label>Email</label>
+<div
+id="authNotice"
+class="notice"
+></div>
+
+
+<label>
+Email
+</label>
 
 <input
 id="authEmail"
 type="email"
 autocomplete="email"
-placeholder="you@example.com"
 >
 
-<label>Password</label>
+
+<label>
+Password
+</label>
 
 <input
 id="authPassword"
 type="password"
 autocomplete="current-password"
-placeholder="Minimum 6 characters"
 >
+
 
 <div class="actions">
 
-<button type="button" id="authSubmit" onclick="submitAuth()">
+<button
+id="authSubmit"
+onclick="submitAuth()"
+>
 Login
 </button>
 
-<button type="button" class="secondary" onclick="toggleAuth()">
+<button
+class="secondary"
+onclick="toggleAuth()"
+>
 Create account
 </button>
 
 </div>
 
+
 <button
-type="button"
 class="secondary"
 style="margin-top:9px"
 onclick="forgotPassword()"
 >
+
 Forgot password?
+
 </button>
 
+
 </div>
+
 </div>
 
 
-<!-- POST ITEM -->
+<!-- EDIT PROFILE -->
 
-<div class="modal" id="postModal">
+<div
+class="modal"
+id="editProfileModal"
+>
 
 <div class="modal-box">
 
 <div class="modal-head">
 
-<h2>I Have</h2>
+<h2>
+Edit profile
+</h2>
 
-<button type="button" class="close" onclick="closeModal('postModal')">
+<button
+class="close"
+onclick="closeModal('editProfileModal')"
+>
 ×
 </button>
 
 </div>
 
-<label>Item name</label>
+
+<label>
+Display name
+</label>
+
+<input
+id="pName"
+maxlength="50"
+placeholder="Your name"
+>
+
+
+<label>
+Instagram username
+(optional)
+</label>
+
+<input
+id="pInstagram"
+maxlength="50"
+placeholder="@username"
+>
+
+
+<p class="small">
+
+Add only your own public Instagram username.
+
+BorrowX does not fetch private Instagram information.
+
+</p>
+
+
+<label>
+Approximate area
+</label>
+
+<input
+id="pArea"
+maxlength="60"
+placeholder="e.g. Mainpuri"
+>
+
+
+<label>
+Bio
+</label>
+
+<textarea
+id="pBio"
+maxlength="300"
+placeholder="Tell people what you usually lend or need..."
+></textarea>
+
+
+<button
+onclick="saveProfile()"
+>
+Save profile
+</button>
+
+
+</div>
+
+</div>
+
+
+<!-- POST ITEM -->
+
+<div
+class="modal"
+id="postModal"
+>
+
+<div class="modal-box">
+
+<div class="modal-head">
+
+<h2>
+I Have
+</h2>
+
+<button
+class="close"
+onclick="closeModal('postModal')"
+>
+×
+</button>
+
+</div>
+
+
+<label>
+Item name
+</label>
 
 <input
 id="itemName"
@@ -582,38 +1866,77 @@ maxlength="80"
 placeholder="e.g. Drill Machine"
 >
 
+
 <div class="row">
 
+
 <div>
 
-<label>Mode</label>
+<label>
+Mode
+</label>
 
 <select id="itemMode">
-<option>Borrow</option>
-<option>Exchange</option>
+
+<option>
+Borrow
+</option>
+
+<option>
+Exchange
+</option>
+
 </select>
 
 </div>
+
 
 <div>
 
-<label>Category</label>
+<label>
+Category
+</label>
 
 <select id="itemCategory">
-<option>Tools</option>
-<option>Books</option>
-<option>Camera</option>
-<option>Sports</option>
-<option>Games</option>
-<option>Home</option>
-<option>Other</option>
+
+<option>
+Tools
+</option>
+
+<option>
+Books
+</option>
+
+<option>
+Camera
+</option>
+
+<option>
+Sports
+</option>
+
+<option>
+Games
+</option>
+
+<option>
+Home
+</option>
+
+<option>
+Other
+</option>
+
 </select>
 
 </div>
 
 </div>
 
-<label>Approximate area</label>
+
+<label>
+Approximate area
+</label>
 
 <input
 id="itemArea"
@@ -621,7 +1944,10 @@ maxlength="60"
 placeholder="e.g. Mainpuri"
 >
 
-<label>Duration</label>
+
+<label>
+Duration
+</label>
 
 <input
 id="itemDuration"
@@ -629,7 +1955,10 @@ maxlength="40"
 placeholder="e.g. 2 days"
 >
 
-<label>Description</label>
+
+<label>
+Description
+</label>
 
 <textarea
 id="itemDescription"
@@ -637,35 +1966,56 @@ maxlength="500"
 placeholder="Condition, useful details..."
 ></textarea>
 
+
 <p class="small">
-Only use an approximate area. Never enter your home address.
+
+Only use an approximate area.
+
+Never enter your home address.
+
 </p>
 
-<button type="button" onclick="publishItem()">
+
+<button
+onclick="publishItem()"
+>
 Publish
 </button>
 
+
 </div>
+
 </div>
 
 
-<!-- NEED MODAL -->
+<!-- NEED -->
 
-<div class="modal" id="needModal">
+<div
+class="modal"
+id="needModal"
+>
 
 <div class="modal-box">
 
 <div class="modal-head">
 
-<h2>I Need</h2>
+<h2>
+I Need
+</h2>
 
-<button type="button" class="close" onclick="closeModal('needModal')">
+<button
+class="close"
+onclick="closeModal('needModal')"
+>
 ×
 </button>
 
 </div>
 
-<label>What do you need?</label>
+
+<label>
+What do you need?
+</label>
 
 <input
 id="needName"
@@ -673,27 +2023,58 @@ maxlength="80"
 placeholder="e.g. Camera"
 >
 
+
 <div class="row">
+
 
 <div>
 
-<label>Category</label>
+<label>
+Category
+</label>
 
-<select id="needCategory">
-<option>Tools</option>
-<option>Books</option>
-<option>Camera</option>
-<option>Sports</option>
-<option>Games</option>
-<option>Home</option>
-<option>Other</option>
+<select
+id="needCategory"
+>
+
+<option>
+Tools
+</option>
+
+<option>
+Books
+</option>
+
+<option>
+Camera
+</option>
+
+<option>
+Sports
+</option>
+
+<option>
+Games
+</option>
+
+<option>
+Home
+</option>
+
+<option>
+Other
+</option>
+
 </select>
 
 </div>
 
+
 <div>
 
-<label>Approximate area</label>
+<label>
+Approximate area
+</label>
 
 <input
 id="needArea"
@@ -705,7 +2086,10 @@ placeholder="e.g. Mainpuri"
 
 </div>
 
-<label>How long?</label>
+
+<label>
+How long?
+</label>
 
 <input
 id="needDuration"
@@ -713,40 +2097,60 @@ maxlength="40"
 placeholder="e.g. 3 days"
 >
 
-<label>Description</label>
+
+<label>
+Description
+</label>
 
 <textarea
 id="needDescription"
 maxlength="500"
 ></textarea>
 
-<button type="button" onclick="publishNeed()">
+
+<button
+onclick="publishNeed()"
+>
 Post Need
 </button>
 
+
 </div>
+
 </div>
 
 
-<!-- REQUEST MODAL -->
+<!-- REQUEST -->
 
-<div class="modal" id="requestModal">
+<div
+class="modal"
+id="requestModal"
+>
 
 <div class="modal-box">
 
 <div class="modal-head">
 
-<h2>Request item</h2>
+<h2>
+Request item
+</h2>
 
-<button type="button" class="close" onclick="closeModal('requestModal')">
+<button
+class="close"
+onclick="closeModal('requestModal')"
+>
 ×
 </button>
 
 </div>
 
+
 <p id="requestItemTitle"></p>
 
-<label>Message</label>
+
+<label>
+Message
+</label>
 
 <textarea
 id="requestMessage"
@@ -754,73 +2158,100 @@ maxlength="300"
 placeholder="Tell the owner when you need it. Agree on a public pickup point later."
 ></textarea>
 
-<button type="button" onclick="sendRequest()">
+
+<button
+onclick="sendRequest()"
+>
 Send request
 </button>
 
-<input type="hidden" id="requestItemId">
-<input type="hidden" id="requestOwnerId">
-<input type="hidden" id="requestOwnerEmail">
+
+<input
+type="hidden"
+id="requestItemId"
+>
+
+<input
+type="hidden"
+id="requestOwnerId"
+>
 
 </div>
+
 </div>
 
 
-<!-- EXCHANGES -->
+<!-- PUBLIC PROFILE -->
 
-<div class="modal" id="exchangeModal">
+<div
+class="modal"
+id="userProfileModal"
+>
 
 <div class="modal-box">
 
 <div class="modal-head">
 
-<h2>My Exchanges</h2>
+<h2>
+BorrowX Profile
+</h2>
 
-<button type="button" class="close" onclick="closeModal('exchangeModal')">
+<button
+class="close"
+onclick="closeModal('userProfileModal')"
+>
 ×
 </button>
 
 </div>
 
-<h3>Requests for your items</h3>
 
-<div id="receivedRequests">
-<p class="empty">Loading...</p>
-</div>
+<div
+id="publicProfile"
+></div>
 
-<hr>
-
-<h3>Your sent requests</h3>
-
-<div id="sentRequests">
-<p class="empty">Loading...</p>
-</div>
 
 </div>
+
 </div>
 
 
 <!-- CHAT -->
 
-<div class="modal" id="chatModal">
+<div
+class="modal"
+id="chatModal"
+>
 
 <div class="modal-box">
 
 <div class="modal-head">
 
-<h2>BorrowX Chat</h2>
+<h2>
+BorrowX Chat
+</h2>
 
-<button type="button" class="close" onclick="closeModal('chatModal')">
+<button
+class="close"
+onclick="closeModal('chatModal')"
+>
 ×
 </button>
 
 </div>
 
-<p class="small" id="chatInfo"></p>
 
-<div id="chatMessages" class="chat">
-<p class="empty">Loading...</p>
-</div>
+<p
+class="small"
+id="chatInfo"
+></p>
+
+
+<div
+id="chatMessages"
+class="chat"
+></div>
+
 
 <textarea
 id="chatText"
@@ -828,37 +2259,62 @@ maxlength="500"
 placeholder="Write a message..."
 ></textarea>
 
-<button type="button" onclick="sendChat()">
+
+<button
+onclick="sendChat()"
+>
 Send
 </button>
 
-<input type="hidden" id="chatRequestId">
+
+<input
+type="hidden"
+id="chatRequestId"
+>
+
 
 </div>
+
 </div>
 
 
 <!-- PICKUP -->
 
-<div class="modal" id="pickupModal">
+<div
+class="modal"
+id="pickupModal"
+>
 
 <div class="modal-box">
 
 <div class="modal-head">
 
-<h2>Safe pickup point</h2>
+<h2>
+Safe pickup point
+</h2>
 
-<button type="button" class="close" onclick="closeModal('pickupModal')">
+<button
+class="close"
+onclick="closeModal('pickupModal')"
+>
 ×
 </button>
 
 </div>
 
+
 <p class="small">
-Only share a public pickup point. Do not enter a home address.
+
+Only share a public pickup point.
+
+Do not enter a home address.
+
 </p>
 
-<label>Place name</label>
+
+<label>
+Place name
+</label>
 
 <input
 id="pickupPlace"
@@ -866,7 +2322,11 @@ maxlength="120"
 placeholder="e.g. Mainpuri public market"
 >
 
-<label>Google Maps link (optional)</label>
+
+<label>
+Google Maps link
+(optional)
+</label>
 
 <input
 id="pickupMap"
@@ -874,148 +2334,27 @@ maxlength="500"
 placeholder="Paste a Maps link"
 >
 
-<button type="button" onclick="savePickup()">
+
+<button
+onclick="savePickup()"
+>
 Save pickup point
 </button>
 
-<input type="hidden" id="pickupRequestId">
 
-</div>
-</div>
+<input
+type="hidden"
+id="pickupRequestId"
+>
 
-
-<!-- PROFILE -->
-
-<div class="modal" id="profileModal">
-
-<div class="modal-box">
-
-<div class="modal-head">
-
-<h2>Profile</h2>
-
-<button type="button" class="close" onclick="closeModal('profileModal')">
-×
-</button>
 
 </div>
 
-<div id="profileInfo">
-Loading...
 </div>
 
-<hr>
-
-<h3>My listings</h3>
-
-<div id="myListings"></div>
-
-<hr>
-
-<h3>Trust</h3>
-
-<p class="small">
-Ratings are created after a completed exchange.
-A rating does not guarantee another person's safety.
-</p>
-
-</div>
-</div>
-
-
-<!--
-IMPORTANT:
-These basic modal functions are intentionally outside
-the Firebase module. Therefore Login/Sign up and basic
-buttons can still respond even if Firebase temporarily
-takes time to load.
--->
-
-<script>
-
-window.openModal = function(id){
-
-const el = document.getElementById(id);
-
-if(el){
-el.style.display = "block";
-}
-
-};
-
-window.closeModal = function(id){
-
-const el = document.getElementById(id);
-
-if(el){
-el.style.display = "none";
-}
-
-};
-
-window.openAuth = function(){
-
-window.openModal("authModal");
-
-};
-
-window.openPost = function(){
-
-window.openModal("postModal");
-
-};
-
-window.openNeed = function(){
-
-window.openModal("needModal");
-
-};
-
-window.openExchanges = function(){
-
-if(window.requireAuth){
-
-window.requireAuth(function(){
-
-window.openModal("exchangeModal");
-
-if(window.loadRequests){
-window.loadRequests();
-}
-
-});
-
-}else{
-
-window.openAuth();
-
-}
-
-};
-
-window.focusSearch = function(){
-
-const search = document.getElementById("search");
-
-if(search){
-
-search.focus();
-
-search.scrollIntoView({
-behavior:"smooth",
-block:"center"
-});
-
-}
-
-};
-
-</script>
-
-
-<!-- FIREBASE -->
 
 <script type="module">
+
 
 import {
 initializeApp
@@ -1050,13 +2389,20 @@ where,
 orderBy,
 onSnapshot,
 getDocs,
-serverTimestamp
+serverTimestamp,
+limit
 }
 from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
-const firebaseConfig = {
+/*
+=================================
+FIREBASE CONFIG
+=================================
+*/
+
+const firebaseConfig={
 
 apiKey:
 "AIzaSyDON3_zSPUXVuCsUFJwNQKYvopE5cfYFTw",
@@ -1082,23 +2428,46 @@ measurementId:
 };
 
 
-let app;
-let auth;
-let db;
-
-let user = null;
-let items = [];
-let needs = [];
-let currentRequest = null;
-let unsubscribeChat = null;
-let unsubscribeItems = null;
-let unsubscribeNeeds = null;
+const app =
+initializeApp(firebaseConfig);
 
 
-const $ = id => document.getElementById(id);
+const auth =
+getAuth(app);
 
 
-const esc = s =>
+const db =
+getFirestore(app);
+
+
+let user=null;
+
+let profile=null;
+
+let items=[];
+
+let needs=[];
+
+let currentRequest=null;
+
+let unsubscribeChat=null;
+
+let discoverTab="people";
+
+
+/*
+=================================
+HELPERS
+=================================
+*/
+
+const $ =
+id =>
+document.getElementById(id);
+
+
+const esc =
+s =>
 String(s ?? "")
 .replace(
 /[&<>"']/g,
@@ -1113,118 +2482,317 @@ c =>
 );
 
 
-const getItemName = x =>
+const norm =
+s =>
+String(s ?? "")
+.trim()
+.toLowerCase()
+.replace(/^@/,"");
+
+
+const initials =
+n =>
+String(n || "B")
+.trim()
+.split(/\s+/)
+.slice(0,2)
+.map(x=>x[0])
+.join("")
+.toUpperCase()
+||
+"B";
+
+
+const itemName =
+x =>
 x.itemName ||
 x.name ||
 "Unnamed item";
 
 
-function showNotice(msg, element="notice", error=false){
+function firebaseMessage(e){
 
-const el = $(element);
+const m =
+e?.code ||
+e?.message ||
+"Something went wrong.";
 
-if(!el)return;
+if(
+m==="auth/invalid-credential"
+)
+return "Email or password is incorrect.";
 
-el.textContent = msg;
+if(
+m==="auth/email-already-in-use"
+)
+return "This email is already registered.";
 
-el.classList.toggle("error",error);
+if(
+m==="auth/weak-password"
+)
+return "Password is too weak.";
 
-el.style.display = "block";
-
-setTimeout(() => {
-
-el.style.display = "none";
-
-},5000);
+return m;
 
 }
 
 
-window.notice = showNotice;
+function notice(
+msg,
+el="notice"
+){
 
+const e =
+$(el);
 
-function firebaseReady(){
+e.textContent =
+msg;
 
-if(!auth || !db){
+e.style.display =
+"block";
 
-showNotice(
-"BorrowX is still connecting to Firebase. Please wait a moment.",
-"notice",
-true
+setTimeout(
+()=>{
+e.style.display="none";
+},
+4000
 );
 
-return false;
-
-}
-
-return true;
-
 }
 
 
-window.requireAuth = function(fn){
+function openModal(id){
+
+$(id).style.display="block";
+
+}
+
+
+function closeModal(id){
+
+$(id).style.display="none";
+
+}
+
+
+window.closeModal =
+closeModal;
+
+
+function requireAuth(fn){
 
 if(!user){
 
-window.openAuth();
+openAuth();
 
-showNotice(
+notice(
 "Please login first.",
-"authNotice",
-true
+"authNotice"
 );
 
 return;
 
 }
 
-if(typeof fn === "function"){
 fn();
+
 }
 
+
+window.requireAuth =
+requireAuth;
+
+
+/*
+=================================
+PAGE NAVIGATION
+=================================
+*/
+
+window.showPage =
+p => {
+
+[
+"home",
+"discover",
+"exchanges",
+"profile"
+]
+.forEach(
+x=>{
+
+$("page-"+x)
+.classList.toggle(
+"hide",
+x!==p
+);
+
+$("nav-"+x)
+?.classList.toggle(
+"active",
+x===p
+);
+
+}
+);
+
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+
+
+if(
+p==="profile" &&
+user
+)
+loadProfilePage();
+
+
+if(
+p==="exchanges" &&
+user
+)
+loadRequests();
+
+
+if(
+p==="discover"
+)
+searchPeople();
+
 };
 
 
-window.toggleAuth = function(){
+window.openAuth =
+()=>{
+openModal("authModal");
+};
 
-loginMode = !loginMode;
+
+window.openPost =
+()=>{
+openModal("postModal");
+};
+
+
+window.openNeed =
+()=>{
+openModal("needModal");
+};
+
+
+/*
+=================================
+DISCOVER
+=================================
+*/
+
+window.setDiscoverTab =
+t => {
+
+discoverTab=t;
+
+
+[
+"People",
+"Items",
+"Needs"
+]
+.forEach(
+x=>{
+
+$("tab"+x)
+.classList.toggle(
+"active",
+x.toLowerCase()===t
+);
+
+}
+);
+
+
+if(
+t==="people"
+)
+searchPeople();
+else
+renderDiscoverOther();
+
+};
+
+
+window.quickSearch =
+()=>{
+
+const v =
+$("quickSearch").value;
+
+$("peopleSearch").value =
+v;
+
+showPage("discover");
+
+searchPeople();
+
+};
+
+
+/*
+=================================
+AUTH
+=================================
+*/
+
+let loginMode=true;
+
+
+window.toggleAuth =
+()=>{
+
+loginMode=!loginMode;
+
 
 $("authTitle").textContent =
-loginMode ? "Login" : "Create account";
+loginMode
+?
+"Login"
+:
+"Create account";
+
 
 $("authSubmit").textContent =
-loginMode ? "Login" : "Create account";
+loginMode
+?
+"Login"
+:
+"Create account";
 
 };
 
 
-let loginMode = true;
-
-
-window.submitAuth = async function(){
-
-if(!firebaseReady())return;
+window.submitAuth =
+async()=>{
 
 try{
 
 const email =
-$("authEmail").value.trim();
+$("authEmail")
+.value
+.trim();
 
 const pw =
-$("authPassword").value;
+$("authPassword")
+.value;
 
 
-if(!email){
-
-throw new Error("Enter your email.");
-
-}
-
-
-if(pw.length < 6){
+if(
+!email ||
+pw.length<6
+){
 
 throw new Error(
-"Password must be at least 6 characters."
+"Enter a valid email and a password of at least 6 characters."
 );
 
 }
@@ -1240,46 +2808,40 @@ pw
 
 }else{
 
-const result =
+const c =
 await createUserWithEmailAndPassword(
 auth,
 email,
 pw
 );
 
-try{
 
 await updateProfile(
-result.user,
+c.user,
 {
 displayName:
 email.split("@")[0]
 }
 );
 
-}catch(profileError){
-
-console.log(profileError);
-
-}
-
 }
 
 
-window.closeModal("authModal");
+closeModal(
+"authModal"
+);
 
-showNotice(
+
+notice(
 "Signed in successfully."
 );
 
+
 }catch(e){
 
-console.error(e);
-
-showNotice(
-friendlyAuthError(e),
-"authNotice",
-true
+notice(
+firebaseMessage(e),
+"authNotice"
 );
 
 }
@@ -1287,43 +2849,16 @@ true
 };
 
 
-function friendlyAuthError(e){
-
-const code = e?.code || "";
-
-if(code.includes("invalid-credential")){
-return "Email or password is incorrect.";
-}
-
-if(code.includes("email-already-in-use")){
-return "This email already has an account. Please login.";
-}
-
-if(code.includes("invalid-email")){
-return "Please enter a valid email.";
-}
-
-if(code.includes("weak-password")){
-return "Password is too weak. Use at least 6 characters.";
-}
-
-if(code.includes("network-request-failed")){
-return "Internet connection problem. Check your internet.";
-}
-
-return e?.message || "Something went wrong.";
-
-}
-
-
-window.forgotPassword = async function(){
-
-if(!firebaseReady())return;
+window.forgotPassword =
+async()=>{
 
 try{
 
 const email =
-$("authEmail").value.trim();
+$("authEmail")
+.value
+.trim();
+
 
 if(!email){
 
@@ -1333,22 +2868,24 @@ throw new Error(
 
 }
 
+
 await sendPasswordResetEmail(
 auth,
 email
 );
 
-showNotice(
+
+notice(
 "Password reset email sent. Check your inbox.",
 "authNotice"
 );
 
+
 }catch(e){
 
-showNotice(
-friendlyAuthError(e),
-"authNotice",
-true
+notice(
+firebaseMessage(e),
+"authNotice"
 );
 
 }
@@ -1356,175 +2893,773 @@ true
 };
 
 
-window.logout = async function(){
-
-if(!auth)return;
-
-try{
+window.logout =
+async()=>{
 
 await signOut(auth);
 
-showNotice("Logged out successfully.");
-
-}catch(e){
-
-showNotice(
-e.message || "Logout failed.",
-"notice",
-true
+notice(
+"Logged out."
 );
 
-}
+showPage("home");
 
 };
 
 
-window.openProfile = async function(){
+/*
+=================================
+PROFILE CREATION
+=================================
+*/
 
-if(!user){
+async function ensureProfile(){
 
-window.openAuth();
+if(!user)
 return;
+
+
+const ref =
+doc(
+db,
+"profiles",
+user.uid
+);
+
+
+const snap =
+await getDoc(ref);
+
+
+if(
+snap.exists()
+){
+
+profile={
+id:snap.id,
+...snap.data()
+};
+
+
+return profile;
 
 }
 
-window.openModal("profileModal");
 
-$("profileInfo").innerHTML =
-"<p>Loading profile...</p>";
+/*
+Generate unique BorrowX ID
+*/
+
+let id="";
+
+let ok=false;
+
+
+for(
+let i=0;
+i<5 && !ok;
+i++
+){
+
+id =
+"BX-" +
+Math.random()
+.toString(36)
+.slice(2,8)
+.toUpperCase();
+
+
+const existing =
+await getDoc(
+doc(
+db,
+"borrowIds",
+id
+)
+);
+
+
+if(
+!existing.exists()
+)
+ok=true;
+
+}
+
+
+if(!ok){
+
+id =
+"BX-" +
+Date.now()
+.toString(36)
+.slice(-7)
+.toUpperCase();
+
+}
+
+
+const displayName =
+user.displayName ||
+user.email?.split("@")[0] ||
+"BorrowX User";
+
+
+profile={
+
+userId:user.uid,
+
+borrowId:id,
+
+displayName:
+
+displayName,
+
+displayNameLower:
+
+norm(displayName),
+
+instagramHandle:"",
+
+area:"",
+
+bio:"",
+
+trustRating:0,
+
+ratingCount:0,
+
+completedCount:0,
+
+createdAt:
+serverTimestamp(),
+
+updatedAt:
+serverTimestamp()
+
+};
+
+
+await setDoc(
+ref,
+profile
+);
+
+
+await setDoc(
+doc(
+db,
+"borrowIds",
+id
+),
+{
+userId:user.uid,
+createdAt:serverTimestamp()
+}
+);
+
+
+return profile;
+
+}
+
+
+/*
+=================================
+AUTH STATE
+=================================
+*/
+
+onAuthStateChanged(
+auth,
+async u=>{
+
+user=u;
+
+
+if(u){
 
 try{
 
-const sentSnap =
-await getDocs(
-query(
-collection(db,"requests"),
-where("requesterId","==",user.uid)
-)
-);
+await ensureProfile();
 
-const receivedSnap =
-await getDocs(
-query(
-collection(db,"requests"),
-where("ownerId","==",user.uid)
-)
-);
 
-$("profileInfo").innerHTML = `
+$("authArea").innerHTML=
 
-<p>
-<b>${esc(user.email || "")}</b>
-</p>
-
-<p class="small">
-Email verification:
-${user.emailVerified ? "Verified" : "Not verified yet"}
-</p>
-
-<p>
-Sent requests:
-<b>${sentSnap.size}</b>
-·
-Received:
-<b>${receivedSnap.size}</b>
-</p>
-
-`;
-
-const mine =
-items.filter(x => x.ownerId === user.uid);
-
-$("myListings").innerHTML =
-mine.length
-
-?
-
-mine.map(x => `
-
-<div class="request-box">
-
-<b>${esc(getItemName(x))}</b>
-
-<div class="small">
-${esc(x.area || "")}
-·
-${esc(x.mode || "")}
-·
-${x.active ? "Active" : "Inactive"}
-</div>
-
-${
-x.active
-?
 `
 <button
-type="button"
+class="iconbtn"
+onclick="showPage('profile')"
+title="Profile"
+>
+👤
+</button>
+
+<button
+onclick="showPage('exchanges')"
+>
+Exchanges
+</button>
+
+<button
+onclick="logout()"
+class="danger"
+>
+Logout
+</button>
+`;
+
+
+$("loginState")
+.textContent=
+"Signed in";
+
+
+loadProfilePage();
+
+}catch(e){
+
+notice(
+firebaseMessage(e)
+);
+
+}
+
+}else{
+
+$("authArea").innerHTML=
+
+`
+<button
+onclick="openAuth()"
+>
+Login / Sign up
+</button>
+`;
+
+
+$("loginState")
+.textContent=
+"Guest";
+
+
+$("profilePage").innerHTML=
+
+`
+<div class="empty">
+Login to open your profile.
+</div>
+`;
+
+}
+
+});
+
+
+/*
+=================================
+SAVE PROFILE
+=================================
+*/
+
+window.editProfile =
+()=>{
+
+requireAuth(
+()=>{
+
+$("pName").value =
+profile?.displayName ||
+"";
+
+
+$("pInstagram").value =
+profile?.instagramHandle
+?
+"@"+profile.instagramHandle
+:
+"";
+
+
+$("pArea").value =
+profile?.area ||
+"";
+
+
+$("pBio").value =
+profile?.bio ||
+"";
+
+
+openModal(
+"editProfileModal"
+);
+
+}
+);
+
+};
+
+
+window.saveProfile =
+async()=>{
+
+requireAuth(
+async()=>{
+
+try{
+
+const displayName =
+$("pName")
+.value
+.trim();
+
+
+if(!displayName){
+
+return notice(
+"Display name is required."
+);
+
+}
+
+
+let ig =
+norm(
+$("pInstagram").value
+);
+
+
+if(
+ig &&
+!/^[a-zA-Z0-9._]{1,30}$/.test(ig)
+){
+
+return notice(
+"Enter a valid Instagram username."
+);
+
+}
+
+
+const data={
+
+displayName:
+displayName.slice(0,50),
+
+displayNameLower:
+norm(displayName)
+.slice(0,50),
+
+instagramHandle:
+ig.slice(0,50),
+
+area:
+$("pArea")
+.value
+.trim()
+.slice(0,60),
+
+bio:
+$("pBio")
+.value
+.trim()
+.slice(0,300),
+
+updatedAt:
+serverTimestamp()
+
+};
+
+
+await updateDoc(
+doc(
+db,
+"profiles",
+user.uid
+),
+data
+);
+
+
+profile={
+...profile,
+...data
+};
+
+
+closeModal(
+"editProfileModal"
+);
+
+
+notice(
+"Profile updated successfully."
+);
+
+
+loadProfilePage();
+
+
+}catch(e){
+
+notice(
+firebaseMessage(e)
+);
+
+}
+
+}
+};
+
+
+/*
+=================================
+PROFILE PAGE
+=================================
+*/
+
+window.loadProfilePage =
+async()=>{
+
+if(!user)
+return;
+
+
+await ensureProfile();
+
+
+const sent =
+await getDocs(
+query(
+collection(db,"requests"),
+where(
+"requesterId",
+"==",
+user.uid
+)
+)
+);
+
+
+const received =
+await getDocs(
+query(
+collection(db,"requests"),
+where(
+"ownerId",
+"==",
+user.uid
+)
+)
+);
+
+
+const mine =
+items.filter(
+x =>
+x.ownerId===user.uid
+);
+
+
+$("profilePage").innerHTML=
+
+`
+<div class="profile-row">
+
+<div class="avatar big">
+
+${esc(
+initials(
+profile.displayName
+)
+)}
+
+</div>
+
+
+<div>
+
+<h3>
+
+${esc(
+profile.displayName
+)}
+
+</h3>
+
+
+<div class="small">
+
+BorrowX ID:
+
+<b>
+${esc(
+profile.borrowId
+)}
+</b>
+
+</div>
+
+
+${
+profile.instagramHandle
+?
+
+`
+<div class="small instagram">
+
+Instagram:
+@${esc(
+profile.instagramHandle
+)}
+
+</div>
+`
+
+:
+`
+<div class="small">
+Instagram username not added
+</div>
+`
+}
+
+
+<div class="verified">
+
+✓
+
+${
+user.emailVerified
+?
+"Email verified"
+:
+"Email not verified yet"
+}
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<p class="bio">
+
+${esc(
+profile.bio ||
+"No bio yet."
+)}
+
+</p>
+
+
+<div class="pillbar">
+
+<span class="tag">
+
+📍
+${esc(
+profile.area ||
+"Area not added"
+)}
+
+</span>
+
+
+<span class="tag">
+
+⭐
+${Number(
+profile.trustRating||0
+).toFixed(1)}
+
+(${profile.ratingCount||0})
+
+</span>
+
+
+<span class="tag">
+
+🤝
+
+${profile.completedCount||0}
+
+completed
+
+</span>
+
+</div>
+
+
+<div class="profile-actions">
+
+<button
+onclick="editProfile()"
+>
+Edit profile
+</button>
+
+
+<button
+class="secondary"
+onclick="copyProfileId()"
+>
+Copy BorrowX ID
+</button>
+
+</div>
+
+
+<hr class="divider">
+
+
+<p>
+
+Sent requests:
+<b>
+${sent.size}
+</b>
+
+·
+
+Received:
+<b>
+${received.size}
+</b>
+
+</p>
+
+
+<h3>
+My listings
+</h3>
+
+
+${
+mine.length
+?
+
+mine.map(
+x=>
+`
+<div class="request-box">
+
+<b>
+${esc(
+itemName(x)
+)}
+</b>
+
+
+<div class="small">
+
+${esc(x.area)}
+
+·
+
+${esc(x.mode)}
+
+</div>
+
+
+<div class="card-actions">
+
+<button
 class="danger"
 onclick="deactivateItem('${x.id}')"
 >
 Deactivate
 </button>
-`
-:
-"<span class='small'>This listing is inactive.</span>"
-}
 
 </div>
 
-`).join("")
+</div>
+`
+)
+.join("")
 
 :
 
-"<p class='empty'>No listings yet.</p>";
+"<p class='empty'>No listings yet.</p>"
+}
 
-}catch(e){
+`;
 
-console.error(e);
+};
 
-$("profileInfo").innerHTML =
-"<p class='empty'>Could not load profile data.</p>";
+
+window.copyProfileId =
+async()=>{
+
+try{
+
+await navigator.clipboard.writeText(
+profile.borrowId
+);
+
+notice(
+"BorrowX ID copied."
+);
+
+}catch{
+
+notice(
+"Your BorrowX ID is "+
+profile.borrowId
+);
 
 }
 
 };
 
 
-window.publishItem = async function(){
+/*
+=================================
+POST ITEM
+=================================
+*/
 
-if(!user){
+window.publishItem =
+async()=>{
 
-window.openAuth();
-return;
-
-}
+requireAuth(
+async()=>{
 
 try{
 
-const name =
-$("itemName").value.trim();
+const n =
+$("itemName")
+.value
+.trim();
 
-const area =
-$("itemArea").value.trim();
 
-if(!name || !area){
+const a =
+$("itemArea")
+.value
+.trim();
 
-showNotice(
-"Item name and approximate area are required.",
-"notice",
-true
+
+if(
+!n ||
+!a
+){
+
+return notice(
+"Item name and approximate area are required."
 );
 
-return;
-
 }
+
 
 await addDoc(
 collection(db,"items"),
 {
 
 itemName:
-name.slice(0,80),
+n.slice(0,80),
 
 mode:
 $("itemMode").value,
@@ -1533,106 +3668,128 @@ category:
 $("itemCategory").value,
 
 area:
-area.slice(0,60),
+a.slice(0,60),
 
 duration:
-$("itemDuration").value.trim().slice(0,40),
+$("itemDuration")
+.value
+.trim()
+.slice(0,40),
 
 description:
-$("itemDescription").value.trim().slice(0,500),
+$("itemDescription")
+.value
+.trim()
+.slice(0,500),
 
 ownerId:
 user.uid,
 
-ownerEmail:
-user.email || "",
-
 createdAt:
 serverTimestamp(),
 
-active:
-true
+active:true
 
 }
 );
 
-window.closeModal("postModal");
 
-showNotice(
+closeModal(
+"postModal"
+);
+
+
+notice(
 "Your post has been published successfully."
 );
+
 
 [
 "itemName",
 "itemArea",
 "itemDuration",
 "itemDescription"
-].forEach(id => {
-$(id).value = "";
-});
+]
+.forEach(
+x =>
+$(x).value=""
+);
+
 
 }catch(e){
 
-console.error(e);
-
-showNotice(
-e.message || "Could not publish listing.",
-"notice",
-true
+notice(
+firebaseMessage(e)
 );
 
 }
 
+}
 };
 
 
-window.publishNeed = async function(){
+/*
+=================================
+POST NEED
+=================================
+*/
 
-if(!user){
+window.publishNeed =
+async()=>{
 
-window.openAuth();
-return;
-
-}
+requireAuth(
+async()=>{
 
 try{
 
-const name =
-$("needName").value.trim();
+const n =
+$("needName")
+.value
+.trim();
 
-const area =
-$("needArea").value.trim();
 
-if(!name || !area){
+const a =
+$("needArea")
+.value
+.trim();
 
-showNotice(
-"Need name and approximate area are required.",
-"notice",
-true
+
+if(
+!n ||
+!a
+){
+
+return notice(
+"Need name and approximate area are required."
 );
 
-return;
-
 }
+
 
 await addDoc(
 collection(db,"needs"),
 {
 
 itemName:
-name.slice(0,80),
+n.slice(0,80),
 
 category:
 $("needCategory").value,
 
 area:
-area.slice(0,60),
+a.slice(0,60),
 
 duration:
-$("needDuration").value.trim().slice(0,40),
+$("needDuration")
+.value
+.trim()
+.slice(0,40),
 
 description:
-$("needDescription").value.trim().slice(0,500),
+$("needDescription")
+.value
+.trim()
+.slice(0,500),
 
 ownerId:
 user.uid,
@@ -1640,222 +3797,290 @@ user.uid,
 createdAt:
 serverTimestamp(),
 
-active:
-true
+active:true
 
 }
 );
 
-window.closeModal("needModal");
 
-showNotice(
-"Your need has been posted successfully."
+closeModal(
+"needModal"
 );
+
+
+notice(
+"Your need has been posted."
+);
+
 
 [
 "needName",
 "needArea",
 "needDuration",
 "needDescription"
-].forEach(id => {
-$(id).value = "";
-});
+]
+.forEach(
+x =>
+$(x).value=""
+);
+
 
 }catch(e){
 
-console.error(e);
-
-showNotice(
-e.message || "Could not post need.",
-"notice",
-true
+notice(
+firebaseMessage(e)
 );
 
 }
 
+}
 };
 
 
-window.loadListings = function(){
+/*
+=================================
+LOAD ITEMS + NEEDS
+=================================
+*/
 
-if(!db)return;
-
-
-if(unsubscribeItems){
-unsubscribeItems();
-}
-
-if(unsubscribeNeeds){
-unsubscribeNeeds();
-}
+function loadData(){
 
 
-unsubscribeItems =
 onSnapshot(
 
 query(
 collection(db,"items"),
-where("active","==",true)
+where(
+"active",
+"==",
+true
+),
+limit(100)
 ),
 
-snap => {
+snap=>{
 
 items =
-snap.docs.map(d => ({
-id:d.id,
-...d.data()
-}));
+snap.docs.map(
+d=>({
 
-$("itemCount").textContent =
+id:d.id,
+
+...d.data()
+
+})
+);
+
+
+$("itemCount")
+.textContent=
 items.length;
+
 
 renderListings();
 
-},
-
-error => {
-
-console.error(error);
-
-$("listings").innerHTML =
-"<div class='empty'>Could not load listings.</div>";
-
-showNotice(
-"Could not load listings. Check Firestore rules.",
-"notice",
-true
-);
+renderDiscoverOther();
 
 }
+
 );
 
 
-unsubscribeNeeds =
 onSnapshot(
 
 query(
 collection(db,"needs"),
-where("active","==",true)
+where(
+"active",
+"==",
+true
+),
+limit(100)
 ),
 
-snap => {
+snap=>{
 
 needs =
-snap.docs.map(d => ({
-id:d.id,
-...d.data()
-}));
+snap.docs.map(
+d=>({
 
-$("needCount").textContent =
+id:d.id,
+
+...d.data()
+
+})
+);
+
+
+$("needCount")
+.textContent=
 needs.length;
+
 
 renderNeeds();
 
-},
-
-error => {
-
-console.error(error);
-
-$("needs").innerHTML =
-"<div class='empty'>Could not load needs.</div>";
+renderDiscoverOther();
 
 }
 
 );
 
-};
+}
 
 
-window.renderListings = function(){
+window.loadData =
+loadData;
+
+
+/*
+=================================
+LISTINGS
+=================================
+*/
+
+window.renderListings =
+()=>{
 
 const term =
-$("search").value.trim().toLowerCase();
+$("homeSearch")
+.value
+.trim()
+.toLowerCase();
+
 
 const cat =
 $("filterCat").value;
+
 
 const mode =
 $("filterMode").value;
 
 
-const filtered =
-items.filter(x => {
+const a =
+items.filter(
+x =>
 
-const text = [
+(
+!term ||
 
-getItemName(x),
+[
+itemName(x),
 x.category,
 x.area,
 x.description
+]
+.join(" ")
+.toLowerCase()
+.includes(term)
 
-].join(" ").toLowerCase();
-
-return (
-
-(!term || text.includes(term))
-
-&&
-
-(!cat || x.category === cat)
+)
 
 &&
 
-(!mode || x.mode === mode)
+(
+!cat ||
+x.category===cat
+)
+
+&&
+
+(
+!mode ||
+x.mode===mode
+)
 
 );
 
-});
 
+$("listings").innerHTML=
 
-$("listings").innerHTML =
-
-filtered.length
+a.length
 
 ?
 
-filtered.map(x => `
+a.map(
+x=>
+`
 
 <div class="card">
 
 <h3>
-${esc(getItemName(x))}
+
+${esc(
+itemName(x)
+)}
+
 </h3>
 
+
 <div class="muted">
-📍 ${esc(x.area || "Approximate area")}
+
+📍
+
+${esc(
+x.area
+)}
+
 </div>
 
-<span class="tag">
-${esc(x.category || "Other")}
-</span>
 
 <span class="tag">
-${esc(x.mode || "Borrow")}
+
+${esc(
+x.category
+)}
+
 </span>
 
+
 <span class="tag">
-${esc(x.duration || "Flexible")}
+
+${esc(
+x.mode
+)}
+
 </span>
+
+
+<span class="tag">
+
+${esc(
+x.duration ||
+"Flexible"
+)}
+
+</span>
+
 
 <p>
-${esc(x.description || "No description")}
+
+${esc(
+x.description ||
+"No description"
+)}
+
 </p>
 
+
 <div class="small">
-✓ BorrowX listing · approximate area only
+
+✓ BorrowX listing
+· approximate area only
+
 </div>
+
 
 <div class="card-actions">
 
+
 ${
-user && x.ownerId === user.uid
+user &&
+x.ownerId===user.uid
 
 ?
 
 `
 <button
-type="button"
 class="secondary"
 onclick="deactivateItem('${x.id}')"
 >
@@ -1867,27 +4092,45 @@ Deactivate
 
 `
 <button
-type="button"
-onclick="requireAuth(()=>openRequest('${x.id}'))"
+onclick="
+requireAuth(
+()=>openRequest('${x.id}')
+)
+"
 >
 Request
 </button>
 `
 }
 
+
 <button
-type="button"
 class="secondary"
-onclick="reportItem('${x.id}')"
+onclick="
+viewUser('${x.ownerId}')
+"
+>
+👤 View person
+</button>
+
+
+<button
+class="secondary"
+onclick="
+reportItem('${x.id}')
+"
 >
 Report
 </button>
 
-</div>
 
 </div>
 
-`).join("")
+</div>
+
+`
+)
+.join("")
 
 :
 
@@ -1896,41 +4139,93 @@ Report
 };
 
 
-window.renderNeeds = function(){
+/*
+=================================
+NEEDS
+=================================
+*/
 
-$("needs").innerHTML =
+window.renderNeeds =
+()=>{
+
+$("needs").innerHTML=
 
 needs.length
 
 ?
 
-needs.map(x => `
+needs.map(
+x=>
+`
 
 <div class="card">
 
 <h3>
-${esc(getItemName(x))}
+
+${esc(
+itemName(x)
+)}
+
 </h3>
 
+
 <div class="muted">
-📍 ${esc(x.area || "Approximate area")}
+
+📍
+${esc(
+x.area
+)}
+
 </div>
 
-<span class="tag">
-${esc(x.category || "Other")}
-</span>
 
 <span class="tag">
-${esc(x.duration || "Flexible")}
+
+${esc(
+x.category
+)}
+
 </span>
+
+
+<span class="tag">
+
+${esc(
+x.duration ||
+"Flexible"
+)}
+
+</span>
+
 
 <p>
-${esc(x.description || "No description")}
+
+${esc(
+x.description ||
+"No description"
+)}
+
 </p>
+
+
+<div class="card-actions">
+
+<button
+class="secondary"
+onclick="
+viewUser('${x.ownerId}')
+"
+>
+👤 View person
+</button>
 
 </div>
 
-`).join("")
+</div>
+
+`
+)
+.join("")
 
 :
 
@@ -1939,220 +4234,307 @@ ${esc(x.description || "No description")}
 };
 
 
-window.openRequest = function(id){
+/*
+=================================
+REQUEST ITEM
+=================================
+*/
+
+window.openRequest =
+id=>{
 
 const x =
-items.find(i => i.id === id);
-
-if(!x || !user)return;
-
-if(x.ownerId === user.uid){
-
-showNotice(
-"You cannot request your own listing.",
-"notice",
-true
+items.find(
+i =>
+i.id===id
 );
 
+
+if(
+!x ||
+!user
+)
 return;
+
+
+if(
+x.ownerId===user.uid
+){
+
+return notice(
+"You cannot request your own listing."
+);
 
 }
 
-$("requestItemId").value = id;
-$("requestOwnerId").value = x.ownerId;
-$("requestOwnerEmail").value = x.ownerEmail || "";
 
-$("requestItemTitle").innerHTML =
-`Requesting <b>${esc(getItemName(x))}</b>
+$("requestItemId")
+.value=id;
+
+
+$("requestOwnerId")
+.value=x.ownerId;
+
+
+$("requestItemTitle")
+.innerHTML=
+
+`
+Requesting
+
+<b>
+${esc(
+itemName(x)
+)}
+</b>
+
 from approximate area
-<b>${esc(x.area || "")}</b>.`;
 
-$("requestMessage").value = "";
+<b>
+${esc(
+x.area
+)}
+</b>.
+`;
 
-window.openModal("requestModal");
+
+$("requestMessage")
+.value="";
+
+
+openModal(
+"requestModal"
+);
 
 };
 
 
-window.sendRequest = async function(){
+/*
+=================================
+SEND REQUEST
+=================================
+*/
 
-if(!user){
+window.sendRequest =
+async()=>{
 
-window.openAuth();
-return;
-
-}
+requireAuth(
+async()=>{
 
 try{
 
 const itemId =
-$("requestItemId").value;
+$("requestItemId")
+.value;
+
 
 const ownerId =
-$("requestOwnerId").value;
-
-if(!itemId || !ownerId){
-
-showNotice(
-"Request information is missing.",
-"notice",
-true
-);
-
-return;
-
-}
-
-if(ownerId === user.uid){
-
-showNotice(
-"You cannot request your own listing.",
-"notice",
-true
-);
-
-return;
-
-}
+$("requestOwnerId")
+.value;
 
 
 const existing =
 await getDocs(
+
 query(
 collection(db,"requests"),
-where("itemId","==",itemId),
-where("requesterId","==",user.uid),
-where("status","==","pending")
+
+where(
+"itemId",
+"==",
+itemId
+),
+
+where(
+"requesterId",
+"==",
+user.uid
+),
+
+where(
+"status",
+"==",
+"pending"
 )
+
+)
+
 );
 
-if(!existing.empty){
 
-showNotice(
-"You already have a pending request for this item.",
-"notice",
-true
+if(
+!existing.empty
+){
+
+return notice(
+"You already have a pending request for this item."
 );
-
-return;
 
 }
 
 
 const found =
-items.find(x => x.id === itemId);
+items.find(
+x =>
+x.id===itemId
+);
+
 
 await addDoc(
 collection(db,"requests"),
 {
 
-itemId:itemId,
+itemId:
+
+itemId,
 
 itemName:
-found ? getItemName(found) : "",
 
-ownerId:ownerId,
+found
+?
+itemName(found)
+:
+"",
 
-ownerEmail:
-$("requestOwnerEmail").value || "",
+ownerId:
+
+ownerId,
 
 requesterId:
+
 user.uid,
 
-requesterEmail:
-user.email || "",
-
 message:
-$("requestMessage").value.trim().slice(0,300),
 
-status:"pending",
+$("requestMessage")
+.value
+.trim()
+.slice(0,300),
+
+status:
+
+"pending",
 
 createdAt:
+
 serverTimestamp()
 
 }
+
 );
 
-window.closeModal("requestModal");
 
-showNotice(
+closeModal(
+"requestModal"
+);
+
+
+notice(
 "Your request has been sent successfully."
 );
 
+
 }catch(e){
 
-console.error(e);
-
-showNotice(
-e.message || "Could not send request.",
-"notice",
-true
+notice(
+firebaseMessage(e)
 );
 
 }
 
+}
 };
 
 
-window.loadRequests = async function(){
+/*
+=================================
+EXCHANGES
+=================================
+*/
 
-if(!user)return;
+async function loadRequests(){
 
-$("receivedRequests").innerHTML =
-"<p class='empty'>Loading...</p>";
+if(!user)
+return;
 
-$("sentRequests").innerHTML =
-"<p class='empty'>Loading...</p>";
 
 try{
 
-const [received,sent] =
-await Promise.all([
+const [
+r,
+s
+]=await Promise.all([
 
 getDocs(
 query(
 collection(db,"requests"),
-where("ownerId","==",user.uid)
+where(
+"ownerId",
+"==",
+user.uid
+)
 )
 ),
 
 getDocs(
 query(
 collection(db,"requests"),
-where("requesterId","==",user.uid)
+where(
+"requesterId",
+"==",
+user.uid
+)
 )
 )
 
 ]);
 
 
-function renderRequest(d){
+const renderReq =
+d=>{
 
-const x = d.data();
-const id = d.id;
+const x =
+d.data();
 
-let buttons = "";
+const id =
+d.id;
 
+
+let b="";
+
+
+/*
+PENDING OWNER
+*/
 
 if(
-x.status === "pending" &&
-x.ownerId === user.uid
+x.status==="pending" &&
+x.ownerId===user.uid
 ){
 
-buttons += `
+b+=`
 
 <button
-type="button"
 class="success"
-onclick="changeStatus('${id}','accepted')"
+onclick="
+changeStatus(
+'${id}',
+'accepted'
+)
+"
 >
 Accept
 </button>
 
+
 <button
-type="button"
 class="danger"
-onclick="changeStatus('${id}','declined')"
+onclick="
+changeStatus(
+'${id}',
+'declined'
+)
+"
 >
 Decline
 </button>
@@ -2162,17 +4544,25 @@ Decline
 }
 
 
+/*
+PENDING REQUESTER
+*/
+
 if(
-x.status === "pending" &&
-x.requesterId === user.uid
+x.status==="pending" &&
+x.requesterId===user.uid
 ){
 
-buttons += `
+b+=`
 
 <button
-type="button"
 class="danger"
-onclick="changeStatus('${id}','cancelled')"
+onclick="
+changeStatus(
+'${id}',
+'cancelled'
+)
+"
 >
 Cancel
 </button>
@@ -2182,16 +4572,24 @@ Cancel
 }
 
 
+/*
+ACCEPTED OWNER
+*/
+
 if(
-x.status === "accepted" &&
-x.ownerId === user.uid
+x.status==="accepted" &&
+x.ownerId===user.uid
 ){
 
-buttons += `
+b+=`
 
 <button
-type="button"
-onclick="changeStatus('${id}','handover')"
+onclick="
+changeStatus(
+'${id}',
+'handover'
+)
+"
 >
 Confirm handover
 </button>
@@ -2201,16 +4599,24 @@ Confirm handover
 }
 
 
+/*
+HANDOVER REQUESTER
+*/
+
 if(
-x.status === "handover" &&
-x.requesterId === user.uid
+x.status==="handover" &&
+x.requesterId===user.uid
 ){
 
-buttons += `
+b+=`
 
 <button
-type="button"
-onclick="changeStatus('${id}','borrowed')"
+onclick="
+changeStatus(
+'${id}',
+'borrowed'
+)
+"
 >
 Confirm received
 </button>
@@ -2220,16 +4626,24 @@ Confirm received
 }
 
 
+/*
+BORROWED REQUESTER
+*/
+
 if(
-x.status === "borrowed" &&
-x.requesterId === user.uid
+x.status==="borrowed" &&
+x.requesterId===user.uid
 ){
 
-buttons += `
+b+=`
 
 <button
-type="button"
-onclick="changeStatus('${id}','returned')"
+onclick="
+changeStatus(
+'${id}',
+'returned'
+)
+"
 >
 Mark returned
 </button>
@@ -2239,17 +4653,25 @@ Mark returned
 }
 
 
+/*
+RETURNED OWNER
+*/
+
 if(
-x.status === "returned" &&
-x.ownerId === user.uid
+x.status==="returned" &&
+x.ownerId===user.uid
 ){
 
-buttons += `
+b+=`
 
 <button
-type="button"
 class="success"
-onclick="changeStatus('${id}','completed')"
+onclick="
+changeStatus(
+'${id}',
+'completed'
+)
+"
 >
 Complete exchange
 </button>
@@ -2259,29 +4681,41 @@ Complete exchange
 }
 
 
+/*
+PICKUP
+*/
+
 if(
 [
 "accepted",
 "handover",
 "borrowed",
 "returned"
-].includes(x.status)
+]
+.includes(
+x.status
+)
 ){
 
-buttons += `
+b+=`
 
 <button
-type="button"
 class="secondary"
-onclick="openPickup('${id}')"
+onclick="
+openPickup('${id}')
+"
 >
-Pickup point
+📍 Pickup
 </button>
 
 `;
 
 }
 
+
+/*
+CHAT
+*/
 
 if(
 [
@@ -2290,17 +4724,21 @@ if(
 "borrowed",
 "returned",
 "completed"
-].includes(x.status)
+]
+.includes(
+x.status
+)
 ){
 
-buttons += `
+b+=`
 
 <button
-type="button"
 class="secondary"
-onclick="openChat('${id}')"
+onclick="
+openChat('${id}')
+"
 >
-Chat
+💬 Chat
 </button>
 
 `;
@@ -2308,183 +4746,233 @@ Chat
 }
 
 
-if(x.status === "completed"){
+/*
+RATE
+*/
 
-buttons += `
+if(
+x.status==="completed"
+){
+
+b+=`
 
 <button
-type="button"
 class="secondary"
-onclick="rateExchange('${id}')"
+onclick="
+rateExchange('${id}')
+"
 >
-Rate
+⭐ Rate
 </button>
 
 `;
 
 }
 
+
+/*
+REPORT
+*/
 
 return `
 
 <div class="request-box">
 
 <b>
-${esc(x.itemName || "Item")}
+
+${esc(
+x.itemName ||
+"Item"
+)}
+
 </b>
+
 
 <div class="small">
 
 Status:
-<span class="status">
-${esc(x.status || "pending")}
-</span>
+
+<b>
+
+${esc(
+x.status
+)}
+
+</b>
 
 </div>
 
-<div class="small">
-Requester:
-${esc(x.requesterEmail || "")}
-</div>
 
 <p>
-${esc(x.message || "")}
+
+${esc(
+x.message ||
+""
+)}
+
 </p>
+
 
 <div class="card-actions">
 
-${buttons}
+${b}
+
 
 <button
-type="button"
 class="secondary"
-onclick="reportRequest('${id}')"
+onclick="
+reportRequest('${id}')
+"
 >
 Report
 </button>
 
+
 </div>
-
-${
-x.pickupPlace
-?
-`
-<div class="small" style="margin-top:10px">
-📍 Pickup: <b>${esc(x.pickupPlace)}</b>
-</div>
-
-${
-x.pickupMap
-?
-`
-<a
-href="${esc(x.pickupMap)}"
-target="_blank"
-rel="noopener noreferrer"
->
-Open Google Maps
-</a>
-`
-:""
-}
-
-`
-:""
-}
 
 </div>
 
 `;
 
-}
-
-
-$("receivedRequests").innerHTML =
-received.empty
-
-?
-"<p class='empty'>No received requests yet.</p>"
-
-:
-received.docs.map(renderRequest).join("");
-
-
-$("sentRequests").innerHTML =
-sent.empty
-
-?
-"<p class='empty'>You have not sent any requests yet.</p>"
-
-:
-sent.docs.map(renderRequest).join("");
-
-}catch(e){
-
-console.error(e);
-
-$("receivedRequests").innerHTML =
-"<p class='empty'>Could not load requests.</p>";
-
-$("sentRequests").innerHTML =
-"<p class='empty'>Could not load requests.</p>";
-
-showNotice(
-"Could not load exchanges.",
-"notice",
-true
-);
-
-}
-
 };
 
 
-window.changeStatus = async function(id,status){
+$("exchangeContent").innerHTML=
 
-if(!user)return;
+`
+
+<h3>
+Requests for your items
+</h3>
+
+${
+r.empty
+?
+"<p class='empty'>No received requests yet.</p>"
+:
+r.docs
+.map(renderReq)
+.join("")
+}
+
+
+<hr class="divider">
+
+
+<h3>
+Your sent requests
+</h3>
+
+
+${
+s.empty
+?
+"<p class='empty'>You have not sent any requests yet.</p>"
+:
+s.docs
+.map(renderReq)
+.join("")
+}
+
+`;
+
+
+}catch(e){
+
+$("exchangeContent").innerHTML=
+
+`
+<p class="empty">
+
+${esc(
+firebaseMessage(e)
+)}
+
+</p>
+`;
+
+}
+
+}
+
+
+window.loadRequests =
+loadRequests;
+
+
+/*
+=================================
+STATUS FLOW
+=================================
+*/
+
+window.changeStatus =
+async(
+id,
+status
+)=>{
 
 try{
 
+if(!user)
+return;
+
+
 const ref =
-doc(db,"requests",id);
+doc(
+db,
+"requests",
+id
+);
+
 
 const snap =
 await getDoc(ref);
 
-if(!snap.exists())return;
+
+if(
+!snap.exists()
+)
+return;
+
 
 const x =
 snap.data();
 
 
 if(
-x.ownerId !== user.uid &&
-x.requesterId !== user.uid
-){
-
+x.ownerId!==user.uid &&
+x.requesterId!==user.uid
+)
 return;
 
-}
 
-
-const allowed =
+const allowed=
 
 (
 
-x.status === "pending" &&
+x.status==="pending"
+
+&&
 
 (
 
 (
-x.ownerId === user.uid &&
-["accepted","declined"].includes(status)
+x.ownerId===user.uid
+&&
+[
+"accepted",
+"declined"
+]
+.includes(status)
 )
 
 ||
 
 (
-x.requesterId === user.uid &&
-status === "cancelled"
+x.requesterId===user.uid
+&&
+status==="cancelled"
 )
 
 )
@@ -2494,45 +4982,73 @@ status === "cancelled"
 ||
 
 (
-x.status === "accepted" &&
-x.ownerId === user.uid &&
-status === "handover"
+
+x.status==="accepted"
+
+&&
+
+x.ownerId===user.uid
+
+&&
+
+status==="handover"
+
 )
 
 ||
 
 (
-x.status === "handover" &&
-x.requesterId === user.uid &&
-status === "borrowed"
+
+x.status==="handover"
+
+&&
+
+x.requesterId===user.uid
+
+&&
+
+status==="borrowed"
+
 )
 
 ||
 
 (
-x.status === "borrowed" &&
-x.requesterId === user.uid &&
-status === "returned"
+
+x.status==="borrowed"
+
+&&
+
+x.requesterId===user.uid
+
+&&
+
+status==="returned"
+
 )
 
 ||
 
 (
-x.status === "returned" &&
-x.ownerId === user.uid &&
-status === "completed"
+
+x.status==="returned"
+
+&&
+
+x.ownerId===user.uid
+
+&&
+
+status==="completed"
+
 );
 
 
 if(!allowed){
 
-showNotice(
-"That status change is not allowed.",
-"notice",
-true
+return notice(
+"That status change is not allowed."
 );
-
-return;
 
 }
 
@@ -2540,25 +5056,30 @@ return;
 await updateDoc(
 ref,
 {
-status:status,
-updatedAt:serverTimestamp()
+
+status:
+
+status,
+
+updatedAt:
+serverTimestamp()
+
 }
 );
 
-showNotice(
+
+notice(
 "Exchange status updated."
 );
 
-await window.loadRequests();
+
+loadRequests();
+
 
 }catch(e){
 
-console.error(e);
-
-showNotice(
-e.message || "Could not update status.",
-"notice",
-true
+notice(
+firebaseMessage(e)
 );
 
 }
@@ -2566,158 +5087,207 @@ true
 };
 
 
-window.openChat = async function(id){
+/*
+=================================
+CHAT
+=================================
+*/
 
-if(!user)return;
+window.openChat =
+async id=>{
 
-try{
-
-const snap =
+const s =
 await getDoc(
-doc(db,"requests",id)
+doc(
+db,
+"requests",
+id
+)
 );
 
-if(!snap.exists())return;
-
-const x =
-snap.data();
 
 if(
-x.ownerId !== user.uid &&
-x.requesterId !== user.uid
-){
-
+!s.exists()
+)
 return;
 
-}
 
-currentRequest = id;
+const x =
+s.data();
 
-$("chatRequestId").value = id;
 
-$("chatInfo").textContent =
-`Chat about ${x.itemName || "this item"}. Keep personal details private.`;
+if(
+x.ownerId!==user.uid &&
+x.requesterId!==user.uid
+)
+return;
 
-window.openModal("chatModal");
 
-if(unsubscribeChat){
+currentRequest=id;
+
+
+$("chatRequestId")
+.value=id;
+
+
+$("chatInfo")
+.textContent=
+
+`
+Chat about
+${x.itemName || "item"}.
+
+Keep personal details private.
+`;
+
+
+openModal(
+"chatModal"
+);
+
+
+if(
+unsubscribeChat
+)
 unsubscribeChat();
-}
 
-unsubscribeChat =
+
+unsubscribeChat=
+
 onSnapshot(
 
 query(
+
 collection(
 db,
 "requests",
 id,
 "messages"
 ),
-orderBy("createdAt","asc")
+
+orderBy(
+"createdAt",
+"asc"
 ),
 
-snap => {
+limit(100)
 
-$("chatMessages").innerHTML =
+),
 
-snap.docs.map(d => {
+snap=>{
 
-const m = d.data();
+$("chatMessages").innerHTML=
+
+snap.docs
+.map(
+d=>{
+
+const m =
+d.data();
+
 
 return `
 
-<div class="msg ${
-m.senderId === user.uid ? "mine" : ""
-}">
+<div
+class="msg
+${m.senderId===user.uid
+?"mine"
+:""
+}"
+>
 
 <b>
+
 ${
-m.senderId === user.uid
+m.senderId===user.uid
 ?
 "You"
 :
 "Other user"
 }
+
 </b>
 
 <br>
 
-${esc(m.text || "")}
+${esc(
+m.text
+)}
 
 </div>
 
 `;
 
-}).join("")
+}
+)
+.join("")
 
 ||
 
 "<p class='empty'>No messages yet.</p>";
 
-$("chatMessages").scrollTop =
-$("chatMessages").scrollHeight;
 
-},
-
-error => {
-
-console.error(error);
-
-$("chatMessages").innerHTML =
-"<p class='empty'>Chat could not be loaded.</p>";
+$("chatMessages")
+.scrollTop=
+$("chatMessages")
+.scrollHeight;
 
 }
 
 );
-
-}catch(e){
-
-console.error(e);
-
-showNotice(
-"Could not open chat.",
-"notice",
-true
-);
-
-}
 
 };
 
 
-window.sendChat = async function(){
-
-if(!user)return;
-
-const text =
-$("chatText").value.trim();
-
-const id =
-$("chatRequestId").value;
-
-if(!text || !id)return;
+window.sendChat =
+async()=>{
 
 try{
 
-const snap =
-await getDoc(
-doc(db,"requests",id)
-);
+const text =
+$("chatText")
+.value
+.trim();
 
-if(!snap.exists())return;
 
-const x =
-snap.data();
+const id =
+$("chatRequestId")
+.value;
+
 
 if(
-x.ownerId !== user.uid &&
-x.requesterId !== user.uid
-){
-
+!text ||
+!user
+)
 return;
 
-}
+
+const s =
+await getDoc(
+doc(
+db,
+"requests",
+id
+)
+);
+
+
+if(
+!s.exists()
+)
+return;
+
+
+const x =
+s.data();
+
+
+if(
+x.ownerId!==user.uid &&
+x.requesterId!==user.uid
+)
+return;
+
 
 await addDoc(
 
@@ -2743,16 +5313,15 @@ serverTimestamp()
 
 );
 
-$("chatText").value = "";
+
+$("chatText")
+.value="";
+
 
 }catch(e){
 
-console.error(e);
-
-showNotice(
-e.message || "Message could not be sent.",
-"notice",
-true
+notice(
+firebaseMessage(e)
 );
 
 }
@@ -2760,79 +5329,92 @@ true
 };
 
 
-window.openPickup = async function(id){
+/*
+=================================
+PICKUP
+=================================
+*/
 
-if(!user)return;
+window.openPickup =
+async id=>{
+
+const s =
+await getDoc(
+doc(
+db,
+"requests",
+id
+)
+);
+
+
+if(
+!s.exists()
+)
+return;
+
+
+const x =
+s.data();
+
+
+if(
+x.ownerId!==user.uid &&
+x.requesterId!==user.uid
+)
+return;
+
+
+$("pickupRequestId")
+.value=id;
+
+
+$("pickupPlace")
+.value=
+x.pickupPlace ||
+"";
+
+
+$("pickupMap")
+.value=
+x.pickupMap ||
+"";
+
+
+openModal(
+"pickupModal"
+);
+
+};
+
+
+window.savePickup =
+async()=>{
 
 try{
 
-const snap =
-await getDoc(
-doc(db,"requests",id)
-);
-
-if(!snap.exists())return;
-
-const x =
-snap.data();
-
-if(
-x.ownerId !== user.uid &&
-x.requesterId !== user.uid
-){
-
-return;
-
-}
-
-$("pickupRequestId").value = id;
-
-$("pickupPlace").value =
-x.pickupPlace || "";
-
-$("pickupMap").value =
-x.pickupMap || "";
-
-window.openModal("pickupModal");
-
-}catch(e){
-
-console.error(e);
-
-showNotice(
-"Could not open pickup point.",
-"notice",
-true
-);
-
-}
-
-};
-
-
-window.savePickup = async function(){
-
-if(!user)return;
-
 const id =
-$("pickupRequestId").value;
+$("pickupRequestId")
+.value;
+
 
 const place =
-$("pickupPlace").value.trim();
+$("pickupPlace")
+.value
+.trim();
+
 
 const map =
-$("pickupMap").value.trim();
+$("pickupMap")
+.value
+.trim();
 
 
 if(!place){
 
-showNotice(
-"Enter a public pickup point.",
-"notice",
-true
+return notice(
+"Enter a public pickup point."
 );
-
-return;
 
 }
 
@@ -2840,51 +5422,72 @@ return;
 if(
 map &&
 !(
-map.startsWith("https://maps.google.com")
+map.startsWith(
+"https://maps.google.com"
+)
+
 ||
-map.startsWith("https://www.google.com/maps")
+
+map.startsWith(
+"https://www.google.com/maps"
+)
+
 ||
-map.startsWith("https://maps.app.goo.gl/")
+
+map.startsWith(
+"https://maps.app.goo.gl/"
+)
+
 ||
-map.startsWith("https://goo.gl/maps/")
+
+map.startsWith(
+"https://goo.gl/maps/"
+)
+
 )
 ){
 
-showNotice(
-"Enter a valid Google Maps link.",
-"notice",
-true
+return notice(
+"Enter a valid Google Maps link."
 );
-
-return;
 
 }
 
 
-try{
-
-const snap =
+const s =
 await getDoc(
-doc(db,"requests",id)
+doc(
+db,
+"requests",
+id
+)
 );
 
-if(!snap.exists())return;
-
-const x =
-snap.data();
 
 if(
-x.ownerId !== user.uid &&
-x.requesterId !== user.uid
-){
-
+!s.exists()
+)
 return;
 
-}
+
+const x =
+s.data();
+
+
+if(
+x.ownerId!==user.uid &&
+x.requesterId!==user.uid
+)
+return;
+
 
 await updateDoc(
 
-doc(db,"requests",id),
+doc(
+db,
+"requests",
+id
+),
 
 {
 
@@ -2904,20 +5507,21 @@ serverTimestamp()
 
 );
 
-window.closeModal("pickupModal");
 
-showNotice(
+closeModal(
+"pickupModal"
+);
+
+
+notice(
 "Public pickup point saved."
 );
 
+
 }catch(e){
 
-console.error(e);
-
-showNotice(
-e.message || "Could not save pickup point.",
-"notice",
-true
+notice(
+firebaseMessage(e)
 );
 
 }
@@ -2925,28 +5529,43 @@ true
 };
 
 
-window.rateExchange = async function(id){
+/*
+=================================
+RATING
+=================================
+*/
 
-if(!user)return;
+window.rateExchange =
+async id=>{
 
 try{
 
-const snap =
+const s =
 await getDoc(
-doc(db,"requests",id)
+doc(
+db,
+"requests",
+id
+)
 );
 
-if(!snap.exists())return;
-
-const x =
-snap.data();
 
 if(
-x.status !== "completed"
+!s.exists()
+)
+return;
+
+
+const x =
+s.data();
+
+
+if(
+x.status!=="completed"
 ||
 (
-x.ownerId !== user.uid &&
-x.requesterId !== user.uid
+x.ownerId!==user.uid &&
+x.requesterId!==user.uid
 )
 ){
 
@@ -2954,72 +5573,79 @@ return;
 
 }
 
+
 const other =
-x.ownerId === user.uid
+x.ownerId===user.uid
 ?
 x.requesterId
 :
 x.ownerId;
 
-const score =
-prompt("Rating 1–5:","5");
 
-if(score === null)return;
+const score =
+prompt(
+"Rating 1–5:",
+"5"
+);
+
 
 const n =
 Number(score);
 
+
 if(
 !Number.isInteger(n)
 ||
-n < 1
+n<1
 ||
-n > 5
+n>5
 ){
 
-showNotice(
-"Rating must be from 1 to 5.",
-"notice",
-true
+return notice(
+"Rating must be 1 to 5."
 );
-
-return;
 
 }
 
-const ratingRef =
+
+const ref =
 doc(
 db,
 "ratings",
-id + "_" + user.uid
+id+"_"+user.uid
 );
+
 
 const existing =
-await getDoc(ratingRef);
+await getDoc(ref);
 
-if(existing.exists()){
 
-showNotice(
-"You already rated this exchange.",
-"notice",
-true
+if(
+existing.exists()
+){
+
+return notice(
+"You already rated this exchange."
 );
-
-return;
 
 }
 
+
 await setDoc(
-ratingRef,
+ref,
 {
 
-requestId:id,
+requestId:
+id,
 
-raterId:user.uid,
+raterId:
+user.uid,
 
-ratedUserId:other,
+ratedUserId:
+other,
 
-rating:n,
+rating:
+n,
 
 createdAt:
 serverTimestamp()
@@ -3027,18 +5653,16 @@ serverTimestamp()
 }
 );
 
-showNotice(
+
+notice(
 "Thanks. Your rating was saved."
 );
 
+
 }catch(e){
 
-console.error(e);
-
-showNotice(
-e.message || "Could not save rating.",
-"notice",
-true
+notice(
+firebaseMessage(e)
 );
 
 }
@@ -3046,27 +5670,38 @@ true
 };
 
 
-window.reportItem = async function(id){
+/*
+=================================
+REPORT ITEM
+=================================
+*/
 
-if(!user){
+window.reportItem =
+async id=>{
 
-window.openAuth();
-return;
-
-}
+requireAuth(
+async()=>{
 
 const reason =
 prompt(
-"Report reason (spam, fake, unsafe, other):",
+"Report reason:",
 "unsafe"
 );
 
-if(!reason)return;
+
+if(!reason)
+return;
+
 
 try{
 
 await addDoc(
-collection(db,"reports"),
+
+collection(
+db,
+"reports"
+),
+
 {
 
 reporterId:
@@ -3085,35 +5720,40 @@ createdAt:
 serverTimestamp()
 
 }
+
 );
 
-showNotice(
+
+notice(
 "Report submitted."
 );
 
+
 }catch(e){
 
-console.error(e);
-
-showNotice(
-e.message || "Could not submit report.",
-"notice",
-true
+notice(
+firebaseMessage(e)
 );
 
 }
+
+}
+);
 
 };
 
 
-window.reportRequest = async function(id){
+/*
+=================================
+REPORT REQUEST
+=================================
+*/
 
-if(!user){
+window.reportRequest =
+async id=>{
 
-window.openAuth();
-return;
-
-}
+requireAuth(
+async()=>{
 
 const reason =
 prompt(
@@ -3121,12 +5761,20 @@ prompt(
 "unsafe"
 );
 
-if(!reason)return;
+
+if(!reason)
+return;
+
 
 try{
 
 await addDoc(
-collection(db,"reports"),
+
+collection(
+db,
+"reports"
+),
+
 {
 
 reporterId:
@@ -3145,51 +5793,68 @@ createdAt:
 serverTimestamp()
 
 }
+
 );
 
-showNotice(
+
+notice(
 "Report submitted."
 );
 
+
 }catch(e){
 
-console.error(e);
-
-showNotice(
-e.message || "Could not submit report.",
-"notice",
-true
+notice(
+firebaseMessage(e)
 );
 
 }
+
+}
+);
 
 };
 
 
-window.deactivateItem = async function(id){
+/*
+=================================
+DEACTIVATE
+=================================
+*/
 
-if(!user)return;
+window.deactivateItem =
+async id=>{
+
+requireAuth(
+async()=>{
 
 try{
 
-const snap =
+const s =
 await getDoc(
-doc(db,"items",id)
+doc(
+db,
+"items",
+id
+)
 );
 
-if(!snap.exists())return;
 
 if(
-snap.data().ownerId !== user.uid
-){
-
+!s.exists()
+||
+s.data().ownerId!==user.uid
+)
 return;
 
-}
 
 await updateDoc(
 
-doc(db,"items",id),
+doc(
+db,
+"items",
+id
+),
 
 {
 
@@ -3202,24 +5867,253 @@ serverTimestamp()
 
 );
 
-showNotice(
+
+notice(
 "Listing deactivated."
 );
 
-if($("profileModal").style.display === "block"){
-
-window.openProfile();
-
-}
 
 }catch(e){
 
-console.error(e);
+notice(
+firebaseMessage(e)
+);
 
-showNotice(
-e.message || "Could not deactivate listing.",
-"notice",
-true
+}
+
+}
+);
+
+};
+
+
+/*
+=================================
+VIEW PERSON
+=================================
+*/
+
+window.viewUser =
+async id=>{
+
+try{
+
+const s =
+await getDoc(
+doc(
+db,
+"profiles",
+id
+)
+);
+
+
+if(
+!s.exists()
+){
+
+return notice(
+"This profile is not available."
+);
+
+}
+
+
+const p =
+s.data();
+
+
+const avg =
+Number(
+p.trustRating||0
+);
+
+
+const count =
+Number(
+p.ratingCount||0
+);
+
+
+let instagram="";
+
+
+if(
+p.instagramHandle
+){
+
+instagram=
+
+`
+<span class="tag instagram">
+
+Instagram:
+@${esc(
+p.instagramHandle
+)}
+
+</span>
+`;
+
+}
+
+
+$("publicProfile").innerHTML=
+
+`
+
+<div class="profile-row">
+
+
+<div class="avatar big">
+
+${esc(
+initials(
+p.displayName
+)
+)}
+
+</div>
+
+
+<div>
+
+<h3>
+
+${esc(
+p.displayName ||
+"BorrowX User"
+)}
+
+</h3>
+
+
+<div class="small">
+
+BorrowX ID:
+
+<b>
+
+${esc(
+p.borrowId ||
+"Not set"
+)}
+
+</b>
+
+</div>
+
+
+<div class="verified">
+
+✓
+
+${
+count
+?
+avg.toFixed(1)
++
+" rating · "
++
+count
++
+" ratings"
+
+:
+"No ratings yet"
+}
+
+</div>
+
+
+</div>
+
+</div>
+
+
+<p class="bio">
+
+${esc(
+p.bio ||
+"No bio yet."
+)}
+
+</p>
+
+
+<div class="pillbar">
+
+<span class="tag">
+
+📍
+
+${esc(
+p.area ||
+"Area not added"
+)}
+
+</span>
+
+
+<span class="tag">
+
+🤝
+
+${p.completedCount||0}
+
+completed
+
+</span>
+
+
+${instagram}
+
+</div>
+
+
+<hr class="divider">
+
+
+<p class="small">
+
+The Instagram username is
+user-provided.
+
+BorrowX does not fetch private
+Instagram information.
+
+</p>
+
+
+<div class="card-actions">
+
+<button
+onclick="
+requireAuth(
+()=>{
+closeModal('userProfileModal');
+showPage('discover');
+}
+)
+"
+>
+🔎 Find their listings
+</button>
+
+</div>
+
+`;
+
+
+openModal(
+"userProfileModal"
+);
+
+
+}catch(e){
+
+notice(
+firebaseMessage(e)
 );
 
 }
@@ -3227,107 +6121,602 @@ true
 };
 
 
+/*
+=================================
+SEARCH PEOPLE
+=================================
+*/
+
+async function searchPeople(){
+
+if(
+discoverTab!=="people"
+)
+return;
+
+
+const qv =
+norm(
+$("peopleSearch")
+.value
+);
+
+
+if(!qv){
+
+$("discoverResults").innerHTML=
+
+`
+<div class="empty">
+
+Search by:
+
+<br><br>
+
+<b>
+BorrowX ID
+</b>
+
+<br>
+
+or
+
+<br>
+
+<b>
+Instagram username
+</b>
+
+<br>
+
+or
+
+<br>
+
+<b>
+Person name
+</b>
+
+</div>
+`;
+
+return;
+
+}
+
+
 try{
 
-app =
-initializeApp(firebaseConfig);
-
-auth =
-getAuth(app);
-
-db =
-getFirestore(app);
+let docs=[];
 
 
-onAuthStateChanged(
-auth,
-u => {
+const addResults =
+async q=>{
 
-user = u;
+const s =
+await getDocs(q);
 
-$("authArea").innerHTML =
 
-u
+s.docs.forEach(
+d=>{
+
+if(
+!docs.some(
+x=>x.id===d.id
+)
+){
+
+docs.push(d);
+
+}
+
+}
+);
+
+};
+
+
+/*
+BorrowX ID
+*/
+
+if(
+qv.startsWith("bx-")
+){
+
+await addResults(
+
+query(
+
+collection(
+db,
+"profiles"
+),
+
+where(
+"borrowId",
+"==",
+qv.toUpperCase()
+),
+
+limit(10)
+
+)
+
+);
+
+}
+
+
+/*
+Instagram
+*/
+
+await addResults(
+
+query(
+
+collection(
+db,
+"profiles"
+),
+
+where(
+"instagramHandle",
+"==",
+qv
+),
+
+limit(10)
+
+)
+
+);
+
+
+/*
+Display name prefix
+*/
+
+const term =
+qv.replace(
+/[^a-z0-9 ]/g,
+""
+);
+
+
+if(
+term.length>=2
+){
+
+await addResults(
+
+query(
+
+collection(
+db,
+"profiles"
+),
+
+where(
+"displayNameLower",
+">=",
+term
+),
+
+where(
+"displayNameLower",
+"<=",
+term+"\uf8ff"
+),
+
+limit(20)
+
+)
+
+);
+
+}
+
+
+/*
+Render
+*/
+
+$("discoverResults").innerHTML=
+
+docs.length
 
 ?
 
-`
-<div class="actions">
+docs.map(
+d=>{
 
-<button
-type="button"
-onclick="openProfile()"
->
-Profile
-</button>
+const p =
+d.data();
 
-<button
-type="button"
-class="secondary"
-onclick="openExchanges()"
->
-Exchanges
-</button>
 
-<button
-type="button"
-class="danger"
-onclick="logout()"
->
-Logout
-</button>
+return `
+
+<div class="search-result">
+
+
+<div class="avatar">
+
+${esc(
+initials(
+p.displayName
+)
+)}
 
 </div>
-`
+
+
+<div class="grow">
+
+<b>
+
+${esc(
+p.displayName ||
+"BorrowX User"
+)}
+
+</b>
+
+
+<div class="small">
+
+BorrowX ID:
+
+${esc(
+p.borrowId ||
+""
+)}
+
+</div>
+
+
+<div class="small">
+
+${
+p.instagramHandle
+?
+"Instagram: @"+
+esc(
+p.instagramHandle
+)
+:
+"Instagram not added"
+}
+
+</div>
+
+
+<div class="small">
+
+📍
+
+${esc(
+p.area ||
+"Area not added"
+)}
+
+·
+
+⭐
+
+${Number(
+p.trustRating||0
+).toFixed(1)}
+
+·
+
+🤝
+
+${p.completedCount||0}
+
+</div>
+
+</div>
+
+
+<button
+onclick="
+viewUser('${d.id}')
+"
+>
+View
+</button>
+
+
+</div>
+
+`;
+
+}
+)
+.join("")
 
 :
 
 `
-<button
-type="button"
-onclick="openAuth()"
->
-Login / Sign up
-</button>
+
+<div class="empty">
+
+No matching person found.
+
+<br><br>
+
+Ask them to add their Instagram
+username or share their BorrowX ID.
+
+</div>
+
 `;
 
 
-$("loginState").textContent =
-u ? "Signed in" : "Guest";
-
-
-renderListings();
-
-renderNeeds();
-
-}
-);
-
-
-window.loadListings();
-
 }catch(e){
 
-console.error(
-"BorrowX Firebase initialization error:",
-e
-);
+$("discoverResults").innerHTML=
 
-showNotice(
-"Firebase connection failed. Login screen is still available. Please refresh the page.",
-"notice",
-true
-);
+`
 
-$("listings").innerHTML =
-"<div class='empty'>Firebase connection unavailable.</div>";
+<div class="empty">
 
-$("needs").innerHTML =
-"<div class='empty'>Firebase connection unavailable.</div>";
+${esc(
+firebaseMessage(e)
+)}
+
+</div>
+
+`;
 
 }
+
+}
+
+
+/*
+=================================
+DISCOVER ITEMS / NEEDS
+=================================
+*/
+
+function renderDiscoverOther(){
+
+if(
+discoverTab==="items"
+){
+
+const q =
+norm(
+$("peopleSearch").value
+);
+
+
+const a =
+items.filter(
+x=>
+!q
+||
+[
+itemName(x),
+x.category,
+x.area
+]
+.join(" ")
+.toLowerCase()
+.includes(q)
+);
+
+
+$("discoverResults").innerHTML=
+
+a.length
+
+?
+
+a.map(
+x=>
+`
+
+<div
+class="card"
+style="margin-bottom:9px"
+>
+
+<h3>
+
+${esc(
+itemName(x)
+)}
+
+</h3>
+
+
+<div class="small">
+
+📍
+
+${esc(
+x.area
+)}
+
+·
+
+${esc(
+x.category
+)}
+
+·
+
+${esc(
+x.mode
+)}
+
+</div>
+
+
+<p>
+
+${esc(
+x.description ||
+""
+)}
+
+</p>
+
+
+<div class="card-actions">
+
+<button
+onclick="
+requireAuth(
+()=>openRequest('${x.id}')
+)
+"
+>
+Request
+</button>
+
+
+<button
+class="secondary"
+onclick="
+viewUser('${x.ownerId}')
+"
+>
+👤 Person
+</button>
+
+</div>
+
+</div>
+
+`
+)
+.join("")
+
+:
+
+"<div class='empty'>No items found.</div>";
+
+}
+
+
+if(
+discoverTab==="needs"
+){
+
+const q =
+norm(
+$("peopleSearch").value
+);
+
+
+const a =
+needs.filter(
+x=>
+!q
+||
+[
+itemName(x),
+x.category,
+x.area
+]
+.join(" ")
+.toLowerCase()
+.includes(q)
+);
+
+
+$("discoverResults").innerHTML=
+
+a.length
+
+?
+
+a.map(
+x=>
+`
+
+<div
+class="card"
+style="margin-bottom:9px"
+>
+
+<h3>
+
+${esc(
+itemName(x)
+)}
+
+</h3>
+
+
+<div class="small">
+
+📍
+
+${esc(
+x.area
+)}
+
+·
+
+${esc(
+x.category
+)}
+
+</div>
+
+
+<p>
+
+${esc(
+x.description ||
+""
+)}
+
+</p>
+
+
+<button
+class="secondary"
+onclick="
+viewUser('${x.ownerId}')
+"
+>
+👤 View person
+</button>
+
+</div>
+
+`
+)
+.join("")
+
+:
+
+"<div class='empty'>No needs found.</div>";
+
+}
+
+}
+
+
+/*
+=================================
+START APP
+=================================
+*/
+
+loadData();
+
 
 </script>
 
+
 </body>
+
 </html>
