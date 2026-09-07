@@ -8,6 +8,10 @@
 <style>
 *{box-sizing:border-box}
 
+html{
+scroll-behavior:smooth
+}
+
 body{
 margin:0;
 font-family:Arial,sans-serif;
@@ -52,7 +56,13 @@ padding:11px 15px;
 font-weight:700;
 cursor:pointer;
 background:#111827;
-color:white
+color:white;
+touch-action:manipulation;
+-webkit-tap-highlight-color:transparent
+}
+
+button:active{
+transform:scale(.98)
 }
 
 button.secondary{
@@ -61,11 +71,13 @@ color:#172033
 }
 
 button.danger{
-background:#b42318
+background:#b42318;
+color:white
 }
 
 button.success{
-background:#087443
+background:#087443;
+color:white
 }
 
 main{
@@ -116,7 +128,8 @@ padding:16px
 
 .stat b{
 font-size:25px;
-display:block
+display:block;
+margin-bottom:4px
 }
 
 .section-title{
@@ -172,6 +185,11 @@ margin:10px 0;
 display:none
 }
 
+.notice.error{
+background:#fef3f2;
+color:#b42318
+}
+
 .empty{
 color:#667085;
 padding:16px 0
@@ -203,13 +221,15 @@ background:#fff;
 max-width:560px;
 margin:35px auto;
 border-radius:18px;
-padding:20px
+padding:20px;
+box-shadow:0 15px 40px rgba(0,0,0,.2)
 }
 
 .modal-head{
 display:flex;
 justify-content:space-between;
-align-items:center
+align-items:center;
+gap:10px
 }
 
 .close{
@@ -224,7 +244,14 @@ padding:12px;
 border:1px solid #d0d5dd;
 border-radius:10px;
 margin:6px 0 12px;
-font:inherit
+font:inherit;
+background:white;
+color:#172033
+}
+
+textarea{
+min-height:100px;
+resize:vertical
 }
 
 label{
@@ -269,14 +296,30 @@ padding:8px 10px;
 background:#fff;
 border:1px solid #e4e7ec;
 border-radius:10px;
-margin:6px 0
+margin:6px 0;
+word-break:break-word
 }
 
 .mine{
 text-align:right
 }
 
+.status{
+font-weight:700;
+text-transform:capitalize
+}
+
+.loading{
+padding:20px;
+text-align:center;
+color:#667085
+}
+
 @media(max-width:650px){
+
+.hero{
+padding:22px
+}
 
 .hero h1{
 font-size:29px
@@ -294,6 +337,11 @@ grid-template-columns:1fr
 align-items:flex-start
 }
 
+.nav .actions{
+margin-top:0;
+justify-content:flex-end
+}
+
 }
 </style>
 </head>
@@ -309,7 +357,7 @@ BorrowX
 </div>
 
 <div id="authArea">
-<button onclick="openAuth()">Login / Sign up</button>
+<button type="button" onclick="openAuth()">Login / Sign up</button>
 </div>
 
 </div>
@@ -330,19 +378,19 @@ Public pickup points, protected chat and trust tools keep exchanges safer.
 
 <div class="actions">
 
-<button onclick="requireAuth(openPost)">
+<button type="button" onclick="requireAuth(openPost)">
 I Have
 </button>
 
-<button class="secondary" onclick="requireAuth(openNeed)">
+<button type="button" class="secondary" onclick="requireAuth(openNeed)">
 I Need
 </button>
 
-<button class="secondary" onclick="focusSearch()">
+<button type="button" class="secondary" onclick="focusSearch()">
 Search
 </button>
 
-<button class="secondary" onclick="requireAuth(openExchanges)">
+<button type="button" class="secondary" onclick="requireAuth(openExchanges)">
 My Exchanges
 </button>
 
@@ -377,7 +425,7 @@ Account
 Available on BorrowX
 </h2>
 
-<button class="secondary" onclick="loadListings()">
+<button type="button" class="secondary" onclick="loadListings()">
 Refresh
 </button>
 
@@ -394,11 +442,7 @@ oninput="renderListings()"
 <div class="row">
 
 <select id="filterCat" onchange="renderListings()">
-
-<option value="">
-All categories
-</option>
-
+<option value="">All categories</option>
 <option>Tools</option>
 <option>Books</option>
 <option>Camera</option>
@@ -406,23 +450,12 @@ All categories
 <option>Games</option>
 <option>Home</option>
 <option>Other</option>
-
 </select>
 
 <select id="filterMode" onchange="renderListings()">
-
-<option value="">
-Borrow + Exchange
-</option>
-
-<option value="Borrow">
-Borrow
-</option>
-
-<option value="Exchange">
-Exchange
-</option>
-
+<option value="">Borrow + Exchange</option>
+<option value="Borrow">Borrow</option>
+<option value="Exchange">Exchange</option>
 </select>
 
 </div>
@@ -430,45 +463,27 @@ Exchange
 </div>
 
 <div id="listings" class="grid">
-
-<div class="empty">
-Loading...
-</div>
-
+<div class="loading">Loading...</div>
 </div>
 
 <div class="section-title">
-
-<h2>
-People Need
-</h2>
-
+<h2>People Need</h2>
 </div>
 
 <div id="needs" class="grid">
-
-<div class="empty">
-Loading...
-</div>
-
+<div class="loading">Loading...</div>
 </div>
 
 <section class="hero" style="margin-top:24px">
 
-<h2>
-Trust & Safety
-</h2>
+<h2>Trust & Safety</h2>
 
 <div class="safety">
 
 • Exact home addresses are never shown publicly.<br>
-
 • Use an agreed public/safe pickup point; don't invite strangers to your home.<br>
-
 • Phone numbers are not automatically shared. Use BorrowX chat first.<br>
-
 • Verify your account, check exchange history and report suspicious activity.<br>
-
 • Location sharing is limited to an agreed pickup point and is not continuous/background tracking.
 
 </div>
@@ -481,7 +496,8 @@ Trust & Safety
 BorrowX © 2026 · Borrow • Exchange • Trust
 </footer>
 
-<!-- AUTH -->
+
+<!-- AUTH MODAL -->
 
 <div class="modal" id="authModal">
 
@@ -489,11 +505,9 @@ BorrowX © 2026 · Borrow • Exchange • Trust
 
 <div class="modal-head">
 
-<h2 id="authTitle">
-Login
-</h2>
+<h2 id="authTitle">Login</h2>
 
-<button class="close" onclick="closeModal('authModal')">
+<button type="button" class="close" onclick="closeModal('authModal')">
 ×
 </button>
 
@@ -501,39 +515,38 @@ Login
 
 <div id="authNotice" class="notice"></div>
 
-<label>
-Email
-</label>
+<label>Email</label>
 
 <input
 id="authEmail"
 type="email"
 autocomplete="email"
+placeholder="you@example.com"
 >
 
-<label>
-Password
-</label>
+<label>Password</label>
 
 <input
 id="authPassword"
 type="password"
 autocomplete="current-password"
+placeholder="Minimum 6 characters"
 >
 
 <div class="actions">
 
-<button id="authSubmit" onclick="submitAuth()">
+<button type="button" id="authSubmit" onclick="submitAuth()">
 Login
 </button>
 
-<button class="secondary" onclick="toggleAuth()">
+<button type="button" class="secondary" onclick="toggleAuth()">
 Create account
 </button>
 
 </div>
 
 <button
+type="button"
 class="secondary"
 style="margin-top:9px"
 onclick="forgotPassword()"
@@ -544,6 +557,7 @@ Forgot password?
 </div>
 </div>
 
+
 <!-- POST ITEM -->
 
 <div class="modal" id="postModal">
@@ -552,19 +566,15 @@ Forgot password?
 
 <div class="modal-head">
 
-<h2>
-I Have
-</h2>
+<h2>I Have</h2>
 
-<button class="close" onclick="closeModal('postModal')">
+<button type="button" class="close" onclick="closeModal('postModal')">
 ×
 </button>
 
 </div>
 
-<label>
-Item name
-</label>
+<label>Item name</label>
 
 <input
 id="itemName"
@@ -576,69 +586,34 @@ placeholder="e.g. Drill Machine"
 
 <div>
 
-<label>
-Mode
-</label>
+<label>Mode</label>
 
 <select id="itemMode">
-
-<option>
-Borrow
-</option>
-
-<option>
-Exchange
-</option>
-
+<option>Borrow</option>
+<option>Exchange</option>
 </select>
 
 </div>
 
 <div>
 
-<label>
-Category
-</label>
+<label>Category</label>
 
 <select id="itemCategory">
-
-<option>
-Tools
-</option>
-
-<option>
-Books
-</option>
-
-<option>
-Camera
-</option>
-
-<option>
-Sports
-</option>
-
-<option>
-Games
-</option>
-
-<option>
-Home
-</option>
-
-<option>
-Other
-</option>
-
+<option>Tools</option>
+<option>Books</option>
+<option>Camera</option>
+<option>Sports</option>
+<option>Games</option>
+<option>Home</option>
+<option>Other</option>
 </select>
 
 </div>
 
 </div>
 
-<label>
-Approximate area
-</label>
+<label>Approximate area</label>
 
 <input
 id="itemArea"
@@ -646,9 +621,7 @@ maxlength="60"
 placeholder="e.g. Mainpuri"
 >
 
-<label>
-Duration
-</label>
+<label>Duration</label>
 
 <input
 id="itemDuration"
@@ -656,9 +629,7 @@ maxlength="40"
 placeholder="e.g. 2 days"
 >
 
-<label>
-Description
-</label>
+<label>Description</label>
 
 <textarea
 id="itemDescription"
@@ -670,14 +641,15 @@ placeholder="Condition, useful details..."
 Only use an approximate area. Never enter your home address.
 </p>
 
-<button onclick="publishItem()">
+<button type="button" onclick="publishItem()">
 Publish
 </button>
 
 </div>
 </div>
 
-<!-- NEED -->
+
+<!-- NEED MODAL -->
 
 <div class="modal" id="needModal">
 
@@ -685,19 +657,15 @@ Publish
 
 <div class="modal-head">
 
-<h2>
-I Need
-</h2>
+<h2>I Need</h2>
 
-<button class="close" onclick="closeModal('needModal')">
+<button type="button" class="close" onclick="closeModal('needModal')">
 ×
 </button>
 
 </div>
 
-<label>
-What do you need?
-</label>
+<label>What do you need?</label>
 
 <input
 id="needName"
@@ -709,49 +677,23 @@ placeholder="e.g. Camera"
 
 <div>
 
-<label>
-Category
-</label>
+<label>Category</label>
 
 <select id="needCategory">
-
-<option>
-Tools
-</option>
-
-<option>
-Books
-</option>
-
-<option>
-Camera
-</option>
-
-<option>
-Sports
-</option>
-
-<option>
-Games
-</option>
-
-<option>
-Home
-</option>
-
-<option>
-Other
-</option>
-
+<option>Tools</option>
+<option>Books</option>
+<option>Camera</option>
+<option>Sports</option>
+<option>Games</option>
+<option>Home</option>
+<option>Other</option>
 </select>
 
 </div>
 
 <div>
 
-<label>
-Approximate area
-</label>
+<label>Approximate area</label>
 
 <input
 id="needArea"
@@ -763,9 +705,7 @@ placeholder="e.g. Mainpuri"
 
 </div>
 
-<label>
-How long?
-</label>
+<label>How long?</label>
 
 <input
 id="needDuration"
@@ -773,21 +713,20 @@ maxlength="40"
 placeholder="e.g. 3 days"
 >
 
-<label>
-Description
-</label>
+<label>Description</label>
 
 <textarea
 id="needDescription"
 maxlength="500"
 ></textarea>
 
-<button onclick="publishNeed()">
+<button type="button" onclick="publishNeed()">
 Post Need
 </button>
 
 </div>
 </div>
+
 
 <!-- REQUEST MODAL -->
 
@@ -797,11 +736,9 @@ Post Need
 
 <div class="modal-head">
 
-<h2>
-Request item
-</h2>
+<h2>Request item</h2>
 
-<button class="close" onclick="closeModal('requestModal')">
+<button type="button" class="close" onclick="closeModal('requestModal')">
 ×
 </button>
 
@@ -809,17 +746,15 @@ Request item
 
 <p id="requestItemTitle"></p>
 
-<label>
-Message
-</label>
+<label>Message</label>
 
 <textarea
 id="requestMessage"
 maxlength="300"
-placeholder="Tell the owner when you need it and agree on a public pickup point later."
+placeholder="Tell the owner when you need it. Agree on a public pickup point later."
 ></textarea>
 
-<button onclick="sendRequest()">
+<button type="button" onclick="sendRequest()">
 Send request
 </button>
 
@@ -839,29 +774,27 @@ Send request
 
 <div class="modal-head">
 
-<h2>
-My Exchanges
-</h2>
+<h2>My Exchanges</h2>
 
-<button class="close" onclick="closeModal('exchangeModal')">
+<button type="button" class="close" onclick="closeModal('exchangeModal')">
 ×
 </button>
 
 </div>
 
-<h3>
-Requests for your items
-</h3>
+<h3>Requests for your items</h3>
 
-<div id="receivedRequests"></div>
+<div id="receivedRequests">
+<p class="empty">Loading...</p>
+</div>
 
 <hr>
 
-<h3>
-Your sent requests
-</h3>
+<h3>Your sent requests</h3>
 
-<div id="sentRequests"></div>
+<div id="sentRequests">
+<p class="empty">Loading...</p>
+</div>
 
 </div>
 </div>
@@ -875,11 +808,9 @@ Your sent requests
 
 <div class="modal-head">
 
-<h2>
-BorrowX Chat
-</h2>
+<h2>BorrowX Chat</h2>
 
-<button class="close" onclick="closeModal('chatModal')">
+<button type="button" class="close" onclick="closeModal('chatModal')">
 ×
 </button>
 
@@ -887,7 +818,9 @@ BorrowX Chat
 
 <p class="small" id="chatInfo"></p>
 
-<div id="chatMessages" class="chat"></div>
+<div id="chatMessages" class="chat">
+<p class="empty">Loading...</p>
+</div>
 
 <textarea
 id="chatText"
@@ -895,7 +828,7 @@ maxlength="500"
 placeholder="Write a message..."
 ></textarea>
 
-<button onclick="sendChat()">
+<button type="button" onclick="sendChat()">
 Send
 </button>
 
@@ -913,11 +846,9 @@ Send
 
 <div class="modal-head">
 
-<h2>
-Safe pickup point
-</h2>
+<h2>Safe pickup point</h2>
 
-<button class="close" onclick="closeModal('pickupModal')">
+<button type="button" class="close" onclick="closeModal('pickupModal')">
 ×
 </button>
 
@@ -927,9 +858,7 @@ Safe pickup point
 Only share a public pickup point. Do not enter a home address.
 </p>
 
-<label>
-Place name
-</label>
+<label>Place name</label>
 
 <input
 id="pickupPlace"
@@ -937,9 +866,7 @@ maxlength="120"
 placeholder="e.g. Mainpuri public market"
 >
 
-<label>
-Google Maps link (optional)
-</label>
+<label>Google Maps link (optional)</label>
 
 <input
 id="pickupMap"
@@ -947,7 +874,7 @@ maxlength="500"
 placeholder="Paste a Maps link"
 >
 
-<button onclick="savePickup()">
+<button type="button" onclick="savePickup()">
 Save pickup point
 </button>
 
@@ -965,31 +892,27 @@ Save pickup point
 
 <div class="modal-head">
 
-<h2>
-Profile
-</h2>
+<h2>Profile</h2>
 
-<button class="close" onclick="closeModal('profileModal')">
+<button type="button" class="close" onclick="closeModal('profileModal')">
 ×
 </button>
 
 </div>
 
-<div id="profileInfo"></div>
+<div id="profileInfo">
+Loading...
+</div>
 
 <hr>
 
-<h3>
-My listings
-</h3>
+<h3>My listings</h3>
 
 <div id="myListings"></div>
 
 <hr>
 
-<h3>
-Trust
-</h3>
+<h3>Trust</h3>
 
 <p class="small">
 Ratings are created after a completed exchange.
@@ -999,6 +922,98 @@ A rating does not guarantee another person's safety.
 </div>
 </div>
 
+
+<!--
+IMPORTANT:
+These basic modal functions are intentionally outside
+the Firebase module. Therefore Login/Sign up and basic
+buttons can still respond even if Firebase temporarily
+takes time to load.
+-->
+
+<script>
+
+window.openModal = function(id){
+
+const el = document.getElementById(id);
+
+if(el){
+el.style.display = "block";
+}
+
+};
+
+window.closeModal = function(id){
+
+const el = document.getElementById(id);
+
+if(el){
+el.style.display = "none";
+}
+
+};
+
+window.openAuth = function(){
+
+window.openModal("authModal");
+
+};
+
+window.openPost = function(){
+
+window.openModal("postModal");
+
+};
+
+window.openNeed = function(){
+
+window.openModal("needModal");
+
+};
+
+window.openExchanges = function(){
+
+if(window.requireAuth){
+
+window.requireAuth(function(){
+
+window.openModal("exchangeModal");
+
+if(window.loadRequests){
+window.loadRequests();
+}
+
+});
+
+}else{
+
+window.openAuth();
+
+}
+
+};
+
+window.focusSearch = function(){
+
+const search = document.getElementById("search");
+
+if(search){
+
+search.focus();
+
+search.scrollIntoView({
+behavior:"smooth",
+block:"center"
+});
+
+}
+
+};
+
+</script>
+
+
+<!-- FIREBASE -->
 
 <script type="module">
 
@@ -1067,35 +1082,23 @@ measurementId:
 };
 
 
-const app =
-initializeApp(firebaseConfig);
-
-
-const auth =
-getAuth(app);
-
-
-const db =
-getFirestore(app);
-
+let app;
+let auth;
+let db;
 
 let user = null;
-
 let items = [];
-
 let needs = [];
-
 let currentRequest = null;
-
 let unsubscribeChat = null;
+let unsubscribeItems = null;
+let unsubscribeNeeds = null;
 
 
-const $ =
-id => document.getElementById(id);
+const $ = id => document.getElementById(id);
 
 
-const esc =
-s =>
+const esc = s =>
 String(s ?? "")
 .replace(
 /[&<>"']/g,
@@ -1110,148 +1113,97 @@ c =>
 );
 
 
-const itemName =
-x =>
+const getItemName = x =>
 x.itemName ||
 x.name ||
 "Unnamed item";
 
 
-function notice(
-msg,
-el="notice"
-){
+function showNotice(msg, element="notice", error=false){
 
-const e =
-$(el);
+const el = $(element);
 
-e.textContent =
-msg;
+if(!el)return;
 
-e.style.display =
-"block";
+el.textContent = msg;
 
-setTimeout(
-() =>
-e.style.display =
-"none",
-4000
+el.classList.toggle("error",error);
+
+el.style.display = "block";
+
+setTimeout(() => {
+
+el.style.display = "none";
+
+},5000);
+
+}
+
+
+window.notice = showNotice;
+
+
+function firebaseReady(){
+
+if(!auth || !db){
+
+showNotice(
+"BorrowX is still connecting to Firebase. Please wait a moment.",
+"notice",
+true
 );
 
-}
-
-
-function openModal(id){
-
-$(id).style.display =
-"block";
+return false;
 
 }
 
-
-function closeModal(id){
-
-$(id).style.display =
-"none";
+return true;
 
 }
 
 
-window.closeModal =
-closeModal;
-
-
-function requireAuth(fn){
+window.requireAuth = function(fn){
 
 if(!user){
 
-openAuth();
+window.openAuth();
 
-notice(
+showNotice(
 "Please login first.",
-"authNotice"
+"authNotice",
+true
 );
 
 return;
 
 }
 
+if(typeof fn === "function"){
 fn();
-
 }
 
-
-window.requireAuth =
-requireAuth;
-
-
-window.openAuth =
-() =>
-openModal("authModal");
-
-
-window.openPost =
-() =>
-openModal("postModal");
-
-
-window.openNeed =
-() =>
-openModal("needModal");
-
-
-window.openExchanges =
-() => {
-
-openModal("exchangeModal");
-
-loadRequests();
-
 };
 
 
-window.focusSearch =
-() => {
+window.toggleAuth = function(){
 
-$("search").focus();
-
-window.scrollTo({
-top:$("search").offsetTop-80,
-behavior:"smooth"
-});
-
-};
-
-
-let loginMode =
-true;
-
-
-window.toggleAuth =
-() => {
-
-loginMode =
-!loginMode;
+loginMode = !loginMode;
 
 $("authTitle").textContent =
-loginMode
-?
-"Login"
-:
-"Create account";
+loginMode ? "Login" : "Create account";
 
 $("authSubmit").textContent =
-loginMode
-?
-"Login"
-:
-"Create account";
+loginMode ? "Login" : "Create account";
 
 };
 
 
-window.submitAuth =
-async () => {
+let loginMode = true;
+
+
+window.submitAuth = async function(){
+
+if(!firebaseReady())return;
 
 try{
 
@@ -1262,13 +1214,17 @@ const pw =
 $("authPassword").value;
 
 
-if(
-!email ||
-pw.length < 6
-){
+if(!email){
+
+throw new Error("Enter your email.");
+
+}
+
+
+if(pw.length < 6){
 
 throw new Error(
-"Enter a valid email and a password of at least 6 characters."
+"Password must be at least 6 characters."
 );
 
 }
@@ -1284,36 +1240,46 @@ pw
 
 }else{
 
-const c =
+const result =
 await createUserWithEmailAndPassword(
 auth,
 email,
 pw
 );
 
+try{
+
 await updateProfile(
-c.user,
+result.user,
 {
 displayName:
 email.split("@")[0]
 }
 );
 
+}catch(profileError){
+
+console.log(profileError);
+
+}
+
 }
 
 
-closeModal("authModal");
+window.closeModal("authModal");
 
-notice(
+showNotice(
 "Signed in successfully."
 );
 
-
 }catch(e){
 
-notice(
-e.message,
-"authNotice"
+console.error(e);
+
+showNotice(
+friendlyAuthError(e),
+"authNotice",
+true
 );
 
 }
@@ -1321,14 +1287,43 @@ e.message,
 };
 
 
-window.forgotPassword =
-async () => {
+function friendlyAuthError(e){
+
+const code = e?.code || "";
+
+if(code.includes("invalid-credential")){
+return "Email or password is incorrect.";
+}
+
+if(code.includes("email-already-in-use")){
+return "This email already has an account. Please login.";
+}
+
+if(code.includes("invalid-email")){
+return "Please enter a valid email.";
+}
+
+if(code.includes("weak-password")){
+return "Password is too weak. Use at least 6 characters.";
+}
+
+if(code.includes("network-request-failed")){
+return "Internet connection problem. Check your internet.";
+}
+
+return e?.message || "Something went wrong.";
+
+}
+
+
+window.forgotPassword = async function(){
+
+if(!firebaseReady())return;
 
 try{
 
 const email =
 $("authEmail").value.trim();
-
 
 if(!email){
 
@@ -1338,24 +1333,22 @@ throw new Error(
 
 }
 
-
 await sendPasswordResetEmail(
 auth,
 email
 );
 
-
-notice(
+showNotice(
 "Password reset email sent. Check your inbox.",
 "authNotice"
 );
 
-
 }catch(e){
 
-notice(
-e.message,
-"authNotice"
+showNotice(
+friendlyAuthError(e),
+"authNotice",
+true
 );
 
 }
@@ -1363,194 +1356,175 @@ e.message,
 };
 
 
-window.logout =
-async () => {
+window.logout = async function(){
+
+if(!auth)return;
+
+try{
 
 await signOut(auth);
 
-notice(
-"Logged out."
+showNotice("Logged out successfully.");
+
+}catch(e){
+
+showNotice(
+e.message || "Logout failed.",
+"notice",
+true
 );
+
+}
 
 };
 
 
-onAuthStateChanged(
-auth,
-u => {
+window.openProfile = async function(){
 
-user =
-u;
+if(!user){
 
-$("authArea").innerHTML =
-u
-?
-
-`<div class="actions">
-<button onclick="openProfile()">Profile</button>
-<button class="secondary" onclick="openExchanges()">Exchanges</button>
-<button class="danger" onclick="logout()">Logout</button>
-</div>`
-
-:
-
-`<button onclick="openAuth()">Login / Sign up</button>`;
-
-
-$("loginState").textContent =
-u
-?
-"Signed in"
-:
-"Guest";
+window.openAuth();
+return;
 
 }
-);
 
-
-window.openProfile =
-async () => {
-
-requireAuth(
-async () => {
-
-openModal(
-"profileModal"
-);
-
+window.openModal("profileModal");
 
 $("profileInfo").innerHTML =
+"<p>Loading profile...</p>";
 
-`<p>
-<b>${esc(user.email)}</b>
+try{
+
+const sentSnap =
+await getDocs(
+query(
+collection(db,"requests"),
+where("requesterId","==",user.uid)
+)
+);
+
+const receivedSnap =
+await getDocs(
+query(
+collection(db,"requests"),
+where("ownerId","==",user.uid)
+)
+);
+
+$("profileInfo").innerHTML = `
+
+<p>
+<b>${esc(user.email || "")}</b>
 </p>
 
 <p class="small">
 Email verification:
 ${user.emailVerified ? "Verified" : "Not verified yet"}
-</p>`;
+</p>
 
-
-const [
-s,
-r
-] =
-await Promise.all([
-
-getDocs(
-query(
-collection(db,"requests"),
-where(
-"requesterId",
-"==",
-user.uid
-)
-)
-),
-
-getDocs(
-query(
-collection(db,"requests"),
-where(
-"ownerId",
-"==",
-user.uid
-)
-)
-)
-
-]);
-
-
-$("profileInfo").innerHTML +=
-
-`<p>
+<p>
 Sent requests:
-<b>${s.size}</b>
+<b>${sentSnap.size}</b>
 ·
 Received:
-<b>${r.size}</b>
-</p>`;
+<b>${receivedSnap.size}</b>
+</p>
 
+`;
 
 const mine =
-items.filter(
-x =>
-x.ownerId === user.uid
-);
-
+items.filter(x => x.ownerId === user.uid);
 
 $("myListings").innerHTML =
 mine.length
 
 ?
 
-mine.map(
-x =>
+mine.map(x => `
 
-`<div class="request-box">
+<div class="request-box">
 
-<b>
-${esc(itemName(x))}
-</b>
+<b>${esc(getItemName(x))}</b>
 
 <div class="small">
-${esc(x.area)}
+${esc(x.area || "")}
 ·
-${esc(x.mode)}
+${esc(x.mode || "")}
+·
+${x.active ? "Active" : "Inactive"}
 </div>
 
+${
+x.active
+?
+`
 <button
+type="button"
 class="danger"
 onclick="deactivateItem('${x.id}')"
 >
 Deactivate
 </button>
+`
+:
+"<span class='small'>This listing is inactive.</span>"
+}
 
-</div>`
+</div>
 
-).join("")
+`).join("")
 
 :
 
 "<p class='empty'>No listings yet.</p>";
+
+}catch(e){
+
+console.error(e);
+
+$("profileInfo").innerHTML =
+"<p class='empty'>Could not load profile data.</p>";
 
 }
 
 };
 
 
-window.publishItem =
-async () => {
+window.publishItem = async function(){
 
-requireAuth(
-async () => {
+if(!user){
 
-const itemNameV =
+window.openAuth();
+return;
+
+}
+
+try{
+
+const name =
 $("itemName").value.trim();
 
 const area =
 $("itemArea").value.trim();
 
+if(!name || !area){
 
-if(
-!itemNameV ||
-!area
-){
-
-return notice(
-"Item name and approximate area are required."
+showNotice(
+"Item name and approximate area are required.",
+"notice",
+true
 );
 
-}
+return;
 
+}
 
 await addDoc(
 collection(db,"items"),
 {
 
 itemName:
-itemNameV.slice(0,80),
+name.slice(0,80),
 
 mode:
 $("itemMode").value,
@@ -1562,14 +1536,10 @@ area:
 area.slice(0,60),
 
 duration:
-$("itemDuration").value
-.trim()
-.slice(0,40),
+$("itemDuration").value.trim().slice(0,40),
 
 description:
-$("itemDescription").value
-.trim()
-.slice(0,500),
+$("itemDescription").value.trim().slice(0,500),
 
 ownerId:
 user.uid,
@@ -1586,26 +1556,29 @@ true
 }
 );
 
+window.closeModal("postModal");
 
-closeModal(
-"postModal"
-);
-
-
-notice(
+showNotice(
 "Your post has been published successfully."
 );
-
 
 [
 "itemName",
 "itemArea",
 "itemDuration",
 "itemDescription"
-]
-.forEach(
-x =>
-$(x).value=""
+].forEach(id => {
+$(id).value = "";
+});
+
+}catch(e){
+
+console.error(e);
+
+showNotice(
+e.message || "Could not publish listing.",
+"notice",
+true
 );
 
 }
@@ -1613,53 +1586,53 @@ $(x).value=""
 };
 
 
-window.publishNeed =
-async () => {
+window.publishNeed = async function(){
 
-requireAuth(
-async () => {
+if(!user){
 
-const n =
-$("needName").value.trim();
-
-const a =
-$("needArea").value.trim();
-
-
-if(
-!n ||
-!a
-){
-
-return notice(
-"Need name and approximate area are required."
-);
+window.openAuth();
+return;
 
 }
 
+try{
+
+const name =
+$("needName").value.trim();
+
+const area =
+$("needArea").value.trim();
+
+if(!name || !area){
+
+showNotice(
+"Need name and approximate area are required.",
+"notice",
+true
+);
+
+return;
+
+}
 
 await addDoc(
 collection(db,"needs"),
 {
 
 itemName:
-n.slice(0,80),
+name.slice(0,80),
 
 category:
 $("needCategory").value,
 
 area:
-a.slice(0,60),
+area.slice(0,60),
 
 duration:
-$("needDuration").value
-.trim()
-.slice(0,40),
+$("needDuration").value.trim().slice(0,40),
 
 description:
-$("needDescription").value
-.trim()
-.slice(0,500),
+$("needDescription").value.trim().slice(0,500),
 
 ownerId:
 user.uid,
@@ -1673,26 +1646,29 @@ true
 }
 );
 
+window.closeModal("needModal");
 
-closeModal(
-"needModal"
+showNotice(
+"Your need has been posted successfully."
 );
-
-
-notice(
-"Your need has been posted."
-);
-
 
 [
 "needName",
 "needArea",
 "needDuration",
 "needDescription"
-]
-.forEach(
-x =>
-$(x).value=""
+].forEach(id => {
+$(id).value = "";
+});
+
+}catch(e){
+
+console.error(e);
+
+showNotice(
+e.message || "Could not post need.",
+"notice",
+true
 );
 
 }
@@ -1700,85 +1676,101 @@ $(x).value=""
 };
 
 
-function loadListings(){
+window.loadListings = function(){
 
+if(!db)return;
+
+
+if(unsubscribeItems){
+unsubscribeItems();
+}
+
+if(unsubscribeNeeds){
+unsubscribeNeeds();
+}
+
+
+unsubscribeItems =
 onSnapshot(
 
 query(
 collection(db,"items"),
-where(
-"active",
-"==",
-true
-)
+where("active","==",true)
 ),
 
 snap => {
 
 items =
-snap.docs.map(
-d =>
-({
+snap.docs.map(d => ({
 id:d.id,
 ...d.data()
-})
-);
-
-renderListings();
+}));
 
 $("itemCount").textContent =
 items.length;
 
-}
+renderListings();
 
+},
+
+error => {
+
+console.error(error);
+
+$("listings").innerHTML =
+"<div class='empty'>Could not load listings.</div>";
+
+showNotice(
+"Could not load listings. Check Firestore rules.",
+"notice",
+true
+);
+
+}
 );
 
 
+unsubscribeNeeds =
 onSnapshot(
 
 query(
 collection(db,"needs"),
-where(
-"active",
-"==",
-true
-)
+where("active","==",true)
 ),
 
 snap => {
 
 needs =
-snap.docs.map(
-d =>
-({
+snap.docs.map(d => ({
 id:d.id,
 ...d.data()
-})
-);
-
-renderNeeds();
+}));
 
 $("needCount").textContent =
 needs.length;
 
+renderNeeds();
+
+},
+
+error => {
+
+console.error(error);
+
+$("needs").innerHTML =
+"<div class='empty'>Could not load needs.</div>";
+
 }
 
 );
 
-}
+};
 
 
-window.loadListings =
-loadListings;
-
-
-window.renderListings =
-() => {
+window.renderListings = function(){
 
 const term =
-$("search").value
-.trim()
-.toLowerCase();
+$("search").value.trim().toLowerCase();
 
 const cat =
 $("filterCat").value;
@@ -1787,68 +1779,59 @@ const mode =
 $("filterMode").value;
 
 
-const a =
-items.filter(
-x =>
+const filtered =
+items.filter(x => {
 
-(
-!term ||
+const text = [
 
-[
-itemName(x),
+getItemName(x),
 x.category,
 x.area,
 x.description
-]
-.join(" ")
-.toLowerCase()
-.includes(term)
 
-)
+].join(" ").toLowerCase();
 
-&&
+return (
 
-(
-!cat ||
-x.category === cat
-)
+(!term || text.includes(term))
 
 &&
 
-(
-!mode ||
-x.mode === mode
-)
+(!cat || x.category === cat)
+
+&&
+
+(!mode || x.mode === mode)
 
 );
+
+});
 
 
 $("listings").innerHTML =
 
-a.length
+filtered.length
 
 ?
 
-a.map(
-x =>
+filtered.map(x => `
 
-`
 <div class="card">
 
 <h3>
-${esc(itemName(x))}
+${esc(getItemName(x))}
 </h3>
 
 <div class="muted">
-📍 ${esc(x.area)}
+📍 ${esc(x.area || "Approximate area")}
 </div>
 
 <span class="tag">
-${esc(x.category)}
+${esc(x.category || "Other")}
 </span>
 
 <span class="tag">
-${esc(x.mode)}
+${esc(x.mode || "Borrow")}
 </span>
 
 <span class="tag">
@@ -1872,6 +1855,7 @@ user && x.ownerId === user.uid
 
 `
 <button
+type="button"
 class="secondary"
 onclick="deactivateItem('${x.id}')"
 >
@@ -1883,6 +1867,7 @@ Deactivate
 
 `
 <button
+type="button"
 onclick="requireAuth(()=>openRequest('${x.id}'))"
 >
 Request
@@ -1891,6 +1876,7 @@ Request
 }
 
 <button
+type="button"
 class="secondary"
 onclick="reportItem('${x.id}')"
 >
@@ -1900,9 +1886,8 @@ Report
 </div>
 
 </div>
-`
 
-).join("")
+`).join("")
 
 :
 
@@ -1911,8 +1896,7 @@ Report
 };
 
 
-window.renderNeeds =
-() => {
+window.renderNeeds = function(){
 
 $("needs").innerHTML =
 
@@ -1920,22 +1904,20 @@ needs.length
 
 ?
 
-needs.map(
-x =>
+needs.map(x => `
 
-`
 <div class="card">
 
 <h3>
-${esc(itemName(x))}
+${esc(getItemName(x))}
 </h3>
 
 <div class="muted">
-📍 ${esc(x.area)}
+📍 ${esc(x.area || "Approximate area")}
 </div>
 
 <span class="tag">
-${esc(x.category)}
+${esc(x.category || "Other")}
 </span>
 
 <span class="tag">
@@ -1947,9 +1929,8 @@ ${esc(x.description || "No description")}
 </p>
 
 </div>
-`
 
-).join("")
+`).join("")
 
 :
 
@@ -1958,68 +1939,51 @@ ${esc(x.description || "No description")}
 };
 
 
-window.openRequest =
-id => {
+window.openRequest = function(id){
 
 const x =
-items.find(
-i =>
-i.id === id
+items.find(i => i.id === id);
+
+if(!x || !user)return;
+
+if(x.ownerId === user.uid){
+
+showNotice(
+"You cannot request your own listing.",
+"notice",
+true
 );
 
-
-if(
-!x ||
-!user
-)
 return;
-
-
-if(
-x.ownerId === user.uid
-){
-
-return notice(
-"You cannot request your own listing."
-);
 
 }
 
-
-$("requestItemId").value =
-id;
-
-$("requestOwnerId").value =
-x.ownerId;
-
-$("requestOwnerEmail").value =
-x.ownerEmail || "";
-
+$("requestItemId").value = id;
+$("requestOwnerId").value = x.ownerId;
+$("requestOwnerEmail").value = x.ownerEmail || "";
 
 $("requestItemTitle").innerHTML =
+`Requesting <b>${esc(getItemName(x))}</b>
+from approximate area
+<b>${esc(x.area || "")}</b>.`;
 
-`Requesting
-<b>${esc(itemName(x))}</b>
-from the approximate area
-<b>${esc(x.area)}</b>.`;
+$("requestMessage").value = "";
 
-
-$("requestMessage").value =
-"";
-
-
-openModal(
-"requestModal"
-);
+window.openModal("requestModal");
 
 };
 
 
-window.sendRequest =
-async () => {
+window.sendRequest = async function(){
 
-requireAuth(
-async () => {
+if(!user){
+
+window.openAuth();
+return;
+
+}
+
+try{
 
 const itemId =
 $("requestItemId").value;
@@ -2027,126 +1991,123 @@ $("requestItemId").value;
 const ownerId =
 $("requestOwnerId").value;
 
+if(!itemId || !ownerId){
+
+showNotice(
+"Request information is missing.",
+"notice",
+true
+);
+
+return;
+
+}
+
+if(ownerId === user.uid){
+
+showNotice(
+"You cannot request your own listing.",
+"notice",
+true
+);
+
+return;
+
+}
+
 
 const existing =
 await getDocs(
-
 query(
 collection(db,"requests"),
-
-where(
-"itemId",
-"==",
-itemId
-),
-
-where(
-"requesterId",
-"==",
-user.uid
-),
-
-where(
-"status",
-"==",
-"pending"
+where("itemId","==",itemId),
+where("requesterId","==",user.uid),
+where("status","==","pending")
 )
-
-)
-
 );
 
+if(!existing.empty){
 
-if(
-!existing.empty
-){
-
-return notice(
-"You already have a pending request for this item."
+showNotice(
+"You already have a pending request for this item.",
+"notice",
+true
 );
+
+return;
 
 }
 
 
 const found =
-items.find(
-x =>
-x.id === itemId
-);
-
+items.find(x => x.id === itemId);
 
 await addDoc(
 collection(db,"requests"),
 {
 
-itemId:
-
-itemId,
+itemId:itemId,
 
 itemName:
+found ? getItemName(found) : "",
 
-found
-?
-itemName(found)
-:
-"",
-
-ownerId:
-
-ownerId,
+ownerId:ownerId,
 
 ownerEmail:
-
-$("requestOwnerEmail").value,
+$("requestOwnerEmail").value || "",
 
 requesterId:
-
 user.uid,
 
 requesterEmail:
-
 user.email || "",
 
 message:
+$("requestMessage").value.trim().slice(0,300),
 
-$("requestMessage").value
-.trim()
-.slice(0,300),
-
-status:
-
-"pending",
+status:"pending",
 
 createdAt:
-
 serverTimestamp()
 
 }
-
 );
 
+window.closeModal("requestModal");
 
-closeModal(
-"requestModal"
-);
-
-
-notice(
+showNotice(
 "Your request has been sent successfully."
+);
+
+}catch(e){
+
+console.error(e);
+
+showNotice(
+e.message || "Could not send request.",
+"notice",
+true
 );
 
 }
 
 };
 
- async function loadRequests(){
+
+window.loadRequests = async function(){
 
 if(!user)return;
 
-const [
-r,
-s
-]=await Promise.all([
+$("receivedRequests").innerHTML =
+"<p class='empty'>Loading...</p>";
+
+$("sentRequests").innerHTML =
+"<p class='empty'>Loading...</p>";
+
+try{
+
+const [received,sent] =
+await Promise.all([
 
 getDocs(
 query(
@@ -2165,17 +2126,12 @@ where("requesterId","==",user.uid)
 ]);
 
 
-const renderReq =
-d => {
+function renderRequest(d){
 
-const x =
-d.data();
+const x = d.data();
+const id = d.id;
 
-const id =
-d.id;
-
-let buttons =
-"";
+let buttons = "";
 
 
 if(
@@ -2184,7 +2140,9 @@ x.ownerId === user.uid
 ){
 
 buttons += `
+
 <button
+type="button"
 class="success"
 onclick="changeStatus('${id}','accepted')"
 >
@@ -2192,11 +2150,13 @@ Accept
 </button>
 
 <button
+type="button"
 class="danger"
 onclick="changeStatus('${id}','declined')"
 >
 Decline
 </button>
+
 `;
 
 }
@@ -2208,12 +2168,15 @@ x.requesterId === user.uid
 ){
 
 buttons += `
+
 <button
+type="button"
 class="danger"
 onclick="changeStatus('${id}','cancelled')"
 >
 Cancel
 </button>
+
 `;
 
 }
@@ -2225,11 +2188,14 @@ x.ownerId === user.uid
 ){
 
 buttons += `
+
 <button
+type="button"
 onclick="changeStatus('${id}','handover')"
 >
 Confirm handover
 </button>
+
 `;
 
 }
@@ -2241,11 +2207,14 @@ x.requesterId === user.uid
 ){
 
 buttons += `
+
 <button
+type="button"
 onclick="changeStatus('${id}','borrowed')"
 >
 Confirm received
 </button>
+
 `;
 
 }
@@ -2257,11 +2226,14 @@ x.requesterId === user.uid
 ){
 
 buttons += `
+
 <button
+type="button"
 onclick="changeStatus('${id}','returned')"
 >
 Mark returned
 </button>
+
 `;
 
 }
@@ -2273,12 +2245,15 @@ x.ownerId === user.uid
 ){
 
 buttons += `
+
 <button
+type="button"
 class="success"
 onclick="changeStatus('${id}','completed')"
 >
 Complete exchange
 </button>
+
 `;
 
 }
@@ -2290,17 +2265,19 @@ if(
 "handover",
 "borrowed",
 "returned"
-]
-.includes(x.status)
+].includes(x.status)
 ){
 
 buttons += `
+
 <button
+type="button"
 class="secondary"
 onclick="openPickup('${id}')"
 >
 Pickup point
 </button>
+
 `;
 
 }
@@ -2313,33 +2290,36 @@ if(
 "borrowed",
 "returned",
 "completed"
-]
-.includes(x.status)
+].includes(x.status)
 ){
 
 buttons += `
+
 <button
+type="button"
 class="secondary"
 onclick="openChat('${id}')"
 >
 Chat
 </button>
+
 `;
 
 }
 
 
-if(
-x.status === "completed"
-){
+if(x.status === "completed"){
 
 buttons += `
+
 <button
+type="button"
 class="secondary"
 onclick="rateExchange('${id}')"
 >
 Rate
 </button>
+
 `;
 
 }
@@ -2350,20 +2330,21 @@ return `
 <div class="request-box">
 
 <b>
-${esc(x.itemName)}
+${esc(x.itemName || "Item")}
 </b>
 
 <div class="small">
 
 Status:
-<b>
-${esc(x.status)}
-</b>
+<span class="status">
+${esc(x.status || "pending")}
+</span>
 
-·
+</div>
 
+<div class="small">
+Requester:
 ${esc(x.requesterEmail || "")}
-
 </div>
 
 <p>
@@ -2375,6 +2356,7 @@ ${esc(x.message || "")}
 ${buttons}
 
 <button
+type="button"
 class="secondary"
 onclick="reportRequest('${id}')"
 >
@@ -2383,67 +2365,93 @@ Report
 
 </div>
 
+${
+x.pickupPlace
+?
+`
+<div class="small" style="margin-top:10px">
+📍 Pickup: <b>${esc(x.pickupPlace)}</b>
+</div>
+
+${
+x.pickupMap
+?
+`
+<a
+href="${esc(x.pickupMap)}"
+target="_blank"
+rel="noopener noreferrer"
+>
+Open Google Maps
+</a>
+`
+:""
+}
+
+`
+:""
+}
+
 </div>
 
 `;
 
-};
-
-
-$("receivedRequests").innerHTML =
-
-r.empty
-
-?
-
-"<p class='empty'>No received requests yet.</p>"
-
-:
-
-r.docs
-.map(renderReq)
-.join("");
-
-
-$("sentRequests").innerHTML =
-
-s.empty
-
-?
-
-"<p class='empty'>You have not sent any requests yet.</p>"
-
-:
-
-s.docs
-.map(renderReq)
-.join("");
-
 }
 
 
-window.changeStatus =
-async (
-id,
-status
-) => {
+$("receivedRequests").innerHTML =
+received.empty
+
+?
+"<p class='empty'>No received requests yet.</p>"
+
+:
+received.docs.map(renderRequest).join("");
+
+
+$("sentRequests").innerHTML =
+sent.empty
+
+?
+"<p class='empty'>You have not sent any requests yet.</p>"
+
+:
+sent.docs.map(renderRequest).join("");
+
+}catch(e){
+
+console.error(e);
+
+$("receivedRequests").innerHTML =
+"<p class='empty'>Could not load requests.</p>";
+
+$("sentRequests").innerHTML =
+"<p class='empty'>Could not load requests.</p>";
+
+showNotice(
+"Could not load exchanges.",
+"notice",
+true
+);
+
+}
+
+};
+
+
+window.changeStatus = async function(id,status){
+
+if(!user)return;
+
+try{
 
 const ref =
-doc(
-db,
-"requests",
-id
-);
+doc(db,"requests",id);
 
 const snap =
 await getDoc(ref);
 
-
-if(
-!snap.exists()
-)
-return;
-
+if(!snap.exists())return;
 
 const x =
 snap.data();
@@ -2452,23 +2460,24 @@ snap.data();
 if(
 x.ownerId !== user.uid &&
 x.requesterId !== user.uid
-)
+){
+
 return;
+
+}
 
 
 const allowed =
 
 (
+
 x.status === "pending" &&
 
 (
+
 (
 x.ownerId === user.uid &&
-[
-"accepted",
-"declined"
-]
-.includes(status)
+["accepted","declined"].includes(status)
 )
 
 ||
@@ -2477,6 +2486,7 @@ x.ownerId === user.uid &&
 x.requesterId === user.uid &&
 status === "cancelled"
 )
+
 )
 
 )
@@ -2516,9 +2526,13 @@ status === "completed"
 
 if(!allowed){
 
-return notice(
-"That status change is not allowed."
+showNotice(
+"That status change is not allowed.",
+"notice",
+true
 );
+
+return;
 
 }
 
@@ -2531,67 +2545,64 @@ updatedAt:serverTimestamp()
 }
 );
 
-
-notice(
+showNotice(
 "Exchange status updated."
 );
 
+await window.loadRequests();
 
-loadRequests();
+}catch(e){
+
+console.error(e);
+
+showNotice(
+e.message || "Could not update status.",
+"notice",
+true
+);
+
+}
 
 };
 
 
-window.openChat =
-async id => {
+window.openChat = async function(id){
 
-const s =
+if(!user)return;
+
+try{
+
+const snap =
 await getDoc(
-doc(
-db,
-"requests",
-id
-)
+doc(db,"requests",id)
 );
 
-
-if(
-!s.exists()
-)
-return;
-
+if(!snap.exists())return;
 
 const x =
-s.data();
-
+snap.data();
 
 if(
 x.ownerId !== user.uid &&
 x.requesterId !== user.uid
-)
+){
+
 return;
 
+}
 
-currentRequest =
-id;
+currentRequest = id;
 
-
-$("chatRequestId").value =
-id;
-
+$("chatRequestId").value = id;
 
 $("chatInfo").textContent =
-`Chat about ${x.itemName}. Keep personal details private.`;
+`Chat about ${x.itemName || "this item"}. Keep personal details private.`;
 
+window.openModal("chatModal");
 
-openModal(
-"chatModal"
-);
-
-
-if(unsubscribeChat)
+if(unsubscribeChat){
 unsubscribeChat();
-
+}
 
 unsubscribeChat =
 onSnapshot(
@@ -2603,64 +2614,81 @@ db,
 id,
 "messages"
 ),
-orderBy(
-"createdAt",
-"asc"
-)
+orderBy("createdAt","asc")
 ),
 
 snap => {
 
 $("chatMessages").innerHTML =
 
-snap.docs
-.map(
-d => {
+snap.docs.map(d => {
 
-const m =
-d.data();
+const m = d.data();
 
 return `
 
-<div
-class="msg ${m.senderId === user.uid ? "mine" : ""}"
->
+<div class="msg ${
+m.senderId === user.uid ? "mine" : ""
+}">
 
 <b>
-${m.senderId === user.uid
-? "You"
-: "Other user"}
+${
+m.senderId === user.uid
+?
+"You"
+:
+"Other user"
+}
 </b>
 
 <br>
 
-${esc(m.text)}
+${esc(m.text || "")}
 
 </div>
 
 `;
 
-}
-)
-.join("")
+}).join("")
 
 ||
 
 "<p class='empty'>No messages yet.</p>";
 
-
 $("chatMessages").scrollTop =
 $("chatMessages").scrollHeight;
+
+},
+
+error => {
+
+console.error(error);
+
+$("chatMessages").innerHTML =
+"<p class='empty'>Chat could not be loaded.</p>";
 
 }
 
 );
 
+}catch(e){
+
+console.error(e);
+
+showNotice(
+"Could not open chat.",
+"notice",
+true
+);
+
+}
+
 };
 
 
-window.sendChat =
-async () => {
+window.sendChat = async function(){
+
+if(!user)return;
 
 const text =
 $("chatText").value.trim();
@@ -2668,37 +2696,28 @@ $("chatText").value.trim();
 const id =
 $("chatRequestId").value;
 
+if(!text || !id)return;
 
-if(!text)
-return;
+try{
 
-
-const s =
+const snap =
 await getDoc(
-doc(
-db,
-"requests",
-id
-)
+doc(db,"requests",id)
 );
 
-
-if(
-!s.exists()
-)
-return;
-
+if(!snap.exists())return;
 
 const x =
-s.data();
-
+snap.data();
 
 if(
 x.ownerId !== user.uid &&
 x.requesterId !== user.uid
-)
+){
+
 return;
 
+}
 
 await addDoc(
 
@@ -2715,10 +2734,7 @@ senderId:
 user.uid,
 
 text:
-text.slice(
-0,
-500
-),
+text.slice(0,500),
 
 createdAt:
 serverTimestamp()
@@ -2727,64 +2743,76 @@ serverTimestamp()
 
 );
 
+$("chatText").value = "";
 
-$("chatText").value =
-"";
+}catch(e){
+
+console.error(e);
+
+showNotice(
+e.message || "Message could not be sent.",
+"notice",
+true
+);
+
+}
 
 };
 
 
-window.openPickup =
-async id => {
+window.openPickup = async function(id){
 
-const s =
+if(!user)return;
+
+try{
+
+const snap =
 await getDoc(
-doc(
-db,
-"requests",
-id
-)
+doc(db,"requests",id)
 );
 
-
-if(
-!s.exists()
-)
-return;
-
+if(!snap.exists())return;
 
 const x =
-s.data();
-
+snap.data();
 
 if(
 x.ownerId !== user.uid &&
 x.requesterId !== user.uid
-)
+){
+
 return;
 
+}
 
-$("pickupRequestId").value =
-id;
-
+$("pickupRequestId").value = id;
 
 $("pickupPlace").value =
 x.pickupPlace || "";
 
-
 $("pickupMap").value =
 x.pickupMap || "";
 
+window.openModal("pickupModal");
 
-openModal(
-"pickupModal"
+}catch(e){
+
+console.error(e);
+
+showNotice(
+"Could not open pickup point.",
+"notice",
+true
 );
+
+}
 
 };
 
 
-window.savePickup =
-async () => {
+window.savePickup = async function(){
+
+if(!user)return;
 
 const id =
 $("pickupRequestId").value;
@@ -2798,9 +2826,13 @@ $("pickupMap").value.trim();
 
 if(!place){
 
-return notice(
-"Enter a public pickup point."
+showNotice(
+"Enter a public pickup point.",
+"notice",
+true
 );
+
+return;
 
 }
 
@@ -2808,85 +2840,59 @@ return notice(
 if(
 map &&
 !(
-map.startsWith(
-"https://maps.google.com"
-)
-
+map.startsWith("https://maps.google.com")
 ||
-
-map.startsWith(
-"https://www.google.com/maps"
-)
-
+map.startsWith("https://www.google.com/maps")
 ||
-
-map.startsWith(
-"https://maps.app.goo.gl/"
-)
-
+map.startsWith("https://maps.app.goo.gl/")
 ||
-
-map.startsWith(
-"https://goo.gl/maps/"
-)
+map.startsWith("https://goo.gl/maps/")
 )
 ){
 
-return notice(
-"Enter a valid Google Maps link."
+showNotice(
+"Enter a valid Google Maps link.",
+"notice",
+true
 );
+
+return;
 
 }
 
 
-const s =
+try{
+
+const snap =
 await getDoc(
-doc(
-db,
-"requests",
-id
-)
+doc(db,"requests",id)
 );
 
-
-if(
-!s.exists()
-)
-return;
-
+if(!snap.exists())return;
 
 const x =
-s.data();
-
+snap.data();
 
 if(
 x.ownerId !== user.uid &&
 x.requesterId !== user.uid
-)
+){
+
 return;
 
+}
 
 await updateDoc(
 
-doc(
-db,
-"requests",
-id
-),
+doc(db,"requests",id),
 
 {
 
 pickupPlace:
-place.slice(
-0,
-120
-),
+place.slice(0,120),
 
 pickupMap:
-map.slice(
-0,
-500
-),
+map.slice(0,500),
 
 pickupUpdatedBy:
 user.uid,
@@ -2898,45 +2904,46 @@ serverTimestamp()
 
 );
 
+window.closeModal("pickupModal");
 
-closeModal(
-"pickupModal"
-);
-
-
-notice(
+showNotice(
 "Public pickup point saved."
 );
+
+}catch(e){
+
+console.error(e);
+
+showNotice(
+e.message || "Could not save pickup point.",
+"notice",
+true
+);
+
+}
 
 };
 
 
-window.rateExchange =
-async id => {
+window.rateExchange = async function(id){
 
-const s =
+if(!user)return;
+
+try{
+
+const snap =
 await getDoc(
-doc(
-db,
-"requests",
-id
-)
+doc(db,"requests",id)
 );
 
-
-if(
-!s.exists()
-)
-return;
-
+if(!snap.exists())return;
 
 const x =
-s.data();
-
+snap.data();
 
 if(
-x.status !== "completed" ||
-
+x.status !== "completed"
+||
 (
 x.ownerId !== user.uid &&
 x.requesterId !== user.uid
@@ -2947,7 +2954,6 @@ return;
 
 }
 
-
 const other =
 x.ownerId === user.uid
 ?
@@ -2955,94 +2961,99 @@ x.requesterId
 :
 x.ownerId;
 
-
 const score =
-prompt(
-"Rating 1–5:",
-"5"
-);
+prompt("Rating 1–5:","5");
 
+if(score === null)return;
 
 const n =
 Number(score);
 
-
 if(
-!Number.isInteger(n) ||
-n < 1 ||
+!Number.isInteger(n)
+||
+n < 1
+||
 n > 5
 ){
 
-return notice(
-"Rating must be 1 to 5."
+showNotice(
+"Rating must be from 1 to 5.",
+"notice",
+true
 );
+
+return;
 
 }
 
+const ratingRef =
+doc(
+db,
+"ratings",
+id + "_" + user.uid
+);
 
 const existing =
-await getDoc(
-doc(
-db,
-"ratings",
-id + "_" + user.uid
-)
+await getDoc(ratingRef);
+
+if(existing.exists()){
+
+showNotice(
+"You already rated this exchange.",
+"notice",
+true
 );
 
-
-if(
-existing.exists()
-){
-
-return notice(
-"You already rated this exchange."
-);
+return;
 
 }
 
-
 await setDoc(
-
-doc(
-db,
-"ratings",
-id + "_" + user.uid
-),
-
+ratingRef,
 {
 
-requestId:
-id,
+requestId:id,
 
-raterId:
-user.uid,
+raterId:user.uid,
 
-ratedUserId:
-other,
+ratedUserId:other,
 
-rating:
-n,
+rating:n,
 
 createdAt:
 serverTimestamp()
 
 }
-
 );
 
-
-notice(
+showNotice(
 "Thanks. Your rating was saved."
 );
+
+}catch(e){
+
+console.error(e);
+
+showNotice(
+e.message || "Could not save rating.",
+"notice",
+true
+);
+
+}
 
 };
 
 
-window.reportItem =
-async id => {
+window.reportItem = async function(id){
 
-requireAuth(
-async () => {
+if(!user){
+
+window.openAuth();
+return;
+
+}
 
 const reason =
 prompt(
@@ -3050,18 +3061,12 @@ prompt(
 "unsafe"
 );
 
+if(!reason)return;
 
-if(!reason)
-return;
-
+try{
 
 await addDoc(
-
-collection(
-db,
-"reports"
-),
-
+collection(db,"reports"),
 {
 
 reporterId:
@@ -3071,10 +3076,7 @@ itemId:
 id,
 
 reason:
-reason.slice(
-0,
-200
-),
+reason.slice(0,200),
 
 status:
 "open",
@@ -3083,25 +3085,35 @@ createdAt:
 serverTimestamp()
 
 }
-
 );
 
-
-notice(
+showNotice(
 "Report submitted."
 );
 
-}
+}catch(e){
+
+console.error(e);
+
+showNotice(
+e.message || "Could not submit report.",
+"notice",
+true
 );
+
+}
 
 };
 
 
-window.reportRequest =
-async id => {
+window.reportRequest = async function(id){
 
-requireAuth(
-async () => {
+if(!user){
+
+window.openAuth();
+return;
+
+}
 
 const reason =
 prompt(
@@ -3109,18 +3121,12 @@ prompt(
 "unsafe"
 );
 
+if(!reason)return;
 
-if(!reason)
-return;
-
+try{
 
 await addDoc(
-
-collection(
-db,
-"reports"
-),
-
+collection(db,"reports"),
 {
 
 reporterId:
@@ -3130,10 +3136,7 @@ requestId:
 id,
 
 reason:
-reason.slice(
-0,
-200
-),
+reason.slice(0,200),
 
 status:
 "open",
@@ -3142,55 +3145,55 @@ createdAt:
 serverTimestamp()
 
 }
-
 );
 
-
-notice(
+showNotice(
 "Report submitted."
 );
 
-}
+}catch(e){
+
+console.error(e);
+
+showNotice(
+e.message || "Could not submit report.",
+"notice",
+true
 );
+
+}
 
 };
 
 
-window.deactivateItem =
-async id => {
+window.deactivateItem = async function(id){
 
-requireAuth(
-async () => {
+if(!user)return;
 
-const s =
+try{
+
+const snap =
 await getDoc(
-doc(
-db,
-"items",
-id
-)
+doc(db,"items",id)
 );
 
+if(!snap.exists())return;
 
 if(
-!s.exists() ||
-s.data().ownerId !== user.uid
-)
+snap.data().ownerId !== user.uid
+){
+
 return;
 
+}
 
 await updateDoc(
 
-doc(
-db,
-"items",
-id
-),
+doc(db,"items",id),
 
 {
 
-active:
-false,
+active:false,
 
 updatedAt:
 serverTimestamp()
@@ -3199,18 +3202,130 @@ serverTimestamp()
 
 );
 
-
-notice(
+showNotice(
 "Listing deactivated."
 );
 
+if($("profileModal").style.display === "block"){
+
+window.openProfile();
+
 }
+
+}catch(e){
+
+console.error(e);
+
+showNotice(
+e.message || "Could not deactivate listing.",
+"notice",
+true
 );
+
+}
 
 };
 
 
-loadListings();
+try{
+
+app =
+initializeApp(firebaseConfig);
+
+auth =
+getAuth(app);
+
+db =
+getFirestore(app);
+
+
+onAuthStateChanged(
+auth,
+u => {
+
+user = u;
+
+$("authArea").innerHTML =
+
+u
+
+?
+
+`
+<div class="actions">
+
+<button
+type="button"
+onclick="openProfile()"
+>
+Profile
+</button>
+
+<button
+type="button"
+class="secondary"
+onclick="openExchanges()"
+>
+Exchanges
+</button>
+
+<button
+type="button"
+class="danger"
+onclick="logout()"
+>
+Logout
+</button>
+
+</div>
+`
+
+:
+
+`
+<button
+type="button"
+onclick="openAuth()"
+>
+Login / Sign up
+</button>
+`;
+
+
+$("loginState").textContent =
+u ? "Signed in" : "Guest";
+
+
+renderListings();
+
+renderNeeds();
+
+}
+);
+
+
+window.loadListings();
+
+}catch(e){
+
+console.error(
+"BorrowX Firebase initialization error:",
+e
+);
+
+showNotice(
+"Firebase connection failed. Login screen is still available. Please refresh the page.",
+"notice",
+true
+);
+
+$("listings").innerHTML =
+"<div class='empty'>Firebase connection unavailable.</div>";
+
+$("needs").innerHTML =
+"<div class='empty'>Firebase connection unavailable.</div>";
+
+}
 
 </script>
 
