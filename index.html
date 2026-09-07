@@ -2,135 +2,403 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
 <title>BorrowX — Borrow, Exchange & Trusted Community</title>
-<meta name="description" content="BorrowX - Borrow, exchange and share useful items with people nearby.">
-<meta name="theme-color" content="#111827">
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,Helvetica,sans-serif;background:#f5f7fb;color:#111827;line-height:1.5}
-button,input,select,textarea{font:inherit}
-button{cursor:pointer}
-.container{width:min(1100px,94%);margin:auto}
-header{background:#111827;color:#fff;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px #0002}
-.nav{min-height:66px;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.brand{font-size:24px;font-weight:800}.brand span{color:#60a5fa}
-.nav-actions{display:flex;gap:8px;flex-wrap:wrap}
-.btn{border:0;border-radius:10px;padding:10px 15px;font-weight:700}
-.btn:hover{transform:translateY(-1px)}.btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
-.primary{background:#2563eb;color:#fff}.secondary{background:#e5e7eb;color:#111827}
-.success{background:#16a34a;color:#fff}.danger{background:#dc2626;color:#fff}
-.warning{background:#f59e0b;color:#111827}.dark{background:#1f2937;color:#fff}
-.smallbtn{padding:7px 10px;font-size:12px}
-.hero{background:linear-gradient(135deg,#111827,#1d4ed8);color:#fff;padding:58px 0 48px}
-.hero-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:30px;align-items:center}
-.hero h1{font-size:clamp(35px,6vw,58px);line-height:1.04;margin-bottom:18px}
-.hero h1 span{color:#93c5fd}.hero p{color:#dbeafe;font-size:18px;max-width:650px;margin-bottom:24px}
-.hero-buttons{display:flex;gap:10px;flex-wrap:wrap}
-.hero-card{background:#ffffff18;border:1px solid #ffffff30;border-radius:20px;padding:24px}
-.hero-card h3{margin-bottom:12px}.hero-card div{padding:8px 0;border-bottom:1px solid #ffffff20}
-.hero-card div:last-child{border:0}
-.section{padding:40px 0}.title{margin-bottom:20px}.title h2{font-size:28px}.title p{color:#6b7280}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:-22px;position:relative}
-.stat{background:#fff;border-radius:15px;padding:18px;box-shadow:0 5px 20px #0000000d}
-.stat strong{display:block;font-size:24px}.stat span{color:#6b7280;font-size:13px}
-.toolbar{background:#fff;padding:15px;border-radius:15px;display:grid;grid-template-columns:1.5fr .7fr .7fr;gap:10px;margin-bottom:20px;box-shadow:0 3px 15px #0000000d}
-input,select,textarea{width:100%;border:1px solid #d1d5db;border-radius:10px;padding:11px;outline:0;background:#fff}
-input:focus,select:focus,textarea:focus{border-color:#2563eb;box-shadow:0 0 0 3px #2563eb18}
-textarea{min-height:100px;resize:vertical}
-.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.card{background:#fff;border-radius:16px;padding:19px;box-shadow:0 4px 18px #0000000d;border:1px solid #eef0f4}
-.cardtop{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px}.card h3{font-size:19px}
-.badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800;background:#dbeafe;color:#1d4ed8}
-.green{background:#dcfce7;color:#15803d}.orange{background:#ffedd5;color:#c2410c}.red{background:#fee2e2;color:#991b1b}
-.meta{color:#6b7280;font-size:13px;margin:6px 0}.desc{font-size:14px;color:#374151;margin:12px 0}
-.cardactions{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}
-.empty{background:#fff;border-radius:15px;padding:28px;text-align:center;color:#6b7280;grid-column:1/-1}
-.notice{padding:11px;border-radius:10px;background:#eff6ff;color:#1e40af;font-size:13px;margin-bottom:14px}
-.warningbox{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:10px;border-radius:9px;font-size:12px;margin-top:10px}
-.safety{background:#fff;border-left:5px solid #2563eb;padding:20px;border-radius:12px;box-shadow:0 3px 15px #0000000a}
-.safety ul{padding-left:20px;margin-top:9px}.safety li{margin:7px 0}
-footer{background:#111827;color:#d1d5db;padding:30px 0;margin-top:25px}
-footer strong{color:#fff}
-.overlay{display:none;position:fixed;inset:0;background:#0009;z-index:200;padding:15px;overflow:auto}
-.modal{background:#fff;width:min(680px,100%);margin:35px auto;border-radius:18px;overflow:hidden;box-shadow:0 15px 60px #0004}
-.modalhead{padding:17px 20px;border-bottom:1px solid #e5e7eb;display:flex;justify-content:space-between;align-items:center}
-.close{border:0;background:#f3f4f6;width:35px;height:35px;border-radius:50%;font-size:20px}
-.modalbody{padding:20px}.group{margin-bottom:14px}.group label{display:block;font-size:13px;font-weight:700;margin-bottom:5px}
-.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.tabs{display:flex;border-bottom:1px solid #e5e7eb}.tab{flex:1;padding:14px;border:0;background:#fff;font-weight:700}.tab.active{color:#2563eb;border-bottom:3px solid #2563eb}
-.status{display:none;padding:11px;border-radius:9px;margin-bottom:13px;font-size:13px}
-.stsuccess{display:block;background:#dcfce7;color:#166534}.sterror{display:block;background:#fee2e2;color:#991b1b}.stinfo{display:block;background:#dbeafe;color:#1e40af}
-.exchange{border:1px solid #e5e7eb;border-radius:13px;padding:14px;margin-bottom:12px}
-.exchangehead{display:flex;justify-content:space-between;gap:8px}.message{background:#f9fafb;padding:9px;border-radius:8px;font-size:13px;margin:9px 0}
-.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
-.hidden{display:none!important}.muted{color:#6b7280;font-size:12px}
-.chatbox{height:320px;overflow:auto;background:#f5f7fb;border-radius:10px;padding:12px}
-.msg{max-width:80%;background:#fff;padding:8px 10px;border-radius:10px;margin:6px 0;font-size:13px}
-.msg.mine{margin-left:auto;background:#dbeafe}
-.profilebox{background:#f9fafb;padding:15px;border-radius:12px}
-.verify{padding:9px;border-radius:9px;background:#fff7ed;color:#9a3412;font-size:12px;margin-top:10px}
-@media(max-width:850px){.hero-grid{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}
-@media(max-width:600px){.grid{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.row{grid-template-columns:1fr}.hero{padding:40px 0}.nav .btn{font-size:12px;padding:8px 10px}}
+*{box-sizing:border-box}
+
+body{
+margin:0;
+font-family:Arial,sans-serif;
+background:#f5f7fb;
+color:#172033
+}
+
+header{
+background:#fff;
+border-bottom:1px solid #e5e7eb;
+position:sticky;
+top:0;
+z-index:20
+}
+
+.nav{
+max-width:1100px;
+margin:auto;
+padding:14px 18px;
+display:flex;
+justify-content:space-between;
+align-items:center;
+gap:10px
+}
+
+.brand{
+font-size:24px;
+font-weight:800
+}
+
+.brand span{
+font-size:12px;
+font-weight:500;
+display:block;
+color:#667085
+}
+
+button{
+border:0;
+border-radius:10px;
+padding:11px 15px;
+font-weight:700;
+cursor:pointer;
+background:#111827;
+color:white
+}
+
+button.secondary{
+background:#e9eef5;
+color:#172033
+}
+
+button.danger{
+background:#b42318
+}
+
+button.success{
+background:#087443
+}
+
+main{
+max-width:1100px;
+margin:auto;
+padding:22px 18px 60px
+}
+
+.hero{
+background:#fff;
+border:1px solid #e5e7eb;
+border-radius:20px;
+padding:28px;
+margin-bottom:20px
+}
+
+.hero h1{
+font-size:38px;
+margin:0 0 10px
+}
+
+.hero p{
+color:#667085;
+max-width:720px;
+line-height:1.6
+}
+
+.actions{
+display:flex;
+gap:10px;
+flex-wrap:wrap;
+margin-top:18px
+}
+
+.stats{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:12px;
+margin:20px 0
+}
+
+.stat,.card{
+background:#fff;
+border:1px solid #e5e7eb;
+border-radius:16px;
+padding:16px
+}
+
+.stat b{
+font-size:25px;
+display:block
+}
+
+.section-title{
+display:flex;
+justify-content:space-between;
+align-items:center;
+margin:25px 0 12px;
+gap:10px
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(280px,1fr));
+gap:14px
+}
+
+.card h3{
+margin:0 0 7px
+}
+
+.muted{
+color:#667085;
+font-size:14px
+}
+
+.tag{
+display:inline-block;
+background:#eef2ff;
+border-radius:999px;
+padding:5px 9px;
+font-size:12px;
+margin:4px 4px 0 0
+}
+
+.card-actions{
+display:flex;
+gap:7px;
+flex-wrap:wrap;
+margin-top:13px
+}
+
+.card-actions button{
+font-size:13px;
+padding:9px 11px
+}
+
+.notice{
+padding:12px 14px;
+border-radius:10px;
+background:#ecfdf3;
+color:#067647;
+margin:10px 0;
+display:none
+}
+
+.empty{
+color:#667085;
+padding:16px 0
+}
+
+.safety{
+line-height:1.7;
+color:#475467
+}
+
+footer{
+text-align:center;
+color:#667085;
+padding:25px
+}
+
+.modal{
+display:none;
+position:fixed;
+inset:0;
+background:rgba(0,0,0,.55);
+z-index:50;
+padding:18px;
+overflow:auto
+}
+
+.modal-box{
+background:#fff;
+max-width:560px;
+margin:35px auto;
+border-radius:18px;
+padding:20px
+}
+
+.modal-head{
+display:flex;
+justify-content:space-between;
+align-items:center
+}
+
+.close{
+background:#eef2f6;
+color:#172033;
+padding:7px 10px
+}
+
+input,select,textarea{
+width:100%;
+padding:12px;
+border:1px solid #d0d5dd;
+border-radius:10px;
+margin:6px 0 12px;
+font:inherit
+}
+
+label{
+font-size:13px;
+font-weight:700
+}
+
+.row{
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:10px
+}
+
+hr{
+border:0;
+border-top:1px solid #eaecf0;
+margin:17px 0
+}
+
+.small{
+font-size:12px;
+color:#667085
+}
+
+.request-box{
+border:1px solid #e4e7ec;
+border-radius:12px;
+padding:12px;
+margin:9px 0
+}
+
+.chat{
+height:270px;
+overflow:auto;
+background:#f8fafc;
+border-radius:12px;
+padding:10px
+}
+
+.msg{
+padding:8px 10px;
+background:#fff;
+border:1px solid #e4e7ec;
+border-radius:10px;
+margin:6px 0
+}
+
+.mine{
+text-align:right
+}
+
+@media(max-width:650px){
+
+.hero h1{
+font-size:29px
+}
+
+.stats{
+grid-template-columns:1fr
+}
+
+.row{
+grid-template-columns:1fr
+}
+
+.nav{
+align-items:flex-start
+}
+
+}
 </style>
 </head>
 
 <body>
 
 <header>
-<div class="container nav">
-<div class="brand">Borrow<span>X</span></div>
-<div class="nav-actions">
-<button class="btn secondary smallbtn" onclick="openExchanges()">Exchanges</button>
-<button id="profileBtn" class="btn secondary smallbtn" onclick="openProfile()">Login</button>
+<div class="nav">
+
+<div class="brand">
+BorrowX
+<span>by Jay Style X1</span>
 </div>
+
+<div id="authArea">
+<button onclick="openAuth()">Login / Sign up</button>
+</div>
+
 </div>
 </header>
 
+<main>
+
 <section class="hero">
-<div class="container hero-grid">
-<div>
-<h1>Borrow less.<br><span>Share more.</span></h1>
-<p>Find useful items nearby, borrow them temporarily and build a trusted sharing community.</p>
-<div class="hero-buttons">
-<button class="btn primary" onclick="openNeed()">I Need Something</button>
-<button class="btn secondary" onclick="openListing()">I Have Something</button>
-<button class="btn dark" onclick="scrollListings()">Search Listings</button>
-</div>
+
+<h1>
+Borrow what you need. Share what you have.
+</h1>
+
+<p>
+BorrowX helps people discover nearby items for temporary borrowing or exchange.
+Public pickup points, protected chat and trust tools keep exchanges safer.
+</p>
+
+<div class="actions">
+
+<button onclick="requireAuth(openPost)">
+I Have
+</button>
+
+<button class="secondary" onclick="requireAuth(openNeed)">
+I Need
+</button>
+
+<button class="secondary" onclick="focusSearch()">
+Search
+</button>
+
+<button class="secondary" onclick="requireAuth(openExchanges)">
+My Exchanges
+</button>
+
 </div>
 
-<div class="hero-card">
-<h3>How BorrowX works</h3>
-<div>1️⃣ Post what you need or have</div>
-<div>2️⃣ Find a nearby match</div>
-<div>3️⃣ Send a request</div>
-<div>4️⃣ Communicate safely in-app</div>
-<div>5️⃣ Borrow → Return → Complete</div>
-</div>
-</div>
 </section>
 
-<section class="container">
+<div id="notice" class="notice"></div>
+
 <div class="stats">
-<div class="stat"><strong id="statListings">0</strong><span>Live listings</span></div>
-<div class="stat"><strong id="statNeeds">0</strong><span>Community needs</span></div>
-<div class="stat"><strong>🔐</strong><span>Firebase protected</span></div>
-<div class="stat"><strong>📍</strong><span>Approximate areas</span></div>
-</div>
-</section>
 
-<section class="section" id="listingsSection">
-<div class="container">
-<div class="title">
-<h2>Available on BorrowX</h2>
-<p>Find useful things people are willing to share.</p>
+<div class="stat">
+<b id="itemCount">0</b>
+Available listings
 </div>
 
-<div class="toolbar">
-<input id="search" type="search" placeholder="Search items, area or description..." oninput="renderListings()">
-<select id="cat" onchange="renderListings()">
-<option value="all">All categories</option>
+<div class="stat">
+<b id="needCount">0</b>
+People Need
+</div>
+
+<div class="stat">
+<b id="loginState">Guest</b>
+Account
+</div>
+
+</div>
+
+<div class="section-title">
+
+<h2>
+Available on BorrowX
+</h2>
+
+<button class="secondary" onclick="loadListings()">
+Refresh
+</button>
+
+</div>
+
+<div class="card" style="margin-bottom:14px">
+
+<input
+id="search"
+placeholder="Search item, category or area..."
+oninput="renderListings()"
+>
+
+<div class="row">
+
+<select id="filterCat" onchange="renderListings()">
+
+<option value="">
+All categories
+</option>
+
 <option>Tools</option>
 <option>Books</option>
 <option>Camera</option>
@@ -138,2221 +406,2813 @@ footer strong{color:#fff}
 <option>Games</option>
 <option>Home</option>
 <option>Other</option>
+
 </select>
-<select id="mode" onchange="renderListings()">
-<option value="all">Borrow + Exchange</option>
-<option>Borrow</option>
-<option>Exchange</option>
+
+<select id="filterMode" onchange="renderListings()">
+
+<option value="">
+Borrow + Exchange
+</option>
+
+<option value="Borrow">
+Borrow
+</option>
+
+<option value="Exchange">
+Exchange
+</option>
+
 </select>
+
+</div>
+
 </div>
 
 <div id="listings" class="grid">
-<div class="empty">Loading listings...</div>
-</div>
-</div>
-</section>
 
-<section class="section">
-<div class="container">
-<div class="title">
-<h2>People Need</h2>
-<p>Help someone nearby find what they need.</p>
+<div class="empty">
+Loading...
 </div>
+
+</div>
+
+<div class="section-title">
+
+<h2>
+People Need
+</h2>
+
+</div>
+
 <div id="needs" class="grid">
-<div class="empty">Loading needs...</div>
-</div>
-</div>
-</section>
 
-<section class="section">
-<div class="container">
-<div class="title">
-<h2>Trust & Safety</h2>
-<p>BorrowX is designed around safer community exchanges.</p>
+<div class="empty">
+Loading...
 </div>
+
+</div>
+
+<section class="hero" style="margin-top:24px">
+
+<h2>
+Trust & Safety
+</h2>
 
 <div class="safety">
-<strong>Important safety rules</strong>
-<ul>
-<li>Use only an approximate area in public listings.</li>
-<li>Never publish your exact home address.</li>
-<li>Never publish your personal phone number.</li>
-<li>Prefer safe, public locations for handovers.</li>
-<li>Do not meet unknown people alone if you feel unsafe.</li>
-<li>Use BorrowX chat instead of posting personal contact details.</li>
-<li>Report suspicious listings or accounts.</li>
-<li>Verification and ratings do not guarantee that another person is completely safe.</li>
-</ul>
-<div class="warningbox">
-BorrowX is a community platform. Use your judgment and involve a trusted adult when appropriate.
+
+• Exact home addresses are never shown publicly.<br>
+
+• Use an agreed public/safe pickup point; don't invite strangers to your home.<br>
+
+• Phone numbers are not automatically shared. Use BorrowX chat first.<br>
+
+• Verify your account, check exchange history and report suspicious activity.<br>
+
+• Location sharing is limited to an agreed pickup point and is not continuous/background tracking.
+
 </div>
-</div>
-</div>
+
 </section>
 
+</main>
+
 <footer>
-<div class="container">
-<strong>BorrowX</strong> — Borrow, Exchange & Trusted Community<br>
-<span class="muted">by Jay Style X1</span>
-</div>
+BorrowX © 2026 · Borrow • Exchange • Trust
 </footer>
 
-
 <!-- AUTH -->
-<div id="auth" class="overlay">
-<div class="modal">
-<div class="modalhead">
-<h3>BorrowX Account</h3>
-<button class="close" onclick="closeM('auth')">×</button>
+
+<div class="modal" id="authModal">
+
+<div class="modal-box">
+
+<div class="modal-head">
+
+<h2 id="authTitle">
+Login
+</h2>
+
+<button class="close" onclick="closeModal('authModal')">
+×
+</button>
+
 </div>
 
-<div class="tabs">
-<button id="tabLogin" class="tab active" onclick="authTab('login')">Login</button>
-<button id="tabSignup" class="tab" onclick="authTab('signup')">Create Account</button>
+<div id="authNotice" class="notice"></div>
+
+<label>
+Email
+</label>
+
+<input
+id="authEmail"
+type="email"
+autocomplete="email"
+>
+
+<label>
+Password
+</label>
+
+<input
+id="authPassword"
+type="password"
+autocomplete="current-password"
+>
+
+<div class="actions">
+
+<button id="authSubmit" onclick="submitAuth()">
+Login
+</button>
+
+<button class="secondary" onclick="toggleAuth()">
+Create account
+</button>
+
 </div>
 
-<div class="modalbody">
-<div id="authStatus" class="status"></div>
+<button
+class="secondary"
+style="margin-top:9px"
+onclick="forgotPassword()"
+>
+Forgot password?
+</button>
 
-<div id="loginBox">
-<div class="group">
-<label>Email</label>
-<input id="loginEmail" type="email" autocomplete="email">
-</div>
-
-<div class="group">
-<label>Password</label>
-<input id="loginPass" type="password" autocomplete="current-password">
-</div>
-
-<button class="btn primary" style="width:100%" onclick="login()">Login</button>
-<button class="btn secondary" style="width:100%;margin-top:8px" onclick="forgot()">Forgot Password?</button>
-</div>
-
-<div id="signupBox" class="hidden">
-<div class="group">
-<label>Email</label>
-<input id="signupEmail" type="email" autocomplete="email">
-</div>
-
-<div class="group">
-<label>Password</label>
-<input id="signupPass" type="password" autocomplete="new-password">
-</div>
-
-<button class="btn primary" style="width:100%" onclick="signup()">Create Account</button>
-</div>
-
-<div id="forgotBox" class="hidden">
-<div class="group">
-<label>Email</label>
-<input id="forgotEmail" type="email">
-</div>
-
-<button class="btn primary" style="width:100%" onclick="resetPassword()">Send Reset Email</button>
-<button class="btn secondary" style="width:100%;margin-top:8px" onclick="authTab('login')">Back to Login</button>
-</div>
-</div>
 </div>
 </div>
 
+<!-- POST ITEM -->
 
-<!-- LISTING -->
-<div id="listingModal" class="overlay">
-<div class="modal">
-<div class="modalhead">
-<h3>List Something You Have</h3>
-<button class="close" onclick="closeM('listingModal')">×</button>
+<div class="modal" id="postModal">
+
+<div class="modal-box">
+
+<div class="modal-head">
+
+<h2>
+I Have
+</h2>
+
+<button class="close" onclick="closeModal('postModal')">
+×
+</button>
+
 </div>
 
-<div class="modalbody">
-<div id="listingStatus" class="status"></div>
+<label>
+Item name
+</label>
 
-<div class="group">
-<label>Item name</label>
-<input id="itemName" maxlength="80" placeholder="Example: Drill Machine">
-</div>
+<input
+id="itemName"
+maxlength="80"
+placeholder="e.g. Drill Machine"
+>
 
 <div class="row">
-<div class="group">
-<label>Mode</label>
+
+<div>
+
+<label>
+Mode
+</label>
+
 <select id="itemMode">
-<option>Borrow</option>
-<option>Exchange</option>
+
+<option>
+Borrow
+</option>
+
+<option>
+Exchange
+</option>
+
 </select>
+
 </div>
 
-<div class="group">
-<label>Category</label>
-<select id="itemCat">
-<option>Tools</option>
-<option>Books</option>
-<option>Camera</option>
-<option>Sports</option>
-<option>Games</option>
-<option>Home</option>
-<option>Other</option>
+<div>
+
+<label>
+Category
+</label>
+
+<select id="itemCategory">
+
+<option>
+Tools
+</option>
+
+<option>
+Books
+</option>
+
+<option>
+Camera
+</option>
+
+<option>
+Sports
+</option>
+
+<option>
+Games
+</option>
+
+<option>
+Home
+</option>
+
+<option>
+Other
+</option>
+
 </select>
-</div>
+
 </div>
 
-<div class="row">
-<div class="group">
-<label>Approximate area</label>
-<input id="itemArea" maxlength="60" placeholder="Example: Mainpuri">
 </div>
 
-<div class="group">
-<label>Available duration</label>
-<input id="itemDuration" maxlength="40" placeholder="Example: 2 days">
-</div>
-</div>
+<label>
+Approximate area
+</label>
 
-<div class="group">
-<label>Description</label>
-<textarea id="itemDesc" maxlength="500" placeholder="Condition and useful details..."></textarea>
-</div>
+<input
+id="itemArea"
+maxlength="60"
+placeholder="e.g. Mainpuri"
+>
 
-<div class="warningbox">
-Do not enter exact address, phone number, password or other sensitive information.
-</div>
+<label>
+Duration
+</label>
 
-<button class="btn primary" style="width:100%;margin-top:14px" onclick="publish()">Publish Listing</button>
-</div>
-</div>
-</div>
+<input
+id="itemDuration"
+maxlength="40"
+placeholder="e.g. 2 days"
+>
 
+<label>
+Description
+</label>
+
+<textarea
+id="itemDescription"
+maxlength="500"
+placeholder="Condition, useful details..."
+></textarea>
+
+<p class="small">
+Only use an approximate area. Never enter your home address.
+</p>
+
+<button onclick="publishItem()">
+Publish
+</button>
+
+</div>
+</div>
 
 <!-- NEED -->
-<div id="needModal" class="overlay">
-<div class="modal">
-<div class="modalhead">
-<h3>I Need Something</h3>
-<button class="close" onclick="closeM('needModal')">×</button>
+
+<div class="modal" id="needModal">
+
+<div class="modal-box">
+
+<div class="modal-head">
+
+<h2>
+I Need
+</h2>
+
+<button class="close" onclick="closeModal('needModal')">
+×
+</button>
+
 </div>
 
-<div class="modalbody">
-<div id="needStatus" class="status"></div>
+<label>
+What do you need?
+</label>
 
-<div class="group">
-<label>What do you need?</label>
-<input id="needName" maxlength="80" placeholder="Example: Ladder">
-</div>
+<input
+id="needName"
+maxlength="80"
+placeholder="e.g. Camera"
+>
 
 <div class="row">
-<div class="group">
-<label>Category</label>
-<select id="needCat">
-<option>Tools</option>
-<option>Books</option>
-<option>Camera</option>
-<option>Sports</option>
-<option>Games</option>
-<option>Home</option>
-<option>Other</option>
+
+<div>
+
+<label>
+Category
+</label>
+
+<select id="needCategory">
+
+<option>
+Tools
+</option>
+
+<option>
+Books
+</option>
+
+<option>
+Camera
+</option>
+
+<option>
+Sports
+</option>
+
+<option>
+Games
+</option>
+
+<option>
+Home
+</option>
+
+<option>
+Other
+</option>
+
 </select>
+
 </div>
 
-<div class="group">
-<label>Approximate area</label>
-<input id="needArea" maxlength="60" placeholder="Example: Mainpuri">
+<div>
+
+<label>
+Approximate area
+</label>
+
+<input
+id="needArea"
+maxlength="60"
+placeholder="e.g. Mainpuri"
+>
+
+</div>
+
+</div>
+
+<label>
+How long?
+</label>
+
+<input
+id="needDuration"
+maxlength="40"
+placeholder="e.g. 3 days"
+>
+
+<label>
+Description
+</label>
+
+<textarea
+id="needDescription"
+maxlength="500"
+></textarea>
+
+<button onclick="publishNeed()">
+Post Need
+</button>
+
 </div>
 </div>
 
-<div class="group">
-<label>What do you need it for?</label>
-<textarea id="needDesc" maxlength="500"></textarea>
+<!-- REQUEST MODAL -->
+
+<div class="modal" id="requestModal">
+
+<div class="modal-box">
+
+<div class="modal-head">
+
+<h2>
+Request item
+</h2>
+
+<button class="close" onclick="closeModal('requestModal')">
+×
+</button>
+
 </div>
 
-<div class="group">
-<label>How long?</label>
-<input id="needDuration" maxlength="40" placeholder="Example: 2 days">
-</div>
+<p id="requestItemTitle"></p>
 
-<div class="warningbox">
-Only use an approximate area. Never post your exact address or phone number.
-</div>
+<label>
+Message
+</label>
 
-<button class="btn primary" style="width:100%;margin-top:14px" onclick="publishNeed()">Post Need</button>
-</div>
-</div>
-</div>
+<textarea
+id="requestMessage"
+maxlength="300"
+placeholder="Tell the owner when you need it and agree on a public pickup point later."
+></textarea>
 
+<button onclick="sendRequest()">
+Send request
+</button>
 
-<!-- REQUEST -->
-<div id="requestModal" class="overlay">
-<div class="modal">
-<div class="modalhead">
-<h3>Request Item</h3>
-<button class="close" onclick="closeM('requestModal')">×</button>
-</div>
+<input type="hidden" id="requestItemId">
+<input type="hidden" id="requestOwnerId">
+<input type="hidden" id="requestOwnerEmail">
 
-<div class="modalbody">
-<div id="requestStatus" class="status"></div>
-<p>Requesting: <strong id="requestName"></strong></p>
-
-<div class="group" style="margin-top:14px">
-<label>Message</label>
-<textarea id="requestMsg" maxlength="500" placeholder="Tell the owner what you need it for and for how long."></textarea>
-</div>
-
-<button class="btn primary" style="width:100%" onclick="sendRequest()">Send Request</button>
-</div>
 </div>
 </div>
 
 
 <!-- EXCHANGES -->
-<div id="exchangeModal" class="overlay">
-<div class="modal">
-<div class="modalhead">
-<h3>My Exchanges</h3>
-<button class="close" onclick="closeM('exchangeModal')">×</button>
+
+<div class="modal" id="exchangeModal">
+
+<div class="modal-box">
+
+<div class="modal-head">
+
+<h2>
+My Exchanges
+</h2>
+
+<button class="close" onclick="closeModal('exchangeModal')">
+×
+</button>
+
 </div>
 
-<div class="modalbody">
-<div id="exchangeStatus" class="status"></div>
-<div id="accountNotice" class="notice"></div>
+<h3>
+Requests for your items
+</h3>
 
-<h4 style="margin:15px 0 9px">REQUESTS FOR YOUR ITEMS</h4>
-<div id="received"><div class="empty">Loading...</div></div>
+<div id="receivedRequests"></div>
 
-<h4 style="margin:22px 0 9px">YOUR SENT REQUESTS</h4>
-<div id="sent"><div class="empty">Loading...</div></div>
-</div>
+<hr>
+
+<h3>
+Your sent requests
+</h3>
+
+<div id="sentRequests"></div>
+
 </div>
 </div>
 
 
 <!-- CHAT -->
-<div id="chatModal" class="overlay">
-<div class="modal">
-<div class="modalhead">
-<h3 id="chatTitle">BorrowX Chat</h3>
-<button class="close" onclick="closeChat()">×</button>
+
+<div class="modal" id="chatModal">
+
+<div class="modal-box">
+
+<div class="modal-head">
+
+<h2>
+BorrowX Chat
+</h2>
+
+<button class="close" onclick="closeModal('chatModal')">
+×
+</button>
+
 </div>
 
-<div class="modalbody">
-<div id="chatMessages" class="chatbox"></div>
+<p class="small" id="chatInfo"></p>
 
-<div style="display:flex;gap:8px;margin-top:10px">
-<input id="chatInput" maxlength="1000" placeholder="Write a message...">
-<button class="btn primary" onclick="sendChat()">Send</button>
+<div id="chatMessages" class="chat"></div>
+
+<textarea
+id="chatText"
+maxlength="500"
+placeholder="Write a message..."
+></textarea>
+
+<button onclick="sendChat()">
+Send
+</button>
+
+<input type="hidden" id="chatRequestId">
+
+</div>
 </div>
 
-<div class="warningbox">
-Do not share your exact address, password or sensitive personal information.
+
+<!-- PICKUP -->
+
+<div class="modal" id="pickupModal">
+
+<div class="modal-box">
+
+<div class="modal-head">
+
+<h2>
+Safe pickup point
+</h2>
+
+<button class="close" onclick="closeModal('pickupModal')">
+×
+</button>
+
 </div>
-</div>
+
+<p class="small">
+Only share a public pickup point. Do not enter a home address.
+</p>
+
+<label>
+Place name
+</label>
+
+<input
+id="pickupPlace"
+maxlength="120"
+placeholder="e.g. Mainpuri public market"
+>
+
+<label>
+Google Maps link (optional)
+</label>
+
+<input
+id="pickupMap"
+maxlength="500"
+placeholder="Paste a Maps link"
+>
+
+<button onclick="savePickup()">
+Save pickup point
+</button>
+
+<input type="hidden" id="pickupRequestId">
+
 </div>
 </div>
 
 
 <!-- PROFILE -->
-<div id="profileModal" class="overlay">
-<div class="modal">
-<div class="modalhead">
-<h3>My BorrowX Profile</h3>
-<button class="close" onclick="closeM('profileModal')">×</button>
-</div>
 
-<div class="modalbody">
+<div class="modal" id="profileModal">
 
-<div id="loggedOut">
-<p style="margin-bottom:12px">Login to use BorrowX.</p>
-<button class="btn primary" style="width:100%" onclick="closeM('profileModal');openAuth()">
-Login / Create Account
-</button>
-</div>
+<div class="modal-box">
 
-<div id="loggedIn" class="hidden">
+<div class="modal-head">
 
-<div class="profilebox">
-<strong>Account</strong>
-<p id="profileEmail" class="muted"></p>
-<p id="verifyState" class="muted" style="margin-top:5px"></p>
-</div>
+<h2>
+Profile
+</h2>
 
-<div id="verifyNotice" class="verify hidden">
-For a stronger account, verify your email address.
-</div>
-
-<div class="row" style="margin-top:12px">
-<div class="stat">
-<strong id="pSent">0</strong>
-<span>Sent requests</span>
-</div>
-
-<div class="stat">
-<strong id="pReceived">0</strong>
-<span>Received</span>
-</div>
-</div>
-
-<div class="profilebox" style="margin-top:12px">
-<strong>Trust rating</strong>
-<p id="ratingText" style="margin-top:5px">No ratings yet.</p>
-</div>
-
-<button id="verifyBtn" class="btn warning" style="width:100%;margin-top:12px" onclick="verifyEmail()">
-Send verification email
-</button>
-
-<button class="btn secondary" style="width:100%;margin-top:8px" onclick="closeM('profileModal');openExchanges()">
-My Exchanges
-</button>
-
-<button class="btn danger" style="width:100%;margin-top:8px" onclick="logout()">
-Logout
+<button class="close" onclick="closeModal('profileModal')">
+×
 </button>
 
 </div>
-</div>
-</div>
-</div>
 
+<div id="profileInfo"></div>
 
-<!-- REPORT -->
-<div id="reportModal" class="overlay">
-<div class="modal">
-<div class="modalhead">
-<h3>Report Listing</h3>
-<button class="close" onclick="closeM('reportModal')">×</button>
-</div>
+<hr>
 
-<div class="modalbody">
-<div id="reportStatus" class="status"></div>
+<h3>
+My listings
+</h3>
 
-<div class="group">
-<label>Reason</label>
-<select id="reportReason">
-<option>Suspicious listing</option>
-<option>Wrong information</option>
-<option>Inappropriate content</option>
-<option>Other</option>
-</select>
-</div>
+<div id="myListings"></div>
 
-<div class="group">
-<label>Details</label>
-<textarea id="reportDetails" maxlength="500"></textarea>
-</div>
+<hr>
 
-<button class="btn danger" style="width:100%" onclick="submitReport()">
-Submit Report
-</button>
-</div>
-</div>
-</div>
+<h3>
+Trust
+</h3>
 
+<p class="small">
+Ratings are created after a completed exchange.
+A rating does not guarantee another person's safety.
+</p>
 
-<!-- RATING -->
-<div id="ratingModal" class="overlay">
-<div class="modal">
-<div class="modalhead">
-<h3>Rate Exchange</h3>
-<button class="close" onclick="closeM('ratingModal')">×</button>
-</div>
-
-<div class="modalbody">
-<div id="ratingStatus" class="status"></div>
-
-<p>Rate your completed exchange experience.</p>
-
-<div class="group" style="margin-top:14px">
-<label>Rating</label>
-<select id="ratingScore">
-<option value="5">5 — Excellent</option>
-<option value="4">4 — Good</option>
-<option value="3">3 — Okay</option>
-<option value="2">2 — Poor</option>
-<option value="1">1 — Very poor</option>
-</select>
-</div>
-
-<div class="group">
-<label>Comment</label>
-<textarea id="ratingComment" maxlength="300"></textarea>
-</div>
-
-<button class="btn primary" style="width:100%" onclick="submitRating()">
-Submit Rating
-</button>
-</div>
 </div>
 </div>
 
 
 <script type="module">
 
-import {initializeApp}
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import {
+initializeApp
+}
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
 
 import {
 getAuth,
+onAuthStateChanged,
 createUserWithEmailAndPassword,
 signInWithEmailAndPassword,
 sendPasswordResetEmail,
-onAuthStateChanged,
 signOut,
-sendEmailVerification
+updateProfile
 }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
 
 import {
 getFirestore,
 collection,
 addDoc,
-setDoc,
-getDoc,
-getDocs,
 doc,
+getDoc,
+setDoc,
+updateDoc,
 query,
 where,
+orderBy,
 onSnapshot,
-updateDoc,
-serverTimestamp,
-limit
+getDocs,
+serverTimestamp
 }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
-const firebaseConfig={
-apiKey:"AIzaSyDON3_zSPUXVuCsUFJwNQKYvopE5cfYFTw",
-authDomain:"borrowx-41589.firebaseapp.com",
-projectId:"borrowx-41589",
-storageBucket:"borrowx-41589.firebasestorage.app",
-messagingSenderId:"833407287824",
-appId:"1:833407287824:web:18f72c92cd12297dc20095",
-measurementId:"G-3BMPCT4BZY"
+const firebaseConfig = {
+
+apiKey:
+"AIzaSyDON3_zSPUXVuCsUFJwNQKYvopE5cfYFTw",
+
+authDomain:
+"borrowx-41589.firebaseapp.com",
+
+projectId:
+"borrowx-41589",
+
+storageBucket:
+"borrowx-41589.firebasestorage.app",
+
+messagingSenderId:
+"833407287824",
+
+appId:
+"1:833407287824:web:18f72c92cd12297dc20095",
+
+measurementId:
+"G-3BMPCT4BZY"
+
 };
 
-const app=initializeApp(firebaseConfig);
-const auth=getAuth(app);
-const db=getFirestore(app);
 
-let user=null;
-let listings=[];
-let needs=[];
-let received=[];
-let sent=[];
-let selectedItem=null;
-let selectedReport=null;
-let selectedRequest=null;
-let ratingRequest=null;
-let chatUnsub=null;
-let receivedUnsub=null;
-let sentUnsub=null;
+const app =
+initializeApp(firebaseConfig);
 
 
-const samples=[
-{
-id:"sample1",
-itemName:"Study Books",
-category:"Books",
-mode:"Borrow",
-area:"Mainpuri",
-duration:"7 days",
-description:"Useful study books available for temporary borrowing.",
-sample:true
-},
-{
-id:"sample2",
-itemName:"Basketball",
-category:"Sports",
-mode:"Borrow",
-area:"Mainpuri",
-duration:"2 days",
-description:"Basketball available for short-term use.",
-sample:true
-}
-];
+const auth =
+getAuth(app);
 
 
-const $=id=>document.getElementById(id);
+const db =
+getFirestore(app);
 
-window.closeM=id=>{
-const el=$(id);
-if(el)el.style.display="none";
-};
 
-function openM(id){
-const el=$(id);
-if(el)el.style.display="block";
-}
+let user = null;
 
-function status(id,text,type="info"){
-const e=$(id);
-if(!e)return;
-e.className="status "+(
-type==="success"?"stsuccess":
-type==="error"?"sterror":"stinfo"
+let items = [];
+
+let needs = [];
+
+let currentRequest = null;
+
+let unsubscribeChat = null;
+
+
+const $ =
+id => document.getElementById(id);
+
+
+const esc =
+s =>
+String(s ?? "")
+.replace(
+/[&<>"']/g,
+c =>
+({
+"&":"&amp;",
+"<":"&lt;",
+">":"&gt;",
+'"':"&quot;",
+"'":"&#039;"
+}[c])
 );
-e.textContent=text;
-}
-
-function clearStatus(id){
-const e=$(id);
-if(e){
-e.className="status";
-e.textContent="";
-}
-}
-
-function esc(v){
-return String(v??"")
-.replaceAll("&","&amp;")
-.replaceAll("<","&lt;")
-.replaceAll(">","&gt;")
-.replaceAll('"',"&quot;")
-.replaceAll("'","&#039;");
-}
-
-function errorText(e){
-const c=e?.code||"";
-const m={
-"auth/invalid-credential":"Email or password is incorrect.",
-"auth/invalid-email":"Please enter a valid email.",
-"auth/email-already-in-use":"This email already has an account.",
-"auth/weak-password":"Password must be at least 6 characters.",
-"auth/network-request-failed":"Network problem. Check your internet.",
-"auth/too-many-requests":"Too many attempts. Please wait.",
-"permission-denied":"Firebase permission denied.",
-"permission-denied":"Firebase permission denied."
-};
-return m[c]||e?.message||"Something went wrong.";
-}
 
 
-/* BACKWARD COMPATIBILITY */
-
-function getItemName(x){
-return x.itemName||x.name||"Unnamed item";
-}
-
-function getCategory(x){
-return x.category||inferCategory(getItemName(x));
-}
-
-function inferCategory(n){
-n=(n||"").toLowerCase();
-
-if(/book|study|copy|notebook/.test(n))return"Books";
-if(/drill|tool|hammer|screw|ladder/.test(n))return"Tools";
-if(/camera|lens/.test(n))return"Camera";
-if(/ball|bat|racket|sports/.test(n))return"Sports";
-if(/game|console/.test(n))return"Games";
-if(/home|chair|table|utensil/.test(n))return"Home";
-
-return"Other";
-}
-
-function dateText(t){
-if(!t)return"Just now";
-
-try{
-return new Date(t.seconds*1000)
-.toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short"});
-}catch{
-return"Recently";
-}
-}
-
-function sortDate(a,b){
-return(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0);
-}
-
-function containsPhone(text){
-return/\b(?:\+91[\s-]?)?[6-9]\d{9}\b/.test(text||"");
-}
+const itemName =
+x =>
+x.itemName ||
+x.name ||
+"Unnamed item";
 
 
-/* AUTH */
+function notice(
+msg,
+el="notice"
+){
 
-window.openAuth=()=>{
-openM("auth");
-authTab("login");
-};
+const e =
+$(el);
 
-window.authTab=function(type){
+e.textContent =
+msg;
 
-$("loginBox").classList.toggle("hidden",type!=="login");
-$("signupBox").classList.toggle("hidden",type!=="signup");
-$("forgotBox").classList.add("hidden");
+e.style.display =
+"block";
 
-$("tabLogin").classList.toggle("active",type==="login");
-$("tabSignup").classList.toggle("active",type==="signup");
-
-clearStatus("authStatus");
-};
-
-window.forgot=function(){
-
-$("loginBox").classList.add("hidden");
-$("signupBox").classList.add("hidden");
-$("forgotBox").classList.remove("hidden");
-
-$("forgotEmail").value=$("loginEmail").value.trim();
-
-clearStatus("authStatus");
-};
-
-window.signup=async()=>{
-
-const email=$("signupEmail").value.trim();
-const pass=$("signupPass").value;
-
-if(!email||pass.length<6){
-status(
-"authStatus",
-"Enter a valid email and password of at least 6 characters.",
-"error"
+setTimeout(
+() =>
+e.style.display =
+"none",
+4000
 );
+
+}
+
+
+function openModal(id){
+
+$(id).style.display =
+"block";
+
+}
+
+
+function closeModal(id){
+
+$(id).style.display =
+"none";
+
+}
+
+
+window.closeModal =
+closeModal;
+
+
+function requireAuth(fn){
+
+if(!user){
+
+openAuth();
+
+notice(
+"Please login first.",
+"authNotice"
+);
+
 return;
+
 }
+
+fn();
+
+}
+
+
+window.requireAuth =
+requireAuth;
+
+
+window.openAuth =
+() =>
+openModal("authModal");
+
+
+window.openPost =
+() =>
+openModal("postModal");
+
+
+window.openNeed =
+() =>
+openModal("needModal");
+
+
+window.openExchanges =
+() => {
+
+openModal("exchangeModal");
+
+loadRequests();
+
+};
+
+
+window.focusSearch =
+() => {
+
+$("search").focus();
+
+window.scrollTo({
+top:$("search").offsetTop-80,
+behavior:"smooth"
+});
+
+};
+
+
+let loginMode =
+true;
+
+
+window.toggleAuth =
+() => {
+
+loginMode =
+!loginMode;
+
+$("authTitle").textContent =
+loginMode
+?
+"Login"
+:
+"Create account";
+
+$("authSubmit").textContent =
+loginMode
+?
+"Login"
+:
+"Create account";
+
+};
+
+
+window.submitAuth =
+async () => {
 
 try{
 
-status("authStatus","Creating account...");
+const email =
+$("authEmail").value.trim();
 
-await createUserWithEmailAndPassword(auth,email,pass);
+const pw =
+$("authPassword").value;
 
-status(
-"authStatus",
-"Account created successfully ✅",
-"success"
+
+if(
+!email ||
+pw.length < 6
+){
+
+throw new Error(
+"Enter a valid email and a password of at least 6 characters."
 );
 
-setTimeout(()=>closeM("auth"),700);
+}
+
+
+if(loginMode){
+
+await signInWithEmailAndPassword(
+auth,
+email,
+pw
+);
+
+}else{
+
+const c =
+await createUserWithEmailAndPassword(
+auth,
+email,
+pw
+);
+
+await updateProfile(
+c.user,
+{
+displayName:
+email.split("@")[0]
+}
+);
+
+}
+
+
+closeModal("authModal");
+
+notice(
+"Signed in successfully."
+);
+
 
 }catch(e){
 
-status("authStatus",errorText(e),"error");
+notice(
+e.message,
+"authNotice"
+);
 
 }
+
 };
 
-window.login=async()=>{
 
-const email=$("loginEmail").value.trim();
-const pass=$("loginPass").value;
-
-if(!email||!pass){
-status("authStatus","Enter email and password.","error");
-return;
-}
+window.forgotPassword =
+async () => {
 
 try{
 
-status("authStatus","Logging in...");
+const email =
+$("authEmail").value.trim();
 
-await signInWithEmailAndPassword(auth,email,pass);
-
-status(
-"authStatus",
-"Login successful ✅",
-"success"
-);
-
-setTimeout(()=>closeM("auth"),500);
-
-}catch(e){
-
-status("authStatus",errorText(e),"error");
-
-}
-};
-
-window.resetPassword=async()=>{
-
-const email=$("forgotEmail").value.trim();
 
 if(!email){
-status("authStatus","Enter your email.","error");
-return;
+
+throw new Error(
+"Enter your email first."
+);
+
 }
 
-try{
 
-await sendPasswordResetEmail(auth,email);
-
-status(
-"authStatus",
-"If an account exists, a reset email has been sent ✅",
-"success"
+await sendPasswordResetEmail(
+auth,
+email
 );
+
+
+notice(
+"Password reset email sent. Check your inbox.",
+"authNotice"
+);
+
 
 }catch(e){
 
-if(e.code==="auth/invalid-email"){
-status("authStatus","Enter a valid email.","error");
-}else{
-status(
-"authStatus",
-"If an account exists, a reset email has been sent.",
-"success"
+notice(
+e.message,
+"authNotice"
 );
-}
 
 }
+
 };
 
-window.logout=async()=>{
 
-if(receivedUnsub)receivedUnsub();
-if(sentUnsub)sentUnsub();
-
-receivedUnsub=null;
-sentUnsub=null;
-
-if(chatUnsub){
-chatUnsub();
-chatUnsub=null;
-}
+window.logout =
+async () => {
 
 await signOut(auth);
 
-closeM("profileModal");
-closeM("exchangeModal");
-};
+notice(
+"Logged out."
+);
 
-window.verifyEmail=async()=>{
-
-if(!user)return;
-
-try{
-
-await sendEmailVerification(user);
-
-alert("Verification email sent. Check your inbox.");
-
-}catch(e){
-
-alert(errorText(e));
-
-}
 };
 
 
-onAuthStateChanged(auth,u=>{
+onAuthStateChanged(
+auth,
+u => {
 
-user=u;
+user =
+u;
 
-$("profileBtn").textContent=u?"Profile":"Login";
-
-if(u){
-
-$("loggedOut").classList.add("hidden");
-$("loggedIn").classList.remove("hidden");
-
-}else{
-
-$("loggedOut").classList.remove("hidden");
-$("loggedIn").classList.add("hidden");
-
-}
-
-});
-
-
-/* LISTINGS */
-
-function listenListings(){
-
-onSnapshot(
-query(collection(db,"items"),limit(100)),
-s=>{
-
-listings=s.docs.map(d=>({
-id:d.id,
-...d.data()
-}));
-
-listings.sort(sortDate);
-
-$("statListings").textContent=
-listings.filter(x=>x.active!==false).length;
-
-renderListings();
-
-},
-e=>{
-
-$("listings").innerHTML=
-`<div class="empty">
-Could not load listings.<br>
-<span class="muted">${esc(errorText(e))}</span>
-</div>`;
-
-}
-);
-
-}
-
-function renderListings(){
-
-const text=$("search").value.trim().toLowerCase();
-const cat=$("cat").value;
-const mode=$("mode").value;
-
-const real=listings.filter(x=>{
-
-if(x.active===false)return false;
-
-const n=getItemName(x);
-const c=getCategory(x);
-
-const hay=[
-n,
-x.area,
-x.description,
-c
-].join(" ").toLowerCase();
-
-return(
-(!text||hay.includes(text))&&
-(cat==="all"||c===cat)&&
-(mode==="all"||x.mode===mode)
-);
-
-});
-
-const sam=samples.filter(x=>{
-
-const hay=[
-x.itemName,
-x.area,
-x.description,
-x.category
-].join(" ").toLowerCase();
-
-return(
-(!text||hay.includes(text))&&
-(cat==="all"||x.category===cat)&&
-(mode==="all"||x.mode===mode)
-);
-
-});
-
-const all=[...real,...sam];
-
-if(!all.length){
-
-$("listings").innerHTML=
-`<div class="empty">
-<b>No matching listings found.</b><br>
-Try another search.
-</div>`;
-
-return;
-}
-
-$("listings").innerHTML=all.map(listingCard).join("");
-
-}
-
-function listingCard(x){
-
-const n=getItemName(x);
-const c=getCategory(x);
-const m=x.mode||"Borrow";
-
-return`
-<div class="card">
-
-<div class="cardtop">
-
-<div>
-<h3>${esc(n)}</h3>
-<span class="badge">${esc(c)}</span>
-</div>
-
-<span class="badge ${m==="Exchange"?"orange":"green"}">
-${esc(m)}
-</span>
-
-</div>
-
-<div class="meta">
-📍 ${esc(x.area||"Area not specified")}
-</div>
-
-<div class="meta">
-⏱️ ${esc(x.duration||"Flexible")}
-</div>
-
-<div class="desc">
-${esc(x.description||"No description provided.")}
-</div>
-
-<div class="muted">
-✓ ${x.sample?"BorrowX sample":"BorrowX community listing"}
-</div>
-
-<div class="cardactions">
-
-${
-x.sample
+$("authArea").innerHTML =
+u
 ?
-`<button class="btn secondary smallbtn" disabled>Sample</button>`
+
+`<div class="actions">
+<button onclick="openProfile()">Profile</button>
+<button class="secondary" onclick="openExchanges()">Exchanges</button>
+<button class="danger" onclick="logout()">Logout</button>
+</div>`
+
 :
-`
-<button class="btn primary smallbtn"
-onclick="requestItem('${esc(x.id)}')">
-Request
-</button>
 
-<button class="btn secondary smallbtn"
-onclick="reportItem('${esc(x.id)}')">
-Report
-</button>
-`
-}
+`<button onclick="openAuth()">Login / Sign up</button>`;
 
-</div>
 
-</div>
-`;
-
-}
-
-
-window.requestItem=async id=>{
-
-if(!user){
-
-openAuth();
-status(
-"authStatus",
-"Login first to request an item.",
-"info"
-);
-
-return;
-}
-
-const x=listings.find(a=>a.id===id);
-
-if(!x)return;
-
-if(x.active===false){
-
-alert("This listing is no longer active.");
-return;
-
-}
-
-if(x.ownerId===user.uid){
-
-alert("You cannot request your own listing.");
-return;
-
-}
-
-selectedItem=x;
-
-$("requestName").textContent=getItemName(x);
-$("requestMsg").value="";
-
-clearStatus("requestStatus");
-
-openM("requestModal");
-
-};
-
-
-window.sendRequest=async()=>{
-
-if(!user||!selectedItem)return;
-
-const message=$("requestMsg").value.trim();
-
-if(containsPhone(message)){
-
-status(
-"requestStatus",
-"Please don't share phone numbers in messages.",
-"error"
-);
-
-return;
-}
-
-try{
-
-const q=query(
-collection(db,"requests"),
-where("itemId","==",selectedItem.id),
-where("requesterId","==",user.uid),
-limit(10)
-);
-
-const snap=await getDocs(q);
-
-const active=snap.docs.some(d=>
-[
-"pending",
-"accepted",
-"handover",
-"borrowed",
-"returned"
-].includes(d.data().status)
-);
-
-if(active){
-
-status(
-"requestStatus",
-"You already have an active request for this listing.",
-"error"
-);
-
-return;
-}
-
-status("requestStatus","Sending request...");
-
-await addDoc(
-collection(db,"requests"),
-{
-itemId:selectedItem.id,
-itemName:getItemName(selectedItem),
-ownerId:selectedItem.ownerId,
-requesterId:user.uid,
-message:message.slice(0,500),
-status:"pending",
-createdAt:serverTimestamp()
-}
-);
-
-status(
-"requestStatus",
-"Request sent successfully ✅",
-"success"
-);
-
-setTimeout(()=>closeM("requestModal"),700);
-
-}catch(e){
-
-status(
-"requestStatus",
-errorText(e),
-"error"
-);
-
-}
-
-};
-
-
-/* NEEDS */
-
-window.openNeed=()=>{
-
-if(!user){
-
-openAuth();
-
-status(
-"authStatus",
-"Login first to post what you need.",
-"info"
-);
-
-return;
-}
-
-$("needName").value="";
-$("needArea").value="";
-$("needDesc").value="";
-$("needDuration").value="";
-
-clearStatus("needStatus");
-
-openM("needModal");
-
-};
-
-
-window.publishNeed=async()=>{
-
-if(!user)return;
-
-const name=$("needName").value.trim();
-const area=$("needArea").value.trim();
-const desc=$("needDesc").value.trim();
-
-if(name.length<2||area.length<2){
-
-status(
-"needStatus",
-"Item and approximate area are required.",
-"error"
-);
-
-return;
-}
-
-if(containsPhone(name+" "+area+" "+desc)){
-
-status(
-"needStatus",
-"Please remove phone numbers from the need.",
-"error"
-);
-
-return;
-}
-
-try{
-
-status("needStatus","Posting need...");
-
-await addDoc(
-collection(db,"needs"),
-{
-itemName:name.slice(0,80),
-category:$("needCat").value,
-area:area.slice(0,60),
-duration:$("needDuration").value.trim().slice(0,40),
-description:desc.slice(0,500),
-ownerId:user.uid,
-createdAt:serverTimestamp(),
-active:true
-}
-);
-
-status(
-"needStatus",
-"Your need has been posted ✅",
-"success"
-);
-
-setTimeout(()=>closeM("needModal"),700);
-
-}catch(e){
-
-status(
-"needStatus",
-errorText(e),
-"error"
-);
-
-}
-
-};
-
-
-function listenNeeds(){
-
-onSnapshot(
-query(collection(db,"needs"),limit(100)),
-s=>{
-
-needs=s.docs.map(d=>({
-id:d.id,
-...d.data()
-}));
-
-needs.sort(sortDate);
-
-$("statNeeds").textContent=
-needs.filter(x=>x.active!==false).length;
-
-renderNeeds();
-
-},
-e=>{
-
-$("needs").innerHTML=
-`<div class="empty">
-Could not load needs.<br>
-<span class="muted">${esc(errorText(e))}</span>
-</div>`;
-
-}
-);
-
-}
-
-
-function renderNeeds(){
-
-const active=needs.filter(x=>x.active!==false);
-
-if(!active.length){
-
-$("needs").innerHTML=
-`<div class="empty">
-No community needs yet.<br>
-Be the first to post one.
-</div>`;
-
-return;
-}
-
-$("needs").innerHTML=active.map(n=>`
-
-<div class="card">
-
-<div class="cardtop">
-
-<div>
-<h3>${esc(getItemName(n))}</h3>
-<span class="badge">${esc(n.category||"Other")}</span>
-</div>
-
-<span class="badge orange">Need</span>
-
-</div>
-
-<div class="meta">
-📍 ${esc(n.area||"Area not specified")}
-</div>
-
-<div class="meta">
-⏱️ ${esc(n.duration||"Flexible")}
-</div>
-
-<div class="desc">
-${esc(n.description||"No details provided.")}
-</div>
-
-<div class="muted">
-Community request
-</div>
-
-</div>
-
-`).join("");
-
-}
-
-
-/* POST LISTING */
-
-window.openListing=()=>{
-
-if(!user){
-
-openAuth();
-
-status(
-"authStatus",
-"Login first to publish a listing.",
-"info"
-);
-
-return;
-}
-
-$("itemName").value="";
-$("itemArea").value="";
-$("itemDuration").value="";
-$("itemDesc").value="";
-
-clearStatus("listingStatus");
-
-openM("listingModal");
-
-};
-
-
-window.publish=async()=>{
-
-if(!user)return;
-
-const name=$("itemName").value.trim();
-const area=$("itemArea").value.trim();
-const duration=$("itemDuration").value.trim();
-const desc=$("itemDesc").value.trim();
-
-if(name.length<2||area.length<2){
-
-status(
-"listingStatus",
-"Item name and approximate area are required.",
-"error"
-);
-
-return;
-}
-
-if(containsPhone(name+" "+area+" "+desc)){
-
-status(
-"listingStatus",
-"Please remove phone numbers from the listing.",
-"error"
-);
-
-return;
-}
-
-try{
-
-status("listingStatus","Publishing...");
-
-await addDoc(
-collection(db,"items"),
-{
-itemName:name.slice(0,80),
-mode:$("itemMode").value,
-category:$("itemCat").value,
-area:area.slice(0,60),
-duration:duration.slice(0,40),
-description:desc.slice(0,500),
-ownerId:user.uid,
-createdAt:serverTimestamp(),
-active:true
-}
-);
-
-status(
-"listingStatus",
-"Your listing is live ✅",
-"success"
-);
-
-setTimeout(()=>closeM("listingModal"),700);
-
-}catch(e){
-
-status(
-"listingStatus",
-errorText(e),
-"error"
-);
-
-}
-
-};
-
-
-/* EXCHANGES */
-
-window.openExchanges=()=>{
-
-if(!user){
-
-openAuth();
-
-status(
-"authStatus",
-"Login first to view exchanges.",
-"info"
-);
-
-return;
-}
-
-openM("exchangeModal");
-
-startExchanges();
-
-};
-
-
-function startExchanges(){
-
-if(receivedUnsub)receivedUnsub();
-if(sentUnsub)sentUnsub();
-
-$("accountNotice").textContent=
-"Signed in as: "+(user.email||"BorrowX user");
-
-$("received").innerHTML=
-"<div class='empty'>Loading...</div>";
-
-$("sent").innerHTML=
-"<div class='empty'>Loading...</div>";
-
-receivedUnsub=onSnapshot(
-
-query(
-collection(db,"requests"),
-where("ownerId","==",user.uid)
-),
-
-s=>{
-
-received=s.docs
-.map(d=>({id:d.id,...d.data()}))
-.sort(sortDate);
-
-renderReceived();
-
-},
-
-e=>{
-
-$("received").innerHTML=
-`<div class="empty">${esc(errorText(e))}</div>`;
-
-}
-);
-
-
-sentUnsub=onSnapshot(
-
-query(
-collection(db,"requests"),
-where("requesterId","==",user.uid)
-),
-
-s=>{
-
-sent=s.docs
-.map(d=>({id:d.id,...d.data()}))
-.sort(sortDate);
-
-renderSent();
-
-},
-
-e=>{
-
-$("sent").innerHTML=
-`<div class="empty">${esc(errorText(e))}</div>`;
-
-}
-
-);
-
-}
-
-
-function statusBadge(s){
-
-let cls="";
-
-if(
-["accepted","borrowed","completed"].includes(s)
-){
-cls="green";
-}
-
-if(
-["declined","cancelled"].includes(s)
-){
-cls="red";
-}
-
-if(
-["handover","returned"].includes(s)
-){
-cls="orange";
-}
-
-return`
-<span class="badge ${cls}">
-${esc(s||"pending")}
-</span>
-`;
-
-}
-
-
-function exchangeActions(r,owner){
-
-const a=[];
-
-if(owner&&r.status==="pending"){
-
-a.push(`
-<button class="btn success smallbtn"
-onclick="changeStatus('${r.id}','accepted')">
-Accept
-</button>
-`);
-
-a.push(`
-<button class="btn danger smallbtn"
-onclick="changeStatus('${r.id}','declined')">
-Decline
-</button>
-`);
-
-}
-
-if(!owner&&r.status==="pending"){
-
-a.push(`
-<button class="btn secondary smallbtn"
-onclick="changeStatus('${r.id}','cancelled')">
-Cancel
-</button>
-`);
-
-}
-
-if(owner&&r.status==="accepted"){
-
-a.push(`
-<button class="btn warning smallbtn"
-onclick="changeStatus('${r.id}','handover')">
-Mark Handover
-</button>
-`);
-
-}
-
-if(!owner&&r.status==="handover"){
-
-a.push(`
-<button class="btn success smallbtn"
-onclick="changeStatus('${r.id}','borrowed')">
-Confirm Received
-</button>
-`);
-
-}
-
-if(!owner&&r.status==="borrowed"){
-
-a.push(`
-<button class="btn warning smallbtn"
-onclick="changeStatus('${r.id}','returned')">
-Mark Returned
-</button>
-`);
-
-}
-
-if(owner&&r.status==="returned"){
-
-a.push(`
-<button class="btn success smallbtn"
-onclick="changeStatus('${r.id}','completed')">
-Confirm Return
-</button>
-`);
-
-}
-
-if(
-[
-"accepted",
-"handover",
-"borrowed",
-"returned"
-].includes(r.status)
-){
-
-a.push(`
-<button class="btn primary smallbtn"
-onclick="openChat('${r.id}')">
-Chat
-</button>
-`);
-
-}
-
-if(r.status==="completed"){
-
-a.push(`
-<button class="btn warning smallbtn"
-onclick="openRating('${r.id}')">
-Rate
-</button>
-`);
-
-}
-
-return a.join("");
-
-}
-
-
-function exchangeCard(r,owner){
-
-const person=owner
-?(r.requesterEmail||"BorrowX member")
-:(r.ownerEmail||"BorrowX member");
-
-return`
-
-<div class="exchange">
-
-<div class="exchangehead">
-
-<div>
-<strong>${esc(r.itemName||"Item")}</strong>
-<div class="muted">
-${owner?"Requester":"Owner"}: ${esc(person)}
-</div>
-</div>
-
-${statusBadge(r.status)}
-
-</div>
-
-${
-r.message
+$("loginState").textContent =
+u
 ?
-`<div class="message">${esc(r.message)}</div>`
-:""
-}
-
-<div class="muted">
-${dateText(r.createdAt)}
-</div>
-
-${
-[
-"accepted",
-"handover",
-"borrowed",
-"returned"
-].includes(r.status)
-?
-`
-<div class="warningbox">
-Use a safe/public place for handover.
-Keep sensitive information private.
-</div>
-`
-:""
-}
-
-<div class="actions">
-${exchangeActions(r,owner)}
-</div>
-
-</div>
-
-`;
-
-}
-
-
-function renderReceived(){
-
-$("received").innerHTML=
-received.length
-?
-received.map(r=>exchangeCard(r,true)).join("")
+"Signed in"
 :
-`<div class="empty">No received requests yet.</div>`;
-
-}
-
-
-function renderSent(){
-
-$("sent").innerHTML=
-sent.length
-?
-sent.map(r=>exchangeCard(r,false)).join("")
-:
-`<div class="empty">You have not sent any requests yet.</div>`;
-
-}
-
-
-window.changeStatus=async(id,newStatus)=>{
-
-if(!user)return;
-
-const r=[...received,...sent]
-.find(x=>x.id===id);
-
-if(!r)return;
-
-const owner=r.ownerId===user.uid;
-
-const transitions={
-owner:{
-pending:["accepted","declined"],
-accepted:["handover"],
-returned:["completed"]
-},
-requester:{
-pending:["cancelled"],
-handover:["borrowed"],
-borrowed:["returned"]
-}
-};
-
-const role=owner?"owner":"requester";
-
-if(!transitions[role]?.[r.status]?.includes(newStatus)){
-
-alert("This action is not allowed.");
-
-return;
-}
-
-try{
-
-await updateDoc(
-doc(db,"requests",id),
-{
-status:newStatus,
-updatedAt:serverTimestamp()
-}
-);
-
-status(
-"exchangeStatus",
-"Exchange updated: "+newStatus+" ✅",
-"success"
-);
-
-}catch(e){
-
-status(
-"exchangeStatus",
-errorText(e),
-"error"
-);
-
-}
-
-};
-
-
-/* CHAT */
-
-window.openChat=async id=>{
-
-if(!user)return;
-
-const r=[...received,...sent]
-.find(x=>x.id===id);
-
-if(!r)return;
-
-if(
-![
-"accepted",
-"handover",
-"borrowed",
-"returned"
-].includes(r.status)
-){
-return;
-}
-
-selectedRequest=r;
-
-$("chatTitle").textContent=
-"Chat — "+(r.itemName||"Item");
-
-$("chatInput").value="";
-
-openM("chatModal");
-
-if(chatUnsub)chatUnsub();
-
-chatUnsub=onSnapshot(
-
-query(
-collection(db,"requests",id,"messages"),
-limit(100)
-),
-
-s=>{
-
-const arr=s.docs
-.map(d=>({id:d.id,...d.data()}))
-.sort(
-(a,b)=>
-(a.createdAt?.seconds||0)-
-(b.createdAt?.seconds||0)
-);
-
-$("chatMessages").innerHTML=
-arr.length
-?
-arr.map(m=>`
-
-<div class="msg ${m.senderId===user.uid?"mine":""}">
-
-${esc(m.text)}
-
-<br>
-
-<span class="muted">
-${esc(m.senderEmail||"BorrowX user")}
- · ${dateText(m.createdAt)}
-</span>
-
-</div>
-
-`).join("")
-:
-`<div class="muted" style="text-align:center">
-No messages yet.
-</div>`;
-
-$("chatMessages").scrollTop=
-$("chatMessages").scrollHeight;
-
-},
-
-e=>{
-
-$("chatMessages").innerHTML=
-`<div class="muted">${esc(errorText(e))}</div>`;
-
-}
-
-);
-
-};
-
-
-window.closeChat=()=>{
-
-if(chatUnsub){
-
-chatUnsub();
-chatUnsub=null;
-
-}
-
-closeM("chatModal");
-
-};
-
-
-window.sendChat=async()=>{
-
-if(!user||!selectedRequest)return;
-
-const text=$("chatInput").value.trim();
-
-if(!text)return;
-
-if(containsPhone(text)){
-
-alert("Please don't share phone numbers in chat.");
-
-return;
-}
-
-try{
-
-await addDoc(
-collection(
-db,
-"requests",
-selectedRequest.id,
-"messages"
-),
-{
-senderId:user.uid,
-senderEmail:user.email||"",
-text:text.slice(0,1000),
-createdAt:serverTimestamp()
-}
-);
-
-$("chatInput").value="";
-
-}catch(e){
-
-alert(errorText(e));
-
-}
-
-};
-
-
-$("chatInput").addEventListener(
-"keydown",
-e=>{
-
-if(e.key==="Enter"&&!e.shiftKey){
-
-e.preventDefault();
-sendChat();
-
-}
+"Guest";
 
 }
 );
 
 
-/* PROFILE */
+window.openProfile =
+async () => {
 
-window.openProfile=async()=>{
+requireAuth(
+async () => {
 
-openM("profileModal");
-
-if(!user)return;
-
-await user.reload().catch(()=>{});
-
-user=auth.currentUser;
-
-$("profileEmail").textContent=
-user.email||"";
-
-$("verifyState").textContent=
-user.emailVerified
-?"✅ Email verified"
-:"⚠️ Email not verified";
-
-$("verifyBtn").style.display=
-user.emailVerified?"none":"block";
-
-$("verifyNotice").classList.toggle(
-"hidden",
-user.emailVerified
+openModal(
+"profileModal"
 );
 
-try{
 
-const [sentSnap,receivedSnap]=await Promise.all([
+$("profileInfo").innerHTML =
+
+`<p>
+<b>${esc(user.email)}</b>
+</p>
+
+<p class="small">
+Email verification:
+${user.emailVerified ? "Verified" : "Not verified yet"}
+</p>`;
+
+
+const [
+s,
+r
+] =
+await Promise.all([
 
 getDocs(
 query(
 collection(db,"requests"),
-where("requesterId","==",user.uid),
-limit(100)
+where(
+"requesterId",
+"==",
+user.uid
+)
 )
 ),
 
 getDocs(
 query(
 collection(db,"requests"),
-where("ownerId","==",user.uid),
-limit(100)
+where(
+"ownerId",
+"==",
+user.uid
+)
 )
 )
 
 ]);
 
-$("pSent").textContent=sentSnap.size;
-$("pReceived").textContent=receivedSnap.size;
 
-const rs=await getDocs(
-query(
-collection(db,"ratings"),
-where("toUserId","==",user.uid),
-limit(100)
-)
+$("profileInfo").innerHTML +=
+
+`<p>
+Sent requests:
+<b>${s.size}</b>
+·
+Received:
+<b>${r.size}</b>
+</p>`;
+
+
+const mine =
+items.filter(
+x =>
+x.ownerId === user.uid
 );
 
-if(!rs.size){
 
-$("ratingText").textContent=
-"No ratings yet.";
+$("myListings").innerHTML =
+mine.length
 
-}else{
+?
 
-let total=0;
+mine.map(
+x =>
 
-rs.forEach(x=>{
-total+=Number(x.data().score||0);
-});
+`<div class="request-box">
 
-$("ratingText").textContent=
-"⭐ "+
-(total/rs.size).toFixed(1)+
-" / 5 ("+
-rs.size+
-" ratings)";
+<b>
+${esc(itemName(x))}
+</b>
 
-}
+<div class="small">
+${esc(x.area)}
+·
+${esc(x.mode)}
+</div>
 
-}catch(e){
+<button
+class="danger"
+onclick="deactivateItem('${x.id}')"
+>
+Deactivate
+</button>
 
-console.log(e);
+</div>`
+
+).join("")
+
+:
+
+"<p class='empty'>No listings yet.</p>";
 
 }
 
 };
 
 
-/* RATINGS */
+window.publishItem =
+async () => {
 
-window.openRating=id=>{
+requireAuth(
+async () => {
+
+const itemNameV =
+$("itemName").value.trim();
+
+const area =
+$("itemArea").value.trim();
+
+
+if(
+!itemNameV ||
+!area
+){
+
+return notice(
+"Item name and approximate area are required."
+);
+
+}
+
+
+await addDoc(
+collection(db,"items"),
+{
+
+itemName:
+itemNameV.slice(0,80),
+
+mode:
+$("itemMode").value,
+
+category:
+$("itemCategory").value,
+
+area:
+area.slice(0,60),
+
+duration:
+$("itemDuration").value
+.trim()
+.slice(0,40),
+
+description:
+$("itemDescription").value
+.trim()
+.slice(0,500),
+
+ownerId:
+user.uid,
+
+ownerEmail:
+user.email || "",
+
+createdAt:
+serverTimestamp(),
+
+active:
+true
+
+}
+);
+
+
+closeModal(
+"postModal"
+);
+
+
+notice(
+"Your post has been published successfully."
+);
+
+
+[
+"itemName",
+"itemArea",
+"itemDuration",
+"itemDescription"
+]
+.forEach(
+x =>
+$(x).value=""
+);
+
+}
+
+};
+
+
+window.publishNeed =
+async () => {
+
+requireAuth(
+async () => {
+
+const n =
+$("needName").value.trim();
+
+const a =
+$("needArea").value.trim();
+
+
+if(
+!n ||
+!a
+){
+
+return notice(
+"Need name and approximate area are required."
+);
+
+}
+
+
+await addDoc(
+collection(db,"needs"),
+{
+
+itemName:
+n.slice(0,80),
+
+category:
+$("needCategory").value,
+
+area:
+a.slice(0,60),
+
+duration:
+$("needDuration").value
+.trim()
+.slice(0,40),
+
+description:
+$("needDescription").value
+.trim()
+.slice(0,500),
+
+ownerId:
+user.uid,
+
+createdAt:
+serverTimestamp(),
+
+active:
+true
+
+}
+);
+
+
+closeModal(
+"needModal"
+);
+
+
+notice(
+"Your need has been posted."
+);
+
+
+[
+"needName",
+"needArea",
+"needDuration",
+"needDescription"
+]
+.forEach(
+x =>
+$(x).value=""
+);
+
+}
+
+};
+
+
+function loadListings(){
+
+onSnapshot(
+
+query(
+collection(db,"items"),
+where(
+"active",
+"==",
+true
+)
+),
+
+snap => {
+
+items =
+snap.docs.map(
+d =>
+({
+id:d.id,
+...d.data()
+})
+);
+
+renderListings();
+
+$("itemCount").textContent =
+items.length;
+
+}
+
+);
+
+
+onSnapshot(
+
+query(
+collection(db,"needs"),
+where(
+"active",
+"==",
+true
+)
+),
+
+snap => {
+
+needs =
+snap.docs.map(
+d =>
+({
+id:d.id,
+...d.data()
+})
+);
+
+renderNeeds();
+
+$("needCount").textContent =
+needs.length;
+
+}
+
+);
+
+}
+
+
+window.loadListings =
+loadListings;
+
+
+window.renderListings =
+() => {
+
+const term =
+$("search").value
+.trim()
+.toLowerCase();
+
+const cat =
+$("filterCat").value;
+
+const mode =
+$("filterMode").value;
+
+
+const a =
+items.filter(
+x =>
+
+(
+!term ||
+
+[
+itemName(x),
+x.category,
+x.area,
+x.description
+]
+.join(" ")
+.toLowerCase()
+.includes(term)
+
+)
+
+&&
+
+(
+!cat ||
+x.category === cat
+)
+
+&&
+
+(
+!mode ||
+x.mode === mode
+)
+
+);
+
+
+$("listings").innerHTML =
+
+a.length
+
+?
+
+a.map(
+x =>
+
+`
+<div class="card">
+
+<h3>
+${esc(itemName(x))}
+</h3>
+
+<div class="muted">
+📍 ${esc(x.area)}
+</div>
+
+<span class="tag">
+${esc(x.category)}
+</span>
+
+<span class="tag">
+${esc(x.mode)}
+</span>
+
+<span class="tag">
+${esc(x.duration || "Flexible")}
+</span>
+
+<p>
+${esc(x.description || "No description")}
+</p>
+
+<div class="small">
+✓ BorrowX listing · approximate area only
+</div>
+
+<div class="card-actions">
+
+${
+user && x.ownerId === user.uid
+
+?
+
+`
+<button
+class="secondary"
+onclick="deactivateItem('${x.id}')"
+>
+Deactivate
+</button>
+`
+
+:
+
+`
+<button
+onclick="requireAuth(()=>openRequest('${x.id}'))"
+>
+Request
+</button>
+`
+}
+
+<button
+class="secondary"
+onclick="reportItem('${x.id}')"
+>
+Report
+</button>
+
+</div>
+
+</div>
+`
+
+).join("")
+
+:
+
+"<div class='empty'>No matching listings.</div>";
+
+};
+
+
+window.renderNeeds =
+() => {
+
+$("needs").innerHTML =
+
+needs.length
+
+?
+
+needs.map(
+x =>
+
+`
+<div class="card">
+
+<h3>
+${esc(itemName(x))}
+</h3>
+
+<div class="muted">
+📍 ${esc(x.area)}
+</div>
+
+<span class="tag">
+${esc(x.category)}
+</span>
+
+<span class="tag">
+${esc(x.duration || "Flexible")}
+</span>
+
+<p>
+${esc(x.description || "No description")}
+</p>
+
+</div>
+`
+
+).join("")
+
+:
+
+"<div class='empty'>No active needs yet.</div>";
+
+};
+
+
+window.openRequest =
+id => {
+
+const x =
+items.find(
+i =>
+i.id === id
+);
+
+
+if(
+!x ||
+!user
+)
+return;
+
+
+if(
+x.ownerId === user.uid
+){
+
+return notice(
+"You cannot request your own listing."
+);
+
+}
+
+
+$("requestItemId").value =
+id;
+
+$("requestOwnerId").value =
+x.ownerId;
+
+$("requestOwnerEmail").value =
+x.ownerEmail || "";
+
+
+$("requestItemTitle").innerHTML =
+
+`Requesting
+<b>${esc(itemName(x))}</b>
+from the approximate area
+<b>${esc(x.area)}</b>.`;
+
+
+$("requestMessage").value =
+"";
+
+
+openModal(
+"requestModal"
+);
+
+};
+
+
+window.sendRequest =
+async () => {
+
+requireAuth(
+async () => {
+
+const itemId =
+$("requestItemId").value;
+
+const ownerId =
+$("requestOwnerId").value;
+
+
+const existing =
+await getDocs(
+
+query(
+collection(db,"requests"),
+
+where(
+"itemId",
+"==",
+itemId
+),
+
+where(
+"requesterId",
+"==",
+user.uid
+),
+
+where(
+"status",
+"==",
+"pending"
+)
+
+)
+
+);
+
+
+if(
+!existing.empty
+){
+
+return notice(
+"You already have a pending request for this item."
+);
+
+}
+
+
+const found =
+items.find(
+x =>
+x.id === itemId
+);
+
+
+await addDoc(
+collection(db,"requests"),
+{
+
+itemId:
+
+itemId,
+
+itemName:
+
+found
+?
+itemName(found)
+:
+"",
+
+ownerId:
+
+ownerId,
+
+ownerEmail:
+
+$("requestOwnerEmail").value,
+
+requesterId:
+
+user.uid,
+
+requesterEmail:
+
+user.email || "",
+
+message:
+
+$("requestMessage").value
+.trim()
+.slice(0,300),
+
+status:
+
+"pending",
+
+createdAt:
+
+serverTimestamp()
+
+}
+
+);
+
+
+closeModal(
+"requestModal"
+);
+
+
+notice(
+"Your request has been sent successfully."
+);
+
+}
+
+};
+
+ async function loadRequests(){
 
 if(!user)return;
 
-ratingRequest=
-[...received,...sent]
-.find(x=>x.id===id);
+const [
+r,
+s
+]=await Promise.all([
+
+getDocs(
+query(
+collection(db,"requests"),
+where("ownerId","==",user.uid)
+)
+),
+
+getDocs(
+query(
+collection(db,"requests"),
+where("requesterId","==",user.uid)
+)
+)
+
+]);
+
+
+const renderReq =
+d => {
+
+const x =
+d.data();
+
+const id =
+d.id;
+
+let buttons =
+"";
+
 
 if(
-!ratingRequest||
-ratingRequest.status!=="completed"
-)return;
+x.status === "pending" &&
+x.ownerId === user.uid
+){
 
-$("ratingScore").value="5";
-$("ratingComment").value="";
+buttons += `
+<button
+class="success"
+onclick="changeStatus('${id}','accepted')"
+>
+Accept
+</button>
 
-clearStatus("ratingStatus");
+<button
+class="danger"
+onclick="changeStatus('${id}','declined')"
+>
+Decline
+</button>
+`;
 
-openM("ratingModal");
+}
+
+
+if(
+x.status === "pending" &&
+x.requesterId === user.uid
+){
+
+buttons += `
+<button
+class="danger"
+onclick="changeStatus('${id}','cancelled')"
+>
+Cancel
+</button>
+`;
+
+}
+
+
+if(
+x.status === "accepted" &&
+x.ownerId === user.uid
+){
+
+buttons += `
+<button
+onclick="changeStatus('${id}','handover')"
+>
+Confirm handover
+</button>
+`;
+
+}
+
+
+if(
+x.status === "handover" &&
+x.requesterId === user.uid
+){
+
+buttons += `
+<button
+onclick="changeStatus('${id}','borrowed')"
+>
+Confirm received
+</button>
+`;
+
+}
+
+
+if(
+x.status === "borrowed" &&
+x.requesterId === user.uid
+){
+
+buttons += `
+<button
+onclick="changeStatus('${id}','returned')"
+>
+Mark returned
+</button>
+`;
+
+}
+
+
+if(
+x.status === "returned" &&
+x.ownerId === user.uid
+){
+
+buttons += `
+<button
+class="success"
+onclick="changeStatus('${id}','completed')"
+>
+Complete exchange
+</button>
+`;
+
+}
+
+
+if(
+[
+"accepted",
+"handover",
+"borrowed",
+"returned"
+]
+.includes(x.status)
+){
+
+buttons += `
+<button
+class="secondary"
+onclick="openPickup('${id}')"
+>
+Pickup point
+</button>
+`;
+
+}
+
+
+if(
+[
+"accepted",
+"handover",
+"borrowed",
+"returned",
+"completed"
+]
+.includes(x.status)
+){
+
+buttons += `
+<button
+class="secondary"
+onclick="openChat('${id}')"
+>
+Chat
+</button>
+`;
+
+}
+
+
+if(
+x.status === "completed"
+){
+
+buttons += `
+<button
+class="secondary"
+onclick="rateExchange('${id}')"
+>
+Rate
+</button>
+`;
+
+}
+
+
+return `
+
+<div class="request-box">
+
+<b>
+${esc(x.itemName)}
+</b>
+
+<div class="small">
+
+Status:
+<b>
+${esc(x.status)}
+</b>
+
+·
+
+${esc(x.requesterEmail || "")}
+
+</div>
+
+<p>
+${esc(x.message || "")}
+</p>
+
+<div class="card-actions">
+
+${buttons}
+
+<button
+class="secondary"
+onclick="reportRequest('${id}')"
+>
+Report
+</button>
+
+</div>
+
+</div>
+
+`;
 
 };
 
 
-window.submitRating=async()=>{
+$("receivedRequests").innerHTML =
 
-if(!user||!ratingRequest)return;
+r.empty
 
-const toUserId=
-ratingRequest.ownerId===user.uid
-?ratingRequest.requesterId
-:ratingRequest.ownerId;
+?
 
-const ratingId=
-ratingRequest.id+"_"+user.uid;
+"<p class='empty'>No received requests yet.</p>"
 
-try{
+:
 
-const existing=
-await getDoc(
-doc(db,"ratings",ratingId)
-);
+r.docs
+.map(renderReq)
+.join("");
 
-if(existing.exists()){
 
-status(
-"ratingStatus",
-"You have already rated this exchange.",
-"error"
-);
+$("sentRequests").innerHTML =
 
-return;
+s.empty
+
+?
+
+"<p class='empty'>You have not sent any requests yet.</p>"
+
+:
+
+s.docs
+.map(renderReq)
+.join("");
+
 }
 
-await setDoc(
-doc(db,"ratings",ratingId),
+
+window.changeStatus =
+async (
+id,
+status
+) => {
+
+const ref =
+doc(
+db,
+"requests",
+id
+);
+
+const snap =
+await getDoc(ref);
+
+
+if(
+!snap.exists()
+)
+return;
+
+
+const x =
+snap.data();
+
+
+if(
+x.ownerId !== user.uid &&
+x.requesterId !== user.uid
+)
+return;
+
+
+const allowed =
+
+(
+x.status === "pending" &&
+
+(
+(
+x.ownerId === user.uid &&
+[
+"accepted",
+"declined"
+]
+.includes(status)
+)
+
+||
+
+(
+x.requesterId === user.uid &&
+status === "cancelled"
+)
+)
+
+)
+
+||
+
+(
+x.status === "accepted" &&
+x.ownerId === user.uid &&
+status === "handover"
+)
+
+||
+
+(
+x.status === "handover" &&
+x.requesterId === user.uid &&
+status === "borrowed"
+)
+
+||
+
+(
+x.status === "borrowed" &&
+x.requesterId === user.uid &&
+status === "returned"
+)
+
+||
+
+(
+x.status === "returned" &&
+x.ownerId === user.uid &&
+status === "completed"
+);
+
+
+if(!allowed){
+
+return notice(
+"That status change is not allowed."
+);
+
+}
+
+
+await updateDoc(
+ref,
 {
-requestId:ratingRequest.id,
-raterId:user.uid,
-toUserId:toUserId,
-score:Number($("ratingScore").value),
-comment:$("ratingComment").value.trim().slice(0,300),
-createdAt:serverTimestamp()
+status:status,
+updatedAt:serverTimestamp()
 }
 );
 
-status(
-"ratingStatus",
-"Rating submitted successfully ⭐",
-"success"
+
+notice(
+"Exchange status updated."
 );
 
-setTimeout(
-()=>closeM("ratingModal"),
-700
-);
 
-}catch(e){
-
-status(
-"ratingStatus",
-errorText(e),
-"error"
-);
-
-}
+loadRequests();
 
 };
 
 
-/* REPORT */
+window.openChat =
+async id => {
 
-window.reportItem=async id=>{
-
-if(!user){
-
-openAuth();
-
-status(
-"authStatus",
-"Login first to report a listing.",
-"info"
+const s =
+await getDoc(
+doc(
+db,
+"requests",
+id
+)
 );
 
+
+if(
+!s.exists()
+)
 return;
+
+
+const x =
+s.data();
+
+
+if(
+x.ownerId !== user.uid &&
+x.requesterId !== user.uid
+)
+return;
+
+
+currentRequest =
+id;
+
+
+$("chatRequestId").value =
+id;
+
+
+$("chatInfo").textContent =
+`Chat about ${x.itemName}. Keep personal details private.`;
+
+
+openModal(
+"chatModal"
+);
+
+
+if(unsubscribeChat)
+unsubscribeChat();
+
+
+unsubscribeChat =
+onSnapshot(
+
+query(
+collection(
+db,
+"requests",
+id,
+"messages"
+),
+orderBy(
+"createdAt",
+"asc"
+)
+),
+
+snap => {
+
+$("chatMessages").innerHTML =
+
+snap.docs
+.map(
+d => {
+
+const m =
+d.data();
+
+return `
+
+<div
+class="msg ${m.senderId === user.uid ? "mine" : ""}"
+>
+
+<b>
+${m.senderId === user.uid
+? "You"
+: "Other user"}
+</b>
+
+<br>
+
+${esc(m.text)}
+
+</div>
+
+`;
+
+}
+)
+.join("")
+
+||
+
+"<p class='empty'>No messages yet.</p>";
+
+
+$("chatMessages").scrollTop =
+$("chatMessages").scrollHeight;
+
 }
 
-const x=listings.find(a=>a.id===id);
-
-if(!x)return;
-
-selectedReport=x;
-
-$("reportDetails").value="";
-
-clearStatus("reportStatus");
-
-openM("reportModal");
+);
 
 };
 
 
-window.submitReport=async()=>{
+window.sendChat =
+async () => {
 
-if(!user||!selectedReport)return;
+const text =
+$("chatText").value.trim();
 
-try{
+const id =
+$("chatRequestId").value;
+
+
+if(!text)
+return;
+
+
+const s =
+await getDoc(
+doc(
+db,
+"requests",
+id
+)
+);
+
+
+if(
+!s.exists()
+)
+return;
+
+
+const x =
+s.data();
+
+
+if(
+x.ownerId !== user.uid &&
+x.requesterId !== user.uid
+)
+return;
+
 
 await addDoc(
-collection(db,"reports"),
+
+collection(
+db,
+"requests",
+id,
+"messages"
+),
+
 {
-itemId:selectedReport.id,
-itemName:getItemName(selectedReport),
-ownerId:selectedReport.ownerId,
-reporterId:user.uid,
-reason:$("reportReason").value,
-details:$("reportDetails").value.trim().slice(0,500),
-status:"open",
-createdAt:serverTimestamp()
-}
-);
 
-status(
-"reportStatus",
-"Report submitted successfully ✅",
-"success"
-);
+senderId:
+user.uid,
 
-setTimeout(
-()=>closeM("reportModal"),
-700
-);
+text:
+text.slice(
+0,
+500
+),
 
-}catch(e){
-
-status(
-"reportStatus",
-errorText(e),
-"error"
-);
+createdAt:
+serverTimestamp()
 
 }
+
+);
+
+
+$("chatText").value =
+"";
 
 };
 
 
-/* GENERAL */
+window.openPickup =
+async id => {
 
-window.scrollListings=()=>{
-$("listingsSection")
-.scrollIntoView({behavior:"smooth"});
+const s =
+await getDoc(
+doc(
+db,
+"requests",
+id
+)
+);
+
+
+if(
+!s.exists()
+)
+return;
+
+
+const x =
+s.data();
+
+
+if(
+x.ownerId !== user.uid &&
+x.requesterId !== user.uid
+)
+return;
+
+
+$("pickupRequestId").value =
+id;
+
+
+$("pickupPlace").value =
+x.pickupPlace || "";
+
+
+$("pickupMap").value =
+x.pickupMap || "";
+
+
+openModal(
+"pickupModal"
+);
+
 };
 
-window.addEventListener("click",e=>{
 
-if(e.target.classList.contains("overlay")){
-e.target.style.display="none";
+window.savePickup =
+async () => {
+
+const id =
+$("pickupRequestId").value;
+
+const place =
+$("pickupPlace").value.trim();
+
+const map =
+$("pickupMap").value.trim();
+
+
+if(!place){
+
+return notice(
+"Enter a public pickup point."
+);
+
 }
 
-});
 
-listenListings();
-listenNeeds();
+if(
+map &&
+!(
+map.startsWith(
+"https://maps.google.com"
+)
+
+||
+
+map.startsWith(
+"https://www.google.com/maps"
+)
+
+||
+
+map.startsWith(
+"https://maps.app.goo.gl/"
+)
+
+||
+
+map.startsWith(
+"https://goo.gl/maps/"
+)
+)
+){
+
+return notice(
+"Enter a valid Google Maps link."
+);
+
+}
+
+
+const s =
+await getDoc(
+doc(
+db,
+"requests",
+id
+)
+);
+
+
+if(
+!s.exists()
+)
+return;
+
+
+const x =
+s.data();
+
+
+if(
+x.ownerId !== user.uid &&
+x.requesterId !== user.uid
+)
+return;
+
+
+await updateDoc(
+
+doc(
+db,
+"requests",
+id
+),
+
+{
+
+pickupPlace:
+place.slice(
+0,
+120
+),
+
+pickupMap:
+map.slice(
+0,
+500
+),
+
+pickupUpdatedBy:
+user.uid,
+
+pickupUpdatedAt:
+serverTimestamp()
+
+}
+
+);
+
+
+closeModal(
+"pickupModal"
+);
+
+
+notice(
+"Public pickup point saved."
+);
+
+};
+
+
+window.rateExchange =
+async id => {
+
+const s =
+await getDoc(
+doc(
+db,
+"requests",
+id
+)
+);
+
+
+if(
+!s.exists()
+)
+return;
+
+
+const x =
+s.data();
+
+
+if(
+x.status !== "completed" ||
+
+(
+x.ownerId !== user.uid &&
+x.requesterId !== user.uid
+)
+){
+
+return;
+
+}
+
+
+const other =
+x.ownerId === user.uid
+?
+x.requesterId
+:
+x.ownerId;
+
+
+const score =
+prompt(
+"Rating 1–5:",
+"5"
+);
+
+
+const n =
+Number(score);
+
+
+if(
+!Number.isInteger(n) ||
+n < 1 ||
+n > 5
+){
+
+return notice(
+"Rating must be 1 to 5."
+);
+
+}
+
+
+const existing =
+await getDoc(
+doc(
+db,
+"ratings",
+id + "_" + user.uid
+)
+);
+
+
+if(
+existing.exists()
+){
+
+return notice(
+"You already rated this exchange."
+);
+
+}
+
+
+await setDoc(
+
+doc(
+db,
+"ratings",
+id + "_" + user.uid
+),
+
+{
+
+requestId:
+id,
+
+raterId:
+user.uid,
+
+ratedUserId:
+other,
+
+rating:
+n,
+
+createdAt:
+serverTimestamp()
+
+}
+
+);
+
+
+notice(
+"Thanks. Your rating was saved."
+);
+
+};
+
+
+window.reportItem =
+async id => {
+
+requireAuth(
+async () => {
+
+const reason =
+prompt(
+"Report reason (spam, fake, unsafe, other):",
+"unsafe"
+);
+
+
+if(!reason)
+return;
+
+
+await addDoc(
+
+collection(
+db,
+"reports"
+),
+
+{
+
+reporterId:
+user.uid,
+
+itemId:
+id,
+
+reason:
+reason.slice(
+0,
+200
+),
+
+status:
+"open",
+
+createdAt:
+serverTimestamp()
+
+}
+
+);
+
+
+notice(
+"Report submitted."
+);
+
+}
+);
+
+};
+
+
+window.reportRequest =
+async id => {
+
+requireAuth(
+async () => {
+
+const reason =
+prompt(
+"Report reason:",
+"unsafe"
+);
+
+
+if(!reason)
+return;
+
+
+await addDoc(
+
+collection(
+db,
+"reports"
+),
+
+{
+
+reporterId:
+user.uid,
+
+requestId:
+id,
+
+reason:
+reason.slice(
+0,
+200
+),
+
+status:
+"open",
+
+createdAt:
+serverTimestamp()
+
+}
+
+);
+
+
+notice(
+"Report submitted."
+);
+
+}
+);
+
+};
+
+
+window.deactivateItem =
+async id => {
+
+requireAuth(
+async () => {
+
+const s =
+await getDoc(
+doc(
+db,
+"items",
+id
+)
+);
+
+
+if(
+!s.exists() ||
+s.data().ownerId !== user.uid
+)
+return;
+
+
+await updateDoc(
+
+doc(
+db,
+"items",
+id
+),
+
+{
+
+active:
+false,
+
+updatedAt:
+serverTimestamp()
+
+}
+
+);
+
+
+notice(
+"Listing deactivated."
+);
+
+}
+);
+
+};
+
+
+loadListings();
 
 </script>
+
 </body>
 </html>
