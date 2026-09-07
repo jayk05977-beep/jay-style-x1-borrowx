@@ -190,7 +190,8 @@ border:0;
 background:#eef2f7;
 width:34px;
 height:34px;
-border-radius:50%
+border-radius:50%;
+cursor:pointer
 }
 .auth-info{
 background:white;
@@ -444,14 +445,16 @@ placeholder="How long? e.g. 2 days"
 
 <textarea
 id="description"
-placeholder="Tell people about your need/item">
-</textarea>
+placeholder="Tell people about your need/item"></textarea>
 
 <button
 class="btn full"
+id="publishBtn"
 onclick="submitPost()">
 Publish
 </button>
+
+<p id="postMessage" class="status"></p>
 
 </div>
 
@@ -511,8 +514,8 @@ Create Account
 
 <script type="module">
 
-import { initializeApp } from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 import {
 getAuth,
@@ -520,8 +523,16 @@ createUserWithEmailAndPassword,
 signInWithEmailAndPassword,
 onAuthStateChanged,
 signOut
-} from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+getFirestore,
+collection,
+addDoc,
+serverTimestamp
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
 const firebaseConfig = {
@@ -551,11 +562,14 @@ const app = initializeApp(firebaseConfig);
 
 const auth = getAuth(app);
 
+const db = getFirestore(app);
+
 
 /* Make Firebase available to the page */
 
 window.borrowXFirebase = {
-auth: auth
+auth: auth,
+db: db
 };
 
 
@@ -812,6 +826,134 @@ profile.textContent =
 
 });
 
+
+/* FIRESTORE POST */
+
+window.submitPost = async function(){
+
+const name =
+document.getElementById("itemName").value.trim();
+
+const mode =
+document.getElementById("mode").value;
+
+const area =
+document.getElementById("area").value.trim();
+
+const duration =
+document.getElementById("duration").value.trim();
+
+const description =
+document.getElementById("description").value.trim();
+
+const message =
+document.getElementById("postMessage");
+
+const publishBtn =
+document.getElementById("publishBtn");
+
+
+if(!name){
+
+message.textContent =
+"Please enter an item name.";
+
+return;
+
+}
+
+
+const user = auth.currentUser;
+
+
+if(!user){
+
+closeModal();
+
+openAuth();
+
+document.getElementById("authMessage").textContent =
+"Please login first before publishing.";
+
+return;
+
+}
+
+
+if(!area){
+
+message.textContent =
+"Please enter your approximate area.";
+
+return;
+
+}
+
+
+publishBtn.disabled = true;
+
+publishBtn.textContent = "Publishing...";
+
+message.textContent =
+"Saving your post...";
+
+
+try{
+
+const collectionName =
+window.modalType === "need"
+? "needs"
+: "items";
+
+
+await addDoc(
+collection(db,collectionName),
+{
+name: name,
+mode: mode,
+area: area,
+duration: duration,
+description: description,
+ownerId: user.uid,
+createdAt: serverTimestamp()
+}
+);
+
+
+message.textContent =
+"Published successfully ✅";
+
+alert(
+"Your post has been published successfully! ✅"
+);
+
+
+document.getElementById("itemName").value = "";
+document.getElementById("area").value = "";
+document.getElementById("duration").value = "";
+document.getElementById("description").value = "";
+
+closeModal();
+
+}
+catch(error){
+
+console.error(error);
+
+message.textContent =
+"Could not publish: " + error.message;
+
+}
+finally{
+
+publishBtn.disabled = false;
+
+publishBtn.textContent = "Publish";
+
+}
+
+};
+
 </script>
 
 
@@ -819,12 +961,12 @@ profile.textContent =
 
 /* MODAL */
 
-let modalType="need";
+window.modalType = "need";
 
 
 function openModal(type){
 
-modalType=type;
+window.modalType = type;
 
 document.getElementById("modal").style.display="flex";
 
@@ -838,6 +980,8 @@ type==="need"
 ? "What do you need?"
 : "What item do you have?";
 
+document.getElementById("postMessage").textContent = "";
+
 }
 
 
@@ -847,8 +991,6 @@ document.getElementById("modal").style.display="none";
 
 }
 
-
-/* AUTH */
 
 function openAuth(){
 
@@ -883,51 +1025,8 @@ return;
 }
 
 alert(
-"Request started for: " + item
+"Request system is coming next.\n\nSelected: " + item
 );
-
-}
-
-
-/* POST */
-
-function submitPost(){
-
-const name =
-document.getElementById("itemName").value.trim();
-
-
-if(!name){
-
-alert("Please enter an item name.");
-
-return;
-
-}
-
-
-if(
-!window.borrowXFirebase ||
-!window.borrowXFirebase.auth.currentUser
-){
-
-openAuth();
-
-document.getElementById("authMessage").textContent =
-"Please login first before publishing.";
-
-return;
-
-}
-
-
-alert(
-"Account verified ✅\n\n" +
-"Your post is ready.\n\n" +
-"Real database publishing will be added next."
-);
-
-closeModal();
 
 }
 
