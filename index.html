@@ -217,6 +217,19 @@ opacity:.6;
 cursor:not-allowed
 }
 
+.btn-danger{
+background:#b42318
+}
+
+.btn-success{
+background:#147a3e
+}
+
+.btn-light{
+background:#eef2f7;
+color:#172033
+}
+
 .bottom{
 position:fixed;
 bottom:0;
@@ -348,6 +361,66 @@ padding:20px;
 color:#64748b;
 font-size:13px
 }
+
+.request-card{
+background:#f8fafc;
+border:1px solid #e5e7eb;
+border-radius:15px;
+padding:14px;
+margin-bottom:10px
+}
+
+.request-card h3{
+font-size:15px;
+margin-bottom:7px
+}
+
+.request-meta{
+font-size:12px;
+color:#64748b;
+line-height:1.6
+}
+
+.status-badge{
+display:inline-block;
+padding:5px 9px;
+border-radius:8px;
+font-size:11px;
+font-weight:bold;
+margin-top:8px
+}
+
+.status-pending{
+background:#fff7ed;
+color:#c2410c
+}
+
+.status-accepted{
+background:#e9f7ef;
+color:#147a3e
+}
+
+.status-declined{
+background:#fef2f2;
+color:#b42318
+}
+
+.request-actions{
+display:flex;
+gap:8px;
+margin-top:12px
+}
+
+.request-actions button{
+flex:1
+}
+
+.exchange-title{
+font-size:13px;
+font-weight:bold;
+color:#64748b;
+margin:18px 0 9px
+}
 </style>
 </head>
 
@@ -477,8 +550,6 @@ Offer it for borrow/exchange
 
 <div id="items">
 
-<!-- Sample listing -->
-
 <div
 class="card item"
 data-name="drill machine tools">
@@ -521,8 +592,6 @@ Request
 
 </div>
 
-
-<!-- Sample listing -->
 
 <div
 class="card item"
@@ -673,7 +742,7 @@ Add
 
 <button
 class="nav"
-onclick="showExchangeMessage()">
+onclick="showExchanges()">
 
 <div>🤝</div>
 Exchanges
@@ -844,6 +913,99 @@ class="status">
 </div>
 
 
+<!-- REQUEST MODAL -->
+
+<div
+class="modal"
+id="requestModal">
+
+<div class="modal-box">
+
+<button
+class="close"
+onclick="closeRequestModal()">
+
+✕
+
+</button>
+
+<h2>
+🤝 Request Item
+</h2>
+
+<p
+id="requestItemTitle"
+style="font-size:16px;font-weight:bold;margin-bottom:10px">
+</p>
+
+<p
+style="font-size:13px;color:#64748b;line-height:1.5">
+
+Your request will be sent to the item owner.
+Your exact address and phone number are not shared.
+
+</p>
+
+<div class="form" style="margin-top:15px">
+
+<textarea
+id="requestMessage"
+placeholder="Optional message to the owner"></textarea>
+
+<button
+class="btn full"
+id="sendRequestBtn"
+onclick="sendRequest()">
+
+Send Request
+
+</button>
+
+<p
+id="requestMessageStatus"
+class="status">
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!-- EXCHANGES MODAL -->
+
+<div
+class="modal"
+id="exchangeModal">
+
+<div class="modal-box">
+
+<button
+class="close"
+onclick="closeExchanges()">
+
+✕
+
+</button>
+
+<h2>
+🤝 My Exchanges
+</h2>
+
+<div id="exchangeContent">
+
+<div class="empty">
+Loading exchanges...
+</div>
+
+</div>
+
+</div>
+
+</div>
+
+
 <!-- FIREBASE -->
 
 <script type="module">
@@ -869,7 +1031,11 @@ getFirestore,
 collection,
 addDoc,
 serverTimestamp,
-onSnapshot
+onSnapshot,
+query,
+where,
+updateDoc,
+doc
 }
 from
 "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
@@ -983,6 +1149,8 @@ password
 message.textContent =
 "Account created successfully ✅";
 
+closeAuth();
+
 }
 catch(error){
 
@@ -1043,8 +1211,7 @@ document
 .value;
 
 const message =
-document
-.getElementById("authMessage");
+document.getElementById("authMessage");
 
 
 if(!email){
@@ -1091,6 +1258,8 @@ password
 
 message.textContent =
 "Login successful ✅";
+
+closeAuth();
 
 }
 catch(error){
@@ -1407,13 +1576,24 @@ document.getElementById(
 );
 
 
+/* Remove old real listings before rebuilding */
+
+document
+.querySelectorAll(".firestore-item")
+.forEach(el=>el.remove());
+
+
+if(loading){
+
 loading.remove();
 
+}
 
-snapshot.forEach((doc)=>{
+
+snapshot.forEach((docSnap)=>{
 
 const data =
-doc.data();
+docSnap.data();
 
 const card =
 document.createElement("div");
@@ -1423,13 +1603,29 @@ card.className =
 
 card.dataset.name =
 (
-data.name +
+(data.name || "") +
 " " +
 (data.area || "") +
 " " +
 (data.mode || "")
 )
 .toLowerCase();
+
+
+const safeName =
+escapeHTML(
+data.name || "Unnamed item"
+);
+
+const safeArea =
+escapeHTML(
+data.area || "Approximate area"
+);
+
+const safeMode =
+escapeHTML(
+data.mode || "Borrow"
+);
 
 
 card.innerHTML = `
@@ -1443,11 +1639,11 @@ card.innerHTML = `
 <div class="item-info">
 
 <h3>
-${escapeHTML(data.name || "Unnamed item")}
+${safeName}
 </h3>
 
 <p>
-📍 ${escapeHTML(data.area || "Approximate area")}
+📍 ${safeArea}
 </p>
 
 <span class="badge real-badge">
@@ -1462,13 +1658,11 @@ ${escapeHTML(data.name || "Unnamed item")}
 <div class="item-bottom">
 
 <div class="trust">
-${escapeHTML(data.mode || "Borrow")}
+${safeMode}
 </div>
 
 <button
-class="btn request-real"
-data-name="${escapeHTML(data.name || "Item")}"
->
+class="btn request-real">
 
 Request
 
@@ -1478,24 +1672,27 @@ Request
 
 `;
 
-container.appendChild(card);
 
-});
+const requestButton =
+card.querySelector(
+".request-real"
+);
 
 
-document
-.querySelectorAll(".request-real")
-.forEach(button=>{
-
-button.addEventListener(
+requestButton.addEventListener(
 "click",
 function(){
 
 requestItem(
-this.dataset.name
+data.name || "Item",
+docSnap.id,
+data.ownerId || ""
 );
 
 });
+
+
+container.appendChild(card);
 
 });
 
@@ -1523,7 +1720,547 @@ loading.textContent =
 );
 
 
-/* BASIC HTML SAFETY */
+/* SEND REQUEST */
+
+window.sendRequest =
+async function(){
+
+const user =
+auth.currentUser;
+
+if(!user){
+
+closeRequestModal();
+
+openAuth();
+
+document
+.getElementById("authMessage")
+.textContent =
+"Please login first to send a request.";
+
+return;
+
+}
+
+
+const itemId =
+window.selectedRequestItemId;
+
+const ownerId =
+window.selectedRequestOwnerId;
+
+const itemName =
+window.selectedRequestItemName;
+
+const messageInput =
+document.getElementById(
+"requestMessage"
+);
+
+const messageStatus =
+document.getElementById(
+"requestMessageStatus"
+);
+
+const sendButton =
+document.getElementById(
+"sendRequestBtn"
+);
+
+
+if(!itemId || !ownerId){
+
+messageStatus.textContent =
+"Item information is missing. Please try again.";
+
+return;
+
+}
+
+
+if(ownerId === user.uid){
+
+messageStatus.textContent =
+"You cannot request your own listing.";
+
+return;
+
+}
+
+
+sendButton.disabled =
+true;
+
+sendButton.textContent =
+"Sending...";
+
+messageStatus.textContent =
+"Sending request...";
+
+
+try{
+
+await addDoc(
+collection(
+db,
+"requests"
+),
+{
+
+itemId:itemId,
+
+itemName:itemName,
+
+ownerId:ownerId,
+
+requesterId:user.uid,
+
+message:
+messageInput.value
+.trim()
+.slice(0,500),
+
+status:"pending",
+
+createdAt:
+serverTimestamp()
+
+}
+);
+
+
+messageStatus.textContent =
+"Request sent successfully ✅";
+
+alert(
+"Your request has been sent successfully! 🤝"
+);
+
+
+messageInput.value = "";
+
+setTimeout(
+()=>{
+closeRequestModal();
+},
+500
+);
+
+}
+catch(error){
+
+console.error(error);
+
+messageStatus.textContent =
+"Could not send request: " +
+error.message;
+
+}
+finally{
+
+sendButton.disabled =
+false;
+
+sendButton.textContent =
+"Send Request";
+
+}
+
+};
+
+
+/* REAL-TIME EXCHANGES */
+
+let receivedUnsubscribe = null;
+let sentUnsubscribe = null;
+
+
+window.startExchangeListeners =
+function(){
+
+const user =
+auth.currentUser;
+
+if(!user){
+
+return;
+
+}
+
+
+const content =
+document.getElementById(
+"exchangeContent"
+);
+
+
+content.innerHTML =
+'<div class="empty">Loading exchanges...</div>';
+
+
+if(receivedUnsubscribe){
+
+receivedUnsubscribe();
+
+}
+
+if(sentUnsubscribe){
+
+sentUnsubscribe();
+
+}
+
+
+/* RECEIVED */
+
+const receivedQuery =
+query(
+collection(db,"requests"),
+where("ownerId","==",user.uid)
+);
+
+
+receivedUnsubscribe =
+onSnapshot(
+receivedQuery,
+(snapshot)=>{
+
+renderReceivedRequests(
+snapshot
+);
+
+},
+(error)=>{
+
+console.error(error);
+
+content.innerHTML +=
+'<div class="empty">Could not load received requests.</div>';
+
+}
+);
+
+
+/* SENT */
+
+const sentQuery =
+query(
+collection(db,"requests"),
+where("requesterId","==",user.uid)
+);
+
+
+sentUnsubscribe =
+onSnapshot(
+sentQuery,
+(snapshot)=>{
+
+renderSentRequests(
+snapshot
+);
+
+},
+(error)=>{
+
+console.error(error);
+
+content.innerHTML +=
+'<div class="empty">Could not load sent requests.</div>';
+
+}
+);
+
+};
+
+
+/* RENDER RECEIVED */
+
+let receivedRequests = [];
+let sentRequests = [];
+
+
+function renderReceivedRequests(snapshot){
+
+receivedRequests = [];
+
+snapshot.forEach(
+(docSnap)=>{
+
+receivedRequests.push({
+id:docSnap.id,
+...docSnap.data()
+});
+
+}
+);
+
+renderExchangeScreen();
+
+}
+
+
+/* RENDER SENT */
+
+function renderSentRequests(snapshot){
+
+sentRequests = [];
+
+snapshot.forEach(
+(docSnap)=>{
+
+sentRequests.push({
+id:docSnap.id,
+...docSnap.data()
+});
+
+}
+);
+
+renderExchangeScreen();
+
+}
+
+
+/* EXCHANGE SCREEN */
+
+function renderExchangeScreen(){
+
+const content =
+document.getElementById(
+"exchangeContent"
+);
+
+if(!content){
+
+return;
+
+}
+
+
+let html = "";
+
+
+/* RECEIVED */
+
+html +=
+'<div class="exchange-title">REQUESTS FOR YOUR ITEMS</div>';
+
+
+if(receivedRequests.length === 0){
+
+html +=
+'<div class="empty">No received requests yet.</div>';
+
+}
+else{
+
+receivedRequests
+.sort(sortByCreated)
+.forEach((request)=>{
+
+const statusClass =
+getStatusClass(
+request.status
+);
+
+const statusText =
+capitalize(
+request.status || "pending"
+);
+
+html += `
+
+<div class="request-card">
+
+<h3>
+📦 ${escapeHTML(request.itemName || "Item")}
+</h3>
+
+<div class="request-meta">
+
+Someone has requested your item.
+
+<br>
+
+Message:
+${escapeHTML(request.message || "No message")}
+
+</div>
+
+<span class="status-badge ${statusClass}">
+${statusText}
+</span>
+
+${
+request.status === "pending"
+?
+`
+
+<div class="request-actions">
+
+<button
+class="btn btn-success"
+onclick="updateRequestStatus('${request.id}','accepted')">
+
+Accept
+
+</button>
+
+<button
+class="btn btn-danger"
+onclick="updateRequestStatus('${request.id}','declined')">
+
+Decline
+
+</button>
+
+</div>
+
+`
+:
+""
+}
+
+</div>
+
+`;
+
+});
+
+}
+
+
+/* SENT */
+
+html +=
+'<div class="exchange-title">YOUR SENT REQUESTS</div>';
+
+
+if(sentRequests.length === 0){
+
+html +=
+'<div class="empty">You have not sent any requests yet.</div>';
+
+}
+else{
+
+sentRequests
+.sort(sortByCreated)
+.forEach((request)=>{
+
+const statusClass =
+getStatusClass(
+request.status
+);
+
+const statusText =
+capitalize(
+request.status || "pending"
+);
+
+html += `
+
+<div class="request-card">
+
+<h3>
+🤝 ${escapeHTML(request.itemName || "Item")}
+</h3>
+
+<div class="request-meta">
+
+Your request has been sent to the item owner.
+
+<br>
+
+Message:
+${escapeHTML(request.message || "No message")}
+
+</div>
+
+<span class="status-badge ${statusClass}">
+${statusText}
+</span>
+
+</div>
+
+`;
+
+});
+
+}
+
+
+content.innerHTML =
+html;
+
+}
+
+
+/* UPDATE REQUEST */
+
+window.updateRequestStatus =
+async function(
+requestId,
+newStatus
+){
+
+if(
+newStatus !== "accepted" &&
+newStatus !== "declined"
+){
+
+return;
+
+}
+
+
+const user =
+auth.currentUser;
+
+if(!user){
+
+alert(
+"Please login first."
+);
+
+return;
+
+}
+
+
+try{
+
+await updateDoc(
+doc(
+db,
+"requests",
+requestId
+),
+{
+
+status:newStatus
+
+}
+);
+
+
+}
+catch(error){
+
+console.error(error);
+
+alert(
+"Could not update request: " +
+error.message
+);
+
+}
+
+};
+
+
+/* HTML SAFETY */
 
 function escapeHTML(value){
 
@@ -1536,6 +2273,140 @@ return String(value)
 
 }
 
+
+/* AUTH START EXCHANGES */
+
+onAuthStateChanged(
+auth,
+(user)=>{
+
+const status =
+document.getElementById(
+"authStatus"
+);
+
+const logoutBtn =
+document.getElementById(
+"logoutBtn"
+);
+
+const profile =
+document.getElementById(
+"profileIcon"
+);
+
+
+if(user){
+
+status.textContent =
+"Signed in: " + user.email;
+
+logoutBtn.style.display =
+"block";
+
+profile.textContent =
+user.email
+.charAt(0)
+.toUpperCase();
+
+}
+else{
+
+status.textContent =
+"Not signed in";
+
+logoutBtn.style.display =
+"none";
+
+profile.textContent =
+"J";
+
+if(receivedUnsubscribe){
+
+receivedUnsubscribe();
+
+receivedUnsubscribe =
+null;
+
+}
+
+if(sentUnsubscribe){
+
+sentUnsubscribe();
+
+sentUnsubscribe =
+null;
+
+}
+
+}
+
+});
+
+
+/* SORT */
+
+function sortByCreated(a,b){
+
+const aTime =
+a.createdAt &&
+a.createdAt.toMillis
+?
+a.createdAt.toMillis()
+:
+0;
+
+const bTime =
+b.createdAt &&
+b.createdAt.toMillis
+?
+b.createdAt.toMillis()
+:
+0;
+
+return bTime - aTime;
+
+}
+
+
+/* STATUS */
+
+function getStatusClass(status){
+
+if(status === "accepted"){
+
+return "status-accepted";
+
+}
+
+if(status === "declined"){
+
+return "status-declined";
+
+}
+
+return "status-pending";
+
+}
+
+
+function capitalize(value){
+
+return String(value)
+.charAt(0)
+.toUpperCase()
++
+String(value)
+.slice(1);
+
+}
+
+
+/* MAKE FUNCTIONS AVAILABLE */
+
+window.applySearch =
+applySearch;
+
 </script>
 
 
@@ -1547,7 +2418,8 @@ window.modalType =
 "need";
 
 
-function openModal(type){
+window.openModal =
+function(type){
 
 window.modalType =
 type;
@@ -1579,46 +2451,59 @@ document
 .textContent =
 "";
 
-}
+};
 
 
-function closeModal(){
+window.closeModal =
+function(){
 
 document
 .getElementById("modal")
 .style.display =
 "none";
 
-}
+};
 
 
-function openAuth(){
+/* AUTH */
+
+window.openAuth =
+function(){
 
 document
 .getElementById("authModal")
 .style.display =
 "flex";
 
-}
+};
 
 
-function closeAuth(){
+window.closeAuth =
+function(){
 
 document
 .getElementById("authModal")
 .style.display =
 "none";
 
-}
+};
 
 
 /* REQUEST */
 
-function requestItem(item){
+window.requestItem =
+function(
+item,
+itemId,
+ownerId
+){
+
+const firebase =
+window.borrowXFirebase;
 
 if(
-!window.borrowXFirebase ||
-!window.borrowXFirebase.auth.currentUser
+!firebase ||
+!firebase.auth.currentUser
 ){
 
 openAuth();
@@ -1633,18 +2518,138 @@ return;
 }
 
 
+/* Sample listings do not have real IDs */
+
+if(!itemId){
+
 alert(
-"Request system is coming next.\n\nSelected: "
-+
-item
+"This is a sample listing. Please request a real BorrowX listing."
 );
+
+return;
 
 }
 
 
+if(
+ownerId ===
+firebase.auth.currentUser.uid
+){
+
+alert(
+"You cannot request your own listing."
+);
+
+return;
+
+}
+
+
+window.selectedRequestItemId =
+itemId;
+
+window.selectedRequestOwnerId =
+ownerId;
+
+window.selectedRequestItemName =
+item;
+
+
+document
+.getElementById("requestItemTitle")
+.textContent =
+"📦 " + item;
+
+
+document
+.getElementById("requestMessage")
+.value =
+"";
+
+
+document
+.getElementById("requestMessageStatus")
+.textContent =
+"";
+
+
+document
+.getElementById("requestModal")
+.style.display =
+"flex";
+
+};
+
+
+window.closeRequestModal =
+function(){
+
+document
+.getElementById("requestModal")
+.style.display =
+"none";
+
+};
+
+
+/* EXCHANGES */
+
+window.showExchanges =
+function(){
+
+const firebase =
+window.borrowXFirebase;
+
+if(
+!firebase ||
+!firebase.auth.currentUser
+){
+
+openAuth();
+
+document
+.getElementById("authMessage")
+.textContent =
+"Please login first to view your exchanges.";
+
+return;
+
+}
+
+
+document
+.getElementById("exchangeModal")
+.style.display =
+"flex";
+
+
+if(
+typeof window.startExchangeListeners ===
+"function"
+){
+
+window.startExchangeListeners();
+
+}
+
+};
+
+
+window.closeExchanges =
+function(){
+
+document
+.getElementById("exchangeModal")
+.style.display =
+"none";
+
+};
+
+
 /* SEARCH */
 
-function applySearch(){
+window.applySearch =
+function(){
 
 const q =
 document
@@ -1669,26 +2674,15 @@ card.style.display =
 
 });
 
-}
+};
 
 
 document
 .getElementById("search")
 .addEventListener(
 "input",
-applySearch
+window.applySearch
 );
-
-
-/* EXCHANGES */
-
-function showExchangeMessage(){
-
-alert(
-"Exchanges will be available in the next step. 🤝"
-);
-
-}
 
 
 /* CLOSE MODALS */
@@ -1717,6 +2711,36 @@ function(e){
 if(e.target === this){
 
 closeAuth();
+
+}
+
+});
+
+
+document
+.getElementById("requestModal")
+.addEventListener(
+"click",
+function(e){
+
+if(e.target === this){
+
+closeRequestModal();
+
+}
+
+});
+
+
+document
+.getElementById("exchangeModal")
+.addEventListener(
+"click",
+function(e){
+
+if(e.target === this){
+
+closeExchanges();
 
 }
 
