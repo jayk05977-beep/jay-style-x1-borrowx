@@ -1,2788 +1,994 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <title>BorrowX — Borrow, Exchange & Trusted Community</title>
-  <meta name="description" content="BorrowX - Borrow, exchange and share useful items with people nearby.">
-  <meta name="theme-color" content="#111827">
-
-  <style>
-    *{
-      box-sizing:border-box;
-      margin:0;
-      padding:0;
-    }
-
-    body{
-      font-family:Arial,Helvetica,sans-serif;
-      background:#f5f7fb;
-      color:#111827;
-      line-height:1.5;
-    }
-
-    button,input,select,textarea{
-      font:inherit;
-    }
-
-    button{
-      cursor:pointer;
-    }
-
-    .container{
-      width:min(1100px,94%);
-      margin:auto;
-    }
-
-    header{
-      background:#111827;
-      color:white;
-      position:sticky;
-      top:0;
-      z-index:100;
-      box-shadow:0 2px 12px rgba(0,0,0,.12);
-    }
-
-    .nav{
-      min-height:66px;
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:15px;
-    }
-
-    .brand{
-      font-size:24px;
-      font-weight:800;
-      letter-spacing:-.5px;
-    }
-
-    .brand span{
-      color:#60a5fa;
-    }
-
-    .nav-actions{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      flex-wrap:wrap;
-    }
-
-    .btn{
-      border:0;
-      border-radius:10px;
-      padding:10px 15px;
-      font-weight:700;
-      transition:.2s;
-    }
-
-    .btn:hover{
-      transform:translateY(-1px);
-    }
-
-    .btn-primary{
-      background:#2563eb;
-      color:white;
-    }
-
-    .btn-secondary{
-      background:#e5e7eb;
-      color:#111827;
-    }
-
-    .btn-success{
-      background:#16a34a;
-      color:white;
-    }
-
-    .btn-danger{
-      background:#dc2626;
-      color:white;
-    }
-
-    .btn-warning{
-      background:#f59e0b;
-      color:#111827;
-    }
-
-    .btn-dark{
-      background:#1f2937;
-      color:white;
-    }
-
-    .btn-small{
-      padding:8px 11px;
-      font-size:13px;
-    }
-
-    .hero{
-      background:linear-gradient(135deg,#111827,#1d4ed8);
-      color:white;
-      padding:60px 0 50px;
-    }
-
-    .hero-grid{
-      display:grid;
-      grid-template-columns:1.3fr .7fr;
-      gap:30px;
-      align-items:center;
-    }
-
-    .hero h1{
-      font-size:clamp(34px,6vw,58px);
-      line-height:1.05;
-      margin-bottom:18px;
-    }
-
-    .hero h1 span{
-      color:#93c5fd;
-    }
-
-    .hero p{
-      color:#dbeafe;
-      font-size:18px;
-      max-width:650px;
-      margin-bottom:25px;
-    }
-
-    .hero-buttons{
-      display:flex;
-      flex-wrap:wrap;
-      gap:10px;
-    }
-
-    .hero-card{
-      background:rgba(255,255,255,.1);
-      border:1px solid rgba(255,255,255,.2);
-      border-radius:20px;
-      padding:25px;
-      backdrop-filter:blur(10px);
-    }
-
-    .hero-card h3{
-      margin-bottom:15px;
-    }
-
-    .hero-card div{
-      padding:9px 0;
-      border-bottom:1px solid rgba(255,255,255,.12);
-    }
-
-    .hero-card div:last-child{
-      border-bottom:0;
-    }
-
-    .section{
-      padding:40px 0;
-    }
-
-    .section-title{
-      margin-bottom:20px;
-    }
-
-    .section-title h2{
-      font-size:28px;
-      margin-bottom:5px;
-    }
-
-    .section-title p{
-      color:#6b7280;
-    }
-
-    .stats{
-      display:grid;
-      grid-template-columns:repeat(4,1fr);
-      gap:14px;
-      margin-top:-25px;
-      position:relative;
-      z-index:2;
-    }
-
-    .stat{
-      background:white;
-      border-radius:15px;
-      padding:18px;
-      box-shadow:0 5px 20px rgba(0,0,0,.07);
-    }
-
-    .stat strong{
-      display:block;
-      font-size:25px;
-    }
-
-    .stat span{
-      color:#6b7280;
-      font-size:13px;
-    }
-
-    .toolbar{
-      background:white;
-      padding:15px;
-      border-radius:15px;
-      box-shadow:0 3px 15px rgba(0,0,0,.05);
-      display:grid;
-      grid-template-columns:1.5fr .7fr .7fr;
-      gap:10px;
-      margin-bottom:20px;
-    }
-
-    input,select,textarea{
-      width:100%;
-      border:1px solid #d1d5db;
-      border-radius:10px;
-      padding:12px;
-      outline:none;
-      background:white;
-    }
-
-    input:focus,select:focus,textarea:focus{
-      border-color:#2563eb;
-      box-shadow:0 0 0 3px rgba(37,99,235,.1);
-    }
-
-    textarea{
-      min-height:100px;
-      resize:vertical;
-    }
-
-    .listings{
-      display:grid;
-      grid-template-columns:repeat(3,1fr);
-      gap:18px;
-    }
-
-    .card{
-      background:white;
-      border-radius:16px;
-      padding:20px;
-      box-shadow:0 4px 18px rgba(0,0,0,.06);
-      border:1px solid #eef0f4;
-    }
-
-    .card-top{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      margin-bottom:12px;
-    }
-
-    .card h3{
-      font-size:20px;
-    }
-
-    .badge{
-      display:inline-block;
-      padding:5px 9px;
-      border-radius:999px;
-      font-size:11px;
-      font-weight:800;
-      background:#dbeafe;
-      color:#1d4ed8;
-      white-space:nowrap;
-    }
-
-    .badge-green{
-      background:#dcfce7;
-      color:#15803d;
-    }
-
-    .badge-orange{
-      background:#ffedd5;
-      color:#c2410c;
-    }
-
-    .meta{
-      color:#6b7280;
-      font-size:13px;
-      margin:7px 0;
-    }
-
-    .description{
-      margin:13px 0;
-      color:#374151;
-      font-size:14px;
-    }
-
-    .owner{
-      background:#f9fafb;
-      padding:10px;
-      border-radius:9px;
-      margin:12px 0;
-      font-size:12px;
-    }
-
-    .card-actions{
-      display:flex;
-      gap:8px;
-      flex-wrap:wrap;
-      margin-top:15px;
-    }
-
-    .empty{
-      background:white;
-      border-radius:15px;
-      padding:30px;
-      text-align:center;
-      color:#6b7280;
-      grid-column:1/-1;
-    }
-
-    .safety{
-      background:#fff;
-      border-left:5px solid #2563eb;
-      padding:20px;
-      border-radius:12px;
-      box-shadow:0 3px 15px rgba(0,0,0,.04);
-    }
-
-    .safety ul{
-      padding-left:20px;
-      margin-top:10px;
-    }
-
-    .safety li{
-      margin:7px 0;
-    }
-
-    footer{
-      background:#111827;
-      color:#d1d5db;
-      padding:30px 0;
-      margin-top:30px;
-    }
-
-    footer strong{
-      color:white;
-    }
-
-    .modal-overlay{
-      display:none;
-      position:fixed;
-      inset:0;
-      background:rgba(0,0,0,.58);
-      z-index:200;
-      padding:20px;
-      overflow:auto;
-    }
-
-    .modal{
-      background:white;
-      width:min(650px,100%);
-      margin:40px auto;
-      border-radius:18px;
-      overflow:hidden;
-      box-shadow:0 15px 60px rgba(0,0,0,.25);
-    }
-
-    .modal-header{
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-      padding:18px 20px;
-      border-bottom:1px solid #e5e7eb;
-    }
-
-    .modal-header h3{
-      font-size:20px;
-    }
-
-    .close{
-      border:0;
-      background:#f3f4f6;
-      width:35px;
-      height:35px;
-      border-radius:50%;
-      font-size:20px;
-    }
-
-    .modal-body{
-      padding:20px;
-    }
-
-    .form-group{
-      margin-bottom:15px;
-    }
-
-    .form-group label{
-      display:block;
-      font-weight:700;
-      font-size:13px;
-      margin-bottom:6px;
-    }
-
-    .form-row{
-      display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:12px;
-    }
-
-    .auth-tabs{
-      display:flex;
-      border-bottom:1px solid #e5e7eb;
-    }
-
-    .auth-tab{
-      flex:1;
-      border:0;
-      background:white;
-      padding:15px;
-      font-weight:700;
-    }
-
-    .auth-tab.active{
-      color:#2563eb;
-      border-bottom:3px solid #2563eb;
-    }
-
-    .status-box{
-      display:none;
-      padding:12px;
-      border-radius:10px;
-      margin-bottom:14px;
-      font-size:13px;
-    }
-
-    .status-success{
-      background:#dcfce7;
-      color:#166534;
-    }
-
-    .status-error{
-      background:#fee2e2;
-      color:#991b1b;
-    }
-
-    .status-info{
-      background:#dbeafe;
-      color:#1e40af;
-    }
-
-    .user-bar{
-      display:none;
-      background:#eff6ff;
-      color:#1e40af;
-      padding:9px 12px;
-      border-radius:9px;
-      font-size:12px;
-      margin-bottom:15px;
-    }
-
-    .exchange-card{
-      border:1px solid #e5e7eb;
-      border-radius:13px;
-      padding:15px;
-      margin-bottom:12px;
-    }
-
-    .exchange-header{
-      display:flex;
-      justify-content:space-between;
-      gap:10px;
-      align-items:flex-start;
-    }
-
-    .request-message{
-      background:#f9fafb;
-      padding:10px;
-      border-radius:9px;
-      margin:10px 0;
-      font-size:13px;
-    }
-
-    .exchange-actions{
-      display:flex;
-      gap:7px;
-      flex-wrap:wrap;
-      margin-top:10px;
-    }
-
-    .loading{
-      text-align:center;
-      padding:25px;
-      color:#6b7280;
-      grid-column:1/-1;
-    }
-
-    .hidden{
-      display:none!important;
-    }
-
-    .small{
-      font-size:12px;
-      color:#6b7280;
-    }
-
-    .danger-note{
-      background:#fff7ed;
-      border:1px solid #fed7aa;
-      color:#9a3412;
-      padding:10px;
-      border-radius:9px;
-      font-size:12px;
-      margin-top:10px;
-    }
-
-    @media(max-width:850px){
-      .hero-grid{
-        grid-template-columns:1fr;
-      }
-
-      .listings{
-        grid-template-columns:repeat(2,1fr);
-      }
-
-      .stats{
-        grid-template-columns:repeat(2,1fr);
-      }
-
-      .toolbar{
-        grid-template-columns:1fr 1fr;
-      }
-
-      .toolbar input{
-        grid-column:1/-1;
-      }
-    }
-
-    @media(max-width:600px){
-      .nav{
-        padding:8px 0;
-      }
-
-      .brand{
-        font-size:20px;
-      }
-
-      .nav-actions .btn{
-        padding:8px 10px;
-        font-size:12px;
-      }
-
-      .hero{
-        padding:40px 0;
-      }
-
-      .listings{
-        grid-template-columns:1fr;
-      }
-
-      .toolbar{
-        grid-template-columns:1fr;
-      }
-
-      .toolbar input{
-        grid-column:auto;
-      }
-
-      .form-row{
-        grid-template-columns:1fr;
-      }
-
-      .stats{
-        margin-top:-10px;
-      }
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>BorrowX — Borrow, Exchange & Trusted Community</title>
+<meta name="description" content="BorrowX - Borrow, exchange and share useful items with people nearby.">
+<meta name="theme-color" content="#111827">
+
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:Arial,Helvetica,sans-serif;background:#f5f7fb;color:#111827;line-height:1.5}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.container{width:min(1100px,94%);margin:auto}
+header{background:#111827;color:#fff;position:sticky;top:0;z-index:100;box-shadow:0 2px 12px #0002}
+.nav{min-height:66px;display:flex;align-items:center;justify-content:space-between;gap:12px}
+.brand{font-size:24px;font-weight:800}.brand span{color:#60a5fa}
+.nav-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:0;border-radius:10px;padding:10px 15px;font-weight:700;transition:.15s}
+.btn:hover{transform:translateY(-1px)}.btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
+.primary{background:#2563eb;color:#fff}.secondary{background:#e5e7eb;color:#111827}
+.success{background:#16a34a;color:#fff}.danger{background:#dc2626;color:#fff}
+.warning{background:#f59e0b;color:#111827}.dark{background:#1f2937;color:#fff}
+.smallbtn{padding:7px 10px;font-size:12px}
+.hero{background:linear-gradient(135deg,#111827,#1d4ed8);color:#fff;padding:58px 0 48px}
+.hero-grid{display:grid;grid-template-columns:1.3fr .7fr;gap:30px;align-items:center}
+.hero h1{font-size:clamp(35px,6vw,58px);line-height:1.04;margin-bottom:18px}
+.hero h1 span{color:#93c5fd}.hero p{color:#dbeafe;font-size:18px;max-width:650px;margin-bottom:24px}
+.hero-buttons{display:flex;gap:10px;flex-wrap:wrap}
+.hero-card{background:#ffffff18;border:1px solid #ffffff30;border-radius:20px;padding:24px}
+.hero-card h3{margin-bottom:12px}.hero-card div{padding:8px 0;border-bottom:1px solid #ffffff20}
+.hero-card div:last-child{border:0}
+.section{padding:40px 0}.title{margin-bottom:20px}.title h2{font-size:28px}.title p{color:#6b7280}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:-22px;position:relative}
+.stat{background:#fff;border-radius:15px;padding:18px;box-shadow:0 5px 20px #0000000d}
+.stat strong{display:block;font-size:24px}.stat span{color:#6b7280;font-size:13px}
+.toolbar{background:#fff;padding:15px;border-radius:15px;display:grid;grid-template-columns:1.5fr .7fr .7fr;gap:10px;margin-bottom:20px;box-shadow:0 3px 15px #0000000d}
+input,select,textarea{width:100%;border:1px solid #d1d5db;border-radius:10px;padding:11px;outline:0;background:#fff}
+input:focus,select:focus,textarea:focus{border-color:#2563eb;box-shadow:0 0 0 3px #2563eb18}
+textarea{min-height:100px;resize:vertical}
+.grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.card{background:#fff;border-radius:16px;padding:19px;box-shadow:0 4px 18px #0000000d;border:1px solid #eef0f4}
+.cardtop{display:flex;justify-content:space-between;gap:10px;margin-bottom:10px}.card h3{font-size:19px}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;font-size:11px;font-weight:800;background:#dbeafe;color:#1d4ed8}
+.green{background:#dcfce7;color:#15803d}.orange{background:#ffedd5;color:#c2410c}.red{background:#fee2e2;color:#991b1b}
+.meta{color:#6b7280;font-size:13px;margin:6px 0}.desc{font-size:14px;color:#374151;margin:12px 0}
+.cardactions{display:flex;gap:7px;flex-wrap:wrap;margin-top:14px}
+.empty{background:#fff;border-radius:15px;padding:28px;text-align:center;color:#6b7280;grid-column:1/-1}
+.notice{padding:11px;border-radius:10px;background:#eff6ff;color:#1e40af;font-size:13px;margin-bottom:14px}
+.warningbox{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;padding:10px;border-radius:9px;font-size:12px;margin-top:10px}
+.safety{background:#fff;border-left:5px solid #2563eb;padding:20px;border-radius:12px;box-shadow:0 3px 15px #0000000a}
+.safety ul{padding-left:20px;margin-top:9px}.safety li{margin:7px 0}
+footer{background:#111827;color:#d1d5db;padding:30px 0;margin-top:25px}
+footer strong{color:#fff}
+.overlay{display:none;position:fixed;inset:0;background:#0009;z-index:200;padding:15px;overflow:auto}
+.modal{background:#fff;width:min(680px,100%);margin:35px auto;border-radius:18px;overflow:hidden;box-shadow:0 15px 60px #0004}
+.modalhead{padding:17px 20px;border-bottom:1px solid #e5e7eb;display:flex;justify-content:space-between;align-items:center}
+.close{border:0;background:#f3f4f6;width:35px;height:35px;border-radius:50%;font-size:20px}
+.modalbody{padding:20px}.group{margin-bottom:14px}.group label{display:block;font-size:13px;font-weight:700;margin-bottom:5px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.tabs{display:flex;border-bottom:1px solid #e5e7eb}.tab{flex:1;padding:14px;border:0;background:#fff;font-weight:700}.tab.active{color:#2563eb;border-bottom:3px solid #2563eb}
+.status{display:none;padding:11px;border-radius:9px;margin-bottom:13px;font-size:13px}
+.stsuccess{display:block;background:#dcfce7;color:#166534}.sterror{display:block;background:#fee2e2;color:#991b1b}.stinfo{display:block;background:#dbeafe;color:#1e40af}
+.exchange{border:1px solid #e5e7eb;border-radius:13px;padding:14px;margin-bottom:12px}
+.exchangehead{display:flex;justify-content:space-between;gap:8px}.message{background:#f9fafb;padding:9px;border-radius:8px;font-size:13px;margin:9px 0}
+.actions{display:flex;gap:7px;flex-wrap:wrap;margin-top:10px}
+.hidden{display:none!important}.muted{color:#6b7280;font-size:12px}
+.chatbox{height:320px;overflow:auto;background:#f5f7fb;border-radius:10px;padding:12px}
+.msg{max-width:80%;background:#fff;padding:8px 10px;border-radius:10px;margin:6px 0;font-size:13px}
+.msg.mine{margin-left:auto;background:#dbeafe}
+.profilebox{background:#f9fafb;padding:15px;border-radius:12px}
+@media(max-width:850px){.hero-grid{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.grid{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.row{grid-template-columns:1fr}.hero{padding:40px 0}.nav .btn{font-size:12px;padding:8px 10px}}
+</style>
 </head>
 
 <body>
 
 <header>
-  <div class="container nav">
-    <div class="brand">Borrow<span>X</span></div>
-
-    <div class="nav-actions">
-      <button class="btn btn-secondary btn-small" onclick="openExchanges()">Exchanges</button>
-      <button id="profileBtn" class="btn btn-secondary btn-small" onclick="openProfile()">Login</button>
-    </div>
+<div class="container nav">
+  <div class="brand">Borrow<span>X</span></div>
+  <div class="nav-actions">
+    <button class="btn secondary smallbtn" onclick="openExchanges()">Exchanges</button>
+    <button id="profileBtn" class="btn secondary smallbtn" onclick="openProfile()">Login</button>
   </div>
+</div>
 </header>
 
 <section class="hero">
-  <div class="container hero-grid">
-
-    <div>
-      <h1>Borrow less.<br><span>Share more.</span></h1>
-
-      <p>
-        BorrowX helps people find useful items nearby,
-        borrow them temporarily, and build a trusted sharing community.
-      </p>
-
-      <div class="hero-buttons">
-        <button class="btn btn-primary" onclick="requireLoginThenOpenPost('borrow')">
-          I Need Something
-        </button>
-
-        <button class="btn btn-secondary" onclick="requireLoginThenOpenPost('exchange')">
-          I Have Something
-        </button>
-
-        <button class="btn btn-dark" onclick="scrollToListings()">
-          Search Listings
-        </button>
-      </div>
-    </div>
-
-    <div class="hero-card">
-      <h3>How BorrowX works</h3>
-
-      <div>1️⃣ Post what you need or have</div>
-      <div>2️⃣ Find a nearby match</div>
-      <div>3️⃣ Send a request</div>
-      <div>4️⃣ Agree through safe communication</div>
-      <div>5️⃣ Borrow → Return → Complete</div>
-    </div>
-
+<div class="container hero-grid">
+<div>
+  <h1>Borrow less.<br><span>Share more.</span></h1>
+  <p>Find useful items nearby, borrow them temporarily and build a trusted sharing community.</p>
+  <div class="hero-buttons">
+    <button class="btn primary" onclick="openNeed()">I Need Something</button>
+    <button class="btn secondary" onclick="requireLoginThenOpenPost()">I Have Something</button>
+    <button class="btn dark" onclick="scrollListings()">Search Listings</button>
   </div>
+</div>
+<div class="hero-card">
+  <h3>How BorrowX works</h3>
+  <div>1️⃣ Post what you need or have</div>
+  <div>2️⃣ Find a nearby match</div>
+  <div>3️⃣ Send a request</div>
+  <div>4️⃣ Communicate safely in-app</div>
+  <div>5️⃣ Borrow → Return → Complete</div>
+</div>
+</div>
 </section>
 
 <section class="container">
-  <div class="stats">
-    <div class="stat">
-      <strong id="statListings">0</strong>
-      <span>Live listings</span>
-    </div>
-
-    <div class="stat">
-      <strong id="statUsers">—</strong>
-      <span>Community</span>
-    </div>
-
-    <div class="stat">
-      <strong>🔐</strong>
-      <span>Firebase protected</span>
-    </div>
-
-    <div class="stat">
-      <strong>📍</strong>
-      <span>Approximate areas</span>
-    </div>
-  </div>
+<div class="stats">
+<div class="stat"><strong id="statListings">0</strong><span>Live listings</span></div>
+<div class="stat"><strong id="statNeeds">0</strong><span>Community needs</span></div>
+<div class="stat"><strong>🔐</strong><span>Firebase protected</span></div>
+<div class="stat"><strong>📍</strong><span>Approximate areas</span></div>
+</div>
 </section>
 
 <section class="section" id="listingsSection">
-  <div class="container">
+<div class="container">
+<div class="title"><h2>Available on BorrowX</h2><p>Find useful things people are willing to share.</p></div>
 
-    <div class="section-title">
-      <h2>Available on BorrowX</h2>
-      <p>Find useful things people are willing to share.</p>
-    </div>
+<div class="toolbar">
+<input id="search" type="search" placeholder="Search items, area or description..." oninput="renderListings()">
+<select id="cat" onchange="renderListings()">
+<option value="all">All categories</option>
+<option>Tools</option><option>Books</option><option>Camera</option>
+<option>Sports</option><option>Games</option><option>Home</option><option>Other</option>
+</select>
+<select id="mode" onchange="renderListings()">
+<option value="all">Borrow + Exchange</option><option>Borrow</option><option>Exchange</option>
+</select>
+</div>
 
-    <div class="toolbar">
-
-      <input
-        id="searchInput"
-        type="search"
-        placeholder="Search items, area or description..."
-        oninput="renderListings()"
-      >
-
-      <select id="categoryFilter" onchange="renderListings()">
-        <option value="all">All categories</option>
-        <option value="Tools">Tools</option>
-        <option value="Books">Books</option>
-        <option value="Camera">Camera</option>
-        <option value="Sports">Sports</option>
-        <option value="Games">Games</option>
-        <option value="Home">Home</option>
-        <option value="Other">Other</option>
-      </select>
-
-      <select id="modeFilter" onchange="renderListings()">
-        <option value="all">Borrow + Exchange</option>
-        <option value="Borrow">Borrow</option>
-        <option value="Exchange">Exchange</option>
-      </select>
-
-    </div>
-
-    <div id="loginNotice" class="user-bar">
-      Login required to send a request or publish a listing.
-    </div>
-
-    <div id="listings" class="listings">
-      <div class="loading">Loading BorrowX listings...</div>
-    </div>
-
-  </div>
+<div id="listings" class="grid"><div class="empty">Loading listings...</div></div>
+</div>
 </section>
 
 <section class="section">
-  <div class="container">
-
-    <div class="section-title">
-      <h2>People Need</h2>
-      <p>Community requests will appear here as BorrowX grows.</p>
-    </div>
-
-    <div id="needsList" class="listings">
-      <div class="empty">
-        Need something? Create a request from <b>I Need Something</b>.
-      </div>
-    </div>
-
-  </div>
+<div class="container">
+<div class="title"><h2>People Need</h2><p>Help someone nearby find what they need.</p></div>
+<div id="needs" class="grid"><div class="empty">Loading needs...</div></div>
+</div>
 </section>
 
 <section class="section">
-  <div class="container">
-
-    <div class="section-title">
-      <h2>Trust & Safety</h2>
-      <p>BorrowX is designed around safer community exchanges.</p>
-    </div>
-
-    <div class="safety">
-      <strong>Important safety rules</strong>
-
-      <ul>
-        <li>Use only an approximate area in public listings.</li>
-        <li>Never publish your exact home address.</li>
-        <li>Do not publicly post your personal phone number.</li>
-        <li>Prefer safe, public locations for handovers.</li>
-        <li>Do not meet unknown people alone if you feel unsafe.</li>
-        <li>Report suspicious listings or accounts.</li>
-        <li>BorrowX verification does not guarantee that another person is completely safe.</li>
-      </ul>
-
-      <div class="danger-note">
-        BorrowX is a community platform. Always use your own judgment and involve a trusted adult when appropriate.
-      </div>
-    </div>
-
-  </div>
+<div class="container">
+<div class="title"><h2>Trust & Safety</h2><p>BorrowX is designed around safer community exchanges.</p></div>
+<div class="safety">
+<strong>Important safety rules</strong>
+<ul>
+<li>Use only an approximate area in public listings.</li>
+<li>Never publish your exact home address.</li>
+<li>Never publish your personal phone number.</li>
+<li>Prefer safe, public locations for handovers.</li>
+<li>Do not meet unknown people alone if you feel unsafe.</li>
+<li>Use BorrowX chat instead of posting personal contact details.</li>
+<li>Report suspicious listings or accounts.</li>
+<li>Verification and ratings do not guarantee that another person is completely safe.</li>
+</ul>
+<div class="warningbox">BorrowX is a community platform. Use your judgment and involve a trusted adult when appropriate.</div>
+</div>
+</div>
 </section>
 
-<footer>
-  <div class="container">
-    <strong>BorrowX</strong> — Borrow, Exchange & Trusted Community
-    <br>
-    <span class="small">by Jay Style X1</span>
-  </div>
-</footer>
+<footer><div class="container"><strong>BorrowX</strong> — Borrow, Exchange & Trusted Community<br><span class="muted">by Jay Style X1</span></div></footer>
 
 
-<!-- AUTH MODAL -->
+<!-- AUTH -->
+<div id="auth" class="overlay">
+<div class="modal">
+<div class="modalhead"><h3>BorrowX Account</h3><button class="close" onclick="closeM('auth')">×</button></div>
+<div class="tabs">
+<button id="tabLogin" class="tab active" onclick="authTab('login')">Login</button>
+<button id="tabSignup" class="tab" onclick="authTab('signup')">Create Account</button>
+</div>
+<div class="modalbody">
+<div id="authStatus" class="status"></div>
 
-<div id="authModal" class="modal-overlay">
-  <div class="modal">
+<div id="loginBox">
+<div class="group"><label>Email</label><input id="loginEmail" type="email" autocomplete="email"></div>
+<div class="group"><label>Password</label><input id="loginPass" type="password" autocomplete="current-password"></div>
+<button class="btn primary" style="width:100%" onclick="login()">Login</button>
+<button class="btn secondary" style="width:100%;margin-top:8px" onclick="forgot()">Forgot Password?</button>
+</div>
 
-    <div class="modal-header">
-      <h3>BorrowX Account</h3>
-      <button class="close" onclick="closeModal('authModal')">×</button>
-    </div>
+<div id="signupBox" class="hidden">
+<div class="group"><label>Email</label><input id="signupEmail" type="email" autocomplete="email"></div>
+<div class="group"><label>Password</label><input id="signupPass" type="password" autocomplete="new-password"></div>
+<button class="btn primary" style="width:100%" onclick="signup()">Create Account</button>
+</div>
 
-    <div class="auth-tabs">
-      <button id="loginTab" class="auth-tab active" onclick="switchAuth('login')">
-        Login
-      </button>
-
-      <button id="signupTab" class="auth-tab" onclick="switchAuth('signup')">
-        Create Account
-      </button>
-    </div>
-
-    <div class="modal-body">
-
-      <div id="authStatus" class="status-box"></div>
-
-      <div id="loginForm">
-
-        <div class="form-group">
-          <label>Email</label>
-          <input id="loginEmail" type="email" autocomplete="email" placeholder="you@example.com">
-        </div>
-
-        <div class="form-group">
-          <label>Password</label>
-          <input id="loginPassword" type="password" autocomplete="current-password" placeholder="Password">
-        </div>
-
-        <button class="btn btn-primary" style="width:100%" onclick="loginUser()">
-          Login
-        </button>
-
-        <button class="btn btn-secondary" style="width:100%;margin-top:10px" onclick="showForgotPassword()">
-          Forgot Password?
-        </button>
-
-      </div>
-
-
-      <div id="signupForm" class="hidden">
-
-        <div class="form-group">
-          <label>Email</label>
-          <input id="signupEmail" type="email" autocomplete="email" placeholder="you@example.com">
-        </div>
-
-        <div class="form-group">
-          <label>Password</label>
-          <input id="signupPassword" type="password" autocomplete="new-password" placeholder="Minimum 6 characters">
-        </div>
-
-        <button class="btn btn-primary" style="width:100%" onclick="signupUser()">
-          Create Account
-        </button>
-
-      </div>
-
-
-      <div id="forgotForm" class="hidden">
-
-        <div class="form-group">
-          <label>Email</label>
-          <input id="forgotEmail" type="email" placeholder="Enter your account email">
-        </div>
-
-        <button class="btn btn-primary" style="width:100%" onclick="sendResetEmail()">
-          Send Reset Email
-        </button>
-
-        <button class="btn btn-secondary" style="width:100%;margin-top:10px" onclick="switchAuth('login')">
-          Back to Login
-        </button>
-
-      </div>
-
-    </div>
-  </div>
+<div id="forgotBox" class="hidden">
+<div class="group"><label>Email</label><input id="forgotEmail" type="email"></div>
+<button class="btn primary" style="width:100%" onclick="resetPassword()">Send Reset Email</button>
+<button class="btn secondary" style="width:100%;margin-top:8px" onclick="authTab('login')">Back to Login</button>
+</div>
+</div>
+</div>
 </div>
 
 
-<!-- POST MODAL -->
-
-<div id="postModal" class="modal-overlay">
-  <div class="modal">
-
-    <div class="modal-header">
-      <h3 id="postTitle">Create BorrowX Listing</h3>
-      <button class="close" onclick="closeModal('postModal')">×</button>
-    </div>
-
-    <div class="modal-body">
-
-      <div id="postStatus" class="status-box"></div>
-
-      <div class="form-group">
-        <label>What do you have / need?</label>
-        <input id="itemName" maxlength="80" placeholder="Example: Drill Machine">
-      </div>
-
-      <div class="form-row">
-
-        <div class="form-group">
-          <label>Mode</label>
-
-          <select id="postMode">
-            <option value="Borrow">Borrow</option>
-            <option value="Exchange">Exchange</option>
-          </select>
-        </div>
-
-        <div class="form-group">
-          <label>Category</label>
-
-          <select id="postCategory">
-            <option value="Tools">Tools</option>
-            <option value="Books">Books</option>
-            <option value="Camera">Camera</option>
-            <option value="Sports">Sports</option>
-            <option value="Games">Games</option>
-            <option value="Home">Home</option>
-            <option value="Other">Other</option>
-          </select>
-        </div>
-
-      </div>
-
-      <div class="form-row">
-
-        <div class="form-group">
-          <label>Approximate area</label>
-          <input id="area" maxlength="60" placeholder="Example: Mainpuri">
-        </div>
-
-        <div class="form-group">
-          <label>Duration</label>
-          <input id="duration" maxlength="40" placeholder="Example: 2 days">
-        </div>
-
-      </div>
-
-      <div class="form-group">
-        <label>Description</label>
-
-        <textarea
-          id="description"
-          maxlength="500"
-          placeholder="Condition, availability and useful details..."
-        ></textarea>
-      </div>
-
-      <div class="danger-note">
-        Do not enter your exact home address, phone number, passwords or other sensitive personal information.
-      </div>
-
-      <button class="btn btn-primary" style="width:100%;margin-top:15px" onclick="publishListing()">
-        Publish Listing
-      </button>
-
-    </div>
-  </div>
+<!-- LISTING -->
+<div id="listingModal" class="overlay">
+<div class="modal">
+<div class="modalhead"><h3>List Something You Have</h3><button class="close" onclick="closeM('listingModal')">×</button></div>
+<div class="modalbody">
+<div id="listingStatus" class="status"></div>
+<div class="group"><label>Item name</label><input id="itemName" maxlength="80" placeholder="Example: Drill Machine"></div>
+<div class="row">
+<div class="group"><label>Mode</label><select id="itemMode"><option>Borrow</option><option>Exchange</option></select></div>
+<div class="group"><label>Category</label><select id="itemCat"><option>Tools</option><option>Books</option><option>Camera</option><option>Sports</option><option>Games</option><option>Home</option><option>Other</option></select></div>
+</div>
+<div class="row">
+<div class="group"><label>Approximate area</label><input id="itemArea" maxlength="60" placeholder="Example: Mainpuri"></div>
+<div class="group"><label>Available duration</label><input id="itemDuration" maxlength="40" placeholder="Example: 2 days"></div>
+</div>
+<div class="group"><label>Description</label><textarea id="itemDesc" maxlength="500" placeholder="Condition and useful details..."></textarea></div>
+<div class="warningbox">Do not enter exact address, phone number, password or other sensitive information.</div>
+<button class="btn primary" style="width:100%;margin-top:14px" onclick="publish()">Publish Listing</button>
+</div>
+</div>
 </div>
 
 
-<!-- REQUEST MODAL -->
-
-<div id="requestModal" class="modal-overlay">
-  <div class="modal">
-
-    <div class="modal-header">
-      <h3>Request Item</h3>
-      <button class="close" onclick="closeModal('requestModal')">×</button>
-    </div>
-
-    <div class="modal-body">
-
-      <div id="requestStatus" class="status-box"></div>
-
-      <p style="margin-bottom:15px">
-        Requesting:
-        <strong id="requestItemName"></strong>
-      </p>
-
-      <div class="form-group">
-        <label>Message to owner</label>
-
-        <textarea
-          id="requestMessage"
-          maxlength="500"
-          placeholder="Example: I need this for two days. I can return it on time."
-        ></textarea>
-      </div>
-
-      <button class="btn btn-primary" style="width:100%" onclick="sendRequest()">
-        Send Request
-      </button>
-
-    </div>
-  </div>
+<!-- NEED -->
+<div id="needModal" class="overlay">
+<div class="modal">
+<div class="modalhead"><h3>I Need Something</h3><button class="close" onclick="closeM('needModal')">×</button></div>
+<div class="modalbody">
+<div id="needStatus" class="status"></div>
+<div class="group"><label>What do you need?</label><input id="needName" maxlength="80" placeholder="Example: Ladder"></div>
+<div class="row">
+<div class="group"><label>Category</label><select id="needCat"><option>Tools</option><option>Books</option><option>Camera</option><option>Sports</option><option>Games</option><option>Home</option><option>Other</option></select></div>
+<div class="group"><label>Approximate area</label><input id="needArea" maxlength="60" placeholder="Example: Mainpuri"></div>
+</div>
+<div class="group"><label>What do you need it for?</label><textarea id="needDesc" maxlength="500"></textarea></div>
+<div class="group"><label>How long?</label><input id="needDuration" maxlength="40" placeholder="Example: 2 days"></div>
+<div class="warningbox">Only use an approximate area. Never post your exact address or phone number.</div>
+<button class="btn primary" style="width:100%;margin-top:14px" onclick="publishNeed()">Post Need</button>
+</div>
+</div>
 </div>
 
 
-<!-- EXCHANGES MODAL -->
-
-<div id="exchangeModal" class="modal-overlay">
-  <div class="modal">
-
-    <div class="modal-header">
-      <h3>My Exchanges</h3>
-      <button class="close" onclick="closeModal('exchangeModal')">×</button>
-    </div>
-
-    <div class="modal-body">
-
-      <div id="exchangeStatus" class="status-box"></div>
-
-      <div id="exchangeAccount" class="user-bar" style="display:block"></div>
-
-      <h4 style="margin:20px 0 10px">
-        REQUESTS FOR YOUR ITEMS
-      </h4>
-
-      <div id="receivedRequests">
-        <div class="empty">Loading...</div>
-      </div>
-
-      <h4 style="margin:25px 0 10px">
-        YOUR SENT REQUESTS
-      </h4>
-
-      <div id="sentRequests">
-        <div class="empty">Loading...</div>
-      </div>
-
-    </div>
-  </div>
+<!-- REQUEST -->
+<div id="requestModal" class="overlay">
+<div class="modal">
+<div class="modalhead"><h3>Request Item</h3><button class="close" onclick="closeM('requestModal')">×</button></div>
+<div class="modalbody">
+<div id="requestStatus" class="status"></div>
+<p>Requesting: <strong id="requestName"></strong></p>
+<div class="group" style="margin-top:14px"><label>Message</label><textarea id="requestMsg" maxlength="500" placeholder="Tell the owner what you need it for and for how long."></textarea></div>
+<button class="btn primary" style="width:100%" onclick="sendRequest()">Send Request</button>
+</div>
+</div>
 </div>
 
 
-<!-- PROFILE MODAL -->
-
-<div id="profileModal" class="modal-overlay">
-  <div class="modal">
-
-    <div class="modal-header">
-      <h3>My BorrowX Profile</h3>
-      <button class="close" onclick="closeModal('profileModal')">×</button>
-    </div>
-
-    <div class="modal-body">
-
-      <div id="profileLoggedOut">
-
-        <p style="margin-bottom:15px">
-          Login to use BorrowX requests and listings.
-        </p>
-
-        <button class="btn btn-primary" style="width:100%" onclick="closeModal('profileModal');openAuth()">
-          Login / Create Account
-        </button>
-
-      </div>
-
-
-      <div id="profileLoggedIn" class="hidden">
-
-        <div class="card" style="box-shadow:none;background:#f9fafb">
-          <strong>Account</strong>
-          <p id="profileEmail" class="small" style="margin-top:6px"></p>
-        </div>
-
-        <div class="form-row" style="margin-top:15px">
-
-          <div class="stat">
-            <strong id="profileSent">0</strong>
-            <span>Sent requests</span>
-          </div>
-
-          <div class="stat">
-            <strong id="profileReceived">0</strong>
-            <span>Received requests</span>
-          </div>
-
-        </div>
-
-        <button
-          class="btn btn-secondary"
-          style="width:100%;margin-top:15px"
-          onclick="closeModal('profileModal');openExchanges()"
-        >
-          View My Exchanges
-        </button>
-
-        <button
-          class="btn btn-danger"
-          style="width:100%;margin-top:10px"
-          onclick="logoutUser()"
-        >
-          Logout
-        </button>
-
-      </div>
-
-    </div>
-  </div>
+<!-- EXCHANGES -->
+<div id="exchangeModal" class="overlay">
+<div class="modal">
+<div class="modalhead"><h3>My Exchanges</h3><button class="close" onclick="closeM('exchangeModal')">×</button></div>
+<div class="modalbody">
+<div id="exchangeStatus" class="status"></div>
+<div id="accountNotice" class="notice"></div>
+<h4 style="margin:15px 0 9px">REQUESTS FOR YOUR ITEMS</h4>
+<div id="received"><div class="empty">Loading...</div></div>
+<h4 style="margin:22px 0 9px">YOUR SENT REQUESTS</h4>
+<div id="sent"><div class="empty">Loading...</div></div>
+</div>
+</div>
 </div>
 
 
-<!-- REPORT MODAL -->
+<!-- CHAT -->
+<div id="chatModal" class="overlay">
+<div class="modal">
+<div class="modalhead"><h3 id="chatTitle">BorrowX Chat</h3><button class="close" onclick="closeChat()">×</button></div>
+<div class="modalbody">
+<div id="chatMessages" class="chatbox"></div>
+<div style="display:flex;gap:8px;margin-top:10px">
+<input id="chatInput" maxlength="1000" placeholder="Write a message...">
+<button class="btn primary" onclick="sendChat()">Send</button>
+</div>
+<div class="warningbox">Do not share your exact address, password or sensitive personal information.</div>
+</div>
+</div>
+</div>
 
-<div id="reportModal" class="modal-overlay">
-  <div class="modal">
 
-    <div class="modal-header">
-      <h3>Report Listing</h3>
-      <button class="close" onclick="closeModal('reportModal')">×</button>
-    </div>
+<!-- PROFILE -->
+<div id="profileModal" class="overlay">
+<div class="modal">
+<div class="modalhead"><h3>My BorrowX Profile</h3><button class="close" onclick="closeM('profileModal')">×</button></div>
+<div class="modalbody">
+<div id="loggedOut">
+<p style="margin-bottom:12px">Login to use BorrowX.</p>
+<button class="btn primary" style="width:100%" onclick="closeM('profileModal');openAuth()">Login / Create Account</button>
+</div>
+<div id="loggedIn" class="hidden">
+<div class="profilebox">
+<strong>Account</strong>
+<p id="profileEmail" class="muted"></p>
+<p id="verifyState" class="muted" style="margin-top:5px"></p>
+</div>
+<div class="row" style="margin-top:12px">
+<div class="stat"><strong id="pSent">0</strong><span>Sent requests</span></div>
+<div class="stat"><strong id="pReceived">0</strong><span>Received</span></div>
+</div>
+<div class="profilebox" style="margin-top:12px">
+<strong>Trust rating</strong>
+<p id="ratingText" style="margin-top:5px">No ratings yet.</p>
+</div>
+<button id="verifyBtn" class="btn warning" style="width:100%;margin-top:12px" onclick="verifyEmail()">Send verification email</button>
+<button class="btn secondary" style="width:100%;margin-top:8px" onclick="closeM('profileModal');openExchanges()">My Exchanges</button>
+<button class="btn danger" style="width:100%;margin-top:8px" onclick="logout()">Logout</button>
+</div>
+</div>
+</div>
+</div>
 
-    <div class="modal-body">
 
-      <div id="reportStatus" class="status-box"></div>
+<!-- REPORT -->
+<div id="reportModal" class="overlay">
+<div class="modal">
+<div class="modalhead"><h3>Report Listing</h3><button class="close" onclick="closeM('reportModal')">×</button></div>
+<div class="modalbody">
+<div id="reportStatus" class="status"></div>
+<div class="group"><label>Reason</label><select id="reportReason"><option>Suspicious listing</option><option>Wrong information</option><option>Inappropriate content</option><option>Other</option></select></div>
+<div class="group"><label>Details</label><textarea id="reportDetails" maxlength="500"></textarea></div>
+<button class="btn danger" style="width:100%" onclick="submitReport()">Submit Report</button>
+</div>
+</div>
+</div>
 
-      <p class="small" style="margin-bottom:15px">
-        Report suspicious, misleading or inappropriate content.
-      </p>
 
-      <div class="form-group">
-        <label>Reason</label>
-
-        <select id="reportReason">
-          <option value="Suspicious listing">Suspicious listing</option>
-          <option value="Wrong information">Wrong information</option>
-          <option value="Inappropriate content">Inappropriate content</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label>Details</label>
-
-        <textarea
-          id="reportDetails"
-          maxlength="500"
-          placeholder="Tell us what looks wrong..."
-        ></textarea>
-      </div>
-
-      <button class="btn btn-danger" style="width:100%" onclick="submitReport()">
-        Submit Report
-      </button>
-
-    </div>
-  </div>
+<!-- RATING -->
+<div id="ratingModal" class="overlay">
+<div class="modal">
+<div class="modalhead"><h3>Rate Exchange</h3><button class="close" onclick="closeM('ratingModal')">×</button></div>
+<div class="modalbody">
+<div id="ratingStatus" class="status"></div>
+<p>Rate your completed exchange experience.</p>
+<div class="group" style="margin-top:14px"><label>Rating</label>
+<select id="ratingScore"><option value="5">5 — Excellent</option><option value="4">4 — Good</option><option value="3">3 — Okay</option><option value="2">2 — Poor</option><option value="1">1 — Very poor</option></select>
+</div>
+<div class="group"><label>Comment</label><textarea id="ratingComment" maxlength="300"></textarea></div>
+<button class="btn primary" style="width:100%" onclick="submitRating()">Submit Rating</button>
+</div>
+</div>
 </div>
 
 
 <script type="module">
 
-  import {
-    initializeApp
-  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
-
-  import {
-    getAuth,
-    createUserWithEmailAndPassword,
-    signInWithEmailAndPassword,
-    sendPasswordResetEmail,
-    onAuthStateChanged,
-    signOut
-  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
-
-  import {
-    getFirestore,
-    collection,
-    addDoc,
-    query,
-    where,
-    onSnapshot,
-    updateDoc,
-    deleteDoc,
-    doc,
-    serverTimestamp,
-    getDocs,
-    limit
-  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
-
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDON3_zSPUXVuCsUFJwNQKYvopE5cfYFTw",
-    authDomain: "borrowx-41589.firebaseapp.com",
-    projectId: "borrowx-41589",
-    storageBucket: "borrowx-41589.firebasestorage.app",
-    messagingSenderId: "833407287824",
-    appId: "1:833407287824:web:18f72c92cd12297dc20095",
-    measurementId: "G-3BMPCT4BZY"
-  };
-
-
-  const app = initializeApp(firebaseConfig);
-  const auth = getAuth(app);
-  const db = getFirestore(app);
-
-
-  let user = null;
-
-  let allListings = [];
-  let allNeeds = [];
-
-  let receivedRequests = [];
-  let sentRequests = [];
-
-  let receivedUnsubscribe = null;
-  let sentUnsubscribe = null;
-
-  let selectedItem = null;
-  let selectedReportItem = null;
-
-  let receivedReady = false;
-  let sentReady = false;
-
-
-  const sampleListings = [
-    {
-      id:"sample-books",
-      itemName:"Study Books",
-      category:"Books",
-      mode:"Borrow",
-      area:"Mainpuri",
-      duration:"7 days",
-      description:"Useful study books available for temporary borrowing.",
-      ownerId:"sample",
-      ownerEmail:"",
-      sample:true
-    },
-    {
-      id:"sample-basketball",
-      itemName:"Basketball",
-      category:"Sports",
-      mode:"Borrow",
-      area:"Mainpuri",
-      duration:"2 days",
-      description:"Basketball available for short-term use.",
-      ownerId:"sample",
-      ownerEmail:"",
-      sample:true
-    }
-  ];
-
-
-  function $(id){
-    return document.getElementById(id);
-  }
-
-
-  window.closeModal = function(id){
-    $(id).style.display = "none";
-  };
-
-
-  function openModal(id){
-    $(id).style.display = "block";
-  }
-
-
-  window.openAuth = function(){
-    openModal("authModal");
-    switchAuth("login");
-  };
-
-
-  window.switchAuth = function(mode){
-
-    $("loginForm").classList.toggle("hidden",mode !== "login");
-    $("signupForm").classList.toggle("hidden",mode !== "signup");
-    $("forgotForm").classList.add("hidden");
-
-    $("loginTab").classList.toggle("active",mode === "login");
-    $("signupTab").classList.toggle("active",mode === "signup");
-
-    clearStatus("authStatus");
-  };
-
-
-  window.showForgotPassword = function(){
-
-    $("loginForm").classList.add("hidden");
-    $("signupForm").classList.add("hidden");
-    $("forgotForm").classList.remove("hidden");
-
-    $("loginTab").classList.remove("active");
-    $("signupTab").classList.remove("active");
-
-    $("forgotEmail").value = $("loginEmail").value.trim();
-
-    clearStatus("authStatus");
-  };
-
-
-  function showStatus(id,message,type="info"){
-
-    const el = $(id);
-
-    el.className = "status-box status-" + type;
-    el.textContent = message;
-    el.style.display = "block";
-  }
-
-
-  function clearStatus(id){
-
-    const el = $(id);
-
-    el.textContent = "";
-    el.style.display = "none";
-  }
-
-
-  function friendlyError(error){
-
-    const code = error?.code || "";
-
-    const map = {
-      "auth/invalid-credential":"Email or password is incorrect.",
-      "auth/invalid-email":"Please enter a valid email.",
-      "auth/email-already-in-use":"This email already has an account.",
-      "auth/weak-password":"Password should be at least 6 characters.",
-      "auth/network-request-failed":"Network problem. Check your internet connection.",
-      "auth/too-many-requests":"Too many attempts. Please wait and try again.",
-      "permission-denied":"You do not have permission for this action.",
-      "failed-precondition":"Firebase needs a configuration update."
-    };
-
-    return map[code] || error?.message || "Something went wrong. Please try again.";
-  }
-
-
-  window.signupUser = async function(){
-
-    const email = $("signupEmail").value.trim();
-    const password = $("signupPassword").value;
-
-    if(!email || !password){
-      showStatus("authStatus","Please enter email and password.","error");
-      return;
-    }
-
-    if(password.length < 6){
-      showStatus("authStatus","Password must be at least 6 characters.","error");
-      return;
-    }
-
-    try{
-
-      showStatus("authStatus","Creating your account...","info");
-
-      await createUserWithEmailAndPassword(auth,email,password);
-
-      showStatus("authStatus","Account created successfully ✅","success");
-
-      setTimeout(()=>{
-        closeModal("authModal");
-      },900);
-
-    }catch(error){
-
-      showStatus("authStatus",friendlyError(error),"error");
-    }
-  };
-
-
-  window.loginUser = async function(){
-
-    const email = $("loginEmail").value.trim();
-    const password = $("loginPassword").value;
-
-    if(!email || !password){
-      showStatus("authStatus","Enter email and password.","error");
-      return;
-    }
-
-    try{
-
-      showStatus("authStatus","Logging in...","info");
-
-      await signInWithEmailAndPassword(auth,email,password);
-
-      showStatus("authStatus","Login successful ✅","success");
-
-      setTimeout(()=>{
-        closeModal("authModal");
-      },700);
-
-    }catch(error){
-
-      showStatus("authStatus",friendlyError(error),"error");
-    }
-  };
-
-
-  window.sendResetEmail = async function(){
-
-    const email = $("forgotEmail").value.trim();
-
-    if(!email){
-      showStatus("authStatus","Enter your account email.","error");
-      return;
-    }
-
-    try{
-
-      await sendPasswordResetEmail(auth,email);
-
-      showStatus(
-        "authStatus",
-        "Password reset email sent ✅ Check your inbox.",
-        "success"
-      );
-
-    }catch(error){
-
-      /*
-        Firebase may intentionally hide whether an email exists.
-        So only show real technical errors.
-      */
-
-      if(error.code === "auth/invalid-email"){
-        showStatus("authStatus","Please enter a valid email.","error");
-      }else{
-        showStatus(
-          "authStatus",
-          "If an account exists for this email, a password reset email has been sent.",
-          "success"
-        );
-      }
-    }
-  };
-
-
-  window.logoutUser = async function(){
-
-    try{
-
-      await signOut(auth);
-
-      closeModal("profileModal");
-      closeModal("exchangeModal");
-
-    }catch(error){
-
-      alert(friendlyError(error));
-    }
-  };
-
-
-  onAuthStateChanged(auth,(currentUser)=>{
-
-    user = currentUser;
-
-    updateAuthUI();
-
-    if(user){
-
-      $("loginNotice").classList.add("hidden");
-
-    }else{
-
-      $("loginNotice").classList.remove("hidden");
-
-      stopExchangeListeners();
-    }
+import {initializeApp}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+import {
+ getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,
+ sendPasswordResetEmail,onAuthStateChanged,signOut,sendEmailVerification
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+import {
+ getFirestore,collection,addDoc,setDoc,getDoc,getDocs,doc,query,where,
+ onSnapshot,updateDoc,serverTimestamp,limit
+} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+const firebaseConfig={
+ apiKey:"AIzaSyDON3_zSPUXVuCsUFJwNQKYvopE5cfYFTw",
+ authDomain:"borrowx-41589.firebaseapp.com",
+ projectId:"borrowx-41589",
+ storageBucket:"borrowx-41589.firebasestorage.app",
+ messagingSenderId:"833407287824",
+ appId:"1:833407287824:web:18f72c92cd12297dc20095",
+ measurementId:"G-3BMPCT4BZY"
+};
+
+const app=initializeApp(firebaseConfig);
+const auth=getAuth(app);
+const db=getFirestore(app);
+
+let user=null;
+let listings=[];
+let needs=[];
+let received=[];
+let sent=[];
+let selectedItem=null;
+let selectedReport=null;
+let selectedRequest=null;
+let chatUnsub=null;
+
+const samples=[
+ {id:"sample1",itemName:"Study Books",category:"Books",mode:"Borrow",area:"Mainpuri",duration:"7 days",description:"Useful study books available for temporary borrowing.",sample:true},
+ {id:"sample2",itemName:"Basketball",category:"Sports",mode:"Borrow",area:"Mainpuri",duration:"2 days",description:"Basketball available for short-term use.",sample:true}
+];
+
+const $=id=>document.getElementById(id);
+
+window.closeM=id=>$(id).style.display="none";
+
+function openM(id){$(id).style.display="block"}
+
+function status(id,text,type="info"){
+ const e=$(id);
+ e.className="status "+(type==="success"?"stsuccess":type==="error"?"sterror":"stinfo");
+ e.textContent=text;
+}
+
+function clearStatus(id){
+ $(id).className="status";$(id).textContent="";
+}
+
+function esc(v){
+ return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+}
+
+function err(e){
+ const c=e?.code||"";
+ const m={
+ "auth/invalid-credential":"Email or password is incorrect.",
+ "auth/invalid-email":"Please enter a valid email.",
+ "auth/email-already-in-use":"This email already has an account.",
+ "auth/weak-password":"Password must be at least 6 characters.",
+ "auth/network-request-failed":"Network problem. Check your internet.",
+ "auth/too-many-requests":"Too many attempts. Please wait.",
+ "permission-denied":"Firebase permission denied."
+ };
+ return m[c]||e?.message||"Something went wrong.";
+}
+
+function itemName(x){
+ // IMPORTANT: supports both old Firebase "name" and new "itemName"
+ return x.itemName||x.name||"Unnamed item";
+}
+
+function category(x){
+ return x.category||inferCategory(itemName(x));
+}
+
+function inferCategory(n){
+ n=(n||"").toLowerCase();
+ if(/book|study|copy|notebook/.test(n))return"Books";
+ if(/drill|tool|hammer|screw|ladder/.test(n))return"Tools";
+ if(/camera|lens/.test(n))return"Camera";
+ if(/ball|bat|racket|sports/.test(n))return"Sports";
+ if(/game|console/.test(n))return"Games";
+ if(/home|chair|table|utensil/.test(n))return"Home";
+ return"Other";
+}
+
+function dateText(t){
+ if(!t)return"Just now";
+ try{return new Date(t.seconds*1000).toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short"})}
+ catch{return"Recently"}
+}
+
+
+/* AUTH */
+
+window.openAuth=()=>{openM("auth");authTab("login")};
+
+window.authTab=function(type){
+ $("loginBox").classList.toggle("hidden",type!=="login");
+ $("signupBox").classList.toggle("hidden",type!=="signup");
+ $("forgotBox").classList.add("hidden");
+ $("tabLogin").classList.toggle("active",type==="login");
+ $("tabSignup").classList.toggle("active",type==="signup");
+ clearStatus("authStatus");
+};
+
+window.forgot=function(){
+ $("loginBox").classList.add("hidden");
+ $("signupBox").classList.add("hidden");
+ $("forgotBox").classList.remove("hidden");
+ $("forgotEmail").value=$("loginEmail").value.trim();
+ clearStatus("authStatus");
+};
+
+window.signup=async()=>{
+ const email=$("signupEmail").value.trim();
+ const pass=$("signupPass").value;
+ if(!email||pass.length<6){status("authStatus","Enter a valid email and password of at least 6 characters.","error");return}
+ try{
+  status("authStatus","Creating account...","info");
+  await createUserWithEmailAndPassword(auth,email,pass);
+  status("authStatus","Account created successfully ✅","success");
+  setTimeout(()=>closeM("auth"),700);
+ }catch(e){status("authStatus",err(e),"error")}
+};
+
+window.login=async()=>{
+ const email=$("loginEmail").value.trim(),pass=$("loginPass").value;
+ if(!email||!pass){status("authStatus","Enter email and password.","error");return}
+ try{
+  status("authStatus","Logging in...","info");
+  await signInWithEmailAndPassword(auth,email,pass);
+  status("authStatus","Login successful ✅","success");
+  setTimeout(()=>closeM("auth"),500);
+ }catch(e){status("authStatus",err(e),"error")}
+};
+
+window.resetPassword=async()=>{
+ const email=$("forgotEmail").value.trim();
+ if(!email){status("authStatus","Enter your email.","error");return}
+ try{
+  await sendPasswordResetEmail(auth,email);
+  status("authStatus","If an account exists, a reset email has been sent ✅","success");
+ }catch(e){
+  if(e.code==="auth/invalid-email")status("authStatus","Enter a valid email.","error");
+  else status("authStatus","If an account exists, a reset email has been sent.","success");
+ }
+};
+
+window.logout=async()=>{await signOut(auth);closeM("profileModal");closeM("exchangeModal")};
+
+window.verifyEmail=async()=>{
+ if(!user)return;
+ try{
+  await sendEmailVerification(user);
+  alert("Verification email sent. Check your inbox.");
+ }catch(e){alert(err(e))}
+};
+
+onAuthStateChanged(auth,u=>{
+ user=u;
+ $("profileBtn").textContent=u?"Profile":"Login";
+ if(u){
+  $("loggedOut").classList.add("hidden");
+  $("loggedIn").classList.remove("hidden");
+ }else{
+  $("loggedOut").classList.remove("hidden");
+  $("loggedIn").classList.add("hidden");
+  if(chatUnsub){chatUnsub();chatUnsub=null}
+ }
+});
+
+
+/* LISTINGS */
+
+function listenListings(){
+ onSnapshot(query(collection(db,"items"),limit(100)),s=>{
+  listings=s.docs.map(d=>({id:d.id,...d.data()}));
+  listings.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+  $("statListings").textContent=listings.filter(x=>x.active!==false).length;
+  renderListings();
+ },e=>{
+  $("listings").innerHTML=`<div class="empty">Could not load listings.<br><span class="muted">${esc(err(e))}</span></div>`;
+ });
+}
+
+function renderListings(){
+ const text=$("search").value.trim().toLowerCase();
+ const cat=$("cat").value;
+ const mode=$("mode").value;
+
+ const real=listings.filter(x=>{
+  if(x.active===false)return false;
+  const n=itemName(x),c=category(x);
+  const hay=[n,x.area,x.description,c].join(" ").toLowerCase();
+  return (!text||hay.includes(text))&&(cat==="all"||c===cat)&&(mode==="all"||x.mode===mode);
+ });
+
+ const sam=samples.filter(x=>{
+  const hay=[x.itemName,x.area,x.description,x.category].join(" ").toLowerCase();
+  return (!text||hay.includes(text))&&(cat==="all"||x.category===cat)&&(mode==="all"||x.mode===mode);
+ });
+
+ const all=[...real,...sam];
+
+ if(!all.length){
+  $("listings").innerHTML=`<div class="empty"><b>No matching listings found.</b><br>Try another search.</div>`;
+  return;
+ }
+
+ $("listings").innerHTML=all.map(card).join("");
+}
+
+function card(x){
+ const n=itemName(x),c=category(x),m=x.mode||"Borrow",sample=x.sample;
+ return `<div class="card">
+  <div class="cardtop">
+   <div><h3>${esc(n)}</h3><span class="badge">${esc(c)}</span></div>
+   <span class="badge ${m==="Exchange"?"orange":"green"}">${esc(m)}</span>
+  </div>
+  <div class="meta">📍 ${esc(x.area||"Area not specified")}</div>
+  <div class="meta">⏱️ ${esc(x.duration||"Flexible")}</div>
+  <div class="desc">${esc(x.description||"No description provided.")}</div>
+  <div class="muted">✓ ${sample?"BorrowX sample":"BorrowX community listing"}</div>
+  <div class="cardactions">
+   ${sample
+    ?`<button class="btn secondary smallbtn" disabled>Sample</button>`
+    :`<button class="btn primary smallbtn" onclick="requestItem('${esc(x.id)}')">Request</button>
+      <button class="btn secondary smallbtn" onclick="reportItem('${esc(x.id)}')">Report</button>`}
+  </div>
+ </div>`;
+}
+
+window.requestItem=async id=>{
+ if(!user){openAuth();status("authStatus","Login first to request an item.","info");return}
+ const x=listings.find(a=>a.id===id);
+ if(!x)return;
+ if(x.ownerId===user.uid){alert("You cannot request your own listing.");return}
+ selectedItem=x;
+ $("requestName").textContent=itemName(x);
+ $("requestMsg").value="";
+ clearStatus("requestStatus");
+ openM("requestModal");
+};
+
+window.sendRequest=async()=>{
+ if(!user||!selectedItem)return;
+ try{
+  const q=query(collection(db,"requests"),where("itemId","==",selectedItem.id),where("requesterId","==",user.uid),limit(10));
+  const snap=await getDocs(q);
+  const active=snap.docs.some(d=>["pending","accepted","handover","borrowed","returned"].includes(d.data().status));
+  if(active){status("requestStatus","You already have an active request for this listing.","error");return}
+
+  status("requestStatus","Sending request...","info");
+
+  await addDoc(collection(db,"requests"),{
+   itemId:selectedItem.id,
+   itemName:itemName(selectedItem),
+   ownerId:selectedItem.ownerId,
+   requesterId:user.uid,
+   message:$("requestMsg").value.trim().slice(0,500),
+   status:"pending",
+   createdAt:serverTimestamp()
   });
 
+  status("requestStatus","Request sent successfully ✅","success");
+  setTimeout(()=>closeM("requestModal"),700);
+ }catch(e){status("requestStatus",err(e),"error")}
+};
 
-  function updateAuthUI(){
 
-    const profileBtn = $("profileBtn");
+/* NEEDS */
 
-    if(user){
+window.openNeed=()=>{
+ if(!user){openAuth();status("authStatus","Login first to post what you need.","info");return}
+ $("needName").value="";$("needArea").value="";$("needDesc").value="";$("needDuration").value="";
+ clearStatus("needStatus");openM("needModal");
+};
 
-      profileBtn.textContent = "Profile";
+window.publishNeed=async()=>{
+ if(!user)return;
+ const name=$("needName").value.trim(),area=$("needArea").value.trim();
+ if(name.length<2||area.length<2){status("needStatus","Item and approximate area are required.","error");return}
+ try{
+  status("needStatus","Posting need...","info");
+  await addDoc(collection(db,"needs"),{
+   itemName:name.slice(0,80),
+   category:$("needCat").value,
+   area:area.slice(0,60),
+   duration:$("needDuration").value.trim().slice(0,40),
+   description:$("needDesc").value.trim().slice(0,500),
+   ownerId:user.uid,
+   createdAt:serverTimestamp(),
+   active:true
+  });
+  status("needStatus","Your need has been posted ✅","success");
+  setTimeout(()=>closeM("needModal"),700);
+ }catch(e){status("needStatus",err(e),"error")}
+};
 
-      $("profileLoggedOut").classList.add("hidden");
-      $("profileLoggedIn").classList.remove("hidden");
+function listenNeeds(){
+ onSnapshot(query(collection(db,"needs"),limit(50)),s=>{
+  needs=s.docs.map(d=>({id:d.id,...d.data()}));
+  needs.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
+  $("statNeeds").textContent=needs.filter(x=>x.active!==false).length;
+  renderNeeds();
+ });
+}
 
-      $("profileEmail").textContent = user.email || "Signed-in user";
+function renderNeeds(){
+ const active=needs.filter(x=>x.active!==false);
+ if(!active.length){
+  $("needs").innerHTML=`<div class="empty">No community needs yet.<br>Be the first to post one.</div>`;
+  return;
+ }
+ $("needs").innerHTML=active.map(n=>`
+ <div class="card">
+  <div class="cardtop"><div><h3>${esc(itemName(n))}</h3><span class="badge">${esc(n.category||"Other")}</span></div><span class="badge orange">Need</span></div>
+  <div class="meta">📍 ${esc(n.area||"Area not specified")}</div>
+  <div class="meta">⏱️ ${esc(n.duration||"Flexible")}</div>
+  <div class="desc">${esc(n.description||"No details provided.")}</div>
+  <div class="muted">Community request</div>
+ </div>`).join("");
+}
 
-      $("exchangeAccount").textContent =
-        "Signed in as: " + (user.email || "BorrowX user");
 
-      $("statUsers").textContent = "You";
+/* POST LISTING */
 
-    }else{
+window.requireLoginThenOpenPost=()=>{
+ if(!user){openAuth();status("authStatus","Login first to publish a listing.","info");return}
+ $("itemName").value="";$("itemArea").value="";$("itemDuration").value="";$("itemDesc").value="";
+ clearStatus("listingStatus");openM("listingModal");
+};
 
-      profileBtn.textContent = "Login";
+window.publish=async()=>{
+ if(!user)return;
+ const name=$("itemName").value.trim(),area=$("itemArea").value.trim();
+ if(name.length<2||area.length<2){status("listingStatus","Item name and approximate area are required.","error");return}
 
-      $("profileLoggedOut").classList.remove("hidden");
-      $("profileLoggedIn").classList.add("hidden");
+ // Avoid obvious phone numbers in public fields.
+ const combined=[name,area,$("itemDesc").value].join(" ");
+ if(/\b\d{10}\b/.test(combined)){
+  status("listingStatus","Please remove phone numbers from the listing.","error");return;
+ }
 
-      $("statUsers").textContent = "—";
-    }
+ try{
+  status("listingStatus","Publishing...","info");
+  await addDoc(collection(db,"items"),{
+   itemName:name.slice(0,80),
+   mode:$("itemMode").value,
+   category:$("itemCat").value,
+   area:area.slice(0,60),
+   duration:$("itemDuration").value.trim().slice(0,40),
+   description:$("itemDesc").value.trim().slice(0,500),
+   ownerId:user.uid,
+   createdAt:serverTimestamp(),
+   active:true
+  });
+  status("listingStatus","Your listing is live ✅","success");
+  setTimeout(()=>closeM("listingModal"),700);
+ }catch(e){status("listingStatus",err(e),"error")}
+};
+
+
+/* EXCHANGES */
+
+let ru=null,su=null;
+
+window.openExchanges=()=>{
+ if(!user){openAuth();status("authStatus","Login first to view exchanges.","info");return}
+ openM("exchangeModal");startExchanges();
+};
+
+function startExchanges(){
+ if(ru)ru();if(su)su();
+ $("accountNotice").textContent="Signed in as: "+(user.email||"BorrowX user");
+ $("received").innerHTML="<div class='empty'>Loading...</div>";
+ $("sent").innerHTML="<div class='empty'>Loading...</div>";
+
+ ru=onSnapshot(query(collection(db,"requests"),where("ownerId","==",user.uid)),s=>{
+  received=s.docs.map(d=>({id:d.id,...d.data()})).sort(sortDate);renderReceived();
+ },e=>$("received").innerHTML=`<div class="empty">${esc(err(e))}</div>`);
+
+ su=onSnapshot(query(collection(db,"requests"),where("requesterId","==",user.uid)),s=>{
+  sent=s.docs.map(d=>({id:d.id,...d.data()})).sort(sortDate);renderSent();
+ },e=>$("sent").innerHTML=`<div class="empty">${esc(err(e))}</div>`);
+}
+
+function sortDate(a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0);
+
+function badge(s){
+ const cls=s==="accepted"||s==="borrowed"||s==="completed"?"green":s==="declined"||s==="cancelled"?"red":"";
+ return `<span class="badge ${cls}">${esc(s||"pending")}</span>`;
+}
+
+function actions(r,owner){
+ const a=[];
+ if(owner&&r.status==="pending"){
+  a.push(`<button class="btn success smallbtn" onclick="changeStatus('${r.id}','accepted')">Accept</button>`);
+  a.push(`<button class="btn danger smallbtn" onclick="changeStatus('${r.id}','declined')">Decline</button>`);
+ }
+ if(!owner&&r.status==="pending")
+  a.push(`<button class="btn secondary smallbtn" onclick="changeStatus('${r.id}','cancelled')">Cancel</button>`);
+
+ if(owner&&r.status==="accepted")
+  a.push(`<button class="btn warning smallbtn" onclick="changeStatus('${r.id}','handover')">Mark Handover</button>`);
+
+ if(!owner&&r.status==="handover")
+  a.push(`<button class="btn success smallbtn" onclick="changeStatus('${r.id}','borrowed')">Confirm Received</button>`);
+
+ if(!owner&&r.status==="borrowed")
+  a.push(`<button class="btn warning smallbtn" onclick="changeStatus('${r.id}','returned')">Mark Returned</button>`);
+
+ if(owner&&r.status==="returned")
+  a.push(`<button class="btn success smallbtn" onclick="changeStatus('${r.id}','completed')">Confirm Return</button>`);
+
+ if(["accepted","handover","borrowed","returned"].includes(r.status))
+  a.push(`<button class="btn primary smallbtn" onclick="openChat('${r.id}')">Chat</button>`);
+
+ if(r.status==="completed")
+  a.push(`<button class="btn warning smallbtn" onclick="openRating('${r.id}')">Rate</button>`);
+
+ return a.join("");
+}
+
+function exchangeCard(r,owner){
+ const person=owner?(r.requesterEmail||"BorrowX member"):(r.ownerEmail||"BorrowX member");
+ return `<div class="exchange">
+  <div class="exchangehead">
+   <div><strong>${esc(r.itemName||"Item")}</strong><div class="muted">${owner?"Requester":"Owner"}: ${esc(person)}</div></div>
+   ${badge(r.status)}
+  </div>
+  ${r.message?`<div class="message">${esc(r.message)}</div>`:""}
+  <div class="muted">${dateText(r.createdAt)}</div>
+  ${["accepted","handover","borrowed","returned"].includes(r.status)?`<div class="warningbox">Use a safe/public place for handover. Keep sensitive information private.</div>`:""}
+  <div class="actions">${actions(r,owner)}</div>
+ </div>`;
+}
+
+function renderReceived(){
+ $("received").innerHTML=received.length?received.map(r=>exchangeCard(r,true)).join(""):`<div class="empty">No received requests yet.</div>`;
+}
+
+function renderSent(){
+ $("sent").innerHTML=sent.length?sent.map(r=>exchangeCard(r,false)).join(""):`<div class="empty">You have not sent any requests yet.</div>`;
+}
+
+window.changeStatus=async(id,newStatus)=>{
+ if(!user)return;
+ const r=[...received,...sent].find(x=>x.id===id);
+ if(!r)return;
+
+ const allowed={
+  owner:{pending:["accepted","declined"],accepted:["handover"],returned:["completed"]},
+  requester:{pending:["cancelled"],handover:["borrowed"],borrowed:["returned"]}
+ };
+
+ const role=r.ownerId===user.uid?"owner":"requester";
+ if(!allowed[role]?.[r.status]?.includes(newStatus)){alert("This action is not allowed.");return}
+
+ try{
+  await updateDoc(doc(db,"requests",id),{status:newStatus,updatedAt:serverTimestamp()});
+  status("exchangeStatus","Exchange updated: "+newStatus+" ✅","success");
+ }catch(e){status("exchangeStatus",err(e),"error")}
+};
+
+
+/* CHAT */
+
+window.openChat=async id=>{
+ if(!user)return;
+ const r=[...received,...sent].find(x=>x.id===id);
+ if(!r)return;
+ if(!["accepted","handover","borrowed","returned"].includes(r.status))return;
+ selectedRequest=r;
+ $("chatTitle").textContent="Chat — "+(r.itemName||"Item");
+ $("chatInput").value="";
+ openM("chatModal");
+
+ if(chatUnsub)chatUnsub();
+
+ chatUnsub=onSnapshot(
+  query(collection(db,"requests",id,"messages"),limit(100)),
+  s=>{
+   const arr=s.docs.map(d=>({id:d.id,...d.data()}));
+   arr.sort((a,b)=>(a.createdAt?.seconds||0)-(b.createdAt?.seconds||0));
+   $("chatMessages").innerHTML=arr.length?arr.map(m=>`
+    <div class="msg ${m.senderId===user.uid?"mine":""}">
+     ${esc(m.text)}<br><span class="muted">${esc(m.senderEmail||"BorrowX user")} · ${dateText(m.createdAt)}</span>
+    </div>`).join(""):`<div class="muted" style="text-align:center">No messages yet.</div>`;
+   $("chatMessages").scrollTop=$("chatMessages").scrollHeight;
   }
+ );
+};
+
+window.closeChat=()=>{
+ if(chatUnsub){chatUnsub();chatUnsub=null}
+ closeM("chatModal");
+};
+
+window.sendChat=async()=>{
+ if(!user||!selectedRequest)return;
+ const text=$("chatInput").value.trim();
+ if(!text)return;
+ try{
+  await addDoc(collection(db,"requests",selectedRequest.id,"messages"),{
+   senderId:user.uid,
+   senderEmail:user.email||"",
+   text:text.slice(0,1000),
+   createdAt:serverTimestamp()
+  });
+  $("chatInput").value="";
+ }catch(e){alert(err(e))}
+};
+
+$("chatInput").addEventListener("keydown",e=>{
+ if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendChat()}
+});
 
 
-  window.openProfile = function(){
+/* PROFILE + RATINGS */
 
-    updateProfileStats();
+window.openProfile=async()=>{
+ openM("profileModal");
+ if(!user)return;
+ await user.reload().catch(()=>{});
+ user=auth.currentUser;
+ $("profileEmail").textContent=user.email||"";
+ $("verifyState").textContent=user.emailVerified?"✅ Email verified":"⚠️ Email not verified";
+ $("verifyBtn").style.display=user.emailVerified?"none":"block";
 
-    if(user){
+ try{
+  const [s,r]=await Promise.all([
+   getDocs(query(collection(db,"requests"),where("requesterId","==",user.uid))),
+   getDocs(query(collection(db,"requests"),where("ownerId","==",user.uid)))
+  ]);
+  $("pSent").textContent=s.size;$("pReceived").textContent=r.size;
 
-      $("profileEmail").textContent = user.email || "Signed-in user";
-
-    }
-
-    openModal("profileModal");
-  };
-
-
-  async function updateProfileStats(){
-
-    if(!user){
-
-      $("profileSent").textContent = "0";
-      $("profileReceived").textContent = "0";
-      return;
-    }
-
-    try{
-
-      const sentQ = query(
-        collection(db,"requests"),
-        where("requesterId","==",user.uid)
-      );
-
-      const receivedQ = query(
-        collection(db,"requests"),
-        where("ownerId","==",user.uid)
-      );
-
-      const [sentSnap,receivedSnap] = await Promise.all([
-        getDocs(sentQ),
-        getDocs(receivedQ)
-      ]);
-
-      $("profileSent").textContent = sentSnap.size;
-      $("profileReceived").textContent = receivedSnap.size;
-
-    }catch(error){
-
-      $("profileSent").textContent = "—";
-      $("profileReceived").textContent = "—";
-    }
+  const rs=await getDocs(query(collection(db,"ratings"),where("toUserId","==",user.uid),limit(100)));
+  if(!rs.size){$("ratingText").textContent="No ratings yet."}
+  else{
+   let total=0;rs.forEach(x=>total+=Number(x.data().score||0));
+   $("ratingText").textContent="⭐ "+(total/rs.size).toFixed(1)+" / 5 ("+rs.size+" ratings)";
   }
-
-
-  window.requireLoginThenOpenPost = function(mode){
-
-    if(!user){
-
-      openAuth();
-
-      showStatus(
-        "authStatus",
-        "Please login or create an account first.",
-        "info"
-      );
-
-      return;
-    }
-
-    openPostModal(mode);
-  };
-
-
-  function openPostModal(mode){
-
-    $("itemName").value = "";
-    $("area").value = "";
-    $("duration").value = "";
-    $("description").value = "";
-
-    $("postMode").value = mode === "exchange" ? "Exchange" : "Borrow";
-
-    $("postTitle").textContent =
-      mode === "exchange"
-      ? "List Something You Have"
-      : "Post What You Need";
-
-    clearStatus("postStatus");
-
-    openModal("postModal");
-  }
-
-
-  window.publishListing = async function(){
-
-    if(!user){
-
-      showStatus("postStatus","Please login first.","error");
-      return;
-    }
-
-    const itemName = $("itemName").value.trim();
-    const mode = $("postMode").value;
-    const category = $("postCategory").value;
-    const area = $("area").value.trim();
-    const duration = $("duration").value.trim();
-    const description = $("description").value.trim();
-
-    if(!itemName || !area){
-
-      showStatus(
-        "postStatus",
-        "Item name and approximate area are required.",
-        "error"
-      );
-
-      return;
-    }
-
-    if(itemName.length < 2){
-
-      showStatus(
-        "postStatus",
-        "Please enter a valid item name.",
-        "error"
-      );
-
-      return;
-    }
-
-    if(area.length < 2){
-
-      showStatus(
-        "postStatus",
-        "Please enter an approximate area.",
-        "error"
-      );
-
-      return;
-    }
-
-    try{
-
-      showStatus("postStatus","Publishing listing...","info");
-
-      await addDoc(collection(db,"items"),{
-
-        itemName:itemName.slice(0,80),
-
-        mode:mode,
-
-        category:category,
-
-        area:area.slice(0,60),
-
-        duration:duration.slice(0,40),
-
-        description:description.slice(0,500),
-
-        ownerId:user.uid,
-
-        ownerEmail:user.email || "",
-
-        createdAt:serverTimestamp(),
-
-        active:true
-      });
-
-
-      showStatus(
-        "postStatus",
-        "Your post has been published successfully ✅",
-        "success"
-      );
-
-      setTimeout(()=>{
-        closeModal("postModal");
-      },900);
-
-    }catch(error){
-
-      showStatus(
-        "postStatus",
-        friendlyError(error),
-        "error"
-      );
-    }
-  };
-
-
-  function inferCategory(name){
-
-    const n = (name || "").toLowerCase();
-
-    if(
-      n.includes("book") ||
-      n.includes("study") ||
-      n.includes("copy")
-    ) return "Books";
-
-    if(
-      n.includes("drill") ||
-      n.includes("tool") ||
-      n.includes("hammer") ||
-      n.includes("screw")
-    ) return "Tools";
-
-    if(
-      n.includes("camera") ||
-      n.includes("lens")
-    ) return "Camera";
-
-    if(
-      n.includes("ball") ||
-      n.includes("bat") ||
-      n.includes("racket")
-    ) return "Sports";
-
-    if(
-      n.includes("game") ||
-      n.includes("console")
-    ) return "Games";
-
-    return "Other";
-  }
-
-
-  function listenListings(){
-
-    const q = query(
-      collection(db,"items"),
-      limit(100)
-    );
-
-    onSnapshot(
-      q,
-      snapshot=>{
-
-        allListings = snapshot.docs.map(d=>({
-          id:d.id,
-          ...d.data()
-        }));
-
-        allListings.sort((a,b)=>{
-
-          const ta = a.createdAt?.seconds || 0;
-          const tb = b.createdAt?.seconds || 0;
-
-          return tb-ta;
-        });
-
-        $("statListings").textContent =
-          allListings.length;
-
-        renderListings();
-
-      },
-      error=>{
-
-        console.error(error);
-
-        $("listings").innerHTML = `
-          <div class="empty">
-            Unable to load live listings right now.
-            <br><br>
-            <span class="small">${friendlyError(error)}</span>
-          </div>
-        `;
-      }
-    );
-  }
-
-
-  function listenNeeds(){
-
-    const q = query(
-      collection(db,"needs"),
-      limit(50)
-    );
-
-    onSnapshot(
-      q,
-      snapshot=>{
-
-        allNeeds = snapshot.docs.map(d=>({
-          id:d.id,
-          ...d.data()
-        }));
-
-        renderNeeds();
-
-      },
-      error=>{
-
-        console.log("Needs:",error.message);
-
-        renderNeeds();
-      }
-    );
-  }
-
-
-  function renderListings(){
-
-    const container = $("listings");
-
-    const search =
-      $("searchInput").value.trim().toLowerCase();
-
-    const category =
-      $("categoryFilter").value;
-
-    const mode =
-      $("modeFilter").value;
-
-
-    const realListings = allListings.filter(item=>{
-
-      if(item.active === false) return false;
-
-      const itemCategory =
-        item.category || inferCategory(item.itemName);
-
-      const text = [
-
-        item.itemName,
-        item.area,
-        item.description,
-        item.category
-
-      ].join(" ").toLowerCase();
-
-
-      const matchesSearch =
-        !search || text.includes(search);
-
-      const matchesCategory =
-        category === "all" ||
-        itemCategory === category;
-
-      const matchesMode =
-        mode === "all" ||
-        item.mode === mode;
-
-
-      return matchesSearch &&
-             matchesCategory &&
-             matchesMode;
-    });
-
-
-    const sampleFiltered = sampleListings.filter(item=>{
-
-      const text = [
-
-        item.itemName,
-        item.area,
-        item.description,
-        item.category
-
-      ].join(" ").toLowerCase();
-
-      return (
-        (!search || text.includes(search)) &&
-        (category === "all" || item.category === category) &&
-        (mode === "all" || item.mode === mode)
-      );
-    });
-
-
-    const combined = [
-      ...realListings,
-      ...sampleFiltered
-    ];
-
-
-    if(combined.length === 0){
-
-      container.innerHTML = `
-        <div class="empty">
-          <strong>No matching listings found.</strong>
-          <br>
-          Try another search or category.
-        </div>
-      `;
-
-      return;
-    }
-
-
-    container.innerHTML = combined.map(renderListingCard).join("");
-  }
-
-
-  function renderListingCard(item){
-
-    const isSample = item.sample === true;
-
-    const category =
-      item.category || inferCategory(item.itemName);
-
-    const mode =
-      item.mode || "Borrow";
-
-
-    const ownerText =
-      isSample
-      ? "BorrowX sample listing"
-      : "BorrowX community member";
-
-
-    return `
-      <div class="card">
-
-        <div class="card-top">
-
-          <div>
-            <h3>${escapeHTML(item.itemName || "Unnamed item")}</h3>
-            <span class="badge">${escapeHTML(category)}</span>
-          </div>
-
-          <span class="badge ${
-            mode === "Exchange"
-            ? "badge-orange"
-            : "badge-green"
-          }">
-            ${escapeHTML(mode)}
-          </span>
-
-        </div>
-
-
-        <div class="meta">
-          📍 ${escapeHTML(item.area || "Area not specified")}
-        </div>
-
-        <div class="meta">
-          ⏱️ ${escapeHTML(item.duration || "Flexible")}
-        </div>
-
-
-        <div class="description">
-          ${escapeHTML(
-            item.description ||
-            "No description provided."
-          )}
-        </div>
-
-
-        <div class="owner">
-          ✓ ${ownerText}
-          ${
-            !isSample && item.ownerEmail
-            ? `<br><span class="small">Account: ${escapeHTML(item.ownerEmail)}</span>`
-            : ""
-          }
-        </div>
-
-
-        <div class="card-actions">
-
-          ${
-            isSample
-            ? `
-              <button
-                class="btn btn-secondary btn-small"
-                disabled
-              >
-                Sample
-              </button>
-            `
-            : `
-              <button
-                class="btn btn-primary btn-small"
-                onclick="requestItem(
-                  '${escapeAttr(item.id)}',
-                  '${escapeAttr(item.ownerId || "")}',
-                  '${escapeAttr(item.itemName || "")}',
-                  '${escapeAttr(item.ownerEmail || "")}'
-                )"
-              >
-                Request
-              </button>
-
-              <button
-                class="btn btn-secondary btn-small"
-                onclick="openReport(
-                  '${escapeAttr(item.id)}',
-                  '${escapeAttr(item.itemName || "")}',
-                  '${escapeAttr(item.ownerId || "")}'
-                )"
-              >
-                Report
-              </button>
-            `
-          }
-
-        </div>
-
-      </div>
-    `;
-  }
-
-
-  function renderNeeds(){
-
-    const container = $("needsList");
-
-    if(allNeeds.length === 0){
-
-      container.innerHTML = `
-        <div class="empty">
-          No community needs posted yet.
-          <br>
-          Be the first to create one.
-        </div>
-      `;
-
-      return;
-    }
-
-
-    container.innerHTML = allNeeds.map(need=>`
-
-      <div class="card">
-
-        <div class="card-top">
-          <h3>${escapeHTML(need.itemName || "Need")}</h3>
-          <span class="badge">Need</span>
-        </div>
-
-        <div class="meta">
-          📍 ${escapeHTML(need.area || "Area not specified")}
-        </div>
-
-        <div class="description">
-          ${escapeHTML(need.description || "")}
-        </div>
-
-      </div>
-
-    `).join("");
-  }
-
-
-  window.requestItem = function(
-    itemId,
-    ownerId,
-    itemName,
-    ownerEmail
-  ){
-
-    if(!user){
-
-      openAuth();
-
-      showStatus(
-        "authStatus",
-        "Please login to request this item.",
-        "info"
-      );
-
-      return;
-    }
-
-
-    if(ownerId === user.uid){
-
-      alert("You cannot request your own listing.");
-      return;
-    }
-
-
-    selectedItem = {
-      itemId,
-      ownerId,
-      itemName,
-      ownerEmail
-    };
-
-
-    $("requestItemName").textContent =
-      itemName;
-
-    $("requestMessage").value = "";
-
-    clearStatus("requestStatus");
-
-    openModal("requestModal");
-  };
-
-
-  window.sendRequest = async function(){
-
-    if(!user || !selectedItem){
-
-      showStatus(
-        "requestStatus",
-        "Please login and select an item.",
-        "error"
-      );
-
-      return;
-    }
-
-
-    const message =
-      $("requestMessage").value.trim();
-
-
-    try{
-
-      showStatus(
-        "requestStatus",
-        "Checking previous requests...",
-        "info"
-      );
-
-
-      const duplicateQuery = query(
-        collection(db,"requests"),
-        where("itemId","==",selectedItem.itemId),
-        where("requesterId","==",user.uid),
-        limit(5)
-      );
-
-
-      const duplicateSnap =
-        await getDocs(duplicateQuery);
-
-
-      const hasActiveRequest =
-        duplicateSnap.docs.some(d=>{
-
-          const status =
-            d.data().status;
-
-          return (
-            status === "pending" ||
-            status === "accepted"
-          );
-        });
-
-
-      if(hasActiveRequest){
-
-        showStatus(
-          "requestStatus",
-          "You already have an active request for this listing.",
-          "error"
-        );
-
-        return;
-      }
-
-
-      showStatus(
-        "requestStatus",
-        "Sending request...",
-        "info"
-      );
-
-
-      await addDoc(
-        collection(db,"requests"),
-        {
-
-          itemId:selectedItem.itemId,
-
-          itemName:selectedItem.itemName,
-
-          ownerId:selectedItem.ownerId,
-
-          ownerEmail:selectedItem.ownerEmail || "",
-
-          requesterId:user.uid,
-
-          requesterEmail:user.email || "",
-
-          message:message.slice(0,500),
-
-          status:"pending",
-
-          createdAt:serverTimestamp()
-        }
-      );
-
-
-      showStatus(
-        "requestStatus",
-        "Your request has been sent successfully ✅",
-        "success"
-      );
-
-
-      setTimeout(()=>{
-        closeModal("requestModal");
-      },900);
-
-
-    }catch(error){
-
-      showStatus(
-        "requestStatus",
-        friendlyError(error),
-        "error"
-      );
-    }
-  };
-
-
-  window.openExchanges = function(){
-
-    if(!user){
-
-      openAuth();
-
-      showStatus(
-        "authStatus",
-        "Login first to view your exchanges.",
-        "info"
-      );
-
-      return;
-    }
-
-    openModal("exchangeModal");
-
-    startExchangeListeners();
-  };
-
-
-  function startExchangeListeners(){
-
-    stopExchangeListeners();
-
-    receivedRequests = [];
-    sentRequests = [];
-
-    receivedReady = false;
-    sentReady = false;
-
-
-    $("receivedRequests").innerHTML =
-      `<div class="empty">Loading received requests...</div>`;
-
-    $("sentRequests").innerHTML =
-      `<div class="empty">Loading sent requests...</div>`;
-
-
-    const receivedQuery = query(
-      collection(db,"requests"),
-      where("ownerId","==",user.uid)
-    );
-
-
-    receivedUnsubscribe =
-      onSnapshot(
-        receivedQuery,
-        snapshot=>{
-
-          receivedRequests =
-            snapshot.docs.map(d=>({
-              id:d.id,
-              ...d.data()
-            }));
-
-          receivedRequests.sort(sortByDate);
-
-          receivedReady = true;
-
-          renderExchangeScreen();
-
-        },
-        error=>{
-
-          $("receivedRequests").innerHTML = `
-            <div class="empty">
-              Could not load received requests.
-              <br>
-              <span class="small">${escapeHTML(friendlyError(error))}</span>
-            </div>
-          `;
-        }
-      );
-
-
-    const sentQuery = query(
-      collection(db,"requests"),
-      where("requesterId","==",user.uid)
-    );
-
-
-    sentUnsubscribe =
-      onSnapshot(
-        sentQuery,
-        snapshot=>{
-
-          sentRequests =
-            snapshot.docs.map(d=>({
-              id:d.id,
-              ...d.data()
-            }));
-
-          sentRequests.sort(sortByDate);
-
-          sentReady = true;
-
-          renderExchangeScreen();
-
-        },
-        error=>{
-
-          $("sentRequests").innerHTML = `
-            <div class="empty">
-              Could not load sent requests.
-              <br>
-              <span class="small">${escapeHTML(friendlyError(error))}</span>
-            </div>
-          `;
-        }
-      );
-  }
-
-
-  function stopExchangeListeners(){
-
-    if(receivedUnsubscribe){
-
-      receivedUnsubscribe();
-      receivedUnsubscribe = null;
-    }
-
-    if(sentUnsubscribe){
-
-      sentUnsubscribe();
-      sentUnsubscribe = null;
-    }
-  }
-
-
-  function renderExchangeScreen(){
-
-    $("exchangeAccount").textContent =
-      "Signed in as: " +
-      (user?.email || "BorrowX user");
-
-
-    if(!receivedReady || !sentReady){
-
-      return;
-    }
-
-
-    renderReceivedRequests();
-    renderSentRequests();
-  }
-
-
-  function renderReceivedRequests(){
-
-    const container =
-      $("receivedRequests");
-
-
-    if(receivedRequests.length === 0){
-
-      container.innerHTML = `
-        <div class="empty">
-          No received requests yet.
-          <br><br>
-          <span class="small">
-            Requests for listings owned by
-            ${escapeHTML(user?.email || "this account")}
-            will appear here.
-          </span>
-        </div>
-      `;
-
-      return;
-    }
-
-
-    container.innerHTML =
-      receivedRequests.map(req=>`
-
-        <div class="exchange-card">
-
-          <div class="exchange-header">
-
-            <div>
-              <strong>
-                ${escapeHTML(req.itemName || "Item")}
-              </strong>
-
-              <div class="small">
-                Requester:
-                ${escapeHTML(
-                  req.requesterEmail ||
-                  "BorrowX user"
-                )}
-              </div>
-            </div>
-
-            ${statusBadge(req.status)}
-
-          </div>
-
-
-          ${
-            req.message
-            ? `
-              <div class="request-message">
-                ${escapeHTML(req.message)}
-              </div>
-            `
-            : ""
-          }
-
-
-          <div class="small">
-            ${formatDate(req.createdAt)}
-          </div>
-
-
-          ${
-            req.status === "pending"
-            ? `
-              <div class="exchange-actions">
-
-                <button
-                  class="btn btn-success btn-small"
-                  onclick="updateRequestStatus(
-                    '${escapeAttr(req.id)}',
-                    'accepted'
-                  )"
-                >
-                  Accept
-                </button>
-
-                <button
-                  class="btn btn-danger btn-small"
-                  onclick="updateRequestStatus(
-                    '${escapeAttr(req.id)}',
-                    'declined'
-                  )"
-                >
-                  Decline
-                </button>
-
-              </div>
-            `
-            : ""
-          }
-
-        </div>
-
-      `).join("");
-  }
-
-
-  function renderSentRequests(){
-
-    const container =
-      $("sentRequests");
-
-
-    if(sentRequests.length === 0){
-
-      container.innerHTML = `
-        <div class="empty">
-          You have not sent any requests yet.
-          <br><br>
-          Search a listing and tap Request.
-        </div>
-      `;
-
-      return;
-    }
-
-
-    container.innerHTML =
-      sentRequests.map(req=>`
-
-        <div class="exchange-card">
-
-          <div class="exchange-header">
-
-            <div>
-              <strong>
-                ${escapeHTML(req.itemName || "Item")}
-              </strong>
-
-              <div class="small">
-                Owner:
-                ${escapeHTML(
-                  req.ownerEmail ||
-                  "BorrowX user"
-                )}
-              </div>
-            </div>
-
-            ${statusBadge(req.status)}
-
-          </div>
-
-
-          ${
-            req.message
-            ? `
-              <div class="request-message">
-                ${escapeHTML(req.message)}
-              </div>
-            `
-            : ""
-          }
-
-
-          <div class="small">
-            ${formatDate(req.createdAt)}
-          </div>
-
-
-          ${
-            req.status === "pending"
-            ? `
-              <div class="exchange-actions">
-
-                <button
-                  class="btn btn-secondary btn-small"
-                  onclick="updateRequestStatus(
-                    '${escapeAttr(req.id)}',
-                    'cancelled'
-                  )"
-                >
-                  Cancel Request
-                </button>
-
-              </div>
-            `
-            : ""
-          }
-
-
-          ${
-            req.status === "accepted"
-            ? `
-              <div class="danger-note">
-                Request accepted. Arrange the handover safely
-                and use a public/safe location.
-              </div>
-            `
-            : ""
-          }
-
-        </div>
-
-      `).join("");
-  }
-
-
-  function statusBadge(status){
-
-    const safe =
-      status || "pending";
-
-
-    let cls = "badge";
-
-    if(safe === "accepted")
-      cls += " badge-green";
-
-    if(safe === "declined")
-      cls += " badge-orange";
-
-
-    return `
-      <span class="${cls}">
-        ${escapeHTML(
-          safe.charAt(0).toUpperCase() +
-          safe.slice(1)
-        )}
-      </span>
-    `;
-  }
-
-
-  window.updateRequestStatus =
-  async function(requestId,status){
-
-    if(!user){
-
-      alert("Please login first.");
-      return;
-    }
-
-
-    if(
-      !["accepted","declined","cancelled"].includes(status)
-    ){
-
-      return;
-    }
-
-
-    try{
-
-      await updateDoc(
-        doc(db,"requests",requestId),
-        {
-          status:status,
-          updatedAt:serverTimestamp()
-        }
-      );
-
-
-      showStatus(
-        "exchangeStatus",
-        "Request updated successfully ✅",
-        "success"
-      );
-
-
-    }catch(error){
-
-      showStatus(
-        "exchangeStatus",
-        friendlyError(error),
-        "error"
-      );
-    }
-  };
-
-
-  window.openReport =
-  function(itemId,itemName,ownerId){
-
-    if(!user){
-
-      openAuth();
-
-      showStatus(
-        "authStatus",
-        "Please login to report a listing.",
-        "info"
-      );
-
-      return;
-    }
-
-
-    selectedReportItem = {
-      itemId,
-      itemName,
-      ownerId
-    };
-
-
-    $("reportDetails").value = "";
-
-    clearStatus("reportStatus");
-
-    openModal("reportModal");
-  };
-
-
-  window.submitReport = async function(){
-
-    if(!user || !selectedReportItem){
-
-      showStatus(
-        "reportStatus",
-        "Please login first.",
-        "error"
-      );
-
-      return;
-    }
-
-
-    const reason =
-      $("reportReason").value;
-
-    const details =
-      $("reportDetails").value.trim();
-
-
-    try{
-
-      await addDoc(
-        collection(db,"reports"),
-        {
-
-          itemId:selectedReportItem.itemId,
-
-          itemName:selectedReportItem.itemName,
-
-          ownerId:selectedReportItem.ownerId,
-
-          reporterId:user.uid,
-
-          reporterEmail:user.email || "",
-
-          reason:reason,
-
-          details:details.slice(0,500),
-
-          status:"open",
-
-          createdAt:serverTimestamp()
-        }
-      );
-
-
-      showStatus(
-        "reportStatus",
-        "Report submitted successfully. Thank you. ✅",
-        "success"
-      );
-
-
-      setTimeout(()=>{
-        closeModal("reportModal");
-      },900);
-
-
-    }catch(error){
-
-      showStatus(
-        "reportStatus",
-        friendlyError(error),
-        "error"
-      );
-    }
-  };
-
-
-  window.scrollToListings = function(){
-
-    $("listingsSection").scrollIntoView({
-      behavior:"smooth"
-    });
-  };
-
-
-  function sortByDate(a,b){
-
-    const ta = a.createdAt?.seconds || 0;
-    const tb = b.createdAt?.seconds || 0;
-
-    return tb-ta;
-  }
-
-
-  function formatDate(timestamp){
-
-    if(!timestamp) return "Just now";
-
-    try{
-
-      const date =
-        new Date(timestamp.seconds * 1000);
-
-      return date.toLocaleString(
-        "en-IN",
-        {
-          dateStyle:"medium",
-          timeStyle:"short"
-        }
-      );
-
-    }catch{
-
-      return "Recently";
-    }
-  }
-
-
-  function escapeHTML(value){
-
-    return String(value ?? "")
-      .replaceAll("&","&amp;")
-      .replaceAll("<","&lt;")
-      .replaceAll(">","&gt;")
-      .replaceAll('"',"&quot;")
-      .replaceAll("'","&#039;");
-  }
-
-
-  function escapeAttr(value){
-
-    return String(value ?? "")
-      .replaceAll("\\","\\\\")
-      .replaceAll("'","\\'")
-      .replaceAll("\n"," ")
-      .replaceAll("\r"," ");
-  }
-
-
-  window.addEventListener("click",(event)=>{
-
-    if(event.target.classList.contains("modal-overlay")){
-
-      event.target.style.display = "none";
-    }
+ }catch(e){}
+};
+
+let ratingRequest=null;
+
+window.openRating=id=>{
+ if(!user)return;
+ ratingRequest=[...received,...sent].find(x=>x.id===id);
+ if(!ratingRequest||ratingRequest.status!=="completed")return;
+ $("ratingScore").value="5";$("ratingComment").value="";
+ clearStatus("ratingStatus");openM("ratingModal");
+};
+
+window.submitRating=async()=>{
+ if(!user||!ratingRequest)return;
+ const toUserId=ratingRequest.ownerId===user.uid?ratingRequest.requesterId:ratingRequest.ownerId;
+ const ratingId=ratingRequest.id+"_"+user.uid;
+
+ try{
+  const existing=await getDoc(doc(db,"ratings",ratingId));
+  if(existing.exists()){status("ratingStatus","You have already rated this exchange.","error");return}
+
+  await setDoc(doc(db,"ratings",ratingId),{
+   requestId:ratingRequest.id,
+   raterId:user.uid,
+   toUserId,
+   score:Number($("ratingScore").value),
+   comment:$("ratingComment").value.trim().slice(0,300),
+   createdAt:serverTimestamp()
   });
 
+  status("ratingStatus","Rating submitted successfully ⭐","success");
+  setTimeout(()=>closeM("ratingModal"),700);
+ }catch(e){status("ratingStatus",err(e),"error")}
+};
 
-  listenListings();
-  listenNeeds();
+
+/* REPORT */
+
+window.reportItem=async id=>{
+ if(!user){openAuth();status("authStatus","Login first to report a listing.","info");return}
+ const x=listings.find(a=>a.id===id);
+ if(!x)return;
+ selectedReport=x;
+ $("reportDetails").value="";
+ clearStatus("reportStatus");openM("reportModal");
+};
+
+window.submitReport=async()=>{
+ if(!user||!selectedReport)return;
+ try{
+  await addDoc(collection(db,"reports"),{
+   itemId:selectedReport.id,
+   itemName:itemName(selectedReport),
+   ownerId:selectedReport.ownerId,
+   reporterId:user.uid,
+   reason:$("reportReason").value,
+   details:$("reportDetails").value.trim().slice(0,500),
+   status:"open",
+   createdAt:serverTimestamp()
+  });
+  status("reportStatus","Report submitted successfully ✅","success");
+  setTimeout(()=>closeM("reportModal"),700);
+ }catch(e){status("reportStatus",err(e),"error")}
+};
+
+
+/* GENERAL */
+
+window.scrollListings=()=>$("listingsSection").scrollIntoView({behavior:"smooth"});
+
+window.addEventListener("click",e=>{
+ if(e.target.classList.contains("overlay"))e.target.style.display="none";
+});
+
+listenListings();
+listenNeeds();
 
 </script>
-
 </body>
 </html>
