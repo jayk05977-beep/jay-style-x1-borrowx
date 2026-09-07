@@ -421,6 +421,24 @@ font-weight:bold;
 color:#64748b;
 margin:18px 0 9px
 }
+
+.forgot{
+border:0;
+background:none;
+color:#315aa8;
+font-size:13px;
+font-weight:bold;
+cursor:pointer;
+text-align:center;
+padding:5px
+}
+
+.auth-divider{
+text-align:center;
+font-size:12px;
+color:#94a3b8;
+margin:2px 0
+}
 </style>
 </head>
 
@@ -893,7 +911,21 @@ Login
 
 
 <button
-class="btn full"
+class="forgot"
+onclick="forgotPassword()">
+
+Forgot Password?
+
+</button>
+
+
+<div class="auth-divider">
+or
+</div>
+
+
+<button
+class="btn btn-light full"
 onclick="signup()">
 
 Create Account
@@ -1019,6 +1051,7 @@ import {
 getAuth,
 createUserWithEmailAndPassword,
 signInWithEmailAndPassword,
+sendPasswordResetEmail,
 onAuthStateChanged,
 signOut
 }
@@ -1306,6 +1339,93 @@ else{
 
 message.textContent =
 "Login error: " + error.code;
+
+}
+
+}
+
+};
+
+
+/* FORGOT PASSWORD */
+
+window.forgotPassword = async function(){
+
+const email =
+document
+.getElementById("email")
+.value
+.trim();
+
+const message =
+document.getElementById("authMessage");
+
+
+if(!email){
+
+message.textContent =
+"Please enter your email address first.";
+
+document
+.getElementById("email")
+.focus();
+
+return;
+
+}
+
+
+if(!email.includes("@")){
+
+message.textContent =
+"Please enter a valid email address.";
+
+return;
+
+}
+
+
+message.textContent =
+"Sending password reset email...";
+
+
+try{
+
+await sendPasswordResetEmail(
+auth,
+email
+);
+
+message.textContent =
+"Password reset email sent ✅ Check your inbox.";
+
+}
+catch(error){
+
+console.log(error);
+
+if(
+error.code ===
+"auth/user-not-found"
+){
+
+message.textContent =
+"No BorrowX account was found with this email.";
+
+}
+else if(
+error.code ===
+"auth/invalid-email"
+){
+
+message.textContent =
+"Please enter a valid email address.";
+
+}
+else{
+
+message.textContent =
+"Could not send reset email: " + error.code;
 
 }
 
@@ -1974,7 +2094,7 @@ content.innerHTML +=
 };
 
 
-/* RENDER RECEIVED */
+/* RENDER REQUESTS */
 
 let receivedRequests = [];
 let sentRequests = [];
@@ -1999,8 +2119,6 @@ renderExchangeScreen();
 
 }
 
-
-/* RENDER SENT */
 
 function renderSentRequests(snapshot){
 
@@ -2401,8 +2519,6 @@ String(value)
 
 }
 
-
-/* MAKE FUNCTIONS AVAILABLE */
 
 window.applySearch =
 applySearch;
