@@ -1,2866 +1,2786 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="theme-color" content="#111827">
-<title>BorrowX — Borrow, Exchange & Trust</title>
-
-<style>
-*{box-sizing:border-box;margin:0;padding:0}
-
-body{
-font-family:Arial,Helvetica,sans-serif;
-background:#f6f8fb;
-color:#172033;
-padding-bottom:82px
-}
-
-header{
-background:#111827;
-color:white;
-padding:20px 18px 24px;
-border-radius:0 0 24px 24px
-}
-
-.brand{
-display:flex;
-align-items:center;
-justify-content:space-between;
-margin-bottom:22px
-}
-
-.logo{font-size:25px;font-weight:800}
-
-.by{
-font-size:10px;
-color:#aeb8ca;
-margin-top:3px
-}
-
-.profile{
-width:40px;
-height:40px;
-border-radius:50%;
-background:#fff;
-color:#111827;
-display:flex;
-align-items:center;
-justify-content:center;
-font-weight:bold
-}
-
-h1{
-font-size:25px;
-line-height:1.25;
-margin-bottom:14px
-}
-
-.search{
-background:white;
-border-radius:14px;
-padding:14px;
-display:flex;
-gap:10px;
-align-items:center
-}
-
-.search input{
-border:0;
-outline:0;
-width:100%;
-font-size:15px
-}
-
-.container{padding:18px}
-
-.section{
-display:flex;
-justify-content:space-between;
-align-items:center;
-margin:22px 0 12px
-}
-
-.section h2{font-size:18px}
-
-.section span{
-font-size:13px;
-color:#64748b
-}
-
-.actions{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px
-}
-
-.action{
-border:0;
-border-radius:18px;
-padding:17px 12px;
-background:white;
-box-shadow:0 4px 15px rgba(0,0,0,.06);
-text-align:left;
-cursor:pointer
-}
-
-.action strong{
-display:block;
-font-size:15px;
-margin-top:8px
-}
-
-.action small{color:#64748b}
-
-.icon{font-size:25px}
-
-.categories{
-display:flex;
-gap:9px;
-overflow-x:auto;
-padding-bottom:4px
-}
-
-.cat{
-min-width:86px;
-background:white;
-padding:12px 8px;
-border-radius:14px;
-text-align:center;
-font-size:12px;
-box-shadow:0 3px 12px rgba(0,0,0,.05)
-}
-
-.cat div{
-font-size:21px;
-margin-bottom:5px
-}
-
-.card{
-background:white;
-border-radius:18px;
-padding:15px;
-margin-bottom:12px;
-box-shadow:0 4px 15px rgba(0,0,0,.06)
-}
-
-.item-top{
-display:flex;
-justify-content:space-between;
-gap:10px
-}
-
-.item-icon{
-width:55px;
-height:55px;
-border-radius:14px;
-background:#eef2f7;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:28px
-}
-
-.item-info{flex:1}
-
-.item-info h3{
-font-size:16px;
-margin:2px 0 6px
-}
-
-.item-info p{
-font-size:12px;
-color:#64748b
-}
-
-.badge{
-display:inline-block;
-margin-top:8px;
-padding:5px 8px;
-border-radius:8px;
-background:#e9f7ef;
-color:#147a3e;
-font-size:11px;
-font-weight:bold
-}
-
-.real-badge{
-background:#eef4ff;
-color:#315aa8
-}
-
-.item-bottom{
-margin-top:14px;
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:10px
-}
-
-.trust{
-font-size:12px;
-color:#475569
-}
-
-.btn{
-border:0;
-border-radius:10px;
-padding:10px 15px;
-background:#111827;
-color:white;
-font-weight:bold;
-cursor:pointer
-}
-
-.btn:disabled{
-opacity:.6;
-cursor:not-allowed
-}
-
-.btn-danger{
-background:#b42318
-}
-
-.btn-success{
-background:#147a3e
-}
-
-.btn-light{
-background:#eef2f7;
-color:#172033
-}
-
-.bottom{
-position:fixed;
-bottom:0;
-left:0;
-right:0;
-height:72px;
-background:white;
-border-top:1px solid #e5e7eb;
-display:flex;
-justify-content:space-around;
-align-items:center;
-z-index:10
-}
-
-.nav{
-border:0;
-background:none;
-color:#64748b;
-font-size:11px;
-text-align:center;
-cursor:pointer
-}
-
-.nav div{
-font-size:21px;
-margin-bottom:3px
-}
-
-.nav.active{
-color:#111827;
-font-weight:bold
-}
-
-.modal{
-display:none;
-position:fixed;
-inset:0;
-background:rgba(0,0,0,.55);
-z-index:20;
-align-items:flex-end
-}
-
-.modal-box{
-background:white;
-width:100%;
-border-radius:24px 24px 0 0;
-padding:22px;
-max-height:90vh;
-overflow:auto
-}
-
-.modal-box h2{margin-bottom:16px}
-
-.form{
-display:grid;
-gap:11px
-}
-
-.form input,
-.form textarea,
-.form select{
-width:100%;
-padding:13px;
-border:1px solid #dbe1e8;
-border-radius:11px;
-font-size:14px;
-outline:none
-}
-
-.form textarea{
-min-height:90px;
-resize:vertical
-}
-
-.full{
-width:100%;
-padding:14px;
-margin-top:4px
-}
-
-.close{
-float:right;
-border:0;
-background:#eef2f7;
-width:34px;
-height:34px;
-border-radius:50%;
-cursor:pointer
-}
-
-.auth-info{
-background:white;
-border-radius:18px;
-padding:16px;
-margin-top:22px;
-box-shadow:0 4px 15px rgba(0,0,0,.05)
-}
-
-.auth-info button{
-margin-top:10px;
-width:100%
-}
-
-.status{
-font-size:13px;
-color:#64748b;
-margin-top:8px;
-word-break:break-word
-}
-
-.safety{
-background:#fff;
-border-radius:18px;
-padding:16px;
-box-shadow:0 4px 15px rgba(0,0,0,.05)
-}
-
-.safety div{
-padding:9px 0;
-font-size:13px;
-border-bottom:1px solid #edf0f4
-}
-
-.safety div:last-child{border:0}
-
-.empty{
-text-align:center;
-padding:20px;
-color:#64748b;
-font-size:13px
-}
-
-.request-card{
-background:#f8fafc;
-border:1px solid #e5e7eb;
-border-radius:15px;
-padding:14px;
-margin-bottom:10px
-}
-
-.request-card h3{
-font-size:15px;
-margin-bottom:7px
-}
-
-.request-meta{
-font-size:12px;
-color:#64748b;
-line-height:1.6
-}
-
-.status-badge{
-display:inline-block;
-padding:5px 9px;
-border-radius:8px;
-font-size:11px;
-font-weight:bold;
-margin-top:8px
-}
-
-.status-pending{
-background:#fff7ed;
-color:#c2410c
-}
-
-.status-accepted{
-background:#e9f7ef;
-color:#147a3e
-}
-
-.status-declined{
-background:#fef2f2;
-color:#b42318
-}
-
-.request-actions{
-display:flex;
-gap:8px;
-margin-top:12px
-}
-
-.request-actions button{
-flex:1
-}
-
-.exchange-title{
-font-size:13px;
-font-weight:bold;
-color:#64748b;
-margin:18px 0 9px
-}
-
-.forgot{
-border:0;
-background:none;
-color:#315aa8;
-font-size:13px;
-font-weight:bold;
-cursor:pointer;
-text-align:center;
-padding:5px
-}
-
-.auth-divider{
-text-align:center;
-font-size:12px;
-color:#94a3b8;
-margin:2px 0
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>BorrowX — Borrow, Exchange & Trusted Community</title>
+  <meta name="description" content="BorrowX - Borrow, exchange and share useful items with people nearby.">
+  <meta name="theme-color" content="#111827">
+
+  <style>
+    *{
+      box-sizing:border-box;
+      margin:0;
+      padding:0;
+    }
+
+    body{
+      font-family:Arial,Helvetica,sans-serif;
+      background:#f5f7fb;
+      color:#111827;
+      line-height:1.5;
+    }
+
+    button,input,select,textarea{
+      font:inherit;
+    }
+
+    button{
+      cursor:pointer;
+    }
+
+    .container{
+      width:min(1100px,94%);
+      margin:auto;
+    }
+
+    header{
+      background:#111827;
+      color:white;
+      position:sticky;
+      top:0;
+      z-index:100;
+      box-shadow:0 2px 12px rgba(0,0,0,.12);
+    }
+
+    .nav{
+      min-height:66px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:15px;
+    }
+
+    .brand{
+      font-size:24px;
+      font-weight:800;
+      letter-spacing:-.5px;
+    }
+
+    .brand span{
+      color:#60a5fa;
+    }
+
+    .nav-actions{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .btn{
+      border:0;
+      border-radius:10px;
+      padding:10px 15px;
+      font-weight:700;
+      transition:.2s;
+    }
+
+    .btn:hover{
+      transform:translateY(-1px);
+    }
+
+    .btn-primary{
+      background:#2563eb;
+      color:white;
+    }
+
+    .btn-secondary{
+      background:#e5e7eb;
+      color:#111827;
+    }
+
+    .btn-success{
+      background:#16a34a;
+      color:white;
+    }
+
+    .btn-danger{
+      background:#dc2626;
+      color:white;
+    }
+
+    .btn-warning{
+      background:#f59e0b;
+      color:#111827;
+    }
+
+    .btn-dark{
+      background:#1f2937;
+      color:white;
+    }
+
+    .btn-small{
+      padding:8px 11px;
+      font-size:13px;
+    }
+
+    .hero{
+      background:linear-gradient(135deg,#111827,#1d4ed8);
+      color:white;
+      padding:60px 0 50px;
+    }
+
+    .hero-grid{
+      display:grid;
+      grid-template-columns:1.3fr .7fr;
+      gap:30px;
+      align-items:center;
+    }
+
+    .hero h1{
+      font-size:clamp(34px,6vw,58px);
+      line-height:1.05;
+      margin-bottom:18px;
+    }
+
+    .hero h1 span{
+      color:#93c5fd;
+    }
+
+    .hero p{
+      color:#dbeafe;
+      font-size:18px;
+      max-width:650px;
+      margin-bottom:25px;
+    }
+
+    .hero-buttons{
+      display:flex;
+      flex-wrap:wrap;
+      gap:10px;
+    }
+
+    .hero-card{
+      background:rgba(255,255,255,.1);
+      border:1px solid rgba(255,255,255,.2);
+      border-radius:20px;
+      padding:25px;
+      backdrop-filter:blur(10px);
+    }
+
+    .hero-card h3{
+      margin-bottom:15px;
+    }
+
+    .hero-card div{
+      padding:9px 0;
+      border-bottom:1px solid rgba(255,255,255,.12);
+    }
+
+    .hero-card div:last-child{
+      border-bottom:0;
+    }
+
+    .section{
+      padding:40px 0;
+    }
+
+    .section-title{
+      margin-bottom:20px;
+    }
+
+    .section-title h2{
+      font-size:28px;
+      margin-bottom:5px;
+    }
+
+    .section-title p{
+      color:#6b7280;
+    }
+
+    .stats{
+      display:grid;
+      grid-template-columns:repeat(4,1fr);
+      gap:14px;
+      margin-top:-25px;
+      position:relative;
+      z-index:2;
+    }
+
+    .stat{
+      background:white;
+      border-radius:15px;
+      padding:18px;
+      box-shadow:0 5px 20px rgba(0,0,0,.07);
+    }
+
+    .stat strong{
+      display:block;
+      font-size:25px;
+    }
+
+    .stat span{
+      color:#6b7280;
+      font-size:13px;
+    }
+
+    .toolbar{
+      background:white;
+      padding:15px;
+      border-radius:15px;
+      box-shadow:0 3px 15px rgba(0,0,0,.05);
+      display:grid;
+      grid-template-columns:1.5fr .7fr .7fr;
+      gap:10px;
+      margin-bottom:20px;
+    }
+
+    input,select,textarea{
+      width:100%;
+      border:1px solid #d1d5db;
+      border-radius:10px;
+      padding:12px;
+      outline:none;
+      background:white;
+    }
+
+    input:focus,select:focus,textarea:focus{
+      border-color:#2563eb;
+      box-shadow:0 0 0 3px rgba(37,99,235,.1);
+    }
+
+    textarea{
+      min-height:100px;
+      resize:vertical;
+    }
+
+    .listings{
+      display:grid;
+      grid-template-columns:repeat(3,1fr);
+      gap:18px;
+    }
+
+    .card{
+      background:white;
+      border-radius:16px;
+      padding:20px;
+      box-shadow:0 4px 18px rgba(0,0,0,.06);
+      border:1px solid #eef0f4;
+    }
+
+    .card-top{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      margin-bottom:12px;
+    }
+
+    .card h3{
+      font-size:20px;
+    }
+
+    .badge{
+      display:inline-block;
+      padding:5px 9px;
+      border-radius:999px;
+      font-size:11px;
+      font-weight:800;
+      background:#dbeafe;
+      color:#1d4ed8;
+      white-space:nowrap;
+    }
+
+    .badge-green{
+      background:#dcfce7;
+      color:#15803d;
+    }
+
+    .badge-orange{
+      background:#ffedd5;
+      color:#c2410c;
+    }
+
+    .meta{
+      color:#6b7280;
+      font-size:13px;
+      margin:7px 0;
+    }
+
+    .description{
+      margin:13px 0;
+      color:#374151;
+      font-size:14px;
+    }
+
+    .owner{
+      background:#f9fafb;
+      padding:10px;
+      border-radius:9px;
+      margin:12px 0;
+      font-size:12px;
+    }
+
+    .card-actions{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+      margin-top:15px;
+    }
+
+    .empty{
+      background:white;
+      border-radius:15px;
+      padding:30px;
+      text-align:center;
+      color:#6b7280;
+      grid-column:1/-1;
+    }
+
+    .safety{
+      background:#fff;
+      border-left:5px solid #2563eb;
+      padding:20px;
+      border-radius:12px;
+      box-shadow:0 3px 15px rgba(0,0,0,.04);
+    }
+
+    .safety ul{
+      padding-left:20px;
+      margin-top:10px;
+    }
+
+    .safety li{
+      margin:7px 0;
+    }
+
+    footer{
+      background:#111827;
+      color:#d1d5db;
+      padding:30px 0;
+      margin-top:30px;
+    }
+
+    footer strong{
+      color:white;
+    }
+
+    .modal-overlay{
+      display:none;
+      position:fixed;
+      inset:0;
+      background:rgba(0,0,0,.58);
+      z-index:200;
+      padding:20px;
+      overflow:auto;
+    }
+
+    .modal{
+      background:white;
+      width:min(650px,100%);
+      margin:40px auto;
+      border-radius:18px;
+      overflow:hidden;
+      box-shadow:0 15px 60px rgba(0,0,0,.25);
+    }
+
+    .modal-header{
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:18px 20px;
+      border-bottom:1px solid #e5e7eb;
+    }
+
+    .modal-header h3{
+      font-size:20px;
+    }
+
+    .close{
+      border:0;
+      background:#f3f4f6;
+      width:35px;
+      height:35px;
+      border-radius:50%;
+      font-size:20px;
+    }
+
+    .modal-body{
+      padding:20px;
+    }
+
+    .form-group{
+      margin-bottom:15px;
+    }
+
+    .form-group label{
+      display:block;
+      font-weight:700;
+      font-size:13px;
+      margin-bottom:6px;
+    }
+
+    .form-row{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:12px;
+    }
+
+    .auth-tabs{
+      display:flex;
+      border-bottom:1px solid #e5e7eb;
+    }
+
+    .auth-tab{
+      flex:1;
+      border:0;
+      background:white;
+      padding:15px;
+      font-weight:700;
+    }
+
+    .auth-tab.active{
+      color:#2563eb;
+      border-bottom:3px solid #2563eb;
+    }
+
+    .status-box{
+      display:none;
+      padding:12px;
+      border-radius:10px;
+      margin-bottom:14px;
+      font-size:13px;
+    }
+
+    .status-success{
+      background:#dcfce7;
+      color:#166534;
+    }
+
+    .status-error{
+      background:#fee2e2;
+      color:#991b1b;
+    }
+
+    .status-info{
+      background:#dbeafe;
+      color:#1e40af;
+    }
+
+    .user-bar{
+      display:none;
+      background:#eff6ff;
+      color:#1e40af;
+      padding:9px 12px;
+      border-radius:9px;
+      font-size:12px;
+      margin-bottom:15px;
+    }
+
+    .exchange-card{
+      border:1px solid #e5e7eb;
+      border-radius:13px;
+      padding:15px;
+      margin-bottom:12px;
+    }
+
+    .exchange-header{
+      display:flex;
+      justify-content:space-between;
+      gap:10px;
+      align-items:flex-start;
+    }
+
+    .request-message{
+      background:#f9fafb;
+      padding:10px;
+      border-radius:9px;
+      margin:10px 0;
+      font-size:13px;
+    }
+
+    .exchange-actions{
+      display:flex;
+      gap:7px;
+      flex-wrap:wrap;
+      margin-top:10px;
+    }
+
+    .loading{
+      text-align:center;
+      padding:25px;
+      color:#6b7280;
+      grid-column:1/-1;
+    }
+
+    .hidden{
+      display:none!important;
+    }
+
+    .small{
+      font-size:12px;
+      color:#6b7280;
+    }
+
+    .danger-note{
+      background:#fff7ed;
+      border:1px solid #fed7aa;
+      color:#9a3412;
+      padding:10px;
+      border-radius:9px;
+      font-size:12px;
+      margin-top:10px;
+    }
+
+    @media(max-width:850px){
+      .hero-grid{
+        grid-template-columns:1fr;
+      }
+
+      .listings{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .stats{
+        grid-template-columns:repeat(2,1fr);
+      }
+
+      .toolbar{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .toolbar input{
+        grid-column:1/-1;
+      }
+    }
+
+    @media(max-width:600px){
+      .nav{
+        padding:8px 0;
+      }
+
+      .brand{
+        font-size:20px;
+      }
+
+      .nav-actions .btn{
+        padding:8px 10px;
+        font-size:12px;
+      }
+
+      .hero{
+        padding:40px 0;
+      }
+
+      .listings{
+        grid-template-columns:1fr;
+      }
+
+      .toolbar{
+        grid-template-columns:1fr;
+      }
+
+      .toolbar input{
+        grid-column:auto;
+      }
+
+      .form-row{
+        grid-template-columns:1fr;
+      }
+
+      .stats{
+        margin-top:-10px;
+      }
+    }
+  </style>
 </head>
 
 <body>
 
 <header>
+  <div class="container nav">
+    <div class="brand">Borrow<span>X</span></div>
 
-<div class="brand">
-
-<div>
-<div class="logo">BorrowX</div>
-<div class="by">by Jay Style X1</div>
-</div>
-
-<div class="profile" id="profileIcon">J</div>
-
-</div>
-
-<h1>
-Borrow what you need.<br>
-Share what you have.
-</h1>
-
-<div class="search">
-🔍
-<input
-id="search"
-type="search"
-placeholder="What do you need?"
->
-</div>
-
+    <div class="nav-actions">
+      <button class="btn btn-secondary btn-small" onclick="openExchanges()">Exchanges</button>
+      <button id="profileBtn" class="btn btn-secondary btn-small" onclick="openProfile()">Login</button>
+    </div>
+  </div>
 </header>
 
+<section class="hero">
+  <div class="container hero-grid">
 
-<main class="container">
+    <div>
+      <h1>Borrow less.<br><span>Share more.</span></h1>
+
+      <p>
+        BorrowX helps people find useful items nearby,
+        borrow them temporarily, and build a trusted sharing community.
+      </p>
+
+      <div class="hero-buttons">
+        <button class="btn btn-primary" onclick="requireLoginThenOpenPost('borrow')">
+          I Need Something
+        </button>
+
+        <button class="btn btn-secondary" onclick="requireLoginThenOpenPost('exchange')">
+          I Have Something
+        </button>
+
+        <button class="btn btn-dark" onclick="scrollToListings()">
+          Search Listings
+        </button>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <h3>How BorrowX works</h3>
+
+      <div>1️⃣ Post what you need or have</div>
+      <div>2️⃣ Find a nearby match</div>
+      <div>3️⃣ Send a request</div>
+      <div>4️⃣ Agree through safe communication</div>
+      <div>5️⃣ Borrow → Return → Complete</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="container">
+  <div class="stats">
+    <div class="stat">
+      <strong id="statListings">0</strong>
+      <span>Live listings</span>
+    </div>
+
+    <div class="stat">
+      <strong id="statUsers">—</strong>
+      <span>Community</span>
+    </div>
+
+    <div class="stat">
+      <strong>🔐</strong>
+      <span>Firebase protected</span>
+    </div>
+
+    <div class="stat">
+      <strong>📍</strong>
+      <span>Approximate areas</span>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="listingsSection">
+  <div class="container">
+
+    <div class="section-title">
+      <h2>Available on BorrowX</h2>
+      <p>Find useful things people are willing to share.</p>
+    </div>
+
+    <div class="toolbar">
+
+      <input
+        id="searchInput"
+        type="search"
+        placeholder="Search items, area or description..."
+        oninput="renderListings()"
+      >
+
+      <select id="categoryFilter" onchange="renderListings()">
+        <option value="all">All categories</option>
+        <option value="Tools">Tools</option>
+        <option value="Books">Books</option>
+        <option value="Camera">Camera</option>
+        <option value="Sports">Sports</option>
+        <option value="Games">Games</option>
+        <option value="Home">Home</option>
+        <option value="Other">Other</option>
+      </select>
+
+      <select id="modeFilter" onchange="renderListings()">
+        <option value="all">Borrow + Exchange</option>
+        <option value="Borrow">Borrow</option>
+        <option value="Exchange">Exchange</option>
+      </select>
+
+    </div>
+
+    <div id="loginNotice" class="user-bar">
+      Login required to send a request or publish a listing.
+    </div>
+
+    <div id="listings" class="listings">
+      <div class="loading">Loading BorrowX listings...</div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <div class="section-title">
+      <h2>People Need</h2>
+      <p>Community requests will appear here as BorrowX grows.</p>
+    </div>
+
+    <div id="needsList" class="listings">
+      <div class="empty">
+        Need something? Create a request from <b>I Need Something</b>.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<section class="section">
+  <div class="container">
+
+    <div class="section-title">
+      <h2>Trust & Safety</h2>
+      <p>BorrowX is designed around safer community exchanges.</p>
+    </div>
+
+    <div class="safety">
+      <strong>Important safety rules</strong>
+
+      <ul>
+        <li>Use only an approximate area in public listings.</li>
+        <li>Never publish your exact home address.</li>
+        <li>Do not publicly post your personal phone number.</li>
+        <li>Prefer safe, public locations for handovers.</li>
+        <li>Do not meet unknown people alone if you feel unsafe.</li>
+        <li>Report suspicious listings or accounts.</li>
+        <li>BorrowX verification does not guarantee that another person is completely safe.</li>
+      </ul>
+
+      <div class="danger-note">
+        BorrowX is a community platform. Always use your own judgment and involve a trusted adult when appropriate.
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <strong>BorrowX</strong> — Borrow, Exchange & Trusted Community
+    <br>
+    <span class="small">by Jay Style X1</span>
+  </div>
+</footer>
 
 
-<div class="section">
-<h2>What do you want to do?</h2>
+<!-- AUTH MODAL -->
+
+<div id="authModal" class="modal-overlay">
+  <div class="modal">
+
+    <div class="modal-header">
+      <h3>BorrowX Account</h3>
+      <button class="close" onclick="closeModal('authModal')">×</button>
+    </div>
+
+    <div class="auth-tabs">
+      <button id="loginTab" class="auth-tab active" onclick="switchAuth('login')">
+        Login
+      </button>
+
+      <button id="signupTab" class="auth-tab" onclick="switchAuth('signup')">
+        Create Account
+      </button>
+    </div>
+
+    <div class="modal-body">
+
+      <div id="authStatus" class="status-box"></div>
+
+      <div id="loginForm">
+
+        <div class="form-group">
+          <label>Email</label>
+          <input id="loginEmail" type="email" autocomplete="email" placeholder="you@example.com">
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input id="loginPassword" type="password" autocomplete="current-password" placeholder="Password">
+        </div>
+
+        <button class="btn btn-primary" style="width:100%" onclick="loginUser()">
+          Login
+        </button>
+
+        <button class="btn btn-secondary" style="width:100%;margin-top:10px" onclick="showForgotPassword()">
+          Forgot Password?
+        </button>
+
+      </div>
+
+
+      <div id="signupForm" class="hidden">
+
+        <div class="form-group">
+          <label>Email</label>
+          <input id="signupEmail" type="email" autocomplete="email" placeholder="you@example.com">
+        </div>
+
+        <div class="form-group">
+          <label>Password</label>
+          <input id="signupPassword" type="password" autocomplete="new-password" placeholder="Minimum 6 characters">
+        </div>
+
+        <button class="btn btn-primary" style="width:100%" onclick="signupUser()">
+          Create Account
+        </button>
+
+      </div>
+
+
+      <div id="forgotForm" class="hidden">
+
+        <div class="form-group">
+          <label>Email</label>
+          <input id="forgotEmail" type="email" placeholder="Enter your account email">
+        </div>
+
+        <button class="btn btn-primary" style="width:100%" onclick="sendResetEmail()">
+          Send Reset Email
+        </button>
+
+        <button class="btn btn-secondary" style="width:100%;margin-top:10px" onclick="switchAuth('login')">
+          Back to Login
+        </button>
+
+      </div>
+
+    </div>
+  </div>
 </div>
-
-
-<div class="actions">
-
-<button
-class="action"
-onclick="openModal('need')">
-
-<div class="icon">🔎</div>
-
-<strong>I Need Something</strong>
-
-<small>
-Post what you're looking for
-</small>
-
-</button>
-
-
-<button
-class="action"
-onclick="openModal('have')">
-
-<div class="icon">📦</div>
-
-<strong>I Have Something</strong>
-
-<small>
-Offer it for borrow/exchange
-</small>
-
-</button>
-
-</div>
-
-
-<div class="section">
-<h2>Categories</h2>
-<span>See all</span>
-</div>
-
-
-<div class="categories">
-
-<div class="cat">
-🔧
-<div>Tools</div>
-</div>
-
-<div class="cat">
-📚
-<div>Books</div>
-</div>
-
-<div class="cat">
-📷
-<div>Camera</div>
-</div>
-
-<div class="cat">
-🏏
-<div>Sports</div>
-</div>
-
-<div class="cat">
-🎮
-<div>Games</div>
-</div>
-
-<div class="cat">
-🏠
-<div>Home</div>
-</div>
-
-</div>
-
-
-<div class="section">
-
-<h2>Available near you</h2>
-
-<span>Approximate area</span>
-
-</div>
-
-
-<div id="items">
-
-<div
-class="card item"
-data-name="drill machine tools">
-
-<div class="item-top">
-
-<div class="item-icon">🔧</div>
-
-<div class="item-info">
-
-<h3>Drill Machine</h3>
-
-<p>
-📍 Approx. 1.2 km away
-</p>
-
-<span class="badge">
-✓ Sample Listing
-</span>
-
-</div>
-
-</div>
-
-<div class="item-bottom">
-
-<div class="trust">
-⭐ 4.8 · 12 exchanges
-</div>
-
-<button
-class="btn"
-onclick="requestItem('Drill Machine')">
-
-Request
-
-</button>
-
-</div>
-
-</div>
-
-
-<div
-class="card item"
-data-name="study books books">
-
-<div class="item-top">
-
-<div class="item-icon">📚</div>
-
-<div class="item-info">
-
-<h3>Study Books</h3>
-
-<p>
-📍 Approx. 800 m away
-</p>
-
-<span class="badge">
-✓ Sample Listing
-</span>
-
-</div>
-
-</div>
-
-<div class="item-bottom">
-
-<div class="trust">
-⭐ 4.9 · 8 exchanges
-</div>
-
-<button
-class="btn"
-onclick="requestItem('Study Books')">
-
-Request
-
-</button>
-
-</div>
-
-</div>
-
-
-<div id="firestoreLoading" class="empty">
-Loading real listings...
-</div>
-
-</div>
-
-
-<div class="auth-info">
-
-<h2>🔐 BorrowX Account</h2>
-
-<p
-id="authStatus"
-class="status">
-
-Not signed in
-
-</p>
-
-<button
-class="btn"
-onclick="openAuth()">
-
-Login / Create Account
-
-</button>
-
-<button
-class="btn"
-id="logoutBtn"
-onclick="logout()"
-style="display:none">
-
-Logout
-
-</button>
-
-</div>
-
-
-<div class="section">
-
-<h2>🛡️ Trust & Safety</h2>
-
-</div>
-
-
-<div class="safety">
-
-<div>
-✓ Exact home address stays private
-</div>
-
-<div>
-✓ Phone number stays private
-</div>
-
-<div>
-✓ Exchange history builds trust
-</div>
-
-<div>
-✓ Report & Block available
-</div>
-
-<div>
-✓ Safe public pickup recommended
-</div>
-
-</div>
-
-</main>
-
-
-<nav class="bottom">
-
-<button class="nav active">
-
-<div>🏠</div>
-Home
-
-</button>
-
-
-<button
-class="nav"
-onclick="openModal('need')">
-
-<div>🔎</div>
-I Need
-
-</button>
-
-
-<button
-class="nav"
-onclick="openModal('have')">
-
-<div>➕</div>
-Add
-
-</button>
-
-
-<button
-class="nav"
-onclick="showExchanges()">
-
-<div>🤝</div>
-Exchanges
-
-</button>
-
-
-<button
-class="nav"
-onclick="openAuth()">
-
-<div>👤</div>
-Profile
-
-</button>
-
-</nav>
 
 
 <!-- POST MODAL -->
 
-<div
-class="modal"
-id="modal">
+<div id="postModal" class="modal-overlay">
+  <div class="modal">
 
-<div class="modal-box">
+    <div class="modal-header">
+      <h3 id="postTitle">Create BorrowX Listing</h3>
+      <button class="close" onclick="closeModal('postModal')">×</button>
+    </div>
 
-<button
-class="close"
-onclick="closeModal()">
+    <div class="modal-body">
 
-✕
+      <div id="postStatus" class="status-box"></div>
 
-</button>
+      <div class="form-group">
+        <label>What do you have / need?</label>
+        <input id="itemName" maxlength="80" placeholder="Example: Drill Machine">
+      </div>
 
-<h2 id="modalTitle">
-Post
-</h2>
+      <div class="form-row">
 
+        <div class="form-group">
+          <label>Mode</label>
 
-<div class="form">
+          <select id="postMode">
+            <option value="Borrow">Borrow</option>
+            <option value="Exchange">Exchange</option>
+          </select>
+        </div>
 
-<input
-id="itemName"
-placeholder="What item?"
->
+        <div class="form-group">
+          <label>Category</label>
 
+          <select id="postCategory">
+            <option value="Tools">Tools</option>
+            <option value="Books">Books</option>
+            <option value="Camera">Camera</option>
+            <option value="Sports">Sports</option>
+            <option value="Games">Games</option>
+            <option value="Home">Home</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
 
-<select id="mode">
+      </div>
 
-<option>Borrow</option>
+      <div class="form-row">
 
-<option>Exchange</option>
+        <div class="form-group">
+          <label>Approximate area</label>
+          <input id="area" maxlength="60" placeholder="Example: Mainpuri">
+        </div>
 
-<option>
-Borrow or Exchange
-</option>
+        <div class="form-group">
+          <label>Duration</label>
+          <input id="duration" maxlength="40" placeholder="Example: 2 days">
+        </div>
 
-</select>
+      </div>
 
+      <div class="form-group">
+        <label>Description</label>
 
-<input
-id="area"
-placeholder="Your area (approximate only)"
->
+        <textarea
+          id="description"
+          maxlength="500"
+          placeholder="Condition, availability and useful details..."
+        ></textarea>
+      </div>
 
+      <div class="danger-note">
+        Do not enter your exact home address, phone number, passwords or other sensitive personal information.
+      </div>
 
-<input
-id="duration"
-placeholder="How long? e.g. 2 days"
->
+      <button class="btn btn-primary" style="width:100%;margin-top:15px" onclick="publishListing()">
+        Publish Listing
+      </button>
 
-
-<textarea
-id="description"
-placeholder="Tell people about your need/item"></textarea>
-
-
-<button
-class="btn full"
-id="publishBtn"
-onclick="submitPost()">
-
-Publish
-
-</button>
-
-
-<p
-id="postMessage"
-class="status">
-</p>
-
-</div>
-
-</div>
-
-</div>
-
-
-<!-- LOGIN / SIGNUP MODAL -->
-
-<div
-class="modal"
-id="authModal">
-
-<div class="modal-box">
-
-<button
-class="close"
-onclick="closeAuth()">
-
-✕
-
-</button>
-
-
-<h2>
-🔐 Login to BorrowX
-</h2>
-
-
-<div class="form">
-
-<input
-id="email"
-type="email"
-autocomplete="email"
-placeholder="Email address"
->
-
-
-<input
-id="password"
-type="password"
-autocomplete="current-password"
-placeholder="Password (minimum 6 characters)"
->
-
-
-<button
-class="btn full"
-onclick="login()">
-
-Login
-
-</button>
-
-
-<button
-class="forgot"
-onclick="forgotPassword()">
-
-Forgot Password?
-
-</button>
-
-
-<div class="auth-divider">
-or
-</div>
-
-
-<button
-class="btn btn-light full"
-onclick="signup()">
-
-Create Account
-
-</button>
-
-
-<p
-id="authMessage"
-class="status">
-</p>
-
-</div>
-
-</div>
-
+    </div>
+  </div>
 </div>
 
 
 <!-- REQUEST MODAL -->
 
-<div
-class="modal"
-id="requestModal">
+<div id="requestModal" class="modal-overlay">
+  <div class="modal">
 
-<div class="modal-box">
+    <div class="modal-header">
+      <h3>Request Item</h3>
+      <button class="close" onclick="closeModal('requestModal')">×</button>
+    </div>
 
-<button
-class="close"
-onclick="closeRequestModal()">
+    <div class="modal-body">
 
-✕
+      <div id="requestStatus" class="status-box"></div>
 
-</button>
+      <p style="margin-bottom:15px">
+        Requesting:
+        <strong id="requestItemName"></strong>
+      </p>
 
-<h2>
-🤝 Request Item
-</h2>
+      <div class="form-group">
+        <label>Message to owner</label>
 
-<p
-id="requestItemTitle"
-style="font-size:16px;font-weight:bold;margin-bottom:10px">
-</p>
+        <textarea
+          id="requestMessage"
+          maxlength="500"
+          placeholder="Example: I need this for two days. I can return it on time."
+        ></textarea>
+      </div>
 
-<p
-style="font-size:13px;color:#64748b;line-height:1.5">
+      <button class="btn btn-primary" style="width:100%" onclick="sendRequest()">
+        Send Request
+      </button>
 
-Your request will be sent to the item owner.
-Your exact address and phone number are not shared.
-
-</p>
-
-<div class="form" style="margin-top:15px">
-
-<textarea
-id="requestMessage"
-placeholder="Optional message to the owner"></textarea>
-
-<button
-class="btn full"
-id="sendRequestBtn"
-onclick="sendRequest()">
-
-Send Request
-
-</button>
-
-<p
-id="requestMessageStatus"
-class="status">
-</p>
-
-</div>
-
-</div>
-
+    </div>
+  </div>
 </div>
 
 
 <!-- EXCHANGES MODAL -->
 
-<div
-class="modal"
-id="exchangeModal">
+<div id="exchangeModal" class="modal-overlay">
+  <div class="modal">
 
-<div class="modal-box">
+    <div class="modal-header">
+      <h3>My Exchanges</h3>
+      <button class="close" onclick="closeModal('exchangeModal')">×</button>
+    </div>
 
-<button
-class="close"
-onclick="closeExchanges()">
+    <div class="modal-body">
 
-✕
+      <div id="exchangeStatus" class="status-box"></div>
 
-</button>
+      <div id="exchangeAccount" class="user-bar" style="display:block"></div>
 
-<h2>
-🤝 My Exchanges
-</h2>
+      <h4 style="margin:20px 0 10px">
+        REQUESTS FOR YOUR ITEMS
+      </h4>
 
-<div id="exchangeContent">
+      <div id="receivedRequests">
+        <div class="empty">Loading...</div>
+      </div>
 
-<div class="empty">
-Loading exchanges...
+      <h4 style="margin:25px 0 10px">
+        YOUR SENT REQUESTS
+      </h4>
+
+      <div id="sentRequests">
+        <div class="empty">Loading...</div>
+      </div>
+
+    </div>
+  </div>
 </div>
 
+
+<!-- PROFILE MODAL -->
+
+<div id="profileModal" class="modal-overlay">
+  <div class="modal">
+
+    <div class="modal-header">
+      <h3>My BorrowX Profile</h3>
+      <button class="close" onclick="closeModal('profileModal')">×</button>
+    </div>
+
+    <div class="modal-body">
+
+      <div id="profileLoggedOut">
+
+        <p style="margin-bottom:15px">
+          Login to use BorrowX requests and listings.
+        </p>
+
+        <button class="btn btn-primary" style="width:100%" onclick="closeModal('profileModal');openAuth()">
+          Login / Create Account
+        </button>
+
+      </div>
+
+
+      <div id="profileLoggedIn" class="hidden">
+
+        <div class="card" style="box-shadow:none;background:#f9fafb">
+          <strong>Account</strong>
+          <p id="profileEmail" class="small" style="margin-top:6px"></p>
+        </div>
+
+        <div class="form-row" style="margin-top:15px">
+
+          <div class="stat">
+            <strong id="profileSent">0</strong>
+            <span>Sent requests</span>
+          </div>
+
+          <div class="stat">
+            <strong id="profileReceived">0</strong>
+            <span>Received requests</span>
+          </div>
+
+        </div>
+
+        <button
+          class="btn btn-secondary"
+          style="width:100%;margin-top:15px"
+          onclick="closeModal('profileModal');openExchanges()"
+        >
+          View My Exchanges
+        </button>
+
+        <button
+          class="btn btn-danger"
+          style="width:100%;margin-top:10px"
+          onclick="logoutUser()"
+        >
+          Logout
+        </button>
+
+      </div>
+
+    </div>
+  </div>
 </div>
 
+
+<!-- REPORT MODAL -->
+
+<div id="reportModal" class="modal-overlay">
+  <div class="modal">
+
+    <div class="modal-header">
+      <h3>Report Listing</h3>
+      <button class="close" onclick="closeModal('reportModal')">×</button>
+    </div>
+
+    <div class="modal-body">
+
+      <div id="reportStatus" class="status-box"></div>
+
+      <p class="small" style="margin-bottom:15px">
+        Report suspicious, misleading or inappropriate content.
+      </p>
+
+      <div class="form-group">
+        <label>Reason</label>
+
+        <select id="reportReason">
+          <option value="Suspicious listing">Suspicious listing</option>
+          <option value="Wrong information">Wrong information</option>
+          <option value="Inappropriate content">Inappropriate content</option>
+          <option value="Other">Other</option>
+        </select>
+      </div>
+
+      <div class="form-group">
+        <label>Details</label>
+
+        <textarea
+          id="reportDetails"
+          maxlength="500"
+          placeholder="Tell us what looks wrong..."
+        ></textarea>
+      </div>
+
+      <button class="btn btn-danger" style="width:100%" onclick="submitReport()">
+        Submit Report
+      </button>
+
+    </div>
+  </div>
 </div>
 
-</div>
-
-
-<!-- FIREBASE -->
 
 <script type="module">
 
-import { initializeApp }
-from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+  import {
+    initializeApp
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
+  import {
+    getAuth,
+    createUserWithEmailAndPassword,
+    signInWithEmailAndPassword,
+    sendPasswordResetEmail,
+    onAuthStateChanged,
+    signOut
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
+  import {
+    getFirestore,
+    collection,
+    addDoc,
+    query,
+    where,
+    onSnapshot,
+    updateDoc,
+    deleteDoc,
+    doc,
+    serverTimestamp,
+    getDocs,
+    limit
+  } from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyDON3_zSPUXVuCsUFJwNQKYvopE5cfYFTw",
+    authDomain: "borrowx-41589.firebaseapp.com",
+    projectId: "borrowx-41589",
+    storageBucket: "borrowx-41589.firebasestorage.app",
+    messagingSenderId: "833407287824",
+    appId: "1:833407287824:web:18f72c92cd12297dc20095",
+    measurementId: "G-3BMPCT4BZY"
+  };
+
 
+  const app = initializeApp(firebaseConfig);
+  const auth = getAuth(app);
+  const db = getFirestore(app);
 
-import {
-getAuth,
-createUserWithEmailAndPassword,
-signInWithEmailAndPassword,
-sendPasswordResetEmail,
-onAuthStateChanged,
-signOut
-}
-from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
+  let user = null;
 
-import {
-getFirestore,
-collection,
-addDoc,
-serverTimestamp,
-onSnapshot,
-query,
-where,
-updateDoc,
-doc
-}
-from
-"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+  let allListings = [];
+  let allNeeds = [];
 
+  let receivedRequests = [];
+  let sentRequests = [];
 
-const firebaseConfig = {
+  let receivedUnsubscribe = null;
+  let sentUnsubscribe = null;
 
-apiKey:
-"AIzaSyDON3_zSPUXVuCsUFJwNQKYvopE5cfYFTw",
+  let selectedItem = null;
+  let selectedReportItem = null;
 
-authDomain:
-"borrowx-41589.firebaseapp.com",
+  let receivedReady = false;
+  let sentReady = false;
 
-projectId:
-"borrowx-41589",
 
-storageBucket:
-"borrowx-41589.firebasestorage.app",
+  const sampleListings = [
+    {
+      id:"sample-books",
+      itemName:"Study Books",
+      category:"Books",
+      mode:"Borrow",
+      area:"Mainpuri",
+      duration:"7 days",
+      description:"Useful study books available for temporary borrowing.",
+      ownerId:"sample",
+      ownerEmail:"",
+      sample:true
+    },
+    {
+      id:"sample-basketball",
+      itemName:"Basketball",
+      category:"Sports",
+      mode:"Borrow",
+      area:"Mainpuri",
+      duration:"2 days",
+      description:"Basketball available for short-term use.",
+      ownerId:"sample",
+      ownerEmail:"",
+      sample:true
+    }
+  ];
 
-messagingSenderId:
-"833407287824",
 
-appId:
-"1:833407287824:web:18f72c92cd12297dc20095"
+  function $(id){
+    return document.getElementById(id);
+  }
 
-};
 
+  window.closeModal = function(id){
+    $(id).style.display = "none";
+  };
 
-const app =
-initializeApp(firebaseConfig);
 
+  function openModal(id){
+    $(id).style.display = "block";
+  }
 
-const auth =
-getAuth(app);
 
+  window.openAuth = function(){
+    openModal("authModal");
+    switchAuth("login");
+  };
 
-const db =
-getFirestore(app);
 
+  window.switchAuth = function(mode){
 
-window.borrowXFirebase = {
+    $("loginForm").classList.toggle("hidden",mode !== "login");
+    $("signupForm").classList.toggle("hidden",mode !== "signup");
+    $("forgotForm").classList.add("hidden");
 
-auth:auth,
-db:db
+    $("loginTab").classList.toggle("active",mode === "login");
+    $("signupTab").classList.toggle("active",mode === "signup");
 
-};
+    clearStatus("authStatus");
+  };
 
 
-/* SIGN UP */
+  window.showForgotPassword = function(){
 
-window.signup = async function(){
+    $("loginForm").classList.add("hidden");
+    $("signupForm").classList.add("hidden");
+    $("forgotForm").classList.remove("hidden");
 
-const email =
-document
-.getElementById("email")
-.value
-.trim();
+    $("loginTab").classList.remove("active");
+    $("signupTab").classList.remove("active");
 
-const password =
-document
-.getElementById("password")
-.value;
+    $("forgotEmail").value = $("loginEmail").value.trim();
 
-const message =
-document
-.getElementById("authMessage");
+    clearStatus("authStatus");
+  };
 
 
-if(!email){
+  function showStatus(id,message,type="info"){
 
-message.textContent =
-"Please enter your email.";
+    const el = $(id);
 
-return;
+    el.className = "status-box status-" + type;
+    el.textContent = message;
+    el.style.display = "block";
+  }
 
-}
 
+  function clearStatus(id){
 
-if(!email.includes("@")){
+    const el = $(id);
 
-message.textContent =
-"Please enter a valid email address.";
+    el.textContent = "";
+    el.style.display = "none";
+  }
 
-return;
 
-}
+  function friendlyError(error){
 
+    const code = error?.code || "";
 
-if(password.length < 6){
+    const map = {
+      "auth/invalid-credential":"Email or password is incorrect.",
+      "auth/invalid-email":"Please enter a valid email.",
+      "auth/email-already-in-use":"This email already has an account.",
+      "auth/weak-password":"Password should be at least 6 characters.",
+      "auth/network-request-failed":"Network problem. Check your internet connection.",
+      "auth/too-many-requests":"Too many attempts. Please wait and try again.",
+      "permission-denied":"You do not have permission for this action.",
+      "failed-precondition":"Firebase needs a configuration update."
+    };
 
-message.textContent =
-"Password must be at least 6 characters.";
+    return map[code] || error?.message || "Something went wrong. Please try again.";
+  }
 
-return;
 
-}
+  window.signupUser = async function(){
 
+    const email = $("signupEmail").value.trim();
+    const password = $("signupPassword").value;
 
-message.textContent =
-"Creating account...";
+    if(!email || !password){
+      showStatus("authStatus","Please enter email and password.","error");
+      return;
+    }
 
+    if(password.length < 6){
+      showStatus("authStatus","Password must be at least 6 characters.","error");
+      return;
+    }
 
-try{
+    try{
 
-await createUserWithEmailAndPassword(
-auth,
-email,
-password
-);
+      showStatus("authStatus","Creating your account...","info");
 
-message.textContent =
-"Account created successfully ✅";
+      await createUserWithEmailAndPassword(auth,email,password);
 
-closeAuth();
+      showStatus("authStatus","Account created successfully ✅","success");
 
-}
-catch(error){
+      setTimeout(()=>{
+        closeModal("authModal");
+      },900);
 
-console.log(error);
+    }catch(error){
 
-if(
-error.code ===
-"auth/email-already-in-use"
-){
+      showStatus("authStatus",friendlyError(error),"error");
+    }
+  };
 
-message.textContent =
-"This email already has an account. Please Login.";
 
-}
-else if(
-error.code ===
-"auth/invalid-email"
-){
+  window.loginUser = async function(){
 
-message.textContent =
-"Please enter a valid email address.";
+    const email = $("loginEmail").value.trim();
+    const password = $("loginPassword").value;
 
-}
-else if(
-error.code ===
-"auth/weak-password"
-){
+    if(!email || !password){
+      showStatus("authStatus","Enter email and password.","error");
+      return;
+    }
 
-message.textContent =
-"Password is too weak. Use at least 6 characters.";
+    try{
 
-}
-else{
+      showStatus("authStatus","Logging in...","info");
 
-message.textContent =
-"Error: " + error.code;
+      await signInWithEmailAndPassword(auth,email,password);
 
-}
+      showStatus("authStatus","Login successful ✅","success");
 
-}
+      setTimeout(()=>{
+        closeModal("authModal");
+      },700);
 
-};
+    }catch(error){
 
+      showStatus("authStatus",friendlyError(error),"error");
+    }
+  };
 
-/* LOGIN */
 
-window.login = async function(){
+  window.sendResetEmail = async function(){
 
-const email =
-document
-.getElementById("email")
-.value
-.trim();
+    const email = $("forgotEmail").value.trim();
 
-const password =
-document
-.getElementById("password")
-.value;
+    if(!email){
+      showStatus("authStatus","Enter your account email.","error");
+      return;
+    }
 
-const message =
-document.getElementById("authMessage");
+    try{
 
+      await sendPasswordResetEmail(auth,email);
 
-if(!email){
+      showStatus(
+        "authStatus",
+        "Password reset email sent ✅ Check your inbox.",
+        "success"
+      );
 
-message.textContent =
-"Please enter your email.";
+    }catch(error){
 
-return;
+      /*
+        Firebase may intentionally hide whether an email exists.
+        So only show real technical errors.
+      */
 
-}
+      if(error.code === "auth/invalid-email"){
+        showStatus("authStatus","Please enter a valid email.","error");
+      }else{
+        showStatus(
+          "authStatus",
+          "If an account exists for this email, a password reset email has been sent.",
+          "success"
+        );
+      }
+    }
+  };
 
 
-if(!email.includes("@")){
+  window.logoutUser = async function(){
 
-message.textContent =
-"Please enter a valid email address.";
+    try{
 
-return;
+      await signOut(auth);
 
-}
+      closeModal("profileModal");
+      closeModal("exchangeModal");
 
+    }catch(error){
 
-if(!password){
+      alert(friendlyError(error));
+    }
+  };
 
-message.textContent =
-"Please enter your password.";
 
-return;
+  onAuthStateChanged(auth,(currentUser)=>{
 
-}
+    user = currentUser;
 
+    updateAuthUI();
 
-message.textContent =
-"Logging in...";
+    if(user){
 
+      $("loginNotice").classList.add("hidden");
 
-try{
+    }else{
 
-await signInWithEmailAndPassword(
-auth,
-email,
-password
-);
+      $("loginNotice").classList.remove("hidden");
 
-message.textContent =
-"Login successful ✅";
+      stopExchangeListeners();
+    }
+  });
 
-closeAuth();
 
-}
-catch(error){
+  function updateAuthUI(){
 
-console.log(error);
+    const profileBtn = $("profileBtn");
 
-if(
-error.code ===
-"auth/invalid-credential"
-){
+    if(user){
 
-message.textContent =
-"Email or password is incorrect.";
+      profileBtn.textContent = "Profile";
 
-}
-else if(
-error.code ===
-"auth/user-not-found"
-){
+      $("profileLoggedOut").classList.add("hidden");
+      $("profileLoggedIn").classList.remove("hidden");
 
-message.textContent =
-"Account not found. Create an account first.";
+      $("profileEmail").textContent = user.email || "Signed-in user";
 
-}
-else if(
-error.code ===
-"auth/wrong-password"
-){
+      $("exchangeAccount").textContent =
+        "Signed in as: " + (user.email || "BorrowX user");
 
-message.textContent =
-"Wrong password.";
+      $("statUsers").textContent = "You";
 
-}
-else if(
-error.code ===
-"auth/invalid-email"
-){
+    }else{
 
-message.textContent =
-"Please enter a valid email address.";
+      profileBtn.textContent = "Login";
 
-}
-else{
+      $("profileLoggedOut").classList.remove("hidden");
+      $("profileLoggedIn").classList.add("hidden");
 
-message.textContent =
-"Login error: " + error.code;
+      $("statUsers").textContent = "—";
+    }
+  }
 
-}
 
-}
+  window.openProfile = function(){
 
-};
+    updateProfileStats();
 
+    if(user){
 
-/* FORGOT PASSWORD */
+      $("profileEmail").textContent = user.email || "Signed-in user";
 
-window.forgotPassword = async function(){
+    }
 
-const email =
-document
-.getElementById("email")
-.value
-.trim();
+    openModal("profileModal");
+  };
 
-const message =
-document.getElementById("authMessage");
 
+  async function updateProfileStats(){
 
-if(!email){
+    if(!user){
 
-message.textContent =
-"Please enter your email address first.";
+      $("profileSent").textContent = "0";
+      $("profileReceived").textContent = "0";
+      return;
+    }
 
-document
-.getElementById("email")
-.focus();
+    try{
 
-return;
+      const sentQ = query(
+        collection(db,"requests"),
+        where("requesterId","==",user.uid)
+      );
 
-}
+      const receivedQ = query(
+        collection(db,"requests"),
+        where("ownerId","==",user.uid)
+      );
 
+      const [sentSnap,receivedSnap] = await Promise.all([
+        getDocs(sentQ),
+        getDocs(receivedQ)
+      ]);
 
-if(!email.includes("@")){
+      $("profileSent").textContent = sentSnap.size;
+      $("profileReceived").textContent = receivedSnap.size;
 
-message.textContent =
-"Please enter a valid email address.";
+    }catch(error){
 
-return;
+      $("profileSent").textContent = "—";
+      $("profileReceived").textContent = "—";
+    }
+  }
 
-}
 
+  window.requireLoginThenOpenPost = function(mode){
 
-message.textContent =
-"Sending password reset email...";
+    if(!user){
 
+      openAuth();
 
-try{
+      showStatus(
+        "authStatus",
+        "Please login or create an account first.",
+        "info"
+      );
 
-await sendPasswordResetEmail(
-auth,
-email
-);
+      return;
+    }
 
-message.textContent =
-"Password reset email sent ✅ Check your inbox.";
+    openPostModal(mode);
+  };
 
-}
-catch(error){
 
-console.log(error);
+  function openPostModal(mode){
 
-if(
-error.code ===
-"auth/user-not-found"
-){
+    $("itemName").value = "";
+    $("area").value = "";
+    $("duration").value = "";
+    $("description").value = "";
 
-message.textContent =
-"No BorrowX account was found with this email.";
+    $("postMode").value = mode === "exchange" ? "Exchange" : "Borrow";
 
-}
-else if(
-error.code ===
-"auth/invalid-email"
-){
+    $("postTitle").textContent =
+      mode === "exchange"
+      ? "List Something You Have"
+      : "Post What You Need";
 
-message.textContent =
-"Please enter a valid email address.";
+    clearStatus("postStatus");
 
-}
-else{
+    openModal("postModal");
+  }
 
-message.textContent =
-"Could not send reset email: " + error.code;
 
-}
+  window.publishListing = async function(){
 
-}
+    if(!user){
 
-};
+      showStatus("postStatus","Please login first.","error");
+      return;
+    }
 
+    const itemName = $("itemName").value.trim();
+    const mode = $("postMode").value;
+    const category = $("postCategory").value;
+    const area = $("area").value.trim();
+    const duration = $("duration").value.trim();
+    const description = $("description").value.trim();
 
-/* LOGOUT */
+    if(!itemName || !area){
 
-window.logout = async function(){
+      showStatus(
+        "postStatus",
+        "Item name and approximate area are required.",
+        "error"
+      );
 
-try{
+      return;
+    }
 
-await signOut(auth);
+    if(itemName.length < 2){
 
-}
-catch(error){
+      showStatus(
+        "postStatus",
+        "Please enter a valid item name.",
+        "error"
+      );
 
-alert(error.message);
+      return;
+    }
 
-}
+    if(area.length < 2){
 
-};
+      showStatus(
+        "postStatus",
+        "Please enter an approximate area.",
+        "error"
+      );
 
+      return;
+    }
 
-/* AUTH STATE */
+    try{
 
-onAuthStateChanged(
-auth,
-(user)=>{
+      showStatus("postStatus","Publishing listing...","info");
 
-const status =
-document.getElementById(
-"authStatus"
-);
+      await addDoc(collection(db,"items"),{
 
-const logoutBtn =
-document.getElementById(
-"logoutBtn"
-);
+        itemName:itemName.slice(0,80),
 
-const profile =
-document.getElementById(
-"profileIcon"
-);
+        mode:mode,
 
+        category:category,
 
-if(user){
+        area:area.slice(0,60),
 
-status.textContent =
-"Signed in: " + user.email;
+        duration:duration.slice(0,40),
 
-logoutBtn.style.display =
-"block";
+        description:description.slice(0,500),
 
-profile.textContent =
-user.email
-.charAt(0)
-.toUpperCase();
+        ownerId:user.uid,
 
-}
-else{
+        ownerEmail:user.email || "",
 
-status.textContent =
-"Not signed in";
+        createdAt:serverTimestamp(),
 
-logoutBtn.style.display =
-"none";
+        active:true
+      });
 
-profile.textContent =
-"J";
 
-}
+      showStatus(
+        "postStatus",
+        "Your post has been published successfully ✅",
+        "success"
+      );
 
-});
+      setTimeout(()=>{
+        closeModal("postModal");
+      },900);
 
+    }catch(error){
 
-/* FIRESTORE PUBLISH */
+      showStatus(
+        "postStatus",
+        friendlyError(error),
+        "error"
+      );
+    }
+  };
 
-window.submitPost =
-async function(){
 
-const name =
-document
-.getElementById("itemName")
-.value
-.trim();
+  function inferCategory(name){
 
-const mode =
-document
-.getElementById("mode")
-.value;
+    const n = (name || "").toLowerCase();
 
-const area =
-document
-.getElementById("area")
-.value
-.trim();
+    if(
+      n.includes("book") ||
+      n.includes("study") ||
+      n.includes("copy")
+    ) return "Books";
 
-const duration =
-document
-.getElementById("duration")
-.value
-.trim();
+    if(
+      n.includes("drill") ||
+      n.includes("tool") ||
+      n.includes("hammer") ||
+      n.includes("screw")
+    ) return "Tools";
 
-const description =
-document
-.getElementById("description")
-.value
-.trim();
+    if(
+      n.includes("camera") ||
+      n.includes("lens")
+    ) return "Camera";
 
-const message =
-document
-.getElementById("postMessage");
+    if(
+      n.includes("ball") ||
+      n.includes("bat") ||
+      n.includes("racket")
+    ) return "Sports";
 
-const publishBtn =
-document
-.getElementById("publishBtn");
+    if(
+      n.includes("game") ||
+      n.includes("console")
+    ) return "Games";
 
+    return "Other";
+  }
 
-if(!name){
 
-message.textContent =
-"Please enter an item name.";
+  function listenListings(){
 
-return;
+    const q = query(
+      collection(db,"items"),
+      limit(100)
+    );
 
-}
+    onSnapshot(
+      q,
+      snapshot=>{
 
+        allListings = snapshot.docs.map(d=>({
+          id:d.id,
+          ...d.data()
+        }));
 
-const user =
-auth.currentUser;
+        allListings.sort((a,b)=>{
 
+          const ta = a.createdAt?.seconds || 0;
+          const tb = b.createdAt?.seconds || 0;
 
-if(!user){
+          return tb-ta;
+        });
 
-closeModal();
+        $("statListings").textContent =
+          allListings.length;
 
-openAuth();
+        renderListings();
 
-document
-.getElementById("authMessage")
-.textContent =
-"Please login first before publishing.";
+      },
+      error=>{
 
-return;
+        console.error(error);
 
-}
+        $("listings").innerHTML = `
+          <div class="empty">
+            Unable to load live listings right now.
+            <br><br>
+            <span class="small">${friendlyError(error)}</span>
+          </div>
+        `;
+      }
+    );
+  }
 
 
-if(!area){
+  function listenNeeds(){
 
-message.textContent =
-"Please enter your approximate area.";
+    const q = query(
+      collection(db,"needs"),
+      limit(50)
+    );
 
-return;
+    onSnapshot(
+      q,
+      snapshot=>{
 
-}
+        allNeeds = snapshot.docs.map(d=>({
+          id:d.id,
+          ...d.data()
+        }));
 
+        renderNeeds();
 
-publishBtn.disabled =
-true;
+      },
+      error=>{
 
-publishBtn.textContent =
-"Publishing...";
+        console.log("Needs:",error.message);
 
-message.textContent =
-"Saving your post...";
+        renderNeeds();
+      }
+    );
+  }
 
 
-try{
+  function renderListings(){
 
-const collectionName =
-window.modalType === "need"
-? "needs"
-: "items";
+    const container = $("listings");
 
+    const search =
+      $("searchInput").value.trim().toLowerCase();
 
-await addDoc(
-collection(
-db,
-collectionName
-),
-{
+    const category =
+      $("categoryFilter").value;
 
-name:name,
+    const mode =
+      $("modeFilter").value;
 
-mode:mode,
 
-area:area,
+    const realListings = allListings.filter(item=>{
 
-duration:duration,
+      if(item.active === false) return false;
 
-description:description,
+      const itemCategory =
+        item.category || inferCategory(item.itemName);
 
-ownerId:user.uid,
+      const text = [
 
-createdAt:
-serverTimestamp()
+        item.itemName,
+        item.area,
+        item.description,
+        item.category
 
-}
-);
+      ].join(" ").toLowerCase();
 
 
-message.textContent =
-"Published successfully ✅";
+      const matchesSearch =
+        !search || text.includes(search);
 
+      const matchesCategory =
+        category === "all" ||
+        itemCategory === category;
 
-alert(
-"Your post has been published successfully! ✅"
-);
+      const matchesMode =
+        mode === "all" ||
+        item.mode === mode;
 
 
-document
-.getElementById("itemName")
-.value = "";
+      return matchesSearch &&
+             matchesCategory &&
+             matchesMode;
+    });
 
-document
-.getElementById("area")
-.value = "";
 
-document
-.getElementById("duration")
-.value = "";
+    const sampleFiltered = sampleListings.filter(item=>{
 
-document
-.getElementById("description")
-.value = "";
+      const text = [
 
-closeModal();
+        item.itemName,
+        item.area,
+        item.description,
+        item.category
 
-}
-catch(error){
+      ].join(" ").toLowerCase();
 
-console.error(error);
+      return (
+        (!search || text.includes(search)) &&
+        (category === "all" || item.category === category) &&
+        (mode === "all" || item.mode === mode)
+      );
+    });
 
-message.textContent =
-"Could not publish: " +
-error.message;
 
-}
-finally{
+    const combined = [
+      ...realListings,
+      ...sampleFiltered
+    ];
 
-publishBtn.disabled =
-false;
 
-publishBtn.textContent =
-"Publish";
+    if(combined.length === 0){
 
-}
+      container.innerHTML = `
+        <div class="empty">
+          <strong>No matching listings found.</strong>
+          <br>
+          Try another search or category.
+        </div>
+      `;
 
-};
+      return;
+    }
 
 
-/* REAL-TIME ITEMS */
+    container.innerHTML = combined.map(renderListingCard).join("");
+  }
 
-onSnapshot(
-collection(db,"items"),
-(snapshot)=>{
 
-const container =
-document.getElementById("items");
+  function renderListingCard(item){
 
-const loading =
-document.getElementById(
-"firestoreLoading"
-);
+    const isSample = item.sample === true;
 
+    const category =
+      item.category || inferCategory(item.itemName);
 
-/* Remove old real listings before rebuilding */
+    const mode =
+      item.mode || "Borrow";
 
-document
-.querySelectorAll(".firestore-item")
-.forEach(el=>el.remove());
 
+    const ownerText =
+      isSample
+      ? "BorrowX sample listing"
+      : "BorrowX community member";
 
-if(loading){
 
-loading.remove();
+    return `
+      <div class="card">
 
-}
+        <div class="card-top">
 
+          <div>
+            <h3>${escapeHTML(item.itemName || "Unnamed item")}</h3>
+            <span class="badge">${escapeHTML(category)}</span>
+          </div>
 
-snapshot.forEach((docSnap)=>{
+          <span class="badge ${
+            mode === "Exchange"
+            ? "badge-orange"
+            : "badge-green"
+          }">
+            ${escapeHTML(mode)}
+          </span>
 
-const data =
-docSnap.data();
+        </div>
 
-const card =
-document.createElement("div");
 
-card.className =
-"card item firestore-item";
+        <div class="meta">
+          📍 ${escapeHTML(item.area || "Area not specified")}
+        </div>
 
-card.dataset.name =
-(
-(data.name || "") +
-" " +
-(data.area || "") +
-" " +
-(data.mode || "")
-)
-.toLowerCase();
+        <div class="meta">
+          ⏱️ ${escapeHTML(item.duration || "Flexible")}
+        </div>
 
 
-const safeName =
-escapeHTML(
-data.name || "Unnamed item"
-);
+        <div class="description">
+          ${escapeHTML(
+            item.description ||
+            "No description provided."
+          )}
+        </div>
 
-const safeArea =
-escapeHTML(
-data.area || "Approximate area"
-);
 
-const safeMode =
-escapeHTML(
-data.mode || "Borrow"
-);
+        <div class="owner">
+          ✓ ${ownerText}
+          ${
+            !isSample && item.ownerEmail
+            ? `<br><span class="small">Account: ${escapeHTML(item.ownerEmail)}</span>`
+            : ""
+          }
+        </div>
 
 
-card.innerHTML = `
+        <div class="card-actions">
 
-<div class="item-top">
+          ${
+            isSample
+            ? `
+              <button
+                class="btn btn-secondary btn-small"
+                disabled
+              >
+                Sample
+              </button>
+            `
+            : `
+              <button
+                class="btn btn-primary btn-small"
+                onclick="requestItem(
+                  '${escapeAttr(item.id)}',
+                  '${escapeAttr(item.ownerId || "")}',
+                  '${escapeAttr(item.itemName || "")}',
+                  '${escapeAttr(item.ownerEmail || "")}'
+                )"
+              >
+                Request
+              </button>
 
-<div class="item-icon">
-📦
-</div>
+              <button
+                class="btn btn-secondary btn-small"
+                onclick="openReport(
+                  '${escapeAttr(item.id)}',
+                  '${escapeAttr(item.itemName || "")}',
+                  '${escapeAttr(item.ownerId || "")}'
+                )"
+              >
+                Report
+              </button>
+            `
+          }
 
-<div class="item-info">
+        </div>
 
-<h3>
-${safeName}
-</h3>
+      </div>
+    `;
+  }
 
-<p>
-📍 ${safeArea}
-</p>
 
-<span class="badge real-badge">
-✓ Real BorrowX Listing
-</span>
+  function renderNeeds(){
 
-</div>
+    const container = $("needsList");
 
-</div>
+    if(allNeeds.length === 0){
 
+      container.innerHTML = `
+        <div class="empty">
+          No community needs posted yet.
+          <br>
+          Be the first to create one.
+        </div>
+      `;
 
-<div class="item-bottom">
+      return;
+    }
 
-<div class="trust">
-${safeMode}
-</div>
 
-<button
-class="btn request-real">
+    container.innerHTML = allNeeds.map(need=>`
 
-Request
+      <div class="card">
 
-</button>
+        <div class="card-top">
+          <h3>${escapeHTML(need.itemName || "Need")}</h3>
+          <span class="badge">Need</span>
+        </div>
 
-</div>
+        <div class="meta">
+          📍 ${escapeHTML(need.area || "Area not specified")}
+        </div>
 
-`;
+        <div class="description">
+          ${escapeHTML(need.description || "")}
+        </div>
 
+      </div>
 
-const requestButton =
-card.querySelector(
-".request-real"
-);
+    `).join("");
+  }
 
 
-requestButton.addEventListener(
-"click",
-function(){
+  window.requestItem = function(
+    itemId,
+    ownerId,
+    itemName,
+    ownerEmail
+  ){
 
-requestItem(
-data.name || "Item",
-docSnap.id,
-data.ownerId || ""
-);
+    if(!user){
 
-});
+      openAuth();
 
+      showStatus(
+        "authStatus",
+        "Please login to request this item.",
+        "info"
+      );
 
-container.appendChild(card);
+      return;
+    }
 
-});
 
+    if(ownerId === user.uid){
 
-applySearch();
+      alert("You cannot request your own listing.");
+      return;
+    }
 
-},
-(error)=>{
 
-console.error(error);
+    selectedItem = {
+      itemId,
+      ownerId,
+      itemName,
+      ownerEmail
+    };
 
-const loading =
-document.getElementById(
-"firestoreLoading"
-);
 
-if(loading){
+    $("requestItemName").textContent =
+      itemName;
 
-loading.textContent =
-"Could not load real listings.";
+    $("requestMessage").value = "";
 
-}
+    clearStatus("requestStatus");
 
-}
-);
+    openModal("requestModal");
+  };
 
 
-/* SEND REQUEST */
+  window.sendRequest = async function(){
 
-window.sendRequest =
-async function(){
+    if(!user || !selectedItem){
 
-const user =
-auth.currentUser;
+      showStatus(
+        "requestStatus",
+        "Please login and select an item.",
+        "error"
+      );
 
-if(!user){
+      return;
+    }
 
-closeRequestModal();
 
-openAuth();
+    const message =
+      $("requestMessage").value.trim();
 
-document
-.getElementById("authMessage")
-.textContent =
-"Please login first to send a request.";
 
-return;
+    try{
 
-}
+      showStatus(
+        "requestStatus",
+        "Checking previous requests...",
+        "info"
+      );
 
 
-const itemId =
-window.selectedRequestItemId;
+      const duplicateQuery = query(
+        collection(db,"requests"),
+        where("itemId","==",selectedItem.itemId),
+        where("requesterId","==",user.uid),
+        limit(5)
+      );
 
-const ownerId =
-window.selectedRequestOwnerId;
 
-const itemName =
-window.selectedRequestItemName;
+      const duplicateSnap =
+        await getDocs(duplicateQuery);
 
-const messageInput =
-document.getElementById(
-"requestMessage"
-);
 
-const messageStatus =
-document.getElementById(
-"requestMessageStatus"
-);
+      const hasActiveRequest =
+        duplicateSnap.docs.some(d=>{
 
-const sendButton =
-document.getElementById(
-"sendRequestBtn"
-);
+          const status =
+            d.data().status;
 
+          return (
+            status === "pending" ||
+            status === "accepted"
+          );
+        });
 
-if(!itemId || !ownerId){
 
-messageStatus.textContent =
-"Item information is missing. Please try again.";
+      if(hasActiveRequest){
 
-return;
+        showStatus(
+          "requestStatus",
+          "You already have an active request for this listing.",
+          "error"
+        );
 
-}
+        return;
+      }
 
 
-if(ownerId === user.uid){
+      showStatus(
+        "requestStatus",
+        "Sending request...",
+        "info"
+      );
 
-messageStatus.textContent =
-"You cannot request your own listing.";
 
-return;
+      await addDoc(
+        collection(db,"requests"),
+        {
 
-}
+          itemId:selectedItem.itemId,
 
+          itemName:selectedItem.itemName,
 
-sendButton.disabled =
-true;
+          ownerId:selectedItem.ownerId,
 
-sendButton.textContent =
-"Sending...";
+          ownerEmail:selectedItem.ownerEmail || "",
 
-messageStatus.textContent =
-"Sending request...";
+          requesterId:user.uid,
 
+          requesterEmail:user.email || "",
 
-try{
+          message:message.slice(0,500),
 
-await addDoc(
-collection(
-db,
-"requests"
-),
-{
+          status:"pending",
 
-itemId:itemId,
+          createdAt:serverTimestamp()
+        }
+      );
 
-itemName:itemName,
 
-ownerId:ownerId,
+      showStatus(
+        "requestStatus",
+        "Your request has been sent successfully ✅",
+        "success"
+      );
 
-requesterId:user.uid,
 
-message:
-messageInput.value
-.trim()
-.slice(0,500),
+      setTimeout(()=>{
+        closeModal("requestModal");
+      },900);
 
-status:"pending",
 
-createdAt:
-serverTimestamp()
+    }catch(error){
 
-}
-);
+      showStatus(
+        "requestStatus",
+        friendlyError(error),
+        "error"
+      );
+    }
+  };
 
 
-messageStatus.textContent =
-"Request sent successfully ✅";
+  window.openExchanges = function(){
 
-alert(
-"Your request has been sent successfully! 🤝"
-);
+    if(!user){
 
+      openAuth();
 
-messageInput.value = "";
+      showStatus(
+        "authStatus",
+        "Login first to view your exchanges.",
+        "info"
+      );
 
-setTimeout(
-()=>{
-closeRequestModal();
-},
-500
-);
+      return;
+    }
 
-}
-catch(error){
+    openModal("exchangeModal");
 
-console.error(error);
+    startExchangeListeners();
+  };
 
-messageStatus.textContent =
-"Could not send request: " +
-error.message;
 
-}
-finally{
+  function startExchangeListeners(){
 
-sendButton.disabled =
-false;
+    stopExchangeListeners();
 
-sendButton.textContent =
-"Send Request";
+    receivedRequests = [];
+    sentRequests = [];
 
-}
+    receivedReady = false;
+    sentReady = false;
 
-};
 
+    $("receivedRequests").innerHTML =
+      `<div class="empty">Loading received requests...</div>`;
 
-/* REAL-TIME EXCHANGES */
+    $("sentRequests").innerHTML =
+      `<div class="empty">Loading sent requests...</div>`;
 
-let receivedUnsubscribe = null;
-let sentUnsubscribe = null;
 
+    const receivedQuery = query(
+      collection(db,"requests"),
+      where("ownerId","==",user.uid)
+    );
 
-window.startExchangeListeners =
-function(){
 
-const user =
-auth.currentUser;
+    receivedUnsubscribe =
+      onSnapshot(
+        receivedQuery,
+        snapshot=>{
 
-if(!user){
+          receivedRequests =
+            snapshot.docs.map(d=>({
+              id:d.id,
+              ...d.data()
+            }));
 
-return;
+          receivedRequests.sort(sortByDate);
 
-}
+          receivedReady = true;
 
+          renderExchangeScreen();
 
-const content =
-document.getElementById(
-"exchangeContent"
-);
+        },
+        error=>{
 
+          $("receivedRequests").innerHTML = `
+            <div class="empty">
+              Could not load received requests.
+              <br>
+              <span class="small">${escapeHTML(friendlyError(error))}</span>
+            </div>
+          `;
+        }
+      );
 
-content.innerHTML =
-'<div class="empty">Loading exchanges...</div>';
 
+    const sentQuery = query(
+      collection(db,"requests"),
+      where("requesterId","==",user.uid)
+    );
 
-if(receivedUnsubscribe){
 
-receivedUnsubscribe();
+    sentUnsubscribe =
+      onSnapshot(
+        sentQuery,
+        snapshot=>{
 
-}
+          sentRequests =
+            snapshot.docs.map(d=>({
+              id:d.id,
+              ...d.data()
+            }));
 
-if(sentUnsubscribe){
+          sentRequests.sort(sortByDate);
 
-sentUnsubscribe();
+          sentReady = true;
 
-}
+          renderExchangeScreen();
 
+        },
+        error=>{
 
-/* RECEIVED */
+          $("sentRequests").innerHTML = `
+            <div class="empty">
+              Could not load sent requests.
+              <br>
+              <span class="small">${escapeHTML(friendlyError(error))}</span>
+            </div>
+          `;
+        }
+      );
+  }
 
-const receivedQuery =
-query(
-collection(db,"requests"),
-where("ownerId","==",user.uid)
-);
 
+  function stopExchangeListeners(){
 
-receivedUnsubscribe =
-onSnapshot(
-receivedQuery,
-(snapshot)=>{
+    if(receivedUnsubscribe){
 
-renderReceivedRequests(
-snapshot
-);
+      receivedUnsubscribe();
+      receivedUnsubscribe = null;
+    }
 
-},
-(error)=>{
+    if(sentUnsubscribe){
 
-console.error(error);
+      sentUnsubscribe();
+      sentUnsubscribe = null;
+    }
+  }
 
-content.innerHTML +=
-'<div class="empty">Could not load received requests.</div>';
 
-}
-);
+  function renderExchangeScreen(){
 
+    $("exchangeAccount").textContent =
+      "Signed in as: " +
+      (user?.email || "BorrowX user");
 
-/* SENT */
 
-const sentQuery =
-query(
-collection(db,"requests"),
-where("requesterId","==",user.uid)
-);
+    if(!receivedReady || !sentReady){
 
+      return;
+    }
 
-sentUnsubscribe =
-onSnapshot(
-sentQuery,
-(snapshot)=>{
 
-renderSentRequests(
-snapshot
-);
+    renderReceivedRequests();
+    renderSentRequests();
+  }
 
-},
-(error)=>{
 
-console.error(error);
+  function renderReceivedRequests(){
 
-content.innerHTML +=
-'<div class="empty">Could not load sent requests.</div>';
+    const container =
+      $("receivedRequests");
 
-}
-);
 
-};
+    if(receivedRequests.length === 0){
 
+      container.innerHTML = `
+        <div class="empty">
+          No received requests yet.
+          <br><br>
+          <span class="small">
+            Requests for listings owned by
+            ${escapeHTML(user?.email || "this account")}
+            will appear here.
+          </span>
+        </div>
+      `;
 
-/* RENDER REQUESTS */
+      return;
+    }
 
-let receivedRequests = [];
-let sentRequests = [];
 
+    container.innerHTML =
+      receivedRequests.map(req=>`
 
-function renderReceivedRequests(snapshot){
+        <div class="exchange-card">
 
-receivedRequests = [];
+          <div class="exchange-header">
 
-snapshot.forEach(
-(docSnap)=>{
+            <div>
+              <strong>
+                ${escapeHTML(req.itemName || "Item")}
+              </strong>
 
-receivedRequests.push({
-id:docSnap.id,
-...docSnap.data()
-});
+              <div class="small">
+                Requester:
+                ${escapeHTML(
+                  req.requesterEmail ||
+                  "BorrowX user"
+                )}
+              </div>
+            </div>
 
-}
-);
+            ${statusBadge(req.status)}
 
-renderExchangeScreen();
+          </div>
 
-}
 
+          ${
+            req.message
+            ? `
+              <div class="request-message">
+                ${escapeHTML(req.message)}
+              </div>
+            `
+            : ""
+          }
 
-function renderSentRequests(snapshot){
 
-sentRequests = [];
+          <div class="small">
+            ${formatDate(req.createdAt)}
+          </div>
 
-snapshot.forEach(
-(docSnap)=>{
 
-sentRequests.push({
-id:docSnap.id,
-...docSnap.data()
-});
+          ${
+            req.status === "pending"
+            ? `
+              <div class="exchange-actions">
 
-}
-);
+                <button
+                  class="btn btn-success btn-small"
+                  onclick="updateRequestStatus(
+                    '${escapeAttr(req.id)}',
+                    'accepted'
+                  )"
+                >
+                  Accept
+                </button>
 
-renderExchangeScreen();
+                <button
+                  class="btn btn-danger btn-small"
+                  onclick="updateRequestStatus(
+                    '${escapeAttr(req.id)}',
+                    'declined'
+                  )"
+                >
+                  Decline
+                </button>
 
-}
+              </div>
+            `
+            : ""
+          }
 
+        </div>
 
-/* EXCHANGE SCREEN */
+      `).join("");
+  }
 
-function renderExchangeScreen(){
 
-const content =
-document.getElementById(
-"exchangeContent"
-);
+  function renderSentRequests(){
 
-if(!content){
+    const container =
+      $("sentRequests");
 
-return;
 
-}
+    if(sentRequests.length === 0){
 
+      container.innerHTML = `
+        <div class="empty">
+          You have not sent any requests yet.
+          <br><br>
+          Search a listing and tap Request.
+        </div>
+      `;
 
-let html = "";
+      return;
+    }
 
 
-/* RECEIVED */
+    container.innerHTML =
+      sentRequests.map(req=>`
 
-html +=
-'<div class="exchange-title">REQUESTS FOR YOUR ITEMS</div>';
+        <div class="exchange-card">
 
+          <div class="exchange-header">
 
-if(receivedRequests.length === 0){
+            <div>
+              <strong>
+                ${escapeHTML(req.itemName || "Item")}
+              </strong>
 
-html +=
-'<div class="empty">No received requests yet.</div>';
+              <div class="small">
+                Owner:
+                ${escapeHTML(
+                  req.ownerEmail ||
+                  "BorrowX user"
+                )}
+              </div>
+            </div>
 
-}
-else{
+            ${statusBadge(req.status)}
 
-receivedRequests
-.sort(sortByCreated)
-.forEach((request)=>{
+          </div>
 
-const statusClass =
-getStatusClass(
-request.status
-);
 
-const statusText =
-capitalize(
-request.status || "pending"
-);
+          ${
+            req.message
+            ? `
+              <div class="request-message">
+                ${escapeHTML(req.message)}
+              </div>
+            `
+            : ""
+          }
 
-html += `
 
-<div class="request-card">
+          <div class="small">
+            ${formatDate(req.createdAt)}
+          </div>
 
-<h3>
-📦 ${escapeHTML(request.itemName || "Item")}
-</h3>
 
-<div class="request-meta">
+          ${
+            req.status === "pending"
+            ? `
+              <div class="exchange-actions">
 
-Someone has requested your item.
+                <button
+                  class="btn btn-secondary btn-small"
+                  onclick="updateRequestStatus(
+                    '${escapeAttr(req.id)}',
+                    'cancelled'
+                  )"
+                >
+                  Cancel Request
+                </button>
 
-<br>
+              </div>
+            `
+            : ""
+          }
 
-Message:
-${escapeHTML(request.message || "No message")}
 
-</div>
+          ${
+            req.status === "accepted"
+            ? `
+              <div class="danger-note">
+                Request accepted. Arrange the handover safely
+                and use a public/safe location.
+              </div>
+            `
+            : ""
+          }
 
-<span class="status-badge ${statusClass}">
-${statusText}
-</span>
+        </div>
 
-${
-request.status === "pending"
-?
-`
+      `).join("");
+  }
 
-<div class="request-actions">
 
-<button
-class="btn btn-success"
-onclick="updateRequestStatus('${request.id}','accepted')">
+  function statusBadge(status){
 
-Accept
+    const safe =
+      status || "pending";
 
-</button>
 
-<button
-class="btn btn-danger"
-onclick="updateRequestStatus('${request.id}','declined')">
+    let cls = "badge";
 
-Decline
+    if(safe === "accepted")
+      cls += " badge-green";
 
-</button>
+    if(safe === "declined")
+      cls += " badge-orange";
 
-</div>
 
-`
-:
-""
-}
+    return `
+      <span class="${cls}">
+        ${escapeHTML(
+          safe.charAt(0).toUpperCase() +
+          safe.slice(1)
+        )}
+      </span>
+    `;
+  }
 
-</div>
 
-`;
+  window.updateRequestStatus =
+  async function(requestId,status){
 
-});
+    if(!user){
 
-}
+      alert("Please login first.");
+      return;
+    }
 
 
-/* SENT */
+    if(
+      !["accepted","declined","cancelled"].includes(status)
+    ){
 
-html +=
-'<div class="exchange-title">YOUR SENT REQUESTS</div>';
+      return;
+    }
 
 
-if(sentRequests.length === 0){
+    try{
 
-html +=
-'<div class="empty">You have not sent any requests yet.</div>';
+      await updateDoc(
+        doc(db,"requests",requestId),
+        {
+          status:status,
+          updatedAt:serverTimestamp()
+        }
+      );
 
-}
-else{
 
-sentRequests
-.sort(sortByCreated)
-.forEach((request)=>{
+      showStatus(
+        "exchangeStatus",
+        "Request updated successfully ✅",
+        "success"
+      );
 
-const statusClass =
-getStatusClass(
-request.status
-);
 
-const statusText =
-capitalize(
-request.status || "pending"
-);
+    }catch(error){
 
-html += `
+      showStatus(
+        "exchangeStatus",
+        friendlyError(error),
+        "error"
+      );
+    }
+  };
 
-<div class="request-card">
 
-<h3>
-🤝 ${escapeHTML(request.itemName || "Item")}
-</h3>
+  window.openReport =
+  function(itemId,itemName,ownerId){
 
-<div class="request-meta">
+    if(!user){
 
-Your request has been sent to the item owner.
+      openAuth();
 
-<br>
+      showStatus(
+        "authStatus",
+        "Please login to report a listing.",
+        "info"
+      );
 
-Message:
-${escapeHTML(request.message || "No message")}
+      return;
+    }
 
-</div>
 
-<span class="status-badge ${statusClass}">
-${statusText}
-</span>
+    selectedReportItem = {
+      itemId,
+      itemName,
+      ownerId
+    };
 
-</div>
 
-`;
+    $("reportDetails").value = "";
 
-});
+    clearStatus("reportStatus");
 
-}
+    openModal("reportModal");
+  };
 
 
-content.innerHTML =
-html;
+  window.submitReport = async function(){
 
-}
+    if(!user || !selectedReportItem){
 
+      showStatus(
+        "reportStatus",
+        "Please login first.",
+        "error"
+      );
 
-/* UPDATE REQUEST */
+      return;
+    }
 
-window.updateRequestStatus =
-async function(
-requestId,
-newStatus
-){
 
-if(
-newStatus !== "accepted" &&
-newStatus !== "declined"
-){
+    const reason =
+      $("reportReason").value;
 
-return;
+    const details =
+      $("reportDetails").value.trim();
 
-}
 
+    try{
 
-const user =
-auth.currentUser;
+      await addDoc(
+        collection(db,"reports"),
+        {
 
-if(!user){
+          itemId:selectedReportItem.itemId,
 
-alert(
-"Please login first."
-);
+          itemName:selectedReportItem.itemName,
 
-return;
+          ownerId:selectedReportItem.ownerId,
 
-}
+          reporterId:user.uid,
 
+          reporterEmail:user.email || "",
 
-try{
+          reason:reason,
 
-await updateDoc(
-doc(
-db,
-"requests",
-requestId
-),
-{
+          details:details.slice(0,500),
 
-status:newStatus
+          status:"open",
 
-}
-);
+          createdAt:serverTimestamp()
+        }
+      );
 
 
-}
-catch(error){
+      showStatus(
+        "reportStatus",
+        "Report submitted successfully. Thank you. ✅",
+        "success"
+      );
 
-console.error(error);
 
-alert(
-"Could not update request: " +
-error.message
-);
+      setTimeout(()=>{
+        closeModal("reportModal");
+      },900);
 
-}
 
-};
+    }catch(error){
 
+      showStatus(
+        "reportStatus",
+        friendlyError(error),
+        "error"
+      );
+    }
+  };
 
-/* HTML SAFETY */
 
-function escapeHTML(value){
+  window.scrollToListings = function(){
 
-return String(value)
-.replaceAll("&","&amp;")
-.replaceAll("<","&lt;")
-.replaceAll(">","&gt;")
-.replaceAll('"',"&quot;")
-.replaceAll("'","&#039;");
+    $("listingsSection").scrollIntoView({
+      behavior:"smooth"
+    });
+  };
 
-}
 
+  function sortByDate(a,b){
 
-/* AUTH START EXCHANGES */
+    const ta = a.createdAt?.seconds || 0;
+    const tb = b.createdAt?.seconds || 0;
 
-onAuthStateChanged(
-auth,
-(user)=>{
+    return tb-ta;
+  }
 
-const status =
-document.getElementById(
-"authStatus"
-);
 
-const logoutBtn =
-document.getElementById(
-"logoutBtn"
-);
+  function formatDate(timestamp){
 
-const profile =
-document.getElementById(
-"profileIcon"
-);
+    if(!timestamp) return "Just now";
 
+    try{
 
-if(user){
+      const date =
+        new Date(timestamp.seconds * 1000);
 
-status.textContent =
-"Signed in: " + user.email;
+      return date.toLocaleString(
+        "en-IN",
+        {
+          dateStyle:"medium",
+          timeStyle:"short"
+        }
+      );
 
-logoutBtn.style.display =
-"block";
+    }catch{
 
-profile.textContent =
-user.email
-.charAt(0)
-.toUpperCase();
+      return "Recently";
+    }
+  }
 
-}
-else{
 
-status.textContent =
-"Not signed in";
+  function escapeHTML(value){
 
-logoutBtn.style.display =
-"none";
+    return String(value ?? "")
+      .replaceAll("&","&amp;")
+      .replaceAll("<","&lt;")
+      .replaceAll(">","&gt;")
+      .replaceAll('"',"&quot;")
+      .replaceAll("'","&#039;");
+  }
 
-profile.textContent =
-"J";
 
-if(receivedUnsubscribe){
+  function escapeAttr(value){
 
-receivedUnsubscribe();
+    return String(value ?? "")
+      .replaceAll("\\","\\\\")
+      .replaceAll("'","\\'")
+      .replaceAll("\n"," ")
+      .replaceAll("\r"," ");
+  }
 
-receivedUnsubscribe =
-null;
 
-}
+  window.addEventListener("click",(event)=>{
 
-if(sentUnsubscribe){
+    if(event.target.classList.contains("modal-overlay")){
 
-sentUnsubscribe();
+      event.target.style.display = "none";
+    }
+  });
 
-sentUnsubscribe =
-null;
 
-}
-
-}
-
-});
-
-
-/* SORT */
-
-function sortByCreated(a,b){
-
-const aTime =
-a.createdAt &&
-a.createdAt.toMillis
-?
-a.createdAt.toMillis()
-:
-0;
-
-const bTime =
-b.createdAt &&
-b.createdAt.toMillis
-?
-b.createdAt.toMillis()
-:
-0;
-
-return bTime - aTime;
-
-}
-
-
-/* STATUS */
-
-function getStatusClass(status){
-
-if(status === "accepted"){
-
-return "status-accepted";
-
-}
-
-if(status === "declined"){
-
-return "status-declined";
-
-}
-
-return "status-pending";
-
-}
-
-
-function capitalize(value){
-
-return String(value)
-.charAt(0)
-.toUpperCase()
-+
-String(value)
-.slice(1);
-
-}
-
-
-window.applySearch =
-applySearch;
-
-</script>
-
-
-<script>
-
-/* MODAL */
-
-window.modalType =
-"need";
-
-
-window.openModal =
-function(type){
-
-window.modalType =
-type;
-
-document
-.getElementById("modal")
-.style.display =
-"flex";
-
-
-document
-.getElementById("modalTitle")
-.textContent =
-type === "need"
-? "🔎 Tell us what you need"
-: "📦 Add something you have";
-
-
-document
-.getElementById("itemName")
-.placeholder =
-type === "need"
-? "What do you need?"
-: "What item do you have?";
-
-
-document
-.getElementById("postMessage")
-.textContent =
-"";
-
-};
-
-
-window.closeModal =
-function(){
-
-document
-.getElementById("modal")
-.style.display =
-"none";
-
-};
-
-
-/* AUTH */
-
-window.openAuth =
-function(){
-
-document
-.getElementById("authModal")
-.style.display =
-"flex";
-
-};
-
-
-window.closeAuth =
-function(){
-
-document
-.getElementById("authModal")
-.style.display =
-"none";
-
-};
-
-
-/* REQUEST */
-
-window.requestItem =
-function(
-item,
-itemId,
-ownerId
-){
-
-const firebase =
-window.borrowXFirebase;
-
-if(
-!firebase ||
-!firebase.auth.currentUser
-){
-
-openAuth();
-
-document
-.getElementById("authMessage")
-.textContent =
-"Please login first to request an item.";
-
-return;
-
-}
-
-
-/* Sample listings do not have real IDs */
-
-if(!itemId){
-
-alert(
-"This is a sample listing. Please request a real BorrowX listing."
-);
-
-return;
-
-}
-
-
-if(
-ownerId ===
-firebase.auth.currentUser.uid
-){
-
-alert(
-"You cannot request your own listing."
-);
-
-return;
-
-}
-
-
-window.selectedRequestItemId =
-itemId;
-
-window.selectedRequestOwnerId =
-ownerId;
-
-window.selectedRequestItemName =
-item;
-
-
-document
-.getElementById("requestItemTitle")
-.textContent =
-"📦 " + item;
-
-
-document
-.getElementById("requestMessage")
-.value =
-"";
-
-
-document
-.getElementById("requestMessageStatus")
-.textContent =
-"";
-
-
-document
-.getElementById("requestModal")
-.style.display =
-"flex";
-
-};
-
-
-window.closeRequestModal =
-function(){
-
-document
-.getElementById("requestModal")
-.style.display =
-"none";
-
-};
-
-
-/* EXCHANGES */
-
-window.showExchanges =
-function(){
-
-const firebase =
-window.borrowXFirebase;
-
-if(
-!firebase ||
-!firebase.auth.currentUser
-){
-
-openAuth();
-
-document
-.getElementById("authMessage")
-.textContent =
-"Please login first to view your exchanges.";
-
-return;
-
-}
-
-
-document
-.getElementById("exchangeModal")
-.style.display =
-"flex";
-
-
-if(
-typeof window.startExchangeListeners ===
-"function"
-){
-
-window.startExchangeListeners();
-
-}
-
-};
-
-
-window.closeExchanges =
-function(){
-
-document
-.getElementById("exchangeModal")
-.style.display =
-"none";
-
-};
-
-
-/* SEARCH */
-
-window.applySearch =
-function(){
-
-const q =
-document
-.getElementById("search")
-.value
-.toLowerCase()
-.trim();
-
-
-document
-.querySelectorAll(".item")
-.forEach(card=>{
-
-const name =
-card.dataset.name || "";
-
-
-card.style.display =
-!q || name.includes(q)
-? "block"
-: "none";
-
-});
-
-};
-
-
-document
-.getElementById("search")
-.addEventListener(
-"input",
-window.applySearch
-);
-
-
-/* CLOSE MODALS */
-
-document
-.getElementById("modal")
-.addEventListener(
-"click",
-function(e){
-
-if(e.target === this){
-
-closeModal();
-
-}
-
-});
-
-
-document
-.getElementById("authModal")
-.addEventListener(
-"click",
-function(e){
-
-if(e.target === this){
-
-closeAuth();
-
-}
-
-});
-
-
-document
-.getElementById("requestModal")
-.addEventListener(
-"click",
-function(e){
-
-if(e.target === this){
-
-closeRequestModal();
-
-}
-
-});
-
-
-document
-.getElementById("exchangeModal")
-.addEventListener(
-"click",
-function(e){
-
-if(e.target === this){
-
-closeExchanges();
-
-}
-
-});
+  listenListings();
+  listenNeeds();
 
 </script>
 
