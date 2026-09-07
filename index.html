@@ -17,7 +17,7 @@ header{background:#111827;color:#fff;position:sticky;top:0;z-index:100;box-shado
 .nav{min-height:66px;display:flex;align-items:center;justify-content:space-between;gap:12px}
 .brand{font-size:24px;font-weight:800}.brand span{color:#60a5fa}
 .nav-actions{display:flex;gap:8px;flex-wrap:wrap}
-.btn{border:0;border-radius:10px;padding:10px 15px;font-weight:700;transition:.15s}
+.btn{border:0;border-radius:10px;padding:10px 15px;font-weight:700}
 .btn:hover{transform:translateY(-1px)}.btn:disabled{opacity:.55;cursor:not-allowed;transform:none}
 .primary{background:#2563eb;color:#fff}.secondary{background:#e5e7eb;color:#111827}
 .success{background:#16a34a;color:#fff}.danger{background:#dc2626;color:#fff}
@@ -70,6 +70,7 @@ footer strong{color:#fff}
 .msg{max-width:80%;background:#fff;padding:8px 10px;border-radius:10px;margin:6px 0;font-size:13px}
 .msg.mine{margin-left:auto;background:#dbeafe}
 .profilebox{background:#f9fafb;padding:15px;border-radius:12px}
+.verify{padding:9px;border-radius:9px;background:#fff7ed;color:#9a3412;font-size:12px;margin-top:10px}
 @media(max-width:850px){.hero-grid{grid-template-columns:1fr}.grid{grid-template-columns:repeat(2,1fr)}.stats{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:600px){.grid{grid-template-columns:1fr}.toolbar{grid-template-columns:1fr}.row{grid-template-columns:1fr}.hero{padding:40px 0}.nav .btn{font-size:12px;padding:8px 10px}}
 </style>
@@ -79,32 +80,33 @@ footer strong{color:#fff}
 
 <header>
 <div class="container nav">
-  <div class="brand">Borrow<span>X</span></div>
-  <div class="nav-actions">
-    <button class="btn secondary smallbtn" onclick="openExchanges()">Exchanges</button>
-    <button id="profileBtn" class="btn secondary smallbtn" onclick="openProfile()">Login</button>
-  </div>
+<div class="brand">Borrow<span>X</span></div>
+<div class="nav-actions">
+<button class="btn secondary smallbtn" onclick="openExchanges()">Exchanges</button>
+<button id="profileBtn" class="btn secondary smallbtn" onclick="openProfile()">Login</button>
+</div>
 </div>
 </header>
 
 <section class="hero">
 <div class="container hero-grid">
 <div>
-  <h1>Borrow less.<br><span>Share more.</span></h1>
-  <p>Find useful items nearby, borrow them temporarily and build a trusted sharing community.</p>
-  <div class="hero-buttons">
-    <button class="btn primary" onclick="openNeed()">I Need Something</button>
-    <button class="btn secondary" onclick="requireLoginThenOpenPost()">I Have Something</button>
-    <button class="btn dark" onclick="scrollListings()">Search Listings</button>
-  </div>
+<h1>Borrow less.<br><span>Share more.</span></h1>
+<p>Find useful items nearby, borrow them temporarily and build a trusted sharing community.</p>
+<div class="hero-buttons">
+<button class="btn primary" onclick="openNeed()">I Need Something</button>
+<button class="btn secondary" onclick="openListing()">I Have Something</button>
+<button class="btn dark" onclick="scrollListings()">Search Listings</button>
 </div>
+</div>
+
 <div class="hero-card">
-  <h3>How BorrowX works</h3>
-  <div>1️⃣ Post what you need or have</div>
-  <div>2️⃣ Find a nearby match</div>
-  <div>3️⃣ Send a request</div>
-  <div>4️⃣ Communicate safely in-app</div>
-  <div>5️⃣ Borrow → Return → Complete</div>
+<h3>How BorrowX works</h3>
+<div>1️⃣ Post what you need or have</div>
+<div>2️⃣ Find a nearby match</div>
+<div>3️⃣ Send a request</div>
+<div>4️⃣ Communicate safely in-app</div>
+<div>5️⃣ Borrow → Return → Complete</div>
 </div>
 </div>
 </section>
@@ -120,34 +122,55 @@ footer strong{color:#fff}
 
 <section class="section" id="listingsSection">
 <div class="container">
-<div class="title"><h2>Available on BorrowX</h2><p>Find useful things people are willing to share.</p></div>
+<div class="title">
+<h2>Available on BorrowX</h2>
+<p>Find useful things people are willing to share.</p>
+</div>
 
 <div class="toolbar">
 <input id="search" type="search" placeholder="Search items, area or description..." oninput="renderListings()">
 <select id="cat" onchange="renderListings()">
 <option value="all">All categories</option>
-<option>Tools</option><option>Books</option><option>Camera</option>
-<option>Sports</option><option>Games</option><option>Home</option><option>Other</option>
+<option>Tools</option>
+<option>Books</option>
+<option>Camera</option>
+<option>Sports</option>
+<option>Games</option>
+<option>Home</option>
+<option>Other</option>
 </select>
 <select id="mode" onchange="renderListings()">
-<option value="all">Borrow + Exchange</option><option>Borrow</option><option>Exchange</option>
+<option value="all">Borrow + Exchange</option>
+<option>Borrow</option>
+<option>Exchange</option>
 </select>
 </div>
 
-<div id="listings" class="grid"><div class="empty">Loading listings...</div></div>
+<div id="listings" class="grid">
+<div class="empty">Loading listings...</div>
+</div>
 </div>
 </section>
 
 <section class="section">
 <div class="container">
-<div class="title"><h2>People Need</h2><p>Help someone nearby find what they need.</p></div>
-<div id="needs" class="grid"><div class="empty">Loading needs...</div></div>
+<div class="title">
+<h2>People Need</h2>
+<p>Help someone nearby find what they need.</p>
+</div>
+<div id="needs" class="grid">
+<div class="empty">Loading needs...</div>
+</div>
 </div>
 </section>
 
 <section class="section">
 <div class="container">
-<div class="title"><h2>Trust & Safety</h2><p>BorrowX is designed around safer community exchanges.</p></div>
+<div class="title">
+<h2>Trust & Safety</h2>
+<p>BorrowX is designed around safer community exchanges.</p>
+</div>
+
 <div class="safety">
 <strong>Important safety rules</strong>
 <ul>
@@ -160,40 +183,72 @@ footer strong{color:#fff}
 <li>Report suspicious listings or accounts.</li>
 <li>Verification and ratings do not guarantee that another person is completely safe.</li>
 </ul>
-<div class="warningbox">BorrowX is a community platform. Use your judgment and involve a trusted adult when appropriate.</div>
+<div class="warningbox">
+BorrowX is a community platform. Use your judgment and involve a trusted adult when appropriate.
+</div>
 </div>
 </div>
 </section>
 
-<footer><div class="container"><strong>BorrowX</strong> — Borrow, Exchange & Trusted Community<br><span class="muted">by Jay Style X1</span></div></footer>
+<footer>
+<div class="container">
+<strong>BorrowX</strong> — Borrow, Exchange & Trusted Community<br>
+<span class="muted">by Jay Style X1</span>
+</div>
+</footer>
 
 
 <!-- AUTH -->
 <div id="auth" class="overlay">
 <div class="modal">
-<div class="modalhead"><h3>BorrowX Account</h3><button class="close" onclick="closeM('auth')">×</button></div>
+<div class="modalhead">
+<h3>BorrowX Account</h3>
+<button class="close" onclick="closeM('auth')">×</button>
+</div>
+
 <div class="tabs">
 <button id="tabLogin" class="tab active" onclick="authTab('login')">Login</button>
 <button id="tabSignup" class="tab" onclick="authTab('signup')">Create Account</button>
 </div>
+
 <div class="modalbody">
 <div id="authStatus" class="status"></div>
 
 <div id="loginBox">
-<div class="group"><label>Email</label><input id="loginEmail" type="email" autocomplete="email"></div>
-<div class="group"><label>Password</label><input id="loginPass" type="password" autocomplete="current-password"></div>
+<div class="group">
+<label>Email</label>
+<input id="loginEmail" type="email" autocomplete="email">
+</div>
+
+<div class="group">
+<label>Password</label>
+<input id="loginPass" type="password" autocomplete="current-password">
+</div>
+
 <button class="btn primary" style="width:100%" onclick="login()">Login</button>
 <button class="btn secondary" style="width:100%;margin-top:8px" onclick="forgot()">Forgot Password?</button>
 </div>
 
 <div id="signupBox" class="hidden">
-<div class="group"><label>Email</label><input id="signupEmail" type="email" autocomplete="email"></div>
-<div class="group"><label>Password</label><input id="signupPass" type="password" autocomplete="new-password"></div>
+<div class="group">
+<label>Email</label>
+<input id="signupEmail" type="email" autocomplete="email">
+</div>
+
+<div class="group">
+<label>Password</label>
+<input id="signupPass" type="password" autocomplete="new-password">
+</div>
+
 <button class="btn primary" style="width:100%" onclick="signup()">Create Account</button>
 </div>
 
 <div id="forgotBox" class="hidden">
-<div class="group"><label>Email</label><input id="forgotEmail" type="email"></div>
+<div class="group">
+<label>Email</label>
+<input id="forgotEmail" type="email">
+</div>
+
 <button class="btn primary" style="width:100%" onclick="resetPassword()">Send Reset Email</button>
 <button class="btn secondary" style="width:100%;margin-top:8px" onclick="authTab('login')">Back to Login</button>
 </div>
@@ -205,20 +260,63 @@ footer strong{color:#fff}
 <!-- LISTING -->
 <div id="listingModal" class="overlay">
 <div class="modal">
-<div class="modalhead"><h3>List Something You Have</h3><button class="close" onclick="closeM('listingModal')">×</button></div>
+<div class="modalhead">
+<h3>List Something You Have</h3>
+<button class="close" onclick="closeM('listingModal')">×</button>
+</div>
+
 <div class="modalbody">
 <div id="listingStatus" class="status"></div>
-<div class="group"><label>Item name</label><input id="itemName" maxlength="80" placeholder="Example: Drill Machine"></div>
-<div class="row">
-<div class="group"><label>Mode</label><select id="itemMode"><option>Borrow</option><option>Exchange</option></select></div>
-<div class="group"><label>Category</label><select id="itemCat"><option>Tools</option><option>Books</option><option>Camera</option><option>Sports</option><option>Games</option><option>Home</option><option>Other</option></select></div>
+
+<div class="group">
+<label>Item name</label>
+<input id="itemName" maxlength="80" placeholder="Example: Drill Machine">
 </div>
+
 <div class="row">
-<div class="group"><label>Approximate area</label><input id="itemArea" maxlength="60" placeholder="Example: Mainpuri"></div>
-<div class="group"><label>Available duration</label><input id="itemDuration" maxlength="40" placeholder="Example: 2 days"></div>
+<div class="group">
+<label>Mode</label>
+<select id="itemMode">
+<option>Borrow</option>
+<option>Exchange</option>
+</select>
 </div>
-<div class="group"><label>Description</label><textarea id="itemDesc" maxlength="500" placeholder="Condition and useful details..."></textarea></div>
-<div class="warningbox">Do not enter exact address, phone number, password or other sensitive information.</div>
+
+<div class="group">
+<label>Category</label>
+<select id="itemCat">
+<option>Tools</option>
+<option>Books</option>
+<option>Camera</option>
+<option>Sports</option>
+<option>Games</option>
+<option>Home</option>
+<option>Other</option>
+</select>
+</div>
+</div>
+
+<div class="row">
+<div class="group">
+<label>Approximate area</label>
+<input id="itemArea" maxlength="60" placeholder="Example: Mainpuri">
+</div>
+
+<div class="group">
+<label>Available duration</label>
+<input id="itemDuration" maxlength="40" placeholder="Example: 2 days">
+</div>
+</div>
+
+<div class="group">
+<label>Description</label>
+<textarea id="itemDesc" maxlength="500" placeholder="Condition and useful details..."></textarea>
+</div>
+
+<div class="warningbox">
+Do not enter exact address, phone number, password or other sensitive information.
+</div>
+
 <button class="btn primary" style="width:100%;margin-top:14px" onclick="publish()">Publish Listing</button>
 </div>
 </div>
@@ -228,17 +326,53 @@ footer strong{color:#fff}
 <!-- NEED -->
 <div id="needModal" class="overlay">
 <div class="modal">
-<div class="modalhead"><h3>I Need Something</h3><button class="close" onclick="closeM('needModal')">×</button></div>
+<div class="modalhead">
+<h3>I Need Something</h3>
+<button class="close" onclick="closeM('needModal')">×</button>
+</div>
+
 <div class="modalbody">
 <div id="needStatus" class="status"></div>
-<div class="group"><label>What do you need?</label><input id="needName" maxlength="80" placeholder="Example: Ladder"></div>
-<div class="row">
-<div class="group"><label>Category</label><select id="needCat"><option>Tools</option><option>Books</option><option>Camera</option><option>Sports</option><option>Games</option><option>Home</option><option>Other</option></select></div>
-<div class="group"><label>Approximate area</label><input id="needArea" maxlength="60" placeholder="Example: Mainpuri"></div>
+
+<div class="group">
+<label>What do you need?</label>
+<input id="needName" maxlength="80" placeholder="Example: Ladder">
 </div>
-<div class="group"><label>What do you need it for?</label><textarea id="needDesc" maxlength="500"></textarea></div>
-<div class="group"><label>How long?</label><input id="needDuration" maxlength="40" placeholder="Example: 2 days"></div>
-<div class="warningbox">Only use an approximate area. Never post your exact address or phone number.</div>
+
+<div class="row">
+<div class="group">
+<label>Category</label>
+<select id="needCat">
+<option>Tools</option>
+<option>Books</option>
+<option>Camera</option>
+<option>Sports</option>
+<option>Games</option>
+<option>Home</option>
+<option>Other</option>
+</select>
+</div>
+
+<div class="group">
+<label>Approximate area</label>
+<input id="needArea" maxlength="60" placeholder="Example: Mainpuri">
+</div>
+</div>
+
+<div class="group">
+<label>What do you need it for?</label>
+<textarea id="needDesc" maxlength="500"></textarea>
+</div>
+
+<div class="group">
+<label>How long?</label>
+<input id="needDuration" maxlength="40" placeholder="Example: 2 days">
+</div>
+
+<div class="warningbox">
+Only use an approximate area. Never post your exact address or phone number.
+</div>
+
 <button class="btn primary" style="width:100%;margin-top:14px" onclick="publishNeed()">Post Need</button>
 </div>
 </div>
@@ -248,11 +382,20 @@ footer strong{color:#fff}
 <!-- REQUEST -->
 <div id="requestModal" class="overlay">
 <div class="modal">
-<div class="modalhead"><h3>Request Item</h3><button class="close" onclick="closeM('requestModal')">×</button></div>
+<div class="modalhead">
+<h3>Request Item</h3>
+<button class="close" onclick="closeM('requestModal')">×</button>
+</div>
+
 <div class="modalbody">
 <div id="requestStatus" class="status"></div>
 <p>Requesting: <strong id="requestName"></strong></p>
-<div class="group" style="margin-top:14px"><label>Message</label><textarea id="requestMsg" maxlength="500" placeholder="Tell the owner what you need it for and for how long."></textarea></div>
+
+<div class="group" style="margin-top:14px">
+<label>Message</label>
+<textarea id="requestMsg" maxlength="500" placeholder="Tell the owner what you need it for and for how long."></textarea>
+</div>
+
 <button class="btn primary" style="width:100%" onclick="sendRequest()">Send Request</button>
 </div>
 </div>
@@ -262,12 +405,18 @@ footer strong{color:#fff}
 <!-- EXCHANGES -->
 <div id="exchangeModal" class="overlay">
 <div class="modal">
-<div class="modalhead"><h3>My Exchanges</h3><button class="close" onclick="closeM('exchangeModal')">×</button></div>
+<div class="modalhead">
+<h3>My Exchanges</h3>
+<button class="close" onclick="closeM('exchangeModal')">×</button>
+</div>
+
 <div class="modalbody">
 <div id="exchangeStatus" class="status"></div>
 <div id="accountNotice" class="notice"></div>
+
 <h4 style="margin:15px 0 9px">REQUESTS FOR YOUR ITEMS</h4>
 <div id="received"><div class="empty">Loading...</div></div>
+
 <h4 style="margin:22px 0 9px">YOUR SENT REQUESTS</h4>
 <div id="sent"><div class="empty">Loading...</div></div>
 </div>
@@ -278,14 +427,22 @@ footer strong{color:#fff}
 <!-- CHAT -->
 <div id="chatModal" class="overlay">
 <div class="modal">
-<div class="modalhead"><h3 id="chatTitle">BorrowX Chat</h3><button class="close" onclick="closeChat()">×</button></div>
+<div class="modalhead">
+<h3 id="chatTitle">BorrowX Chat</h3>
+<button class="close" onclick="closeChat()">×</button>
+</div>
+
 <div class="modalbody">
 <div id="chatMessages" class="chatbox"></div>
+
 <div style="display:flex;gap:8px;margin-top:10px">
 <input id="chatInput" maxlength="1000" placeholder="Write a message...">
 <button class="btn primary" onclick="sendChat()">Send</button>
 </div>
-<div class="warningbox">Do not share your exact address, password or sensitive personal information.</div>
+
+<div class="warningbox">
+Do not share your exact address, password or sensitive personal information.
+</div>
 </div>
 </div>
 </div>
@@ -294,29 +451,61 @@ footer strong{color:#fff}
 <!-- PROFILE -->
 <div id="profileModal" class="overlay">
 <div class="modal">
-<div class="modalhead"><h3>My BorrowX Profile</h3><button class="close" onclick="closeM('profileModal')">×</button></div>
+<div class="modalhead">
+<h3>My BorrowX Profile</h3>
+<button class="close" onclick="closeM('profileModal')">×</button>
+</div>
+
 <div class="modalbody">
+
 <div id="loggedOut">
 <p style="margin-bottom:12px">Login to use BorrowX.</p>
-<button class="btn primary" style="width:100%" onclick="closeM('profileModal');openAuth()">Login / Create Account</button>
+<button class="btn primary" style="width:100%" onclick="closeM('profileModal');openAuth()">
+Login / Create Account
+</button>
 </div>
+
 <div id="loggedIn" class="hidden">
+
 <div class="profilebox">
 <strong>Account</strong>
 <p id="profileEmail" class="muted"></p>
 <p id="verifyState" class="muted" style="margin-top:5px"></p>
 </div>
-<div class="row" style="margin-top:12px">
-<div class="stat"><strong id="pSent">0</strong><span>Sent requests</span></div>
-<div class="stat"><strong id="pReceived">0</strong><span>Received</span></div>
+
+<div id="verifyNotice" class="verify hidden">
+For a stronger account, verify your email address.
 </div>
+
+<div class="row" style="margin-top:12px">
+<div class="stat">
+<strong id="pSent">0</strong>
+<span>Sent requests</span>
+</div>
+
+<div class="stat">
+<strong id="pReceived">0</strong>
+<span>Received</span>
+</div>
+</div>
+
 <div class="profilebox" style="margin-top:12px">
 <strong>Trust rating</strong>
 <p id="ratingText" style="margin-top:5px">No ratings yet.</p>
 </div>
-<button id="verifyBtn" class="btn warning" style="width:100%;margin-top:12px" onclick="verifyEmail()">Send verification email</button>
-<button class="btn secondary" style="width:100%;margin-top:8px" onclick="closeM('profileModal');openExchanges()">My Exchanges</button>
-<button class="btn danger" style="width:100%;margin-top:8px" onclick="logout()">Logout</button>
+
+<button id="verifyBtn" class="btn warning" style="width:100%;margin-top:12px" onclick="verifyEmail()">
+Send verification email
+</button>
+
+<button class="btn secondary" style="width:100%;margin-top:8px" onclick="closeM('profileModal');openExchanges()">
+My Exchanges
+</button>
+
+<button class="btn danger" style="width:100%;margin-top:8px" onclick="logout()">
+Logout
+</button>
+
 </div>
 </div>
 </div>
@@ -326,12 +515,32 @@ footer strong{color:#fff}
 <!-- REPORT -->
 <div id="reportModal" class="overlay">
 <div class="modal">
-<div class="modalhead"><h3>Report Listing</h3><button class="close" onclick="closeM('reportModal')">×</button></div>
+<div class="modalhead">
+<h3>Report Listing</h3>
+<button class="close" onclick="closeM('reportModal')">×</button>
+</div>
+
 <div class="modalbody">
 <div id="reportStatus" class="status"></div>
-<div class="group"><label>Reason</label><select id="reportReason"><option>Suspicious listing</option><option>Wrong information</option><option>Inappropriate content</option><option>Other</option></select></div>
-<div class="group"><label>Details</label><textarea id="reportDetails" maxlength="500"></textarea></div>
-<button class="btn danger" style="width:100%" onclick="submitReport()">Submit Report</button>
+
+<div class="group">
+<label>Reason</label>
+<select id="reportReason">
+<option>Suspicious listing</option>
+<option>Wrong information</option>
+<option>Inappropriate content</option>
+<option>Other</option>
+</select>
+</div>
+
+<div class="group">
+<label>Details</label>
+<textarea id="reportDetails" maxlength="500"></textarea>
+</div>
+
+<button class="btn danger" style="width:100%" onclick="submitReport()">
+Submit Report
+</button>
 </div>
 </div>
 </div>
@@ -340,15 +549,35 @@ footer strong{color:#fff}
 <!-- RATING -->
 <div id="ratingModal" class="overlay">
 <div class="modal">
-<div class="modalhead"><h3>Rate Exchange</h3><button class="close" onclick="closeM('ratingModal')">×</button></div>
+<div class="modalhead">
+<h3>Rate Exchange</h3>
+<button class="close" onclick="closeM('ratingModal')">×</button>
+</div>
+
 <div class="modalbody">
 <div id="ratingStatus" class="status"></div>
+
 <p>Rate your completed exchange experience.</p>
-<div class="group" style="margin-top:14px"><label>Rating</label>
-<select id="ratingScore"><option value="5">5 — Excellent</option><option value="4">4 — Good</option><option value="3">3 — Okay</option><option value="2">2 — Poor</option><option value="1">1 — Very poor</option></select>
+
+<div class="group" style="margin-top:14px">
+<label>Rating</label>
+<select id="ratingScore">
+<option value="5">5 — Excellent</option>
+<option value="4">4 — Good</option>
+<option value="3">3 — Okay</option>
+<option value="2">2 — Poor</option>
+<option value="1">1 — Very poor</option>
+</select>
 </div>
-<div class="group"><label>Comment</label><textarea id="ratingComment" maxlength="300"></textarea></div>
-<button class="btn primary" style="width:100%" onclick="submitRating()">Submit Rating</button>
+
+<div class="group">
+<label>Comment</label>
+<textarea id="ratingComment" maxlength="300"></textarea>
+</div>
+
+<button class="btn primary" style="width:100%" onclick="submitRating()">
+Submit Rating
+</button>
 </div>
 </div>
 </div>
@@ -360,24 +589,42 @@ import {initializeApp}
 from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
 
 import {
- getAuth,createUserWithEmailAndPassword,signInWithEmailAndPassword,
- sendPasswordResetEmail,onAuthStateChanged,signOut,sendEmailVerification
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+getAuth,
+createUserWithEmailAndPassword,
+signInWithEmailAndPassword,
+sendPasswordResetEmail,
+onAuthStateChanged,
+signOut,
+sendEmailVerification
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
 
 import {
- getFirestore,collection,addDoc,setDoc,getDoc,getDocs,doc,query,where,
- onSnapshot,updateDoc,serverTimestamp,limit
-} from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+getFirestore,
+collection,
+addDoc,
+setDoc,
+getDoc,
+getDocs,
+doc,
+query,
+where,
+onSnapshot,
+updateDoc,
+serverTimestamp,
+limit
+}
+from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
 const firebaseConfig={
- apiKey:"AIzaSyDON3_zSPUXVuCsUFJwNQKYvopE5cfYFTw",
- authDomain:"borrowx-41589.firebaseapp.com",
- projectId:"borrowx-41589",
- storageBucket:"borrowx-41589.firebasestorage.app",
- messagingSenderId:"833407287824",
- appId:"1:833407287824:web:18f72c92cd12297dc20095",
- measurementId:"G-3BMPCT4BZY"
+apiKey:"AIzaSyDON3_zSPUXVuCsUFJwNQKYvopE5cfYFTw",
+authDomain:"borrowx-41589.firebaseapp.com",
+projectId:"borrowx-41589",
+storageBucket:"borrowx-41589.firebasestorage.app",
+messagingSenderId:"833407287824",
+appId:"1:833407287824:web:18f72c92cd12297dc20095",
+measurementId:"G-3BMPCT4BZY"
 };
 
 const app=initializeApp(firebaseConfig);
@@ -392,598 +639,1715 @@ let sent=[];
 let selectedItem=null;
 let selectedReport=null;
 let selectedRequest=null;
+let ratingRequest=null;
 let chatUnsub=null;
+let receivedUnsub=null;
+let sentUnsub=null;
+
 
 const samples=[
- {id:"sample1",itemName:"Study Books",category:"Books",mode:"Borrow",area:"Mainpuri",duration:"7 days",description:"Useful study books available for temporary borrowing.",sample:true},
- {id:"sample2",itemName:"Basketball",category:"Sports",mode:"Borrow",area:"Mainpuri",duration:"2 days",description:"Basketball available for short-term use.",sample:true}
+{
+id:"sample1",
+itemName:"Study Books",
+category:"Books",
+mode:"Borrow",
+area:"Mainpuri",
+duration:"7 days",
+description:"Useful study books available for temporary borrowing.",
+sample:true
+},
+{
+id:"sample2",
+itemName:"Basketball",
+category:"Sports",
+mode:"Borrow",
+area:"Mainpuri",
+duration:"2 days",
+description:"Basketball available for short-term use.",
+sample:true
+}
 ];
+
 
 const $=id=>document.getElementById(id);
 
-window.closeM=id=>$(id).style.display="none";
+window.closeM=id=>{
+const el=$(id);
+if(el)el.style.display="none";
+};
 
-function openM(id){$(id).style.display="block"}
+function openM(id){
+const el=$(id);
+if(el)el.style.display="block";
+}
 
 function status(id,text,type="info"){
- const e=$(id);
- e.className="status "+(type==="success"?"stsuccess":type==="error"?"sterror":"stinfo");
- e.textContent=text;
+const e=$(id);
+if(!e)return;
+e.className="status "+(
+type==="success"?"stsuccess":
+type==="error"?"sterror":"stinfo"
+);
+e.textContent=text;
 }
 
 function clearStatus(id){
- $(id).className="status";$(id).textContent="";
+const e=$(id);
+if(e){
+e.className="status";
+e.textContent="";
+}
 }
 
 function esc(v){
- return String(v??"").replaceAll("&","&amp;").replaceAll("<","&lt;").replaceAll(">","&gt;").replaceAll('"',"&quot;").replaceAll("'","&#039;");
+return String(v??"")
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
 }
 
-function err(e){
- const c=e?.code||"";
- const m={
- "auth/invalid-credential":"Email or password is incorrect.",
- "auth/invalid-email":"Please enter a valid email.",
- "auth/email-already-in-use":"This email already has an account.",
- "auth/weak-password":"Password must be at least 6 characters.",
- "auth/network-request-failed":"Network problem. Check your internet.",
- "auth/too-many-requests":"Too many attempts. Please wait.",
- "permission-denied":"Firebase permission denied."
- };
- return m[c]||e?.message||"Something went wrong.";
+function errorText(e){
+const c=e?.code||"";
+const m={
+"auth/invalid-credential":"Email or password is incorrect.",
+"auth/invalid-email":"Please enter a valid email.",
+"auth/email-already-in-use":"This email already has an account.",
+"auth/weak-password":"Password must be at least 6 characters.",
+"auth/network-request-failed":"Network problem. Check your internet.",
+"auth/too-many-requests":"Too many attempts. Please wait.",
+"permission-denied":"Firebase permission denied.",
+"permission-denied":"Firebase permission denied."
+};
+return m[c]||e?.message||"Something went wrong.";
 }
 
-function itemName(x){
- // IMPORTANT: supports both old Firebase "name" and new "itemName"
- return x.itemName||x.name||"Unnamed item";
+
+/* BACKWARD COMPATIBILITY */
+
+function getItemName(x){
+return x.itemName||x.name||"Unnamed item";
 }
 
-function category(x){
- return x.category||inferCategory(itemName(x));
+function getCategory(x){
+return x.category||inferCategory(getItemName(x));
 }
 
 function inferCategory(n){
- n=(n||"").toLowerCase();
- if(/book|study|copy|notebook/.test(n))return"Books";
- if(/drill|tool|hammer|screw|ladder/.test(n))return"Tools";
- if(/camera|lens/.test(n))return"Camera";
- if(/ball|bat|racket|sports/.test(n))return"Sports";
- if(/game|console/.test(n))return"Games";
- if(/home|chair|table|utensil/.test(n))return"Home";
- return"Other";
+n=(n||"").toLowerCase();
+
+if(/book|study|copy|notebook/.test(n))return"Books";
+if(/drill|tool|hammer|screw|ladder/.test(n))return"Tools";
+if(/camera|lens/.test(n))return"Camera";
+if(/ball|bat|racket|sports/.test(n))return"Sports";
+if(/game|console/.test(n))return"Games";
+if(/home|chair|table|utensil/.test(n))return"Home";
+
+return"Other";
 }
 
 function dateText(t){
- if(!t)return"Just now";
- try{return new Date(t.seconds*1000).toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short"})}
- catch{return"Recently"}
+if(!t)return"Just now";
+
+try{
+return new Date(t.seconds*1000)
+.toLocaleString("en-IN",{dateStyle:"medium",timeStyle:"short"});
+}catch{
+return"Recently";
+}
+}
+
+function sortDate(a,b){
+return(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0);
+}
+
+function containsPhone(text){
+return/\b(?:\+91[\s-]?)?[6-9]\d{9}\b/.test(text||"");
 }
 
 
 /* AUTH */
 
-window.openAuth=()=>{openM("auth");authTab("login")};
+window.openAuth=()=>{
+openM("auth");
+authTab("login");
+};
 
 window.authTab=function(type){
- $("loginBox").classList.toggle("hidden",type!=="login");
- $("signupBox").classList.toggle("hidden",type!=="signup");
- $("forgotBox").classList.add("hidden");
- $("tabLogin").classList.toggle("active",type==="login");
- $("tabSignup").classList.toggle("active",type==="signup");
- clearStatus("authStatus");
+
+$("loginBox").classList.toggle("hidden",type!=="login");
+$("signupBox").classList.toggle("hidden",type!=="signup");
+$("forgotBox").classList.add("hidden");
+
+$("tabLogin").classList.toggle("active",type==="login");
+$("tabSignup").classList.toggle("active",type==="signup");
+
+clearStatus("authStatus");
 };
 
 window.forgot=function(){
- $("loginBox").classList.add("hidden");
- $("signupBox").classList.add("hidden");
- $("forgotBox").classList.remove("hidden");
- $("forgotEmail").value=$("loginEmail").value.trim();
- clearStatus("authStatus");
+
+$("loginBox").classList.add("hidden");
+$("signupBox").classList.add("hidden");
+$("forgotBox").classList.remove("hidden");
+
+$("forgotEmail").value=$("loginEmail").value.trim();
+
+clearStatus("authStatus");
 };
 
 window.signup=async()=>{
- const email=$("signupEmail").value.trim();
- const pass=$("signupPass").value;
- if(!email||pass.length<6){status("authStatus","Enter a valid email and password of at least 6 characters.","error");return}
- try{
-  status("authStatus","Creating account...","info");
-  await createUserWithEmailAndPassword(auth,email,pass);
-  status("authStatus","Account created successfully ✅","success");
-  setTimeout(()=>closeM("auth"),700);
- }catch(e){status("authStatus",err(e),"error")}
+
+const email=$("signupEmail").value.trim();
+const pass=$("signupPass").value;
+
+if(!email||pass.length<6){
+status(
+"authStatus",
+"Enter a valid email and password of at least 6 characters.",
+"error"
+);
+return;
+}
+
+try{
+
+status("authStatus","Creating account...");
+
+await createUserWithEmailAndPassword(auth,email,pass);
+
+status(
+"authStatus",
+"Account created successfully ✅",
+"success"
+);
+
+setTimeout(()=>closeM("auth"),700);
+
+}catch(e){
+
+status("authStatus",errorText(e),"error");
+
+}
 };
 
 window.login=async()=>{
- const email=$("loginEmail").value.trim(),pass=$("loginPass").value;
- if(!email||!pass){status("authStatus","Enter email and password.","error");return}
- try{
-  status("authStatus","Logging in...","info");
-  await signInWithEmailAndPassword(auth,email,pass);
-  status("authStatus","Login successful ✅","success");
-  setTimeout(()=>closeM("auth"),500);
- }catch(e){status("authStatus",err(e),"error")}
+
+const email=$("loginEmail").value.trim();
+const pass=$("loginPass").value;
+
+if(!email||!pass){
+status("authStatus","Enter email and password.","error");
+return;
+}
+
+try{
+
+status("authStatus","Logging in...");
+
+await signInWithEmailAndPassword(auth,email,pass);
+
+status(
+"authStatus",
+"Login successful ✅",
+"success"
+);
+
+setTimeout(()=>closeM("auth"),500);
+
+}catch(e){
+
+status("authStatus",errorText(e),"error");
+
+}
 };
 
 window.resetPassword=async()=>{
- const email=$("forgotEmail").value.trim();
- if(!email){status("authStatus","Enter your email.","error");return}
- try{
-  await sendPasswordResetEmail(auth,email);
-  status("authStatus","If an account exists, a reset email has been sent ✅","success");
- }catch(e){
-  if(e.code==="auth/invalid-email")status("authStatus","Enter a valid email.","error");
-  else status("authStatus","If an account exists, a reset email has been sent.","success");
- }
+
+const email=$("forgotEmail").value.trim();
+
+if(!email){
+status("authStatus","Enter your email.","error");
+return;
+}
+
+try{
+
+await sendPasswordResetEmail(auth,email);
+
+status(
+"authStatus",
+"If an account exists, a reset email has been sent ✅",
+"success"
+);
+
+}catch(e){
+
+if(e.code==="auth/invalid-email"){
+status("authStatus","Enter a valid email.","error");
+}else{
+status(
+"authStatus",
+"If an account exists, a reset email has been sent.",
+"success"
+);
+}
+
+}
 };
 
-window.logout=async()=>{await signOut(auth);closeM("profileModal");closeM("exchangeModal")};
+window.logout=async()=>{
+
+if(receivedUnsub)receivedUnsub();
+if(sentUnsub)sentUnsub();
+
+receivedUnsub=null;
+sentUnsub=null;
+
+if(chatUnsub){
+chatUnsub();
+chatUnsub=null;
+}
+
+await signOut(auth);
+
+closeM("profileModal");
+closeM("exchangeModal");
+};
 
 window.verifyEmail=async()=>{
- if(!user)return;
- try{
-  await sendEmailVerification(user);
-  alert("Verification email sent. Check your inbox.");
- }catch(e){alert(err(e))}
+
+if(!user)return;
+
+try{
+
+await sendEmailVerification(user);
+
+alert("Verification email sent. Check your inbox.");
+
+}catch(e){
+
+alert(errorText(e));
+
+}
 };
 
+
 onAuthStateChanged(auth,u=>{
- user=u;
- $("profileBtn").textContent=u?"Profile":"Login";
- if(u){
-  $("loggedOut").classList.add("hidden");
-  $("loggedIn").classList.remove("hidden");
- }else{
-  $("loggedOut").classList.remove("hidden");
-  $("loggedIn").classList.add("hidden");
-  if(chatUnsub){chatUnsub();chatUnsub=null}
- }
+
+user=u;
+
+$("profileBtn").textContent=u?"Profile":"Login";
+
+if(u){
+
+$("loggedOut").classList.add("hidden");
+$("loggedIn").classList.remove("hidden");
+
+}else{
+
+$("loggedOut").classList.remove("hidden");
+$("loggedIn").classList.add("hidden");
+
+}
+
 });
 
 
 /* LISTINGS */
 
 function listenListings(){
- onSnapshot(query(collection(db,"items"),limit(100)),s=>{
-  listings=s.docs.map(d=>({id:d.id,...d.data()}));
-  listings.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
-  $("statListings").textContent=listings.filter(x=>x.active!==false).length;
-  renderListings();
- },e=>{
-  $("listings").innerHTML=`<div class="empty">Could not load listings.<br><span class="muted">${esc(err(e))}</span></div>`;
- });
+
+onSnapshot(
+query(collection(db,"items"),limit(100)),
+s=>{
+
+listings=s.docs.map(d=>({
+id:d.id,
+...d.data()
+}));
+
+listings.sort(sortDate);
+
+$("statListings").textContent=
+listings.filter(x=>x.active!==false).length;
+
+renderListings();
+
+},
+e=>{
+
+$("listings").innerHTML=
+`<div class="empty">
+Could not load listings.<br>
+<span class="muted">${esc(errorText(e))}</span>
+</div>`;
+
+}
+);
+
 }
 
 function renderListings(){
- const text=$("search").value.trim().toLowerCase();
- const cat=$("cat").value;
- const mode=$("mode").value;
 
- const real=listings.filter(x=>{
-  if(x.active===false)return false;
-  const n=itemName(x),c=category(x);
-  const hay=[n,x.area,x.description,c].join(" ").toLowerCase();
-  return (!text||hay.includes(text))&&(cat==="all"||c===cat)&&(mode==="all"||x.mode===mode);
- });
+const text=$("search").value.trim().toLowerCase();
+const cat=$("cat").value;
+const mode=$("mode").value;
 
- const sam=samples.filter(x=>{
-  const hay=[x.itemName,x.area,x.description,x.category].join(" ").toLowerCase();
-  return (!text||hay.includes(text))&&(cat==="all"||x.category===cat)&&(mode==="all"||x.mode===mode);
- });
+const real=listings.filter(x=>{
 
- const all=[...real,...sam];
+if(x.active===false)return false;
 
- if(!all.length){
-  $("listings").innerHTML=`<div class="empty"><b>No matching listings found.</b><br>Try another search.</div>`;
-  return;
- }
+const n=getItemName(x);
+const c=getCategory(x);
 
- $("listings").innerHTML=all.map(card).join("");
+const hay=[
+n,
+x.area,
+x.description,
+c
+].join(" ").toLowerCase();
+
+return(
+(!text||hay.includes(text))&&
+(cat==="all"||c===cat)&&
+(mode==="all"||x.mode===mode)
+);
+
+});
+
+const sam=samples.filter(x=>{
+
+const hay=[
+x.itemName,
+x.area,
+x.description,
+x.category
+].join(" ").toLowerCase();
+
+return(
+(!text||hay.includes(text))&&
+(cat==="all"||x.category===cat)&&
+(mode==="all"||x.mode===mode)
+);
+
+});
+
+const all=[...real,...sam];
+
+if(!all.length){
+
+$("listings").innerHTML=
+`<div class="empty">
+<b>No matching listings found.</b><br>
+Try another search.
+</div>`;
+
+return;
 }
 
-function card(x){
- const n=itemName(x),c=category(x),m=x.mode||"Borrow",sample=x.sample;
- return `<div class="card">
-  <div class="cardtop">
-   <div><h3>${esc(n)}</h3><span class="badge">${esc(c)}</span></div>
-   <span class="badge ${m==="Exchange"?"orange":"green"}">${esc(m)}</span>
-  </div>
-  <div class="meta">📍 ${esc(x.area||"Area not specified")}</div>
-  <div class="meta">⏱️ ${esc(x.duration||"Flexible")}</div>
-  <div class="desc">${esc(x.description||"No description provided.")}</div>
-  <div class="muted">✓ ${sample?"BorrowX sample":"BorrowX community listing"}</div>
-  <div class="cardactions">
-   ${sample
-    ?`<button class="btn secondary smallbtn" disabled>Sample</button>`
-    :`<button class="btn primary smallbtn" onclick="requestItem('${esc(x.id)}')">Request</button>
-      <button class="btn secondary smallbtn" onclick="reportItem('${esc(x.id)}')">Report</button>`}
-  </div>
- </div>`;
+$("listings").innerHTML=all.map(listingCard).join("");
+
 }
+
+function listingCard(x){
+
+const n=getItemName(x);
+const c=getCategory(x);
+const m=x.mode||"Borrow";
+
+return`
+<div class="card">
+
+<div class="cardtop">
+
+<div>
+<h3>${esc(n)}</h3>
+<span class="badge">${esc(c)}</span>
+</div>
+
+<span class="badge ${m==="Exchange"?"orange":"green"}">
+${esc(m)}
+</span>
+
+</div>
+
+<div class="meta">
+📍 ${esc(x.area||"Area not specified")}
+</div>
+
+<div class="meta">
+⏱️ ${esc(x.duration||"Flexible")}
+</div>
+
+<div class="desc">
+${esc(x.description||"No description provided.")}
+</div>
+
+<div class="muted">
+✓ ${x.sample?"BorrowX sample":"BorrowX community listing"}
+</div>
+
+<div class="cardactions">
+
+${
+x.sample
+?
+`<button class="btn secondary smallbtn" disabled>Sample</button>`
+:
+`
+<button class="btn primary smallbtn"
+onclick="requestItem('${esc(x.id)}')">
+Request
+</button>
+
+<button class="btn secondary smallbtn"
+onclick="reportItem('${esc(x.id)}')">
+Report
+</button>
+`
+}
+
+</div>
+
+</div>
+`;
+
+}
+
 
 window.requestItem=async id=>{
- if(!user){openAuth();status("authStatus","Login first to request an item.","info");return}
- const x=listings.find(a=>a.id===id);
- if(!x)return;
- if(x.ownerId===user.uid){alert("You cannot request your own listing.");return}
- selectedItem=x;
- $("requestName").textContent=itemName(x);
- $("requestMsg").value="";
- clearStatus("requestStatus");
- openM("requestModal");
+
+if(!user){
+
+openAuth();
+status(
+"authStatus",
+"Login first to request an item.",
+"info"
+);
+
+return;
+}
+
+const x=listings.find(a=>a.id===id);
+
+if(!x)return;
+
+if(x.active===false){
+
+alert("This listing is no longer active.");
+return;
+
+}
+
+if(x.ownerId===user.uid){
+
+alert("You cannot request your own listing.");
+return;
+
+}
+
+selectedItem=x;
+
+$("requestName").textContent=getItemName(x);
+$("requestMsg").value="";
+
+clearStatus("requestStatus");
+
+openM("requestModal");
+
 };
 
+
 window.sendRequest=async()=>{
- if(!user||!selectedItem)return;
- try{
-  const q=query(collection(db,"requests"),where("itemId","==",selectedItem.id),where("requesterId","==",user.uid),limit(10));
-  const snap=await getDocs(q);
-  const active=snap.docs.some(d=>["pending","accepted","handover","borrowed","returned"].includes(d.data().status));
-  if(active){status("requestStatus","You already have an active request for this listing.","error");return}
 
-  status("requestStatus","Sending request...","info");
+if(!user||!selectedItem)return;
 
-  await addDoc(collection(db,"requests"),{
-   itemId:selectedItem.id,
-   itemName:itemName(selectedItem),
-   ownerId:selectedItem.ownerId,
-   requesterId:user.uid,
-   message:$("requestMsg").value.trim().slice(0,500),
-   status:"pending",
-   createdAt:serverTimestamp()
-  });
+const message=$("requestMsg").value.trim();
 
-  status("requestStatus","Request sent successfully ✅","success");
-  setTimeout(()=>closeM("requestModal"),700);
- }catch(e){status("requestStatus",err(e),"error")}
+if(containsPhone(message)){
+
+status(
+"requestStatus",
+"Please don't share phone numbers in messages.",
+"error"
+);
+
+return;
+}
+
+try{
+
+const q=query(
+collection(db,"requests"),
+where("itemId","==",selectedItem.id),
+where("requesterId","==",user.uid),
+limit(10)
+);
+
+const snap=await getDocs(q);
+
+const active=snap.docs.some(d=>
+[
+"pending",
+"accepted",
+"handover",
+"borrowed",
+"returned"
+].includes(d.data().status)
+);
+
+if(active){
+
+status(
+"requestStatus",
+"You already have an active request for this listing.",
+"error"
+);
+
+return;
+}
+
+status("requestStatus","Sending request...");
+
+await addDoc(
+collection(db,"requests"),
+{
+itemId:selectedItem.id,
+itemName:getItemName(selectedItem),
+ownerId:selectedItem.ownerId,
+requesterId:user.uid,
+message:message.slice(0,500),
+status:"pending",
+createdAt:serverTimestamp()
+}
+);
+
+status(
+"requestStatus",
+"Request sent successfully ✅",
+"success"
+);
+
+setTimeout(()=>closeM("requestModal"),700);
+
+}catch(e){
+
+status(
+"requestStatus",
+errorText(e),
+"error"
+);
+
+}
+
 };
 
 
 /* NEEDS */
 
 window.openNeed=()=>{
- if(!user){openAuth();status("authStatus","Login first to post what you need.","info");return}
- $("needName").value="";$("needArea").value="";$("needDesc").value="";$("needDuration").value="";
- clearStatus("needStatus");openM("needModal");
-};
 
-window.publishNeed=async()=>{
- if(!user)return;
- const name=$("needName").value.trim(),area=$("needArea").value.trim();
- if(name.length<2||area.length<2){status("needStatus","Item and approximate area are required.","error");return}
- try{
-  status("needStatus","Posting need...","info");
-  await addDoc(collection(db,"needs"),{
-   itemName:name.slice(0,80),
-   category:$("needCat").value,
-   area:area.slice(0,60),
-   duration:$("needDuration").value.trim().slice(0,40),
-   description:$("needDesc").value.trim().slice(0,500),
-   ownerId:user.uid,
-   createdAt:serverTimestamp(),
-   active:true
-  });
-  status("needStatus","Your need has been posted ✅","success");
-  setTimeout(()=>closeM("needModal"),700);
- }catch(e){status("needStatus",err(e),"error")}
-};
+if(!user){
 
-function listenNeeds(){
- onSnapshot(query(collection(db,"needs"),limit(50)),s=>{
-  needs=s.docs.map(d=>({id:d.id,...d.data()}));
-  needs.sort((a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0));
-  $("statNeeds").textContent=needs.filter(x=>x.active!==false).length;
-  renderNeeds();
- });
+openAuth();
+
+status(
+"authStatus",
+"Login first to post what you need.",
+"info"
+);
+
+return;
 }
 
+$("needName").value="";
+$("needArea").value="";
+$("needDesc").value="";
+$("needDuration").value="";
+
+clearStatus("needStatus");
+
+openM("needModal");
+
+};
+
+
+window.publishNeed=async()=>{
+
+if(!user)return;
+
+const name=$("needName").value.trim();
+const area=$("needArea").value.trim();
+const desc=$("needDesc").value.trim();
+
+if(name.length<2||area.length<2){
+
+status(
+"needStatus",
+"Item and approximate area are required.",
+"error"
+);
+
+return;
+}
+
+if(containsPhone(name+" "+area+" "+desc)){
+
+status(
+"needStatus",
+"Please remove phone numbers from the need.",
+"error"
+);
+
+return;
+}
+
+try{
+
+status("needStatus","Posting need...");
+
+await addDoc(
+collection(db,"needs"),
+{
+itemName:name.slice(0,80),
+category:$("needCat").value,
+area:area.slice(0,60),
+duration:$("needDuration").value.trim().slice(0,40),
+description:desc.slice(0,500),
+ownerId:user.uid,
+createdAt:serverTimestamp(),
+active:true
+}
+);
+
+status(
+"needStatus",
+"Your need has been posted ✅",
+"success"
+);
+
+setTimeout(()=>closeM("needModal"),700);
+
+}catch(e){
+
+status(
+"needStatus",
+errorText(e),
+"error"
+);
+
+}
+
+};
+
+
+function listenNeeds(){
+
+onSnapshot(
+query(collection(db,"needs"),limit(100)),
+s=>{
+
+needs=s.docs.map(d=>({
+id:d.id,
+...d.data()
+}));
+
+needs.sort(sortDate);
+
+$("statNeeds").textContent=
+needs.filter(x=>x.active!==false).length;
+
+renderNeeds();
+
+},
+e=>{
+
+$("needs").innerHTML=
+`<div class="empty">
+Could not load needs.<br>
+<span class="muted">${esc(errorText(e))}</span>
+</div>`;
+
+}
+);
+
+}
+
+
 function renderNeeds(){
- const active=needs.filter(x=>x.active!==false);
- if(!active.length){
-  $("needs").innerHTML=`<div class="empty">No community needs yet.<br>Be the first to post one.</div>`;
-  return;
- }
- $("needs").innerHTML=active.map(n=>`
- <div class="card">
-  <div class="cardtop"><div><h3>${esc(itemName(n))}</h3><span class="badge">${esc(n.category||"Other")}</span></div><span class="badge orange">Need</span></div>
-  <div class="meta">📍 ${esc(n.area||"Area not specified")}</div>
-  <div class="meta">⏱️ ${esc(n.duration||"Flexible")}</div>
-  <div class="desc">${esc(n.description||"No details provided.")}</div>
-  <div class="muted">Community request</div>
- </div>`).join("");
+
+const active=needs.filter(x=>x.active!==false);
+
+if(!active.length){
+
+$("needs").innerHTML=
+`<div class="empty">
+No community needs yet.<br>
+Be the first to post one.
+</div>`;
+
+return;
+}
+
+$("needs").innerHTML=active.map(n=>`
+
+<div class="card">
+
+<div class="cardtop">
+
+<div>
+<h3>${esc(getItemName(n))}</h3>
+<span class="badge">${esc(n.category||"Other")}</span>
+</div>
+
+<span class="badge orange">Need</span>
+
+</div>
+
+<div class="meta">
+📍 ${esc(n.area||"Area not specified")}
+</div>
+
+<div class="meta">
+⏱️ ${esc(n.duration||"Flexible")}
+</div>
+
+<div class="desc">
+${esc(n.description||"No details provided.")}
+</div>
+
+<div class="muted">
+Community request
+</div>
+
+</div>
+
+`).join("");
+
 }
 
 
 /* POST LISTING */
 
-window.requireLoginThenOpenPost=()=>{
- if(!user){openAuth();status("authStatus","Login first to publish a listing.","info");return}
- $("itemName").value="";$("itemArea").value="";$("itemDuration").value="";$("itemDesc").value="";
- clearStatus("listingStatus");openM("listingModal");
+window.openListing=()=>{
+
+if(!user){
+
+openAuth();
+
+status(
+"authStatus",
+"Login first to publish a listing.",
+"info"
+);
+
+return;
+}
+
+$("itemName").value="";
+$("itemArea").value="";
+$("itemDuration").value="";
+$("itemDesc").value="";
+
+clearStatus("listingStatus");
+
+openM("listingModal");
+
 };
 
+
 window.publish=async()=>{
- if(!user)return;
- const name=$("itemName").value.trim(),area=$("itemArea").value.trim();
- if(name.length<2||area.length<2){status("listingStatus","Item name and approximate area are required.","error");return}
 
- // Avoid obvious phone numbers in public fields.
- const combined=[name,area,$("itemDesc").value].join(" ");
- if(/\b\d{10}\b/.test(combined)){
-  status("listingStatus","Please remove phone numbers from the listing.","error");return;
- }
+if(!user)return;
 
- try{
-  status("listingStatus","Publishing...","info");
-  await addDoc(collection(db,"items"),{
-   itemName:name.slice(0,80),
-   mode:$("itemMode").value,
-   category:$("itemCat").value,
-   area:area.slice(0,60),
-   duration:$("itemDuration").value.trim().slice(0,40),
-   description:$("itemDesc").value.trim().slice(0,500),
-   ownerId:user.uid,
-   createdAt:serverTimestamp(),
-   active:true
-  });
-  status("listingStatus","Your listing is live ✅","success");
-  setTimeout(()=>closeM("listingModal"),700);
- }catch(e){status("listingStatus",err(e),"error")}
+const name=$("itemName").value.trim();
+const area=$("itemArea").value.trim();
+const duration=$("itemDuration").value.trim();
+const desc=$("itemDesc").value.trim();
+
+if(name.length<2||area.length<2){
+
+status(
+"listingStatus",
+"Item name and approximate area are required.",
+"error"
+);
+
+return;
+}
+
+if(containsPhone(name+" "+area+" "+desc)){
+
+status(
+"listingStatus",
+"Please remove phone numbers from the listing.",
+"error"
+);
+
+return;
+}
+
+try{
+
+status("listingStatus","Publishing...");
+
+await addDoc(
+collection(db,"items"),
+{
+itemName:name.slice(0,80),
+mode:$("itemMode").value,
+category:$("itemCat").value,
+area:area.slice(0,60),
+duration:duration.slice(0,40),
+description:desc.slice(0,500),
+ownerId:user.uid,
+createdAt:serverTimestamp(),
+active:true
+}
+);
+
+status(
+"listingStatus",
+"Your listing is live ✅",
+"success"
+);
+
+setTimeout(()=>closeM("listingModal"),700);
+
+}catch(e){
+
+status(
+"listingStatus",
+errorText(e),
+"error"
+);
+
+}
+
 };
 
 
 /* EXCHANGES */
 
-let ru=null,su=null;
-
 window.openExchanges=()=>{
- if(!user){openAuth();status("authStatus","Login first to view exchanges.","info");return}
- openM("exchangeModal");startExchanges();
+
+if(!user){
+
+openAuth();
+
+status(
+"authStatus",
+"Login first to view exchanges.",
+"info"
+);
+
+return;
+}
+
+openM("exchangeModal");
+
+startExchanges();
+
 };
 
+
 function startExchanges(){
- if(ru)ru();if(su)su();
- $("accountNotice").textContent="Signed in as: "+(user.email||"BorrowX user");
- $("received").innerHTML="<div class='empty'>Loading...</div>";
- $("sent").innerHTML="<div class='empty'>Loading...</div>";
 
- ru=onSnapshot(query(collection(db,"requests"),where("ownerId","==",user.uid)),s=>{
-  received=s.docs.map(d=>({id:d.id,...d.data()})).sort(sortDate);renderReceived();
- },e=>$("received").innerHTML=`<div class="empty">${esc(err(e))}</div>`);
+if(receivedUnsub)receivedUnsub();
+if(sentUnsub)sentUnsub();
 
- su=onSnapshot(query(collection(db,"requests"),where("requesterId","==",user.uid)),s=>{
-  sent=s.docs.map(d=>({id:d.id,...d.data()})).sort(sortDate);renderSent();
- },e=>$("sent").innerHTML=`<div class="empty">${esc(err(e))}</div>`);
+$("accountNotice").textContent=
+"Signed in as: "+(user.email||"BorrowX user");
+
+$("received").innerHTML=
+"<div class='empty'>Loading...</div>";
+
+$("sent").innerHTML=
+"<div class='empty'>Loading...</div>";
+
+receivedUnsub=onSnapshot(
+
+query(
+collection(db,"requests"),
+where("ownerId","==",user.uid)
+),
+
+s=>{
+
+received=s.docs
+.map(d=>({id:d.id,...d.data()}))
+.sort(sortDate);
+
+renderReceived();
+
+},
+
+e=>{
+
+$("received").innerHTML=
+`<div class="empty">${esc(errorText(e))}</div>`;
+
+}
+);
+
+
+sentUnsub=onSnapshot(
+
+query(
+collection(db,"requests"),
+where("requesterId","==",user.uid)
+),
+
+s=>{
+
+sent=s.docs
+.map(d=>({id:d.id,...d.data()}))
+.sort(sortDate);
+
+renderSent();
+
+},
+
+e=>{
+
+$("sent").innerHTML=
+`<div class="empty">${esc(errorText(e))}</div>`;
+
 }
 
-function sortDate(a,b)=>(b.createdAt?.seconds||0)-(a.createdAt?.seconds||0);
+);
 
-function badge(s){
- const cls=s==="accepted"||s==="borrowed"||s==="completed"?"green":s==="declined"||s==="cancelled"?"red":"";
- return `<span class="badge ${cls}">${esc(s||"pending")}</span>`;
 }
 
-function actions(r,owner){
- const a=[];
- if(owner&&r.status==="pending"){
-  a.push(`<button class="btn success smallbtn" onclick="changeStatus('${r.id}','accepted')">Accept</button>`);
-  a.push(`<button class="btn danger smallbtn" onclick="changeStatus('${r.id}','declined')">Decline</button>`);
- }
- if(!owner&&r.status==="pending")
-  a.push(`<button class="btn secondary smallbtn" onclick="changeStatus('${r.id}','cancelled')">Cancel</button>`);
 
- if(owner&&r.status==="accepted")
-  a.push(`<button class="btn warning smallbtn" onclick="changeStatus('${r.id}','handover')">Mark Handover</button>`);
+function statusBadge(s){
 
- if(!owner&&r.status==="handover")
-  a.push(`<button class="btn success smallbtn" onclick="changeStatus('${r.id}','borrowed')">Confirm Received</button>`);
+let cls="";
 
- if(!owner&&r.status==="borrowed")
-  a.push(`<button class="btn warning smallbtn" onclick="changeStatus('${r.id}','returned')">Mark Returned</button>`);
-
- if(owner&&r.status==="returned")
-  a.push(`<button class="btn success smallbtn" onclick="changeStatus('${r.id}','completed')">Confirm Return</button>`);
-
- if(["accepted","handover","borrowed","returned"].includes(r.status))
-  a.push(`<button class="btn primary smallbtn" onclick="openChat('${r.id}')">Chat</button>`);
-
- if(r.status==="completed")
-  a.push(`<button class="btn warning smallbtn" onclick="openRating('${r.id}')">Rate</button>`);
-
- return a.join("");
+if(
+["accepted","borrowed","completed"].includes(s)
+){
+cls="green";
 }
+
+if(
+["declined","cancelled"].includes(s)
+){
+cls="red";
+}
+
+if(
+["handover","returned"].includes(s)
+){
+cls="orange";
+}
+
+return`
+<span class="badge ${cls}">
+${esc(s||"pending")}
+</span>
+`;
+
+}
+
+
+function exchangeActions(r,owner){
+
+const a=[];
+
+if(owner&&r.status==="pending"){
+
+a.push(`
+<button class="btn success smallbtn"
+onclick="changeStatus('${r.id}','accepted')">
+Accept
+</button>
+`);
+
+a.push(`
+<button class="btn danger smallbtn"
+onclick="changeStatus('${r.id}','declined')">
+Decline
+</button>
+`);
+
+}
+
+if(!owner&&r.status==="pending"){
+
+a.push(`
+<button class="btn secondary smallbtn"
+onclick="changeStatus('${r.id}','cancelled')">
+Cancel
+</button>
+`);
+
+}
+
+if(owner&&r.status==="accepted"){
+
+a.push(`
+<button class="btn warning smallbtn"
+onclick="changeStatus('${r.id}','handover')">
+Mark Handover
+</button>
+`);
+
+}
+
+if(!owner&&r.status==="handover"){
+
+a.push(`
+<button class="btn success smallbtn"
+onclick="changeStatus('${r.id}','borrowed')">
+Confirm Received
+</button>
+`);
+
+}
+
+if(!owner&&r.status==="borrowed"){
+
+a.push(`
+<button class="btn warning smallbtn"
+onclick="changeStatus('${r.id}','returned')">
+Mark Returned
+</button>
+`);
+
+}
+
+if(owner&&r.status==="returned"){
+
+a.push(`
+<button class="btn success smallbtn"
+onclick="changeStatus('${r.id}','completed')">
+Confirm Return
+</button>
+`);
+
+}
+
+if(
+[
+"accepted",
+"handover",
+"borrowed",
+"returned"
+].includes(r.status)
+){
+
+a.push(`
+<button class="btn primary smallbtn"
+onclick="openChat('${r.id}')">
+Chat
+</button>
+`);
+
+}
+
+if(r.status==="completed"){
+
+a.push(`
+<button class="btn warning smallbtn"
+onclick="openRating('${r.id}')">
+Rate
+</button>
+`);
+
+}
+
+return a.join("");
+
+}
+
 
 function exchangeCard(r,owner){
- const person=owner?(r.requesterEmail||"BorrowX member"):(r.ownerEmail||"BorrowX member");
- return `<div class="exchange">
-  <div class="exchangehead">
-   <div><strong>${esc(r.itemName||"Item")}</strong><div class="muted">${owner?"Requester":"Owner"}: ${esc(person)}</div></div>
-   ${badge(r.status)}
-  </div>
-  ${r.message?`<div class="message">${esc(r.message)}</div>`:""}
-  <div class="muted">${dateText(r.createdAt)}</div>
-  ${["accepted","handover","borrowed","returned"].includes(r.status)?`<div class="warningbox">Use a safe/public place for handover. Keep sensitive information private.</div>`:""}
-  <div class="actions">${actions(r,owner)}</div>
- </div>`;
+
+const person=owner
+?(r.requesterEmail||"BorrowX member")
+:(r.ownerEmail||"BorrowX member");
+
+return`
+
+<div class="exchange">
+
+<div class="exchangehead">
+
+<div>
+<strong>${esc(r.itemName||"Item")}</strong>
+<div class="muted">
+${owner?"Requester":"Owner"}: ${esc(person)}
+</div>
+</div>
+
+${statusBadge(r.status)}
+
+</div>
+
+${
+r.message
+?
+`<div class="message">${esc(r.message)}</div>`
+:""
 }
+
+<div class="muted">
+${dateText(r.createdAt)}
+</div>
+
+${
+[
+"accepted",
+"handover",
+"borrowed",
+"returned"
+].includes(r.status)
+?
+`
+<div class="warningbox">
+Use a safe/public place for handover.
+Keep sensitive information private.
+</div>
+`
+:""
+}
+
+<div class="actions">
+${exchangeActions(r,owner)}
+</div>
+
+</div>
+
+`;
+
+}
+
 
 function renderReceived(){
- $("received").innerHTML=received.length?received.map(r=>exchangeCard(r,true)).join(""):`<div class="empty">No received requests yet.</div>`;
+
+$("received").innerHTML=
+received.length
+?
+received.map(r=>exchangeCard(r,true)).join("")
+:
+`<div class="empty">No received requests yet.</div>`;
+
 }
+
 
 function renderSent(){
- $("sent").innerHTML=sent.length?sent.map(r=>exchangeCard(r,false)).join(""):`<div class="empty">You have not sent any requests yet.</div>`;
+
+$("sent").innerHTML=
+sent.length
+?
+sent.map(r=>exchangeCard(r,false)).join("")
+:
+`<div class="empty">You have not sent any requests yet.</div>`;
+
 }
 
+
 window.changeStatus=async(id,newStatus)=>{
- if(!user)return;
- const r=[...received,...sent].find(x=>x.id===id);
- if(!r)return;
 
- const allowed={
-  owner:{pending:["accepted","declined"],accepted:["handover"],returned:["completed"]},
-  requester:{pending:["cancelled"],handover:["borrowed"],borrowed:["returned"]}
- };
+if(!user)return;
 
- const role=r.ownerId===user.uid?"owner":"requester";
- if(!allowed[role]?.[r.status]?.includes(newStatus)){alert("This action is not allowed.");return}
+const r=[...received,...sent]
+.find(x=>x.id===id);
 
- try{
-  await updateDoc(doc(db,"requests",id),{status:newStatus,updatedAt:serverTimestamp()});
-  status("exchangeStatus","Exchange updated: "+newStatus+" ✅","success");
- }catch(e){status("exchangeStatus",err(e),"error")}
+if(!r)return;
+
+const owner=r.ownerId===user.uid;
+
+const transitions={
+owner:{
+pending:["accepted","declined"],
+accepted:["handover"],
+returned:["completed"]
+},
+requester:{
+pending:["cancelled"],
+handover:["borrowed"],
+borrowed:["returned"]
+}
+};
+
+const role=owner?"owner":"requester";
+
+if(!transitions[role]?.[r.status]?.includes(newStatus)){
+
+alert("This action is not allowed.");
+
+return;
+}
+
+try{
+
+await updateDoc(
+doc(db,"requests",id),
+{
+status:newStatus,
+updatedAt:serverTimestamp()
+}
+);
+
+status(
+"exchangeStatus",
+"Exchange updated: "+newStatus+" ✅",
+"success"
+);
+
+}catch(e){
+
+status(
+"exchangeStatus",
+errorText(e),
+"error"
+);
+
+}
+
 };
 
 
 /* CHAT */
 
 window.openChat=async id=>{
- if(!user)return;
- const r=[...received,...sent].find(x=>x.id===id);
- if(!r)return;
- if(!["accepted","handover","borrowed","returned"].includes(r.status))return;
- selectedRequest=r;
- $("chatTitle").textContent="Chat — "+(r.itemName||"Item");
- $("chatInput").value="";
- openM("chatModal");
 
- if(chatUnsub)chatUnsub();
+if(!user)return;
 
- chatUnsub=onSnapshot(
-  query(collection(db,"requests",id,"messages"),limit(100)),
-  s=>{
-   const arr=s.docs.map(d=>({id:d.id,...d.data()}));
-   arr.sort((a,b)=>(a.createdAt?.seconds||0)-(b.createdAt?.seconds||0));
-   $("chatMessages").innerHTML=arr.length?arr.map(m=>`
-    <div class="msg ${m.senderId===user.uid?"mine":""}">
-     ${esc(m.text)}<br><span class="muted">${esc(m.senderEmail||"BorrowX user")} · ${dateText(m.createdAt)}</span>
-    </div>`).join(""):`<div class="muted" style="text-align:center">No messages yet.</div>`;
-   $("chatMessages").scrollTop=$("chatMessages").scrollHeight;
-  }
- );
+const r=[...received,...sent]
+.find(x=>x.id===id);
+
+if(!r)return;
+
+if(
+![
+"accepted",
+"handover",
+"borrowed",
+"returned"
+].includes(r.status)
+){
+return;
+}
+
+selectedRequest=r;
+
+$("chatTitle").textContent=
+"Chat — "+(r.itemName||"Item");
+
+$("chatInput").value="";
+
+openM("chatModal");
+
+if(chatUnsub)chatUnsub();
+
+chatUnsub=onSnapshot(
+
+query(
+collection(db,"requests",id,"messages"),
+limit(100)
+),
+
+s=>{
+
+const arr=s.docs
+.map(d=>({id:d.id,...d.data()}))
+.sort(
+(a,b)=>
+(a.createdAt?.seconds||0)-
+(b.createdAt?.seconds||0)
+);
+
+$("chatMessages").innerHTML=
+arr.length
+?
+arr.map(m=>`
+
+<div class="msg ${m.senderId===user.uid?"mine":""}">
+
+${esc(m.text)}
+
+<br>
+
+<span class="muted">
+${esc(m.senderEmail||"BorrowX user")}
+ · ${dateText(m.createdAt)}
+</span>
+
+</div>
+
+`).join("")
+:
+`<div class="muted" style="text-align:center">
+No messages yet.
+</div>`;
+
+$("chatMessages").scrollTop=
+$("chatMessages").scrollHeight;
+
+},
+
+e=>{
+
+$("chatMessages").innerHTML=
+`<div class="muted">${esc(errorText(e))}</div>`;
+
+}
+
+);
+
 };
+
 
 window.closeChat=()=>{
- if(chatUnsub){chatUnsub();chatUnsub=null}
- closeM("chatModal");
+
+if(chatUnsub){
+
+chatUnsub();
+chatUnsub=null;
+
+}
+
+closeM("chatModal");
+
 };
+
 
 window.sendChat=async()=>{
- if(!user||!selectedRequest)return;
- const text=$("chatInput").value.trim();
- if(!text)return;
- try{
-  await addDoc(collection(db,"requests",selectedRequest.id,"messages"),{
-   senderId:user.uid,
-   senderEmail:user.email||"",
-   text:text.slice(0,1000),
-   createdAt:serverTimestamp()
-  });
-  $("chatInput").value="";
- }catch(e){alert(err(e))}
+
+if(!user||!selectedRequest)return;
+
+const text=$("chatInput").value.trim();
+
+if(!text)return;
+
+if(containsPhone(text)){
+
+alert("Please don't share phone numbers in chat.");
+
+return;
+}
+
+try{
+
+await addDoc(
+collection(
+db,
+"requests",
+selectedRequest.id,
+"messages"
+),
+{
+senderId:user.uid,
+senderEmail:user.email||"",
+text:text.slice(0,1000),
+createdAt:serverTimestamp()
+}
+);
+
+$("chatInput").value="";
+
+}catch(e){
+
+alert(errorText(e));
+
+}
+
 };
 
-$("chatInput").addEventListener("keydown",e=>{
- if(e.key==="Enter"&&!e.shiftKey){e.preventDefault();sendChat()}
-});
+
+$("chatInput").addEventListener(
+"keydown",
+e=>{
+
+if(e.key==="Enter"&&!e.shiftKey){
+
+e.preventDefault();
+sendChat();
+
+}
+
+}
+);
 
 
-/* PROFILE + RATINGS */
+/* PROFILE */
 
 window.openProfile=async()=>{
- openM("profileModal");
- if(!user)return;
- await user.reload().catch(()=>{});
- user=auth.currentUser;
- $("profileEmail").textContent=user.email||"";
- $("verifyState").textContent=user.emailVerified?"✅ Email verified":"⚠️ Email not verified";
- $("verifyBtn").style.display=user.emailVerified?"none":"block";
 
- try{
-  const [s,r]=await Promise.all([
-   getDocs(query(collection(db,"requests"),where("requesterId","==",user.uid))),
-   getDocs(query(collection(db,"requests"),where("ownerId","==",user.uid)))
-  ]);
-  $("pSent").textContent=s.size;$("pReceived").textContent=r.size;
+openM("profileModal");
 
-  const rs=await getDocs(query(collection(db,"ratings"),where("toUserId","==",user.uid),limit(100)));
-  if(!rs.size){$("ratingText").textContent="No ratings yet."}
-  else{
-   let total=0;rs.forEach(x=>total+=Number(x.data().score||0));
-   $("ratingText").textContent="⭐ "+(total/rs.size).toFixed(1)+" / 5 ("+rs.size+" ratings)";
-  }
- }catch(e){}
+if(!user)return;
+
+await user.reload().catch(()=>{});
+
+user=auth.currentUser;
+
+$("profileEmail").textContent=
+user.email||"";
+
+$("verifyState").textContent=
+user.emailVerified
+?"✅ Email verified"
+:"⚠️ Email not verified";
+
+$("verifyBtn").style.display=
+user.emailVerified?"none":"block";
+
+$("verifyNotice").classList.toggle(
+"hidden",
+user.emailVerified
+);
+
+try{
+
+const [sentSnap,receivedSnap]=await Promise.all([
+
+getDocs(
+query(
+collection(db,"requests"),
+where("requesterId","==",user.uid),
+limit(100)
+)
+),
+
+getDocs(
+query(
+collection(db,"requests"),
+where("ownerId","==",user.uid),
+limit(100)
+)
+)
+
+]);
+
+$("pSent").textContent=sentSnap.size;
+$("pReceived").textContent=receivedSnap.size;
+
+const rs=await getDocs(
+query(
+collection(db,"ratings"),
+where("toUserId","==",user.uid),
+limit(100)
+)
+);
+
+if(!rs.size){
+
+$("ratingText").textContent=
+"No ratings yet.";
+
+}else{
+
+let total=0;
+
+rs.forEach(x=>{
+total+=Number(x.data().score||0);
+});
+
+$("ratingText").textContent=
+"⭐ "+
+(total/rs.size).toFixed(1)+
+" / 5 ("+
+rs.size+
+" ratings)";
+
+}
+
+}catch(e){
+
+console.log(e);
+
+}
+
 };
 
-let ratingRequest=null;
+
+/* RATINGS */
 
 window.openRating=id=>{
- if(!user)return;
- ratingRequest=[...received,...sent].find(x=>x.id===id);
- if(!ratingRequest||ratingRequest.status!=="completed")return;
- $("ratingScore").value="5";$("ratingComment").value="";
- clearStatus("ratingStatus");openM("ratingModal");
+
+if(!user)return;
+
+ratingRequest=
+[...received,...sent]
+.find(x=>x.id===id);
+
+if(
+!ratingRequest||
+ratingRequest.status!=="completed"
+)return;
+
+$("ratingScore").value="5";
+$("ratingComment").value="";
+
+clearStatus("ratingStatus");
+
+openM("ratingModal");
+
 };
 
+
 window.submitRating=async()=>{
- if(!user||!ratingRequest)return;
- const toUserId=ratingRequest.ownerId===user.uid?ratingRequest.requesterId:ratingRequest.ownerId;
- const ratingId=ratingRequest.id+"_"+user.uid;
 
- try{
-  const existing=await getDoc(doc(db,"ratings",ratingId));
-  if(existing.exists()){status("ratingStatus","You have already rated this exchange.","error");return}
+if(!user||!ratingRequest)return;
 
-  await setDoc(doc(db,"ratings",ratingId),{
-   requestId:ratingRequest.id,
-   raterId:user.uid,
-   toUserId,
-   score:Number($("ratingScore").value),
-   comment:$("ratingComment").value.trim().slice(0,300),
-   createdAt:serverTimestamp()
-  });
+const toUserId=
+ratingRequest.ownerId===user.uid
+?ratingRequest.requesterId
+:ratingRequest.ownerId;
 
-  status("ratingStatus","Rating submitted successfully ⭐","success");
-  setTimeout(()=>closeM("ratingModal"),700);
- }catch(e){status("ratingStatus",err(e),"error")}
+const ratingId=
+ratingRequest.id+"_"+user.uid;
+
+try{
+
+const existing=
+await getDoc(
+doc(db,"ratings",ratingId)
+);
+
+if(existing.exists()){
+
+status(
+"ratingStatus",
+"You have already rated this exchange.",
+"error"
+);
+
+return;
+}
+
+await setDoc(
+doc(db,"ratings",ratingId),
+{
+requestId:ratingRequest.id,
+raterId:user.uid,
+toUserId:toUserId,
+score:Number($("ratingScore").value),
+comment:$("ratingComment").value.trim().slice(0,300),
+createdAt:serverTimestamp()
+}
+);
+
+status(
+"ratingStatus",
+"Rating submitted successfully ⭐",
+"success"
+);
+
+setTimeout(
+()=>closeM("ratingModal"),
+700
+);
+
+}catch(e){
+
+status(
+"ratingStatus",
+errorText(e),
+"error"
+);
+
+}
+
 };
 
 
 /* REPORT */
 
 window.reportItem=async id=>{
- if(!user){openAuth();status("authStatus","Login first to report a listing.","info");return}
- const x=listings.find(a=>a.id===id);
- if(!x)return;
- selectedReport=x;
- $("reportDetails").value="";
- clearStatus("reportStatus");openM("reportModal");
+
+if(!user){
+
+openAuth();
+
+status(
+"authStatus",
+"Login first to report a listing.",
+"info"
+);
+
+return;
+}
+
+const x=listings.find(a=>a.id===id);
+
+if(!x)return;
+
+selectedReport=x;
+
+$("reportDetails").value="";
+
+clearStatus("reportStatus");
+
+openM("reportModal");
+
 };
 
+
 window.submitReport=async()=>{
- if(!user||!selectedReport)return;
- try{
-  await addDoc(collection(db,"reports"),{
-   itemId:selectedReport.id,
-   itemName:itemName(selectedReport),
-   ownerId:selectedReport.ownerId,
-   reporterId:user.uid,
-   reason:$("reportReason").value,
-   details:$("reportDetails").value.trim().slice(0,500),
-   status:"open",
-   createdAt:serverTimestamp()
-  });
-  status("reportStatus","Report submitted successfully ✅","success");
-  setTimeout(()=>closeM("reportModal"),700);
- }catch(e){status("reportStatus",err(e),"error")}
+
+if(!user||!selectedReport)return;
+
+try{
+
+await addDoc(
+collection(db,"reports"),
+{
+itemId:selectedReport.id,
+itemName:getItemName(selectedReport),
+ownerId:selectedReport.ownerId,
+reporterId:user.uid,
+reason:$("reportReason").value,
+details:$("reportDetails").value.trim().slice(0,500),
+status:"open",
+createdAt:serverTimestamp()
+}
+);
+
+status(
+"reportStatus",
+"Report submitted successfully ✅",
+"success"
+);
+
+setTimeout(
+()=>closeM("reportModal"),
+700
+);
+
+}catch(e){
+
+status(
+"reportStatus",
+errorText(e),
+"error"
+);
+
+}
+
 };
 
 
 /* GENERAL */
 
-window.scrollListings=()=>$("listingsSection").scrollIntoView({behavior:"smooth"});
+window.scrollListings=()=>{
+$("listingsSection")
+.scrollIntoView({behavior:"smooth"});
+};
 
 window.addEventListener("click",e=>{
- if(e.target.classList.contains("overlay"))e.target.style.display="none";
+
+if(e.target.classList.contains("overlay")){
+e.target.style.display="none";
+}
+
 });
 
 listenListings();
