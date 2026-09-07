@@ -8,88 +8,151 @@
 
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
+
 body{
 font-family:Arial,Helvetica,sans-serif;
 background:#f6f8fb;
 color:#172033;
 padding-bottom:82px
 }
+
 header{
 background:#111827;
 color:white;
 padding:20px 18px 24px;
 border-radius:0 0 24px 24px
 }
+
 .brand{
 display:flex;
 align-items:center;
 justify-content:space-between;
 margin-bottom:22px
 }
+
 .logo{font-size:25px;font-weight:800}
-.by{font-size:10px;color:#aeb8ca;margin-top:3px}
+
+.by{
+font-size:10px;
+color:#aeb8ca;
+margin-top:3px
+}
+
 .profile{
-width:40px;height:40px;border-radius:50%;
-background:#fff;color:#111827;
-display:flex;align-items:center;justify-content:center;
+width:40px;
+height:40px;
+border-radius:50%;
+background:#fff;
+color:#111827;
+display:flex;
+align-items:center;
+justify-content:center;
 font-weight:bold
 }
-h1{font-size:25px;line-height:1.25;margin-bottom:14px}
+
+h1{
+font-size:25px;
+line-height:1.25;
+margin-bottom:14px
+}
+
 .search{
-background:white;border-radius:14px;padding:14px;
-display:flex;gap:10px;align-items:center
+background:white;
+border-radius:14px;
+padding:14px;
+display:flex;
+gap:10px;
+align-items:center
 }
+
 .search input{
-border:0;outline:0;width:100%;font-size:15px
+border:0;
+outline:0;
+width:100%;
+font-size:15px
 }
+
 .container{padding:18px}
+
 .section{
 display:flex;
 justify-content:space-between;
 align-items:center;
 margin:22px 0 12px
 }
+
 .section h2{font-size:18px}
-.section span{font-size:13px;color:#64748b}
+
+.section span{
+font-size:13px;
+color:#64748b
+}
+
 .actions{
 display:grid;
 grid-template-columns:1fr 1fr;
 gap:12px
 }
+
 .action{
-border:0;border-radius:18px;padding:17px 12px;
+border:0;
+border-radius:18px;
+padding:17px 12px;
 background:white;
 box-shadow:0 4px 15px rgba(0,0,0,.06);
-text-align:left;cursor:pointer
+text-align:left;
+cursor:pointer
 }
+
 .action strong{
-display:block;font-size:15px;margin-top:8px
+display:block;
+font-size:15px;
+margin-top:8px
 }
+
 .action small{color:#64748b}
+
 .icon{font-size:25px}
+
 .categories{
-display:flex;gap:9px;
-overflow-x:auto;padding-bottom:4px
+display:flex;
+gap:9px;
+overflow-x:auto;
+padding-bottom:4px
 }
+
 .cat{
-min-width:86px;background:white;
-padding:12px 8px;border-radius:14px;
-text-align:center;font-size:12px;
+min-width:86px;
+background:white;
+padding:12px 8px;
+border-radius:14px;
+text-align:center;
+font-size:12px;
 box-shadow:0 3px 12px rgba(0,0,0,.05)
 }
-.cat div{font-size:21px;margin-bottom:5px}
+
+.cat div{
+font-size:21px;
+margin-bottom:5px
+}
+
 .card{
-background:white;border-radius:18px;
-padding:15px;margin-bottom:12px;
+background:white;
+border-radius:18px;
+padding:15px;
+margin-bottom:12px;
 box-shadow:0 4px 15px rgba(0,0,0,.06)
 }
+
 .item-top{
 display:flex;
 justify-content:space-between;
 gap:10px
 }
+
 .item-icon{
-width:55px;height:55px;
+width:55px;
+height:55px;
 border-radius:14px;
 background:#eef2f7;
 display:flex;
@@ -97,9 +160,19 @@ align-items:center;
 justify-content:center;
 font-size:28px
 }
+
 .item-info{flex:1}
-.item-info h3{font-size:16px;margin:2px 0 6px}
-.item-info p{font-size:12px;color:#64748b}
+
+.item-info h3{
+font-size:16px;
+margin:2px 0 6px
+}
+
+.item-info p{
+font-size:12px;
+color:#64748b
+}
+
 .badge{
 display:inline-block;
 margin-top:8px;
@@ -110,13 +183,25 @@ color:#147a3e;
 font-size:11px;
 font-weight:bold
 }
+
+.real-badge{
+background:#eef4ff;
+color:#315aa8
+}
+
 .item-bottom{
 margin-top:14px;
 display:flex;
 justify-content:space-between;
-align-items:center
+align-items:center;
+gap:10px
 }
-.trust{font-size:12px;color:#475569}
+
+.trust{
+font-size:12px;
+color:#475569
+}
+
 .btn{
 border:0;
 border-radius:10px;
@@ -126,9 +211,17 @@ color:white;
 font-weight:bold;
 cursor:pointer
 }
+
+.btn:disabled{
+opacity:.6;
+cursor:not-allowed
+}
+
 .bottom{
 position:fixed;
-bottom:0;left:0;right:0;
+bottom:0;
+left:0;
+right:0;
 height:72px;
 background:white;
 border-top:1px solid #e5e7eb;
@@ -137,15 +230,25 @@ justify-content:space-around;
 align-items:center;
 z-index:10
 }
+
 .nav{
-border:0;background:none;
+border:0;
+background:none;
 color:#64748b;
 font-size:11px;
 text-align:center;
 cursor:pointer
 }
-.nav div{font-size:21px;margin-bottom:3px}
-.nav.active{color:#111827;font-weight:bold}
+
+.nav div{
+font-size:21px;
+margin-bottom:3px
+}
+
+.nav.active{
+color:#111827;
+font-weight:bold
+}
 
 .modal{
 display:none;
@@ -155,6 +258,7 @@ background:rgba(0,0,0,.55);
 z-index:20;
 align-items:flex-end
 }
+
 .modal-box{
 background:white;
 width:100%;
@@ -163,8 +267,14 @@ padding:22px;
 max-height:90vh;
 overflow:auto
 }
+
 .modal-box h2{margin-bottom:16px}
-.form{display:grid;gap:11px}
+
+.form{
+display:grid;
+gap:11px
+}
+
 .form input,
 .form textarea,
 .form select{
@@ -175,15 +285,18 @@ border-radius:11px;
 font-size:14px;
 outline:none
 }
+
 .form textarea{
 min-height:90px;
 resize:vertical
 }
+
 .full{
 width:100%;
 padding:14px;
 margin-top:4px
 }
+
 .close{
 float:right;
 border:0;
@@ -193,6 +306,7 @@ height:34px;
 border-radius:50%;
 cursor:pointer
 }
+
 .auth-info{
 background:white;
 border-radius:18px;
@@ -200,139 +314,261 @@ padding:16px;
 margin-top:22px;
 box-shadow:0 4px 15px rgba(0,0,0,.05)
 }
+
 .auth-info button{
 margin-top:10px;
 width:100%
 }
+
 .status{
 font-size:13px;
 color:#64748b;
 margin-top:8px;
 word-break:break-word
 }
+
 .safety{
 background:#fff;
 border-radius:18px;
 padding:16px;
 box-shadow:0 4px 15px rgba(0,0,0,.05)
 }
+
 .safety div{
 padding:9px 0;
 font-size:13px;
 border-bottom:1px solid #edf0f4
 }
+
 .safety div:last-child{border:0}
+
+.empty{
+text-align:center;
+padding:20px;
+color:#64748b;
+font-size:13px
+}
 </style>
 </head>
 
 <body>
 
 <header>
+
 <div class="brand">
+
 <div>
 <div class="logo">BorrowX</div>
 <div class="by">by Jay Style X1</div>
 </div>
 
 <div class="profile" id="profileIcon">J</div>
+
 </div>
 
-<h1>Borrow what you need.<br>Share what you have.</h1>
+<h1>
+Borrow what you need.<br>
+Share what you have.
+</h1>
 
 <div class="search">
 🔍
-<input id="search" type="search" placeholder="What do you need?">
+<input
+id="search"
+type="search"
+placeholder="What do you need?"
+>
 </div>
+
 </header>
 
+
 <main class="container">
+
 
 <div class="section">
 <h2>What do you want to do?</h2>
 </div>
 
+
 <div class="actions">
 
-<button class="action" onclick="openModal('need')">
+<button
+class="action"
+onclick="openModal('need')">
+
 <div class="icon">🔎</div>
+
 <strong>I Need Something</strong>
-<small>Post what you're looking for</small>
+
+<small>
+Post what you're looking for
+</small>
+
 </button>
 
-<button class="action" onclick="openModal('have')">
+
+<button
+class="action"
+onclick="openModal('have')">
+
 <div class="icon">📦</div>
+
 <strong>I Have Something</strong>
-<small>Offer it for borrow/exchange</small>
+
+<small>
+Offer it for borrow/exchange
+</small>
+
 </button>
 
 </div>
+
 
 <div class="section">
 <h2>Categories</h2>
 <span>See all</span>
 </div>
 
+
 <div class="categories">
-<div class="cat">🔧<div>Tools</div></div>
-<div class="cat">📚<div>Books</div></div>
-<div class="cat">📷<div>Camera</div></div>
-<div class="cat">🏏<div>Sports</div></div>
-<div class="cat">🎮<div>Games</div></div>
-<div class="cat">🏠<div>Home</div></div>
+
+<div class="cat">
+🔧
+<div>Tools</div>
 </div>
 
-<div class="section">
-<h2>Available near you</h2>
-<span>Approximate area</span>
+<div class="cat">
+📚
+<div>Books</div>
 </div>
+
+<div class="cat">
+📷
+<div>Camera</div>
+</div>
+
+<div class="cat">
+🏏
+<div>Sports</div>
+</div>
+
+<div class="cat">
+🎮
+<div>Games</div>
+</div>
+
+<div class="cat">
+🏠
+<div>Home</div>
+</div>
+
+</div>
+
+
+<div class="section">
+
+<h2>Available near you</h2>
+
+<span>Approximate area</span>
+
+</div>
+
 
 <div id="items">
 
-<div class="card item" data-name="drill machine tools">
+<!-- Sample listing -->
+
+<div
+class="card item"
+data-name="drill machine tools">
 
 <div class="item-top">
 
 <div class="item-icon">🔧</div>
 
 <div class="item-info">
+
 <h3>Drill Machine</h3>
-<p>📍 Approx. 1.2 km away</p>
-<span class="badge">✓ Verified Listing</span>
+
+<p>
+📍 Approx. 1.2 km away
+</p>
+
+<span class="badge">
+✓ Sample Listing
+</span>
+
 </div>
 
 </div>
 
 <div class="item-bottom">
-<div class="trust">⭐ 4.8 · 12 exchanges</div>
-<button class="btn" onclick="requestItem('Drill Machine')">
+
+<div class="trust">
+⭐ 4.8 · 12 exchanges
+</div>
+
+<button
+class="btn"
+onclick="requestItem('Drill Machine')">
+
 Request
+
 </button>
-</div>
 
 </div>
 
+</div>
 
-<div class="card item" data-name="study books books">
+
+<!-- Sample listing -->
+
+<div
+class="card item"
+data-name="study books books">
 
 <div class="item-top">
 
 <div class="item-icon">📚</div>
 
 <div class="item-info">
+
 <h3>Study Books</h3>
-<p>📍 Approx. 800 m away</p>
-<span class="badge">✓ Verified Listing</span>
+
+<p>
+📍 Approx. 800 m away
+</p>
+
+<span class="badge">
+✓ Sample Listing
+</span>
+
 </div>
 
 </div>
 
 <div class="item-bottom">
-<div class="trust">⭐ 4.9 · 8 exchanges</div>
-<button class="btn" onclick="requestItem('Study Books')">
-Request
-</button>
+
+<div class="trust">
+⭐ 4.9 · 8 exchanges
 </div>
 
+<button
+class="btn"
+onclick="requestItem('Study Books')">
+
+Request
+
+</button>
+
+</div>
+
+</div>
+
+
+<div id="firestoreLoading" class="empty">
+Loading real listings...
 </div>
 
 </div>
@@ -342,12 +578,20 @@ Request
 
 <h2>🔐 BorrowX Account</h2>
 
-<p id="authStatus" class="status">
+<p
+id="authStatus"
+class="status">
+
 Not signed in
+
 </p>
 
-<button class="btn" onclick="openAuth()">
+<button
+class="btn"
+onclick="openAuth()">
+
 Login / Create Account
+
 </button>
 
 <button
@@ -355,23 +599,42 @@ class="btn"
 id="logoutBtn"
 onclick="logout()"
 style="display:none">
+
 Logout
+
 </button>
 
 </div>
 
 
 <div class="section">
+
 <h2>🛡️ Trust & Safety</h2>
+
 </div>
+
 
 <div class="safety">
 
-<div>✓ Exact home address stays private</div>
-<div>✓ Phone number stays private</div>
-<div>✓ Exchange history builds trust</div>
-<div>✓ Report & Block available</div>
-<div>✓ Safe public pickup recommended</div>
+<div>
+✓ Exact home address stays private
+</div>
+
+<div>
+✓ Phone number stays private
+</div>
+
+<div>
+✓ Exchange history builds trust
+</div>
+
+<div>
+✓ Report & Block available
+</div>
+
+<div>
+✓ Safe public pickup recommended
+</div>
 
 </div>
 
@@ -381,28 +644,50 @@ Logout
 <nav class="bottom">
 
 <button class="nav active">
+
 <div>🏠</div>
 Home
+
 </button>
 
-<button class="nav" onclick="openModal('need')">
+
+<button
+class="nav"
+onclick="openModal('need')">
+
 <div>🔎</div>
 I Need
+
 </button>
 
-<button class="nav" onclick="openModal('have')">
+
+<button
+class="nav"
+onclick="openModal('have')">
+
 <div>➕</div>
 Add
+
 </button>
 
-<button class="nav">
+
+<button
+class="nav"
+onclick="showExchangeMessage()">
+
 <div>🤝</div>
 Exchanges
+
 </button>
 
-<button class="nav" onclick="openAuth()">
+
+<button
+class="nav"
+onclick="openAuth()">
+
 <div>👤</div>
 Profile
+
 </button>
 
 </nav>
@@ -410,13 +695,24 @@ Profile
 
 <!-- POST MODAL -->
 
-<div class="modal" id="modal">
+<div
+class="modal"
+id="modal">
 
 <div class="modal-box">
 
-<button class="close" onclick="closeModal()">✕</button>
+<button
+class="close"
+onclick="closeModal()">
 
-<h2 id="modalTitle">Post</h2>
+✕
+
+</button>
+
+<h2 id="modalTitle">
+Post
+</h2>
+
 
 <div class="form">
 
@@ -425,36 +721,51 @@ id="itemName"
 placeholder="What item?"
 >
 
+
 <select id="mode">
 
 <option>Borrow</option>
+
 <option>Exchange</option>
-<option>Borrow or Exchange</option>
+
+<option>
+Borrow or Exchange
+</option>
 
 </select>
+
 
 <input
 id="area"
 placeholder="Your area (approximate only)"
 >
 
+
 <input
 id="duration"
 placeholder="How long? e.g. 2 days"
 >
 
+
 <textarea
 id="description"
 placeholder="Tell people about your need/item"></textarea>
+
 
 <button
 class="btn full"
 id="publishBtn"
 onclick="submitPost()">
+
 Publish
+
 </button>
 
-<p id="postMessage" class="status"></p>
+
+<p
+id="postMessage"
+class="status">
+</p>
 
 </div>
 
@@ -465,13 +776,25 @@ Publish
 
 <!-- LOGIN / SIGNUP MODAL -->
 
-<div class="modal" id="authModal">
+<div
+class="modal"
+id="authModal">
 
 <div class="modal-box">
 
-<button class="close" onclick="closeAuth()">✕</button>
+<button
+class="close"
+onclick="closeAuth()">
 
-<h2>🔐 Login to BorrowX</h2>
+✕
+
+</button>
+
+
+<h2>
+🔐 Login to BorrowX
+</h2>
+
 
 <div class="form">
 
@@ -482,6 +805,7 @@ autocomplete="email"
 placeholder="Email address"
 >
 
+
 <input
 id="password"
 type="password"
@@ -489,19 +813,29 @@ autocomplete="current-password"
 placeholder="Password (minimum 6 characters)"
 >
 
+
 <button
 class="btn full"
 onclick="login()">
+
 Login
+
 </button>
+
 
 <button
 class="btn full"
 onclick="signup()">
+
 Create Account
+
 </button>
 
-<p id="authMessage" class="status"></p>
+
+<p
+id="authMessage"
+class="status">
+</p>
 
 </div>
 
@@ -515,7 +849,9 @@ Create Account
 <script type="module">
 
 import { initializeApp }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-app.js";
+
 
 import {
 getAuth,
@@ -524,15 +860,19 @@ signInWithEmailAndPassword,
 onAuthStateChanged,
 signOut
 }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-auth.js";
+
 
 import {
 getFirestore,
 collection,
 addDoc,
-serverTimestamp
+serverTimestamp,
+onSnapshot
 }
-from "https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
+from
+"https://www.gstatic.com/firebasejs/12.1.0/firebase-firestore.js";
 
 
 const firebaseConfig = {
@@ -558,18 +898,23 @@ appId:
 };
 
 
-const app = initializeApp(firebaseConfig);
-
-const auth = getAuth(app);
-
-const db = getFirestore(app);
+const app =
+initializeApp(firebaseConfig);
 
 
-/* Make Firebase available to the page */
+const auth =
+getAuth(app);
+
+
+const db =
+getFirestore(app);
+
 
 window.borrowXFirebase = {
-auth: auth,
-db: db
+
+auth:auth,
+db:db
+
 };
 
 
@@ -578,13 +923,19 @@ db: db
 window.signup = async function(){
 
 const email =
-document.getElementById("email").value.trim();
+document
+.getElementById("email")
+.value
+.trim();
 
 const password =
-document.getElementById("password").value;
+document
+.getElementById("password")
+.value;
 
 const message =
-document.getElementById("authMessage");
+document
+.getElementById("authMessage");
 
 
 if(!email){
@@ -637,19 +988,28 @@ catch(error){
 
 console.log(error);
 
-if(error.code === "auth/email-already-in-use"){
+if(
+error.code ===
+"auth/email-already-in-use"
+){
 
 message.textContent =
 "This email already has an account. Please Login.";
 
 }
-else if(error.code === "auth/invalid-email"){
+else if(
+error.code ===
+"auth/invalid-email"
+){
 
 message.textContent =
 "Please enter a valid email address.";
 
 }
-else if(error.code === "auth/weak-password"){
+else if(
+error.code ===
+"auth/weak-password"
+){
 
 message.textContent =
 "Password is too weak. Use at least 6 characters.";
@@ -672,13 +1032,19 @@ message.textContent =
 window.login = async function(){
 
 const email =
-document.getElementById("email").value.trim();
+document
+.getElementById("email")
+.value
+.trim();
 
 const password =
-document.getElementById("password").value;
+document
+.getElementById("password")
+.value;
 
 const message =
-document.getElementById("authMessage");
+document
+.getElementById("authMessage");
 
 
 if(!email){
@@ -731,25 +1097,37 @@ catch(error){
 
 console.log(error);
 
-if(error.code === "auth/invalid-credential"){
+if(
+error.code ===
+"auth/invalid-credential"
+){
 
 message.textContent =
 "Email or password is incorrect.";
 
 }
-else if(error.code === "auth/user-not-found"){
+else if(
+error.code ===
+"auth/user-not-found"
+){
 
 message.textContent =
 "Account not found. Create an account first.";
 
 }
-else if(error.code === "auth/wrong-password"){
+else if(
+error.code ===
+"auth/wrong-password"
+){
 
 message.textContent =
 "Wrong password.";
 
 }
-else if(error.code === "auth/invalid-email"){
+else if(
+error.code ===
+"auth/invalid-email"
+){
 
 message.textContent =
 "Please enter a valid email address.";
@@ -787,16 +1165,24 @@ alert(error.message);
 
 /* AUTH STATE */
 
-onAuthStateChanged(auth,(user)=>{
+onAuthStateChanged(
+auth,
+(user)=>{
 
 const status =
-document.getElementById("authStatus");
+document.getElementById(
+"authStatus"
+);
 
 const logoutBtn =
-document.getElementById("logoutBtn");
+document.getElementById(
+"logoutBtn"
+);
 
 const profile =
-document.getElementById("profileIcon");
+document.getElementById(
+"profileIcon"
+);
 
 
 if(user){
@@ -808,7 +1194,9 @@ logoutBtn.style.display =
 "block";
 
 profile.textContent =
-user.email.charAt(0).toUpperCase();
+user.email
+.charAt(0)
+.toUpperCase();
 
 }
 else{
@@ -827,30 +1215,47 @@ profile.textContent =
 });
 
 
-/* FIRESTORE POST */
+/* FIRESTORE PUBLISH */
 
-window.submitPost = async function(){
+window.submitPost =
+async function(){
 
 const name =
-document.getElementById("itemName").value.trim();
+document
+.getElementById("itemName")
+.value
+.trim();
 
 const mode =
-document.getElementById("mode").value;
+document
+.getElementById("mode")
+.value;
 
 const area =
-document.getElementById("area").value.trim();
+document
+.getElementById("area")
+.value
+.trim();
 
 const duration =
-document.getElementById("duration").value.trim();
+document
+.getElementById("duration")
+.value
+.trim();
 
 const description =
-document.getElementById("description").value.trim();
+document
+.getElementById("description")
+.value
+.trim();
 
 const message =
-document.getElementById("postMessage");
+document
+.getElementById("postMessage");
 
 const publishBtn =
-document.getElementById("publishBtn");
+document
+.getElementById("publishBtn");
 
 
 if(!name){
@@ -863,7 +1268,8 @@ return;
 }
 
 
-const user = auth.currentUser;
+const user =
+auth.currentUser;
 
 
 if(!user){
@@ -872,7 +1278,9 @@ closeModal();
 
 openAuth();
 
-document.getElementById("authMessage").textContent =
+document
+.getElementById("authMessage")
+.textContent =
 "Please login first before publishing.";
 
 return;
@@ -890,9 +1298,11 @@ return;
 }
 
 
-publishBtn.disabled = true;
+publishBtn.disabled =
+true;
 
-publishBtn.textContent = "Publishing...";
+publishBtn.textContent =
+"Publishing...";
 
 message.textContent =
 "Saving your post...";
@@ -907,15 +1317,27 @@ window.modalType === "need"
 
 
 await addDoc(
-collection(db,collectionName),
+collection(
+db,
+collectionName
+),
 {
-name: name,
-mode: mode,
-area: area,
-duration: duration,
-description: description,
-ownerId: user.uid,
-createdAt: serverTimestamp()
+
+name:name,
+
+mode:mode,
+
+area:area,
+
+duration:duration,
+
+description:description,
+
+ownerId:user.uid,
+
+createdAt:
+serverTimestamp()
+
 }
 );
 
@@ -923,15 +1345,27 @@ createdAt: serverTimestamp()
 message.textContent =
 "Published successfully ✅";
 
+
 alert(
 "Your post has been published successfully! ✅"
 );
 
 
-document.getElementById("itemName").value = "";
-document.getElementById("area").value = "";
-document.getElementById("duration").value = "";
-document.getElementById("description").value = "";
+document
+.getElementById("itemName")
+.value = "";
+
+document
+.getElementById("area")
+.value = "";
+
+document
+.getElementById("duration")
+.value = "";
+
+document
+.getElementById("description")
+.value = "";
 
 closeModal();
 
@@ -941,18 +1375,166 @@ catch(error){
 console.error(error);
 
 message.textContent =
-"Could not publish: " + error.message;
+"Could not publish: " +
+error.message;
 
 }
 finally{
 
-publishBtn.disabled = false;
+publishBtn.disabled =
+false;
 
-publishBtn.textContent = "Publish";
+publishBtn.textContent =
+"Publish";
 
 }
 
 };
+
+
+/* REAL-TIME ITEMS */
+
+onSnapshot(
+collection(db,"items"),
+(snapshot)=>{
+
+const container =
+document.getElementById("items");
+
+const loading =
+document.getElementById(
+"firestoreLoading"
+);
+
+
+loading.remove();
+
+
+snapshot.forEach((doc)=>{
+
+const data =
+doc.data();
+
+const card =
+document.createElement("div");
+
+card.className =
+"card item firestore-item";
+
+card.dataset.name =
+(
+data.name +
+" " +
+(data.area || "") +
+" " +
+(data.mode || "")
+)
+.toLowerCase();
+
+
+card.innerHTML = `
+
+<div class="item-top">
+
+<div class="item-icon">
+📦
+</div>
+
+<div class="item-info">
+
+<h3>
+${escapeHTML(data.name || "Unnamed item")}
+</h3>
+
+<p>
+📍 ${escapeHTML(data.area || "Approximate area")}
+</p>
+
+<span class="badge real-badge">
+✓ Real BorrowX Listing
+</span>
+
+</div>
+
+</div>
+
+
+<div class="item-bottom">
+
+<div class="trust">
+${escapeHTML(data.mode || "Borrow")}
+</div>
+
+<button
+class="btn request-real"
+data-name="${escapeHTML(data.name || "Item")}"
+>
+
+Request
+
+</button>
+
+</div>
+
+`;
+
+container.appendChild(card);
+
+});
+
+
+document
+.querySelectorAll(".request-real")
+.forEach(button=>{
+
+button.addEventListener(
+"click",
+function(){
+
+requestItem(
+this.dataset.name
+);
+
+});
+
+});
+
+
+applySearch();
+
+},
+(error)=>{
+
+console.error(error);
+
+const loading =
+document.getElementById(
+"firestoreLoading"
+);
+
+if(loading){
+
+loading.textContent =
+"Could not load real listings.";
+
+}
+
+}
+);
+
+
+/* BASIC HTML SAFETY */
+
+function escapeHTML(value){
+
+return String(value)
+.replaceAll("&","&amp;")
+.replaceAll("<","&lt;")
+.replaceAll(">","&gt;")
+.replaceAll('"',"&quot;")
+.replaceAll("'","&#039;");
+
+}
 
 </script>
 
@@ -961,47 +1543,71 @@ publishBtn.textContent = "Publish";
 
 /* MODAL */
 
-window.modalType = "need";
+window.modalType =
+"need";
 
 
 function openModal(type){
 
-window.modalType = type;
+window.modalType =
+type;
 
-document.getElementById("modal").style.display="flex";
+document
+.getElementById("modal")
+.style.display =
+"flex";
 
-document.getElementById("modalTitle").textContent =
-type==="need"
+
+document
+.getElementById("modalTitle")
+.textContent =
+type === "need"
 ? "🔎 Tell us what you need"
 : "📦 Add something you have";
 
-document.getElementById("itemName").placeholder =
-type==="need"
+
+document
+.getElementById("itemName")
+.placeholder =
+type === "need"
 ? "What do you need?"
 : "What item do you have?";
 
-document.getElementById("postMessage").textContent = "";
+
+document
+.getElementById("postMessage")
+.textContent =
+"";
 
 }
 
 
 function closeModal(){
 
-document.getElementById("modal").style.display="none";
+document
+.getElementById("modal")
+.style.display =
+"none";
 
 }
 
 
 function openAuth(){
 
-document.getElementById("authModal").style.display="flex";
+document
+.getElementById("authModal")
+.style.display =
+"flex";
 
 }
 
 
 function closeAuth(){
 
-document.getElementById("authModal").style.display="none";
+document
+.getElementById("authModal")
+.style.display =
+"none";
 
 }
 
@@ -1017,15 +1623,20 @@ if(
 
 openAuth();
 
-document.getElementById("authMessage").textContent =
+document
+.getElementById("authMessage")
+.textContent =
 "Please login first to request an item.";
 
 return;
 
 }
 
+
 alert(
-"Request system is coming next.\n\nSelected: " + item
+"Request system is coming next.\n\nSelected: "
++
+item
 );
 
 }
@@ -1033,12 +1644,14 @@ alert(
 
 /* SEARCH */
 
-document
-.getElementById("search")
-.addEventListener("input",function(){
+function applySearch(){
 
 const q =
-this.value.toLowerCase().trim();
+document
+.getElementById("search")
+.value
+.toLowerCase()
+.trim();
 
 
 document
@@ -1046,7 +1659,8 @@ document
 .forEach(card=>{
 
 const name =
-card.dataset.name;
+card.dataset.name || "";
+
 
 card.style.display =
 !q || name.includes(q)
@@ -1055,16 +1669,37 @@ card.style.display =
 
 });
 
-});
+}
+
+
+document
+.getElementById("search")
+.addEventListener(
+"input",
+applySearch
+);
+
+
+/* EXCHANGES */
+
+function showExchangeMessage(){
+
+alert(
+"Exchanges will be available in the next step. 🤝"
+);
+
+}
 
 
 /* CLOSE MODALS */
 
 document
 .getElementById("modal")
-.addEventListener("click",function(e){
+.addEventListener(
+"click",
+function(e){
 
-if(e.target===this){
+if(e.target === this){
 
 closeModal();
 
@@ -1075,9 +1710,11 @@ closeModal();
 
 document
 .getElementById("authModal")
-.addEventListener("click",function(e){
+.addEventListener(
+"click",
+function(e){
 
-if(e.target===this){
+if(e.target === this){
 
 closeAuth();
 
